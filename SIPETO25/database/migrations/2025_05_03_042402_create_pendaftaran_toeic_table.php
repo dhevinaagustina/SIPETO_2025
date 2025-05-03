@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('pendaftaran_toeic', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_jadwal')->constrained('jadwal')->onDelete('cascade');
-            $table->foreignId('id_mahasiswa')->constrained('mahasiswa')->onDelete('cascade');
+            $table->foreignId('id_jadwal')->constrained('jadwal', 'id_jadwal')->onDelete('cascade');
+            $table->foreignId('id_mahasiswa')->constrained('mahasiswa', 'id_mahasiswa')->onDelete('cascade');
             $table->string('kampus');
             $table->string('nama_mahasiswa');
             $table->string('nim');
