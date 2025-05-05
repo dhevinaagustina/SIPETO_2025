@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - BizLand Bootstrap Template</title>
+  <title>Index - SIPETO Bootstrap Template</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -29,8 +29,8 @@
   <link href="assets/css/main.css" rel="stylesheet">
 
   <!-- =======================================================
-  * Template Name: BizLand
-  * Template URL: https://bootstrapmade.com/bizland-bootstrap-business-template/
+  * Template Name: SIPETO
+  * Template URL: https://bootstrapmade.com/SIPETO-bootstrap-business-template/
   * Updated: Dec 05 2024 with Bootstrap v5.3.3
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
@@ -62,7 +62,7 @@
         <a href="index.html" class="logo d-flex align-items-center">
           <!-- Uncomment the line below if you also wish to use an image logo -->
           <!-- <img src="assets/img/logo.png" alt=""> -->
-          <h1 class="sitename">BizLand</h1>
+          <h1 class="sitename">SIPETO</h1>
         </a>
 
         <nav id="navmenu" class="navmenu">
@@ -108,9 +108,11 @@
       <div class="container">
         <div class="row gy-4">
           <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center" data-aos="zoom-out">
-            <h1>Welcome to <span>BizLand</span></h1>
-            <p>We are team of talented designers making websites with Bootstrap</p>
+            <h1>Selamat Datang di <span>SIPETO!</span></h1>
+            <p>Sistem berbasis web untuk pendaftaran dan pengelolaan ujian TOEIC</p>
             <div class="d-flex">
+              <a href="/login" class="btn-get-started">Masuk</a>
+              <a href="/register" class="btn-watch-video"<span>Daftar</a>
               <a href="#about" class="btn-get-started">Get Started</a>
               <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
             </div>
@@ -1080,7 +1082,7 @@
       <div class="row gy-4">
         <div class="col-lg-4 col-md-6 footer-about">
           <a href="index.html" class="d-flex align-items-center">
-            <span class="sitename">BizLand</span>
+            <span class="sitename">SIPETO</span>
           </a>
           <div class="footer-contact pt-3">
             <p>A108 Adam Street</p>
@@ -1125,7 +1127,7 @@
     </div>
 
     <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">BizLand</strong> <span>All Rights Reserved</span></p>
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">SIPETO</strong> <span>All Rights Reserved</span></p>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
         <!-- You can delete the links only if you've purchased the pro version. -->
