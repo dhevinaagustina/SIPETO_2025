@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,20 @@ Route::get('/', function () {
 Route::get('/', function () {
     return view('landing');
 });
+
+
+
+Route::get('/', function () {
+    return view('landing.index');
+});
+
+Route::get('/portfolio-details', function () {
+    return view('landing.portfolio-details');
+});
+
+Route::get('/service-details', function () {
+    return view('landing.service-details');
+});
+
+Route::post('/send-contact', [FormController::class, 'sendContact']);
+Route::post('/subscribe-newsletter', [FormController::class, 'subscribeNewsletter']);
