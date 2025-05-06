@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UjianController;
+use App\Http\Controllers\SuratController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,13 +21,28 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// landing page
-Route::get('/', function () {
-    return view('landing');
-});
+// Dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+// Daftar Ujian
+Route::get('/daftar-ujian', [UjianController::class, 'daftar'])->name('daftar.ujian');
+
+// Hasil Ujian
+Route::get('/hasil-ujian', [UjianController::class, 'hasil'])->name('hasil.ujian');
+
+// Riwayat Ujian
+Route::get('/riwayat-ujian', [UjianController::class, 'riwayat'])->name('riwayat.ujian');
+
+// Pengajuan Surat
+Route::get('/pengajuan-surat', [SuratController::class, 'index'])->name('pengajuan.surat');
+
+// Logout (optional: hanya aktif jika pakai form POST)
+Route::post('/logout', function () {
+    return redirect('/login');
+})->name('logout');
 
 
-
+// Landing Page
 Route::get('/', function () {
     return view('landing.index');
 });
