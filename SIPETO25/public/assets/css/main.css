@@ -57,10 +57,13 @@ a {
 # Header
 --------------------------------------------------------------*/
 .header {
-  transition: all 0.5s;
-  background-color: var(--background-color);
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-  padding: 15px 0;
+  background-color: #29335C; /* Warna biru tua */
+  padding: 20px 0;
+  border-radius: 25px 25px 25px 25px; /* Membuat bentuk oval di bagian bawah */
+  margin-bottom: -20px; /* Untuk menyambung dengan wave decoration */
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .header .logo h1 {
@@ -77,6 +80,7 @@ a {
   display: flex;
   list-style: none;
   align-items: center;
+  gap: 20px;
 }
 
 .navmenu li {
@@ -85,15 +89,18 @@ a {
 }
 
 .navmenu a {
-  color: var(--heading-color);
+  color: white;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 16px;
   transition: 0.3s;
+  padding: 8px 15px;
+  border-radius: 20px; /* Bentuk oval untuk menu items */
 }
 
 .navmenu a:hover,
 .navmenu .active {
-  color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
 }
 
 .btn-login {
@@ -133,13 +140,34 @@ a {
   gap: 15px;
 }
 
+.text-accent {
+  color: #F3A712; /* Warna kuning untuk teks SIPETO */
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.overlay-image {
+  position: absolute;
+  bottom: -30px;
+  right: -30px;
+  width: 30%;
+  border-radius: 12px;
+  z-index: 2;
+  animation: float 4s ease-in-out infinite;
+}
+
 .btn-get-started {
-  background-color: var(--accent-color);
+  background-color: #F3A712;
   color: white;
   padding: 12px 30px;
-  border-radius: 4px;
+  border-radius: 15px; /* Bentuk oval */
   font-weight: 600;
   transition: all 0.3s;
+  display: inline-block;
+  margin-right: 15px;
 }
 
 .btn-get-started:hover {
@@ -149,12 +177,13 @@ a {
 }
 
 .btn-secondary {
-  background-color: var(--heading-color);
+  background-color: #29335C;
   color: white;
   padding: 12px 30px;
-  border-radius: 4px;
+  border-radius: 15px; /* Bentuk oval */
   font-weight: 600;
   transition: all 0.3s;
+  display: inline-block;
 }
 
 .btn-secondary:hover {
@@ -164,9 +193,8 @@ a {
 }
 
 .hero-img img {
-  border-radius: 10px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  animation: float 3s ease-in-out infinite;
+  border-radius: 12px;
+  animation: float 4s ease-in-out infinite;
 }
 
 @keyframes float {
@@ -175,112 +203,416 @@ a {
 }
 
 /*--------------------------------------------------------------
-# Features Section
+# Logo Styles
 --------------------------------------------------------------*/
-.features {
-  background-color: var(--background-color);
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
-.feature-box {
-  background: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-  height: 100%;
+.logo-icons {
+  display: flex;
+  gap: 8px;
+}
+
+.logo-icons i {
+  font-size: 24px;
+  color: #F3A712; /* Warna kuning/orange */
+  background: rgba(255, 255, 255, 0.1);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+
+
+.logo-text .tagline1 {
+  font-size: 28px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  margin-top: 3px;
+}
+
+.logo-text .tagline {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  margin-top: 3px;
+}
+
+.logo-images {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+/*--------------------------------------------------------------
+# Wave Decoration
+--------------------------------------------------------------*/
+.wave-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  font-size: 30px;
+  color: #29335C; /* Warna sama dengan navbar */
+  line-height: 0;
+  opacity: 0.1;
+  overflow: hidden;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+/*--------------------------------------------------------------
+# Register Button
+--------------------------------------------------------------*/
+.btn-register {
+  background: var(--heading-color);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 4px;
+  margin-left: 10px;
+  font-weight: 600;
   transition: all 0.3s;
 }
 
-.feature-box:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+.btn-register:hover {
+  background: #1a2238;
+  color: white;
+}
+/*--------------------------------------------------------------
+# Features Section - Box Style with External Icons
+--------------------------------------------------------------*/
+.features {
+  background-color: #f8f9fa;
+  padding: 80px 0;
+  position: relative;
 }
 
-.feature-box .icon {
-  font-size: 36px;
-  color: var(--accent-color);
-  margin-bottom: 20px;
-}
-
-.feature-box h4 {
-  font-size: 20px;
-  font-weight: 700;
+.features .section-title h2 {
+  font-size: 32px;
   margin-bottom: 15px;
+  color: #29335C;
+}
+
+.features .section-title p {
+  font-size: 18px;
+  color: #666;
+  max-width: 700px;
+  margin: 0 auto 40px;
+}
+
+.feature-column {
+  position: relative;
+  padding-top: 80px;
+  margin-bottom: 30px;
+}
+
+.feature-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+}
+
+.feature-title h3 {
+  font-size: 20px;
+  color: #29335C;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.feature-box {
+  padding: 70px 20px 30px;
+  border-radius: 10px;
+  text-align: center;
+  height: 100%;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.feature-box.orange {
+  background-color: #F7EAD8;
+  border-top: 4px solid #F3A712;
+}
+
+.feature-box.blue {
+  background-color: #E8F0FE;
+  border-top: 4px solid #29335C;
+}
+
+.feature-box.brown {
+  background-color: #F5EFE6;
+  border-top: 4px solid #A16E19;
+}
+
+.feature-box.red {
+  background-color: #FEE8E8;
+  border-top: 4px solid #DB2B39;
+}
+
+.feature-icon {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 80px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  z-index: 3;
+}
+
+.feature-icon img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
 }
 
 .feature-box p {
   color: #666;
+  margin-bottom: 0;
+  font-size: 15px;
 }
 
+.feature-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .feature-box {
+    padding: 60px 15px 20px;
+  }
+  
+  .feature-icon {
+    width: 70px;
+    height: 70px;
+    top: -35px;
+  }
+  
+  .feature-icon img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .features .section-title h2 {
+    font-size: 28px;
+  }
+  
+  .features .section-title p {
+    font-size: 16px;
+  }
+  
+  .feature-column {
+    padding-top: 70px;
+  }
+  
+  .feature-title h3 {
+    font-size: 18px;
+  }
+  
+  .feature-box {
+    padding: 50px 15px 20px;
+  }
+  
+  .feature-icon {
+    width: 60px;
+    height: 60px;
+    top: -30px;
+  }
+  
+  .feature-icon img {
+    width: 35px;
+    height: 35px;
+  }
+}
 /*--------------------------------------------------------------
 # Why SIPETO Section
 --------------------------------------------------------------*/
 .why-section {
-  background-color: var(--light-bg);
+  background-color: white;
+  padding: 80px 0;
+  position: relative;
 }
 
-.checklist {
-  max-width: 600px;
-  margin: 0 auto;
+.why-content .section-title {
+  color: #29335C; /* Blue color */
+  margin-bottom: 30px;
+  text-align: left;
+  font-size: 36px;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
 }
 
-.checklist-item {
+.why-content .section-title:after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 80px;
+  height: 4px;
+  background: #F3A712;
+}
+
+.why-graphic {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 30px;
+}
+
+.why-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.why-item {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 30px;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  transition: all 0.3s;
+  background: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
-.check-icon {
-  color: var(--accent-color);
-  font-size: 24px;
-  margin-right: 15px;
+.why-item:hover {
+  transform: translateX(10px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.why-icon {
+  font-size: 28px;
+  margin-top: 3px;
   flex-shrink: 0;
 }
 
-.checklist-item h4 {
+.why-text h3 {
+  margin-bottom: 8px;
   font-size: 20px;
-  margin-bottom: 5px;
+  font-weight: 600;
 }
 
-.checklist-item p {
+.why-text p {
   color: #666;
   margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
-/*--------------------------------------------------------------
-# Contact Section
---------------------------------------------------------------*/
-.info-box {
-  background: white;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-  text-align: center;
-  height: 100%;
+/* Color variations */
+.why-item.integrated {
+  border-left: 4px solid #F3A712;
+}
+.why-item.integrated .why-icon,
+.why-item.integrated h3 {
+  color: #F3A712;
 }
 
-.info-box i {
-  font-size: 32px;
-  color: var(--accent-color);
-  margin-bottom: 15px;
+.why-item.transparent {
+  border-left: 4px solid #DB2B39;
+}
+.why-item.transparent .why-icon,
+.why-item.transparent h3 {
+  color: #DB2B39;
 }
 
-.info-box h3 {
-  font-size: 20px;
-  margin-bottom: 15px;
+.why-item.efficient {
+  border-left: 4px solid #A16E19;
+}
+.why-item.efficient .why-icon,
+.why-item.efficient h3 {
+  color: #A16E19;
 }
 
+.why-item.accessible {
+  border-left: 4px solid #29335C;
+}
+.why-item.accessible .why-icon,
+.why-item.accessible h3 {
+  color: #29335C;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .why-graphic {
+    padding-right: 0;
+    margin-bottom: 40px;
+  }
+  
+  .building-image {
+    max-height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-content .section-title {
+    text-align: center;
+    font-size: 28px;
+  }
+  
+  .why-content .section-title:after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .why-item {
+    padding: 15px;
+  }
+  
+  .why-text h3 {
+    font-size: 18px;
+  }
+  
+  .why-text p {
+    font-size: 14px;
+  }
+}
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
 .footer {
-  background-color: var(--heading-color);
-  color: white;
-  padding: 60px 0 20px;
+  background-color: #F0CEA0;
+  color: #29335C;
+  padding: 60px 0 0; /* Changed from 20px to 0 to remove bottom padding */
 }
 
 .footer h3, 
 .footer h4 {
-  color: white;
+  color: #29335C;
+  margin-bottom: 15px;
 }
 
 .footer-links ul {
@@ -293,8 +625,9 @@ a {
 }
 
 .footer-links a {
-  color: rgba(255, 255, 255, 0.7);
+  color: #29335C;
   transition: 0.3s;
+  text-decoration: none;
 }
 
 .footer-links a:hover {
@@ -309,7 +642,7 @@ a {
   height: 40px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
-  color: white;
+  color: #29335C;
   margin-right: 10px;
   transition: 0.3s;
 }
@@ -321,48 +654,80 @@ a {
 
 .copyright {
   text-align: center;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px 0;
+  margin-top: 30px;
+  background-color: #29335C;
+  color: #F0CEA0;
 }
 
-/*--------------------------------------------------------------
-# Responsive Styles
---------------------------------------------------------------*/
-@media (max-width: 992px) {
-  .hero {
+.copyright-container {
+  max-width: 100%;
+  margin: 0;
+}
+
+/* Horizontal line above copyright */
+.footer-divider {
+  border-top: 1px solid rgba(41, 51, 92, 0.2);
+  margin: 0;
+}
+
+/* Footer sections */
+.footer-section {
+  padding-bottom: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer {
     text-align: center;
-    padding: 80px 0;
   }
   
-  .hero-img {
-    margin-top: 50px;
+  .footer-links ul {
+    display: inline-block;
+    text-align: left;
   }
   
-  .hero-buttons {
+  .social-links {
     justify-content: center;
   }
-  
-  .navmenu ul {
-    display: none;
-    position: absolute;
-    inset: 60px 20px 20px 20px;
-    background: white;
-    padding: 10px 0;
-    border-radius: 6px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .mobile-nav-toggle {
-    display: block !important;
-  }
 }
 
+/* Footer Brand with Logo */
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-images {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+.footer-title {
+  flex: 1;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .hero h1 {
-    font-size: 36px;
+  .footer-brand {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
   
-  .section {
-    padding: 60px 0;
+  .logo-images {
+    gap: 8px;
+  }
+  
+  .logo-img {
+    height: 40px;
   }
 }
