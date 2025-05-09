@@ -30,21 +30,17 @@
 <body class="index-page">
   <body class="index-page">
     <header id="header" class="header">
-      <div class="container d-flex justify-content-between align-items-center">
-        <a href="/" class="logo d-flex align-items-center">
-          <div class="logo-images">
-            <img src="{{ asset('assets/img/LOGO POLITEKNIK NEGERI MALANG.png') }}" alt="Polinema" class="logo-img">
-            <img src="{{ asset('assets/img/sipetonavbar.png') }}" alt="SIPETO" class="logo-img">
-          </div>
-          <div class="logo-text">
-            <span class="tagline1">SIPETO</span>
-            <span class="tagline">Sistem Pendaftaran TOEIC</span>
-          </div>
-        </a>
+    <div class="container d-flex justify-content-between align-items-center">
+      <a href="/" class="logo d-flex align-items-center">
+        <div class="logo-pics">
+          <img src="{{ asset('assets/img/logo poltek.png') }}" alt="Polinema" class="logo-pic">
+          <img src="{{ asset('assets/img/logo sipeto putih.png') }}" alt="SIPETO" class="logo-pic">
+        </div>
+      </a>
   
         <nav id="navmenu" class="navmenu">
           <ul>
-            <li><a href="#hero" class="active">Beranda</a></li>
+            <li><a href="#hero">Beranda</a></li>
             <li><a href="#features">Fitur Utama</a></li>
             <li><a href="#why">Keunggulan</a></li>
             <li><a href="#footer">Kontak</a></li>
@@ -212,61 +208,58 @@
 
 
   <footer id="footer" class="footer">
-    <div class="container">
-      <div class="row gy-4">
-        <div class="col-lg-4 col-md-6 footer-section">
-          <div class="footer-brand">
-            <div class="logo-images">
-              <img src="{{ asset('assets/img/LOGO POLITEKNIK NEGERI MALANG.png') }}" alt="Polinema" class="logo-img">
-              <img src="{{ asset('assets/img/sipetonavbar.png') }}" alt="SIPETO" class="logo-img">
-            </div>
-            <div class="footer-title">
-              <h3>SIPETO</h3>
-              <p>Sistem Pendaftaran TOEIC<br>Politeknik Negeri Malang</p>
-            </div>
+  <div class="container">
+    <div class="row gy-4">
+      <!-- Logo Section with Politeknik Negeri Malang text -->
+      <div class="col-lg-3 col-md-6 footer-section">
+        <div class="footer-brand">
+          <div class="logo-images">
+            <img src="{{ asset('assets/img/logo sipeto biru.png') }}" alt="SIPETO" class="logo-img">
+            <p class="institution-name">Politeknik Negeri Malang</p>
           </div>
         </div>
-  
-        <div class="col-lg-4 col-md-6 footer-section">
-          <h4>Kontak Kami</h4>
-          <p>Jl. Soekarno-Hatta No. 9<br>
-             Malang, 65141<br>
-             Telepon: +62 (0341) 404424-404425<br>
-             Faks: +62 (0341) 404420</p>
-        </div>
-  
-        <div class="col-lg-2 col-md-6 footer-links footer-section">
-          <h4>Tautan Penting</h4>
-          <ul>
-            <li><a href="#">Beranda</a></li>
-            <li><a href="#features">Fitur Utama</a></li>
-            <li><a href="#why">Kenapa SIPETO</a></li>
-          </ul>
-        </div>
+      </div>
 
-        <div class="col-lg-2 col-md-6 footer-section">
-          <h4>Berita Terbaru</h4>
-          <p>Anda dapat mengakses berita terbaru disini.</p>
-          <div class="social-links mt-3">
-            <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-          </div>
+      <!-- Kontak Kami Section -->
+      <div class="col-lg-3 col-md-4 footer-section">
+        <h4>Kontak Kami</h4>
+        <address>
+          <p><i class="bi bi-geo-alt"></i> Jl. Soekarno-Hatta No. 9<br>
+          <span class="address-indent">Malang, 65141</span></p>
+          <p><i class="bi bi-telephone"></i> +62 (0341) 404424-404425</p>
+          <p><i class="bi bi-printer"></i> +62 (0341) 404420</p>
+        </address>
+      </div>
+
+      <!-- Tautan Penting Section -->
+      <div class="col-lg-3 col-md-4 footer-section">
+        <h4>Tautan Penting</h4>
+        <div class="footer-links">
+          <a href="#" class="tautan-link">Beranda</a><br>
+          <a href="#features" class="tautan-link">Fitur Utama</a><br>
+          <a href="#why" class="tautan-link">Kenapa SIPETO</a>
+        </div>
+      </div>
+
+      <!-- Berita Terbaru Section -->
+      <div class="col-lg-3 col-md-4 footer-section">
+        <h4>Berita Terbaru</h4>
+        <p>Anda dapat mengakses berita terbaru disini.</p>
+        <div class="social-links mt-3">
+          <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
         </div>
       </div>
     </div>
+  </div>
   
-    <div class="footer-divider"></div>
-    
-    <div class="copyright-container">
-      <div class="copyright">
-        &copy; 2025 <strong><span>SIPETO</span></strong>. All Rights Reserved
-      </div>
+  <div class="copyright-container">
+    <div class="copyright">
+      &copy; 2025 <strong><span>SIPETO</span></strong>. All Rights Reserved
     </div>
-    
-    <div class="footer-divider"></div>
-  
-  </footer>
+  </div>
+</footer>
 </body>
 </html>
 

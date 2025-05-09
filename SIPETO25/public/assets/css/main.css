@@ -58,9 +58,8 @@ a {
 --------------------------------------------------------------*/
 .header {
   background-color: #29335C; /* Warna biru tua */
-  padding: 20px 0;
-  border-radius: 25px 25px 25px 25px; /* Membuat bentuk oval di bagian bawah */
-  margin-bottom: -20px; /* Untuk menyambung dengan wave decoration */
+  padding: 15px 0;
+  margin-bottom: 0px;
   position: relative;
   z-index: 2;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -71,6 +70,25 @@ a {
   margin: 0;
   font-weight: 700;
   color: var(--heading-color);
+}
+
+/* Logo container */
+.logo-pics {
+  display: flex; /* Mengubah ke flex horizontal */
+  align-items: center; /* Pusatkan vertikal */
+  gap: 15px; /* Jarak antara dua logo */
+}
+
+.logo-pic {
+  height: 50px; /* Sesuaikan tinggi logo */
+  width: auto;
+  max-height: 100%;
+}
+
+/* Header adjustments */
+.header .logo {
+  display: flex;
+  align-items: center;
 }
 
 /* Navigation */
@@ -90,7 +108,7 @@ a {
 
 .navmenu a {
   color: white;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 16px;
   transition: 0.3s;
   padding: 8px 15px;
@@ -151,10 +169,10 @@ a {
 
 .overlay-image {
   position: absolute;
-  bottom: -30px;
-  right: -30px;
-  width: 30%;
-  border-radius: 12px;
+  bottom: -20px;
+  right: -20px;
+  width: 45%;
+  border-radius: 8px;
   z-index: 2;
   animation: float 4s ease-in-out infinite;
 }
@@ -192,9 +210,11 @@ a {
   box-shadow: 0 5px 15px rgba(41, 51, 92, 0.3);
 }
 
-.hero-img img {
-  border-radius: 12px;
-  animation: float 4s ease-in-out infinite;
+.hero-img {
+  width: 40%; /* Mengurangi lebar container gambar */
+  max-width: 450px; /* Batas maksimal */
+  position: relative;
+  margin-left: 50px; /* Jarak dari teks */
 }
 
 @keyframes float {
@@ -233,21 +253,6 @@ a {
   display: flex;
   flex-direction: column;
   margin-left: 15px;
-}
-
-
-.logo-text .tagline1 {
-  font-size: 28px;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
-  margin-top: 3px;
-}
-
-.logo-text .tagline {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 500;
-  margin-top: 3px;
 }
 
 .logo-images {
@@ -300,7 +305,7 @@ a {
 # Features Section - Box Style with External Icons
 --------------------------------------------------------------*/
 .features {
-  background-color: #f8f9fa;
+  background-color: #ffffff;
   padding: 80px 0;
   position: relative;
 }
@@ -615,25 +620,6 @@ a {
   margin-bottom: 15px;
 }
 
-.footer-links ul {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-links li {
-  padding: 5px 0;
-}
-
-.footer-links a {
-  color: #29335C;
-  transition: 0.3s;
-  text-decoration: none;
-}
-
-.footer-links a:hover {
-  color: var(--accent-color);
-}
-
 .social-links a {
   display: inline-flex;
   align-items: center;
@@ -652,6 +638,28 @@ a {
   transform: translateY(-3px);
 }
 
+/* Tautan Penting Links */
+.footer-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.tautan-link {
+  color: #29335C; /* Blue color */
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.tautan-link:hover {
+  color: #F3A712; /* Accent color on hover */
+  transform: translateX(5px);
+}
+
+.footer-links p {
+  margin-bottom: 0;
+}
+
 .copyright {
   text-align: center;
   padding: 20px 0;
@@ -662,12 +670,6 @@ a {
 
 .copyright-container {
   max-width: 100%;
-  margin: 0;
-}
-
-/* Horizontal line above copyright */
-.footer-divider {
-  border-top: 1px solid rgba(41, 51, 92, 0.2);
   margin: 0;
 }
 
@@ -682,7 +684,7 @@ a {
     text-align: center;
   }
   
-  .footer-links ul {
+  .footer-links p {
     display: inline-block;
     text-align: left;
   }
@@ -701,14 +703,23 @@ a {
 
 .logo-images {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10px;
+  text-align: center;
 }
 
 .logo-img {
   height: 50px;
   width: auto;
-  object-fit: contain;
+  margin-bottom: 4px; /* Jarak antara logo dan teks */
+}
+
+.institution-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #29335C;
+  margin-top: 8px;
+  line-height: 1.4;
 }
 
 .footer-title {
