@@ -1,11 +1,5 @@
-<footer class="main-footer">
-  <div class="float-right d-none d-sm-block">
-    <b>Version</b> 3.2.0
+<footer class="w-full text-center py-4 bg-gray-100 text-gray-700">
+  <div>
+    <strong>2025 © SIPETO</strong> 
   </div>
-  <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
 </footer>
-
-<!-- Control Sidebar -->
-<aside class="control-sidebar control-sidebar-dark">
-  <!-- Control sidebar content goes here -->
-</aside>
