@@ -28,8 +28,7 @@
 </head>
 
 <body class="index-page">
-  <body class="index-page">
-    <header id="header" class="header">
+  <header id="header" class="header">
     <div class="container d-flex justify-content-between align-items-center">
       <a href="/" class="logo d-flex align-items-center">
         <div class="logo-pics">
@@ -38,17 +37,18 @@
         </div>
       </a>
   
-        <nav id="navmenu" class="navmenu">
-          <ul>
-            <li><a href="#hero">Beranda</a></li>
-            <li><a href="#features">Fitur Utama</a></li>
-            <li><a href="#why">Keunggulan</a></li>
-            <li><a href="#footer">Kontak</a></li>
-          </ul>
-          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-        </nav>
-      </div>
-    </header>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero">Beranda</a></li>
+          <li><a href="#features">Fitur Utama</a></li>
+          <li><a href="#schedule">Jadwal Tes</a></li> <!-- Menu baru ditambahkan di sini -->
+          <li><a href="#why">Keunggulan</a></li>
+          <li><a href="#footer">Kontak</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
   
     <!-- Hero Section -->
     <section id="hero" class="hero d-flex align-items-center">
@@ -136,6 +136,74 @@
             </div>
             <p>Ajukan surat dalam satu platform. Pantau statusnya secara real-time, dan unduh surat kapan saja.</p>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Test Schedule Section -->
+<section id="schedule" class="schedule-section section">
+  <div class="container">
+    <div class="schedule-header">
+      <h2>Jadwal Tes TOEIC</h2>
+      <p>Berikut adalah jadwal tes TOEIC yang tersedia melalui sistem SIPETO</p>
+    </div>
+
+    <div class="schedule-container">
+      <!-- Sesi 1 - 1 Juni -->
+      <div class="schedule-item">
+        <div class="schedule-date-box">
+          <div class="schedule-date">
+            <strong>1 Juni 2026</strong>
+            <span>08.00 - 11.00</span>
+          </div>
+        </div>
+        <div class="schedule-detail">
+          <strong>TOEIC (REGULER) SESI - 1</strong>
+          <span>Gedung Teknologi Informasi - Ruang LPR 07/Lt.7</span>
+        </div>
+      </div>
+      
+      <!-- Sesi 2 - 1 Juni -->
+      <div class="schedule-item">
+        <div class="schedule-date-box">
+          <div class="schedule-date">
+            <strong>1 Juni 2026</strong>
+            <span>13.00 - 16.00</span>
+          </div>
+        </div>
+        <div class="schedule-detail">
+          <strong>TOEIC (REGULER) SESI - 2</strong>
+          <span>Gedung Teknologi Informasi - Ruang LPR 06/Lt.7</span>
+        </div>
+      </div>
+      
+      <!-- Sesi 1 - 8 Juni -->
+      <div class="schedule-item">
+        <div class="schedule-date-box">
+          <div class="schedule-date">
+            <strong>8 Juni 2026</strong>
+            <span>08.00 - 11.00</span>
+          </div>
+        </div>
+        <div class="schedule-detail">
+          <strong>TOEIC (REGULER) SESI - 1</strong>
+          <span>Gedung Teknologi Informasi - Ruang LPR 07/Lt.7</span>
+        </div>
+      </div>
+      
+      <!-- Sesi 2 - 8 Juni -->
+      <div class="schedule-item">
+        <div class="schedule-date-box">
+          <div class="schedule-date">
+            <strong>8 Juni 2026</strong>
+            <span>13.00 - 16.00</span>
+          </div>
+        </div>
+        <div class="schedule-detail">
+          <strong>TOEIC (REGULER) SESI - 2</strong>
+          <span>Gedung Teknologi Informasi - Ruang LPR 06/Lt.7</span>
         </div>
       </div>
     </div>

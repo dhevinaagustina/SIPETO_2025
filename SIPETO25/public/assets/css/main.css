@@ -98,12 +98,18 @@ a {
   display: flex;
   list-style: none;
   align-items: center;
-  gap: 20px;
+  gap: 25px;
 }
 
 .navmenu li {
-  position: relative;
-  padding: 0 15px;
+  white-space: nowrap;
+}
+
+/* Responsive adjustment */
+@media (max-width: 992px) {
+  .navmenu ul {
+    gap: 10px;
+  }
 }
 
 .navmenu a {
@@ -456,6 +462,125 @@ a {
   .feature-icon img {
     width: 35px;
     height: 35px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Test Schedule Section
+--------------------------------------------------------------*/
+.schedule-section {
+  background-color: #ffffff;
+  padding: 80px 0;
+}
+
+.schedule-header {
+  background-color: #29335C; /* Warna biru tua */
+  color: white;
+  padding: 30px;
+  border-radius: 10px 10px 0 0;
+  margin-bottom: 0;
+}
+
+.schedule-header h2 {
+  color: white;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.schedule-header p {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 0;
+  font-size: 16px;
+}
+
+.schedule-container {
+  border: 1px solid #e0e0e0;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+}
+
+.schedule-item {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.schedule-item:last-child {
+  border-bottom: none;
+}
+
+.schedule-date-box {
+  width: 30%;
+  background-color: white;
+  padding: 20px;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.schedule-date {
+  background-color: #29335C; /* Warna biru tua */
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  width: 100%;
+}
+
+.schedule-date strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.schedule-date span {
+  font-size: 16px;
+}
+
+.schedule-detail {
+  width: 70%;
+  padding: 20px;
+  color: #29335C; /* Warna biru tua */
+}
+
+.schedule-detail strong {
+  display: block;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.schedule-detail span {
+  font-size: 24px;
+  color: #666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .schedule-item {
+    flex-direction: column;
+  }
+  
+  .schedule-date-box, 
+  .schedule-detail {
+    width: 100%;
+  }
+  
+  .schedule-date-box {
+    border-right: none;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px;
+  }
+  
+  .schedule-date {
+    padding: 10px;
+  }
+  
+  .schedule-header {
+    padding: 20px;
+  }
+  
+  .schedule-header h2 {
+    font-size: 24px;
   }
 }
 /*--------------------------------------------------------------
