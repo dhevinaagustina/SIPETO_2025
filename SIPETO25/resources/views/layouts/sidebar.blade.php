@@ -4,8 +4,9 @@
     <a href="{{ url('/') }}" class="brand-link text-center py-4">
         <img src="{{ asset('adminlte/dist/img/logo-sipeto.png') }}" class="sidebar-logo mb-2" alt="Logo SIPETO">
         <h5 class="text-white font-weight-bold m-0">SIPETO</h5>
-        <small class="text-muted d-block">Sistem Pendaftaran TOEIC</small>
+        <small class="text-white d-block">Sistem Pendaftaran TOEIC</small>
     </a>
+
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -46,19 +47,22 @@
 <!-- Tambahkan ke CSS kamu -->
 <style>
 .sidebar-logo {
-    width: 72px;
+    width: 100px;
     height: auto;
-    filter: brightness(0) invert(1);
+    filter: none;
+    fill: #F3A711;
+    display: block;
+    margin: 0 auto 10px auto; /* tengah + jarak bawah */
 }
 
 .sidebar .nav-link.active {
     background-color: #ffffff !important; /* Putih */
-    color: #29335C !important;           /* Biru teks sesuai warna tema */
+    color: #242E58 !important;           /* Biru teks sesuai warna tema */
     font-weight: 600;
     border-radius: 8px;
 }
 .sidebar .nav-link.active i {
-    color: #29335C !important;
+    color: #242E58 !important;
 }
 
 .sidebar-button {
