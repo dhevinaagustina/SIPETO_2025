@@ -55,7 +55,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 
 // Halaman untuk Mahasiswa
-Route::middleware('auth:mahasiswa')->group(function () {
+// Route::middleware('auth:mahasiswa')->group(function () {
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -71,4 +71,4 @@ Route::middleware('auth:mahasiswa')->group(function () {
 
     // Pengajuan Surat
     Route::get('/pengajuan-surat', [SuratController::class, 'index'])->name('pengajuan.surat');
-});
+// });
