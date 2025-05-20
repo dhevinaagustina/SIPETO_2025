@@ -28,16 +28,7 @@ Route::get('/', function () {
     return view('landing.index');
 });
 
-Route::get('/portfolio-details', function () {
-    return view('landing.portfolio-details');
-});
 
-Route::get('/service-details', function () {
-    return view('landing.service-details');
-});
-
-Route::post('/send-contact', [FormController::class, 'sendContact']);
-Route::post('/subscribe-newsletter', [FormController::class, 'subscribeNewsletter']);
 
 // Login
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
