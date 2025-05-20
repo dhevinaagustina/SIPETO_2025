@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #29335C;">
     <!-- Brand Logo -->
     <a href="{{ url('/') }}" class="brand-link text-center py-4">
-        <img src="{{ asset('adminlte/dist/img/logo-sipeto.png') }}" class="sidebar-logo mb-2" alt="Logo SIPETO">
+        <img src="{{ asset('adminlte/dist/img/logo-sipeto-2.png') }}" class="sidebar-logo mb-2" alt="Logo SIPETO">
         <h5 class="text-white font-weight-bold m-0">SIPETO</h5>
         <small class="text-white d-block">Sistem Pendaftaran TOEIC</small>
     </a>

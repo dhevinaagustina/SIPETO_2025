@@ -9,7 +9,6 @@
   --background-color: #ffffff;
   --default-color: #444444;
   --heading-color: #29335C;
-  --accent-color: #F3A712;
   --contrast-color: #ffffff;
   --light-bg: #F7EAD8;
 }
@@ -184,7 +183,6 @@ a {
 }
 
 .btn-get-started {
-  background-color: #F3A712;
   color: white;
   padding: 12px 30px;
   border-radius: 15px; /* Bentuk oval */
@@ -195,7 +193,6 @@ a {
 }
 
 .btn-get-started:hover {
-  background-color: #e0950f;
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(243, 167, 18, 0.3);
 }
@@ -373,7 +370,7 @@ a {
 
 .feature-box.brown {
   background-color: #F5EFE6;
-  border-top: 4px solid #A16E19;
+ 
 }
 
 .feature-box.red {

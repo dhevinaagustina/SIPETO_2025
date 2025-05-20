@@ -7,6 +7,7 @@ use App\Http\Controllers\UjianController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\CekDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,8 @@ Route::post('/subscribe-newsletter', [FormController::class, 'subscribeNewslette
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+// Dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 // Admin Login (gunakan URL dengan /admin)
 Route::get('/admin/login', [LoginController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [LoginController::class, 'login']);
@@ -51,7 +54,9 @@ Route::post('/admin/login', [LoginController::class, 'login']);
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('admin.register');
 // Menangani proses registrasi
 Route::post('/register', [RegisterController::class, 'register']);
-
+//   Route::get('/dashboard', [DashboardController::class, 'index'])
+//     ->middleware('auth') // Ganti dari 'auth:login'
+//     ->name('dashboard');
 
 
 // Halaman untuk Mahasiswa

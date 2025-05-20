@@ -3,47 +3,59 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
+    /**
+     * Tampilkan form login
+     */
     public function showLoginForm(Request $request)
     {
-        // Deteksi apakah URL mengandung 'admin'
-        $isAdmin = $request->is('admin/*');
-        return view('auth.login', compact('isAdmin'));
+        return view('auth.login');
     }
 
+    /**
+     * Proses login
+     */
     public function login(Request $request)
     {
-        $credentials = $request->only('username', 'password');
+        // Validasi input
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+        // Ambil data user dari tabel login
+        $user = DB::table('login')->where('username', $request->username)->first();
 
-            // Redirect berdasarkan tipe_user
-            if (Auth::user()->tipe_user === 'admin') {
-                return redirect('/admin/dashboard');
-            } elseif (Auth::user()->tipe_user === 'mahasiswa') {
-                return redirect('/mahasiswa/dashboard');
-            } else {
-                Auth::logout();
-                return redirect('/login')->withErrors([
-                    'username' => 'Tipe user tidak dikenali.',
-                ]);
-            }
+        // Cek user dan password
+        if ($user && Hash::check($request->password, $user->password)) {
+            // Simpan data ke session manual
+            session([
+            'login_username' => $user->username,
+            'tipe_user' => $user->tipe_user,
+            'id_referensi' => $user->id_referensi,
+            ]);
+            return redirect('/dashboard');
         }
 
+        // Jika gagal login
         return back()->withErrors([
             'username' => 'Username atau password salah.',
         ])->withInput();
     }
 
+    /**
+     * Logout
+     */
     public function logout(Request $request)
     {
-        Auth::logout();
-        $request->session()->invalidate();
+        // Hapus session
+        $request->session()->flush();
         $request->session()->regenerateToken();
+
         return redirect('/login');
     }
 }
