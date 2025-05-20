@@ -2,19 +2,16 @@
 
 @section('content')
 <style>
-    /* Header tabel warna biru */
     thead.custom-blue {
         background-color: #29335C;
         color: white;
     }
 
-    /* Hover efek untuk baris */
     tbody tr:hover {
         background-color: #f0f4ff;
         cursor: pointer;
     }
 
-    /* Styling badge */
     .badge-success {
         background-color: #4CAF50;
         font-weight: 600;
@@ -25,18 +22,33 @@
         font-weight: 600;
     }
 
-    /* Table border radius dan shadow */
+    /* Melebarkan tabel */
+    .custom-table-wrapper {
+        width: 100%;
+        padding: 0 30px;
+    }
+
     table {
         border-radius: 8px;
         overflow: hidden;
         box-shadow: 0 4px 8px rgba(41, 51, 92, 0.2);
     }
+
+    th, td {
+        padding: 14px 20px !important;
+        vertical-align: middle !important;
+    }
+
+    h3 {
+        color: #29335C;
+        font-weight: 700;
+    }
 </style>
 
-<div class="container">
-    <h3 class="mb-4" style="color: #29335C; font-weight: 700;">Rekapan Nilai</h3>
+<div class="custom-table-wrapper">
+    <h3 class="mb-4">Rekapan Nilai</h3>
     <div class="table-responsive">
-        <table class="table table-bordered text-center">
+        <table class="table table-bordered text-center w-100">
             <thead class="custom-blue">
                 <tr>
                     <th>ID Ujian</th>

@@ -30,7 +30,7 @@ class UjianController extends Controller
 
         $activeMenu = 'hasil-ujian';
 
-        return view('mahasiswa.hasil_ujian', [
+        return view('hasil-ujian.index', [
             'breadcrumb' => $breadcrumb,
             'activeMenu' => $activeMenu
         ]);
