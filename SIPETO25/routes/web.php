@@ -60,7 +60,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 
 // Halaman untuk Mahasiswa
-Route::middleware('auth:mahasiswa')->group(function () {
+// Route::middleware('auth:mahasiswa')->group(function () {
 
     // Daftar Ujian
     Route::get('/daftar-ujian', [UjianController::class, 'daftar'])->name('daftar.ujian');
@@ -73,12 +73,4 @@ Route::middleware('auth:mahasiswa')->group(function () {
 
     // Pengajuan Surat
     Route::get('/pengajuan-surat', [SuratController::class, 'index'])->name('pengajuan.surat');
-});
-
-// Route::middleware(['auth:admin'])->group(function () {
-//     Route::get('/admin/cekdata', [CekDataController::class, 'index'])->name('admin.cekdata');
 // });
-Route::get('/admin/cekdata', [CekDataController::class, 'index'])->name('admin.cekdata');
-
-
-
