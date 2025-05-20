@@ -62,6 +62,9 @@ Route::post('/register', [RegisterController::class, 'register']);
 // Halaman untuk Mahasiswa
 // Route::middleware('auth:mahasiswa')->group(function () {
 
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     // Daftar Ujian
     Route::get('/daftar-ujian', [UjianController::class, 'daftar'])->name('daftar.ujian');
 
