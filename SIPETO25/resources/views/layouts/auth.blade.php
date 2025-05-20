@@ -5,10 +5,12 @@
   <title>@yield('title', 'Login')</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- AdminLTE -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/css/adminlte.min.css">
+  <!-- AdminLTE CSS -->
+  <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css')}}">
+
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
+
   @stack('styles')
 
   <style>
@@ -35,22 +37,6 @@
       filter: brightness(0.75);
     }
 
-    .header-sipeto {
-      background-color: #152557;
-      color: white;
-      padding: 10px 20px;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .header-sipeto img {
-      height: 40px;
-    }
-
     .login-box {
       position: relative;
       z-index: 2;
@@ -62,18 +48,19 @@
   <!-- Background Video -->
   <div class="background-container">
     <video autoplay muted loop playsinline>
-        <source src="{{ asset('video/gedung.MP4') }}" type="video/mp4">
+      <source src="{{ asset('video/gedung.MP4') }}" type="video/mp4">
       Browser Anda tidak mendukung video.
     </video>
-  </div>>
+  </div>
 
-  <!-- Konten -->
+  <!-- Konten Halaman Login -->
   @yield('content')
 
-  <!-- JS -->
-  <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/plugins/jquery/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.2/dist/js/adminlte.min.js"></script>
+  <!-- JavaScript -->
+  <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
+  <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+ <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+
   @stack('scripts')
 </body>
 </html>
