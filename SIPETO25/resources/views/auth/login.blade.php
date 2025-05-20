@@ -6,29 +6,34 @@
 
 {{-- Header biru Polinema --}}
 <div class="login-header" style="background-color: #0d295b; padding: 10px 20px;">
-    <div class="d-flex align-items-center">
-      <!-- Logo 1 -->
-      <img src="{{ asset('img/Logo Polinema.png') }}" alt="Logo Polinema" style="height: 60px; margin-right: 10px;">
-      <!-- Logo 2 -->
-      <img src="{{ asset('img/logo.png') }}" alt="Logo TOEIC" style="height: 60px; margin-right: 10px;">
-      <!-- Teks SIPETO -->
-      <div>
-        <h1 style="font-size: 18px; margin: 0; color: #fff; font-weight: bold;">SIPETO</h1>
-        <p style="font-size: 14px; margin: 0; color: #fff;">Sistem Pendaftaran TOEIC</p>
-      </div>
+  <div class="d-flex align-items-center">
+    <img src="{{ asset('img/Logo Polinema.png') }}" alt="Logo Polinema" style="height: 60px; margin-right: 5px;">
+    <img src="{{ asset('img/logo.png') }}" alt="Logo TOEIC" style="height: 70px; margin-right: 10px;">
+    <div>
+      <h1 style="font-size: 18px; margin: 0; color: #fff; font-weight: bold;">SIPETO</h1>
+      <p style="font-size: 14px; margin: 0; color: #fff;">Sistem Pendaftaran TOEIC</p>
     </div>
   </div>
-  
-  
+</div>
 
 {{-- Kotak login --}}
 <div class="login-box">
   <div class="card" style="background: rgba(255, 255, 255, 0.9); border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.1);">
-    
     <div class="card-body pt-4 px-4">
       <h2 class="text-center mb-4" style="font-size: 20px; color: #1c2b50; font-weight: bold;">Masuk ke Akun Anda</h2>
 
-      <form action="{{ url('/Login') }}" method="POST">
+      {{-- Tampilkan pesan error jika login gagal --}}
+      @if($errors->any())
+        <div class="alert alert-danger">
+          <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+
+      <form action="{{ url('/login') }}" method="POST">
         @csrf
 
         {{-- Username --}}
@@ -40,7 +45,7 @@
               </span>
             </div>
             <input type="text" name="username" class="form-control border-start-0" placeholder="Username" required
-              style="border-radius: 0 10px 10px 0; height: 45px;">
+              style="border-radius: 0 10px 10px 0; height: 45px;" value="{{ old('username') }}">
           </div>
         </div>
 
@@ -57,10 +62,10 @@
           </div>
         </div>
 
-        {{-- Ingat Saya dan Lupa Password --}}
+        {{-- Ingat Saya --}}
         <div class="d-flex justify-content-between align-items-center mb-3">
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="remember">
+            <input class="form-check-input" type="checkbox" name="remember" id="remember">
             <label class="form-check-label" for="remember" style="font-size: 14px;">Ingat Saya</label>
           </div>
           <a href="#" style="font-size: 14px; color: #1c2b50;">Lupa Password?</a>
@@ -71,18 +76,19 @@
           style="height: 45px; border-radius: 10px; background-color: #1c2b50; border: none;">
           Login
         </button>
-        {{-- Hanya tampil jika admin --}}
-@if(isset($isAdmin) && $isAdmin)
-<div class="text-center mt-3">
-  <span style="font-size: 14px;">Belum punya akun? <a href="{{ route('admin.register') }}" style="color: #1c2b50;">Daftar</a></span>
-</div>
-@endif
+
+        {{-- Tautan pendaftaran untuk admin --}}
+        @if(isset($isAdmin) && $isAdmin)
+        <div class="text-center mt-3">
+          <span style="font-size: 14px;">Belum punya akun? <a href="{{ route('admin.register') }}" style="color: #1c2b50;">Daftar</a></span>
+        </div>
+        @endif
       </form>
     </div>
   </div>
 </div>
 
-{{-- Style --}}
+{{-- Style tambahan --}}
 <style>
   .login-header {
     width: 100%;

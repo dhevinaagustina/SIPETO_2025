@@ -8,22 +8,46 @@ class UjianController extends Controller
 {
     public function daftar()
     {
+        $breadcrumb = (object) [
+            'title' => 'Daftar Ujian',
+            'list' => ['Home', 'Daftar Ujian']
+        ];
+
+        $activeMenu = 'daftar-ujian';
+
         return view('mahasiswa.daftar_ujian', [
-            'activeMenu' => 'daftar-ujian'
+            'breadcrumb' => $breadcrumb,
+            'activeMenu' => $activeMenu
         ]);
     }
 
     public function hasil()
     {
-        return view('mahasiswa.hasil_ujian', [
-            'activeMenu' => 'hasil-ujian'
+        $breadcrumb = (object) [
+            'title' => 'Hasil Ujian',
+            'list' => ['Home', 'Hasil Ujian']
+        ];
+
+        $activeMenu = 'hasil-ujian';
+
+        return view('hasil-ujian.index', [
+            'breadcrumb' => $breadcrumb,
+            'activeMenu' => $activeMenu
         ]);
     }
 
     public function riwayat()
     {
+        $breadcrumb = (object) [
+            'title' => 'Riwayat Ujian',
+            'list' => ['Home', 'Riwayat Ujian']
+        ];
+
+        $activeMenu = 'riwayat-ujian';
+
         return view('mahasiswa.riwayat_ujian', [
-            'activeMenu' => 'riwayat-ujian'
+            'breadcrumb' => $breadcrumb,
+            'activeMenu' => $activeMenu
         ]);
     }
 }

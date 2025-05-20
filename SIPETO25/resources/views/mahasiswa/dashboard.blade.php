@@ -1,152 +1,196 @@
 @extends('layouts.template')
 
 @section('content')
-<div class="container-fluid py-4" style="background-color: #F2F2F2; min-height: 100vh;">
-  <!-- Tambahkan ini di <head> -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<div class="container-fluid py-4" style="background-color: #F8FAFC; min-height: 100vh;">
+  <!-- Animate.css and Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
-
-  {{-- Welcome Header --}}
-  <div class="text-center mb-4">
-    <div class="py-4 px-4 mx-auto text-white" style="background-color: #29335C; border-radius: 10px; max-width: 1140px;">
-      <h2 class="mb-2 font-weight-bold">WELCOME TO SIPETO</h2>
-      <p class="mb-0">Your English Certification Gateway</p>
+  {{-- Hero Banner --}}
+  <div class="text-center mb-5">
+    <div class="py-5 px-4 mx-auto text-white" style="background: linear-gradient(135deg, #29335C 0%, #1E4B8F 100%); border-radius: 12px; max-width: 1140px; box-shadow: 0 8px 24px rgba(41, 51, 92, 0.15);">
+      <h1 class="mb-3 fw-bold animate__animated animate__fadeInDown">WELCOME TO SIPETO</h1>
+      <p class="mb-0 fs-5 animate__animated animate__fadeIn animate__delay-1s">Your Complete TOEIC Preparation Platform</p>
+      <div class="mt-4 animate__animated animate__fadeIn animate__delay-2s">
+      </div>
     </div>
   </div>
 
-  {{-- Menu Section --}}
-  <div class="container py-4">
-    <div class="row g-4 justify-content-center">
+  {{-- Main Content --}}
+  <div class="container">
+    {{-- Announcements Section --}}
+    <div class="row mb-5">
+      <div class="col-12">
+        <div class="card shadow-sm border-0 animate__animated animate__fadeIn">
+          <div class="card-header bg-white border-0 pt-4">
+            <h3 class="fw-bold" style="color: #29335C;">
+              <i class="fas fa-bullhorn text-warning me-2"></i>Latest Announcements
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="alert alert-info d-flex align-items-center mb-3" role="alert">
+              <i class="fas fa-calendar-check me-3 fs-4"></i>
+              <div>
+                <h5 class="alert-heading mb-1">May 2025 Test Schedule</h5>
+                <p class="mb-0">Registered students for May 2025 TOEIC test should check the schedule...</p>
+              </div>
+            </div>
+            <div class="alert alert-success d-flex align-items-center mb-3" role="alert">
+              <i class="fas fa-certificate me-3 fs-4"></i>
+              <div>
+                <h5 class="alert-heading mb-1">Certificate Collection</h5>
+                <p class="mb-0">April 2025 test takers can collect certificates at Building A, 2nd Floor...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {{-- Articles Section --}}
+    <div class="row g-4 mb-5">
+      <div class="col-12">
+        <h3 class="fw-bold mb-4" style="color: #29335C;">
+          <i class="fas fa-newspaper text-primary me-2"></i>TOEIC Learning Resources
+        </h3>
+      </div>
 
       @php
-        $menus = [
+        $articles = [
           [
-            'title' => 'Daftar Ujian Gratis', 
-            'description' => 'Ajukan pendaftaran TOEIC secara gratis langsung melalui SIPETO.',
-            'icon' => 'bi-pencil-square', 
-            'header_color' => '#DB2B39', 
-            'card_color' => '#FFF5F5'
+            'title' => 'Understanding TOEIC',
+            'content' => 'Learn about the TOEIC test format, scoring system, and how it can benefit your academic and professional journey.',
+            'image' => 'https://img.freepik.com/free-vector/english-school-banner_33099-1727.jpg',
+            'icon' => 'fas fa-question-circle',
+            'color' => '#FF6B35'
           ],
           [
-            'title' => 'Daftar Ujian Mandiri', 
-            'description' => 'Ajukan pendaftaran TOEIC secara gratis langsung melalui SIPETO.',
-            'icon' => 'bi-journal-check', 
-            'header_color' => '#29335C', 
-            'card_color' => '#F0F4FF'
+            'title' => 'Test-Taking Strategies',
+            'content' => 'Discover proven techniques to maximize your score in both Listening and Reading sections.',
+            'image' => 'https://img.freepik.com/free-vector/learning-concept-illustration_114360-6186.jpg',
+            'icon' => 'fas fa-lightbulb',
+            'color' => '#1E90FF'
           ],
           [
-            'title' => 'Riwayat Ujian', 
-            'description' => 'Ajukan pendaftaran TOEIC secara gratis langsung melalui SIPETO.',
-            'icon' => 'bi-clock-history', 
-            'header_color' => '#D89B00', 
-            'card_color' => '#FFF8E5'
-          ],
-          [
-            'title' => 'Pengajuan Surat', 
-            'description' => 'Ajukan pendaftaran TOEIC secara gratis langsung melalui SIPETO.',
-            'icon' => 'bi-file-earmark-text', 
-            'header_color' => '#DB2B39', 
-            'card_color' => '#FFF5F5'
-          ],
-          [
-            'title' => 'Hasil Ujian', 
-            'description' => 'Ajukan pendaftaran TOEIC secara gratis langsung melalui SIPETO.',
-            'icon' => 'bi-graph-up-arrow', 
-            'header_color' => '#D89B00', 
-            'card_color' => '#FFF8E5'
+            'title' => 'Practice Resources',
+            'content' => 'Access our curated collection of practice tests and study materials to boost your preparation.',
+            'image' => 'https://img.freepik.com/free-vector/online-test-concept_23-2148524703.jpg',
+            'icon' => 'fas fa-book',
+            'color' => '#6A4C93'
           ],
         ];
       @endphp
 
-      @foreach($menus as $menu)
-      <div class="col-12 col-sm-6 col-lg-4 d-flex justify-content-center mb-4 animate__animated animate__fadeInUp">
-        <div class="p-2" style="background-color: white; border-radius: 20px;">
-          <div class="card card-hover-scale border-0 shadow-sm position-relative h-100" 
-              style="width: 100%; max-width: 280px; border-radius: 16px; background-color: {{ $menu['card_color'] }};">
-            
-            <!-- Card Header -->
-            <div class="d-flex justify-content-center w-100 position-absolute" style="top: -15px;">
-              <div class="d-flex align-items-center py-1 px-3" 
-                  style="background-color: {{ $menu['header_color'] }}; color: white; border-radius: 20px; font-weight: 600; font-size: 0.9rem;">
-                <i class="bi {{ $menu['icon'] }} me-2"></i>
-                <span>{{ $menu['title'] }}</span>
+      @foreach($articles as $article)
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm animate__animated animate__fadeInUp" style="border-radius: 12px; transition: transform 0.3s ease;">
+          <div class="position-relative">
+            <img src="{{ $article['image'] }}" class="card-img-top" style="border-top-left-radius: 12px; border-top-right-radius: 12px; height: 180px; object-fit: cover;" alt="article image">
+            <div class="position-absolute top-0 start-0 mt-3 ms-3">
+              <div class="p-3 rounded-circle" style="background-color: {{ $article['color'] }}; color: white;">
+                <i class="{{ $article['icon'] }} fs-4"></i>
               </div>
             </div>
-
-            <!-- Card Body -->
-            <div class="card-body d-flex flex-column justify-content-center align-items-center text-center" 
-                style="min-height: 120px; padding: 1.5rem;">
-              <p class="mb-0 px-2" style="font-size: 0.9rem; color: #555;">{{ $menu['description'] }}</p>
-            </div>
-
+          </div>
+          <div class="card-body">
+            <h5 class="card-title fw-bold" style="color: #29335C;">{{ $article['title'] }}</h5>
+            <p class="card-text text-muted">{{ $article['content'] }}</p>
+          </div>
+          <div class="card-footer bg-transparent border-0">
+            <a href="#" class="btn btn-sm px-3 py-2 rounded-pill" style="background-color: {{ $article['color'] }}; color: white;">
+              Read More <i class="fas fa-arrow-right ms-2"></i>
+            </a>
           </div>
         </div>
       </div>
       @endforeach
-
     </div>
-  </div>
 
-  <style>
-    .card-hover-scale {
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
+    {{-- Quick Tips Section --}}
+    <div class="row mb-5">
+  <div class="col-12">
+    <div class="card shadow-sm border-0 animate__animated animate__fadeIn">
+      <div class="card-header bg-white border-0 pt-4">
+        <h3 class="fw-bold" style="color: #29335C;">
+          <i class="fas fa-trophy text-warning me-2"></i>TOEIC Quick Tips
+        </h3>
+      </div>
+      <div class="card-body">
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="d-flex">
+              <div class="me-3">
+                <div class="rounded-circle d-flex align-items-center justify-content-center"
+                     style="background-color: #FF6B35; color: white; width: 48px; height: 48px;">
+                  <i class="fas fa-headphones fs-5"></i>
+                </div>
+              </div>
+              <div>
+                <h5 class="fw-bold" style="color: #29335C;">Listening Section</h5>
+                <ul class="text-muted ps-3">
+                  <li>Focus on question words</li>
+                  <li>Note keywords in dialogues</li>
+                  <li>Practice with accents</li>
+                </ul>
+              </div>
+            </div>
+          </div>
 
-    .card-hover-scale:hover,
-    .card-hover-scale:active {
-      transform: scale(1.05);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    }
-  </style>
+          <div class="col-md-4">
+            <div class="d-flex">
+              <div class="me-3">
+                <div class="rounded-circle d-flex align-items-center justify-content-center"
+                     style="background-color: #1E90FF; color: white; width: 48px; height: 48px;">
+                  <i class="fas fa-book-reader fs-5"></i>
+                </div>
+              </div>
+              <div>
+                <h5 class="fw-bold" style="color: #29335C;">Reading Section</h5>
+                <ul class="text-muted ps-3">
+                  <li>Skim passages first</li>
+                  <li>Watch for synonyms</li>
+                  <li>Manage time wisely</li>
+                </ul>
+              </div>
+            </div>
+          </div>
 
-
-
-{{-- Notification Section --}}
-<div class="mx-auto mt-5" style="max-width: 1140px;">
-  <div class="card border-0 shadow-sm">
-    <div class="card-header d-flex align-items-center" style="background-color: #29335C; color: white;">
-      <i class="bi bi-info-circle me-2 fs-5"></i>
-      <span>Notifikasi</span>
-    </div>
-    <ul class="list-group list-group-flush" 
-        style="max-height: 200px; overflow-y: auto;">
-      <li class="list-group-item">
-        <strong>Jadwal Periode Mei 2025</strong><br>
-        Mahasiswa yang telah mendaftar ujian TOEIC periode Mei 2025 diharapkan untuk memperhatikan jadwal pelaksanaan...
-      </li>
-      <li class="list-group-item">
-        <strong>Informasi Pengambilan Sertifikat</strong><br>
-        Bagi mahasiswa yang telah mengikuti ujian TOEIC periode April 2025 dapat mengambil sertifikat di Gedung A, Lantai 2...
-      </li>
-      <li class="list-group-item">
-        <strong>Pengumuman Libur Nasional</strong><br>
-        Perkuliahan dan ujian akan libur pada tanggal 17 Agustus 2025 sehubungan dengan Hari Kemerdekaan Republik Indonesia.
-      </li>
-      <li class="list-group-item">
-        <strong>Perubahan Jadwal Ujian</strong><br>
-        Ujian TOEIC untuk periode Juni 2025 akan dijadwalkan ulang ke tanggal 10 Juni 2025.
-      </li>
-      <li class="list-group-item">
-        <strong>Pemberitahuan Sistem</strong><br>
-        Sistem pendaftaran online akan mengalami maintenance pada tanggal 1 Mei 2025 pukul 22.00-24.00 WIB.
-      </li>
-    </ul>
-  </div>
-</div>
-
-
-  {{-- Quote Section --}}
-  <div class="d-flex justify-content-center my-5">
-    <div class="px-3 w-100" style="max-width: 1140px; display: flex; align-items: stretch;">
-      <div style="width: 6px; background-color: #29335C; border-radius: 6px 0 0 6px;"></div>
-      <div style="flex: 1; background-color: #ffffff; padding: 18px 24px; border-radius: 0 12px 12px 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);">
-        <p style="margin: 0; font-style: italic; font-size: 1rem; color: #000;">
-          "One language sets you in a corridor for life. Two languages open every door along the way."
-          <span style="font-style: normal;"> - Frank Smith</span>
-        </p>
+          <div class="col-md-4">
+            <div class="d-flex">
+              <div class="me-3">
+                <div class="rounded-circle d-flex align-items-center justify-content-center"
+                     style="background-color: #6A4C93; color: white; width: 48px; height: 48px;">
+                  <i class="fas fa-clock fs-5"></i>
+                </div>
+              </div>
+              <div>
+                <h5 class="fw-bold" style="color: #29335C;">Test Day</h5>
+                <ul class="text-muted ps-3">
+                  <li>Arrive early</li>
+                  <li>Bring required documents</li>
+                  <li>Stay calm and focused</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div> <!-- row -->
       </div>
     </div>
   </div>
+</div>
 
+    {{-- Motivational Quote --}}
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="p-4 rounded-3 animate__animated animate__fadeIn" style="background: linear-gradient(135deg, #29335C 0%, #1E4B8F 100%);">
+          <div class="text-center text-white py-3">
+            <i class="fas fa-quote-left fs-1 opacity-25 mb-3"></i>
+            <h3 class="fw-bold mb-3">"Success is the sum of small efforts, repeated day in and day out."</h3>
+            <p class="mb-0 fst-italic">- Robert Collier</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection

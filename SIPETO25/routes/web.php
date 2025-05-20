@@ -7,6 +7,7 @@ use App\Http\Controllers\UjianController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\CekDataController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,8 @@ Route::get('/', function () {
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+// Dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 // Admin Login (gunakan URL dengan /admin)
 Route::get('/admin/login', [LoginController::class, 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', [LoginController::class, 'login']);
@@ -42,11 +45,13 @@ Route::post('/admin/login', [LoginController::class, 'login']);
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('admin.register');
 // Menangani proses registrasi
 Route::post('/register', [RegisterController::class, 'register']);
-
+//   Route::get('/dashboard', [DashboardController::class, 'index'])
+//     ->middleware('auth') // Ganti dari 'auth:login'
+//     ->name('dashboard');
 
 
 // Halaman untuk Mahasiswa
-Route::middleware('auth:mahasiswa')->group(function () {
+// Route::middleware('auth:mahasiswa')->group(function () {
 
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -62,4 +67,4 @@ Route::middleware('auth:mahasiswa')->group(function () {
 
     // Pengajuan Surat
     Route::get('/pengajuan-surat', [SuratController::class, 'index'])->name('pengajuan.surat');
-});
+// });

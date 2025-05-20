@@ -44,6 +44,14 @@ return [
         'driver' => 'session',
         'provider' => 'mahasiswa_logins',
     ],
+    'login' => [ // custom guard
+        'driver' => 'session',
+        'provider' => 'login_users',
+    ],
+    'admin' => [
+        'driver' => 'session',
+        'provider' => 'admins',  // nama provider di bawah, bisa disesuaikan
+    ],
     ],
 
     /*
@@ -66,7 +74,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Login::class,
         ],
         'mahasiswa_logins' => [
             'driver' => 'eloquent',
@@ -76,6 +84,14 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        'login_users' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Login::class,
+    ],
+    'admins' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Admin::class,  // model admin (kalau ada)
+    ],
     ],
 
     /*
