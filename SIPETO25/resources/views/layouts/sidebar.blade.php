@@ -12,10 +12,9 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
                 @php
                     $menu = [
-                        ['label' => 'Beranda', 'icon' => 'fas fa-th-large', 'route' => '/dashboard', 'key' => 'dashboard'
-                        // , 'submenu' => [
-                        //     ['label' => 'Pesan', 'icon' => 'fas fa-bell', 'route' => '/dashboard/pesan', 'key' => 'dashboard-pesan'],
-                        // ]
+                        ['label' => 'Beranda', 'icon' => 'fas fa-th-large', 'route' => '/dashboard', 'key' => 'dashboard', 'submenu' => [
+                             ['label' => 'Pesan', 'icon' => 'fas fa-bell', 'route' => '/dashboard/pesan', 'key' => 'dashboard-pesan'],
+                         ] //bagian ini nir, gatau gimana
                         ],
                         ['label' => 'Daftar Ujian', 'icon' => 'fas fa-pencil-alt', 'key' => 'daftar-ujian', 'submenu' => [
                             ['label' => 'Gratis', 'icon' => 'fas fa-receipt', 'route' => '/daftar-ujian/gratis', 'key' => 'daftar-ujian-gratis'],
