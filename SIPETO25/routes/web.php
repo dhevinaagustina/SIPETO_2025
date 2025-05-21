@@ -19,9 +19,13 @@ Route::get('/', function () {
     return view('landing.index');
 })->name('landing');
 
+<<<<<<< HEAD
 // =======================
 // Auth (Login)
 // =======================
+=======
+
+>>>>>>> e65c9c46e5feeb20e15245883b80076e577a6f1e
 
 // Login
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
