@@ -2,15 +2,26 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Mahasiswa extends Model
+class Mahasiswa extends Authenticatable
 {
-    protected $table = 'mahasiswa'; // sesuaikan dengan nama tabel aslinya
-    protected $primaryKey = 'nim';
-    public $timestamps = false;
+    use Notifiable;
+
+    protected $table = 'mahasiswa';
+    protected $primaryKey = 'id_mahasiswa';
+    public $timestamps = true;
 
     protected $fillable = [
-        'nim', 'nama', 'jurusan', 'prodi'
+        'username', 'password', // pastikan ini ada di tabel
     ];
+
+    protected $hidden = ['password'];
+
+    public function getAuthIdentifierName()
+    {
+        return 'username';
+    }
 }
+

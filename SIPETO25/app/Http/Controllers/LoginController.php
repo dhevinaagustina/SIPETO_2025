@@ -4,55 +4,57 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
-    /**
-     * Tampilkan form login
-     */
-    public function showLoginForm(Request $request)
+    public function showLoginForm()
     {
         return view('auth.login');
     }
 
-    /**
-     * Proses login
-     */
     public function login(Request $request)
     {
-        // Validasi input
+        // Validasi form
         $request->validate([
             'username' => 'required',
             'password' => 'required',
         ]);
 
-        // Ambil data user dari tabel login
-        $user = DB::table('login')->where('username', $request->username)->first();
+        $username = $request->username;
+        $password = $request->password;
 
-        // Cek user dan password
-        if ($user && Hash::check($request->password, $user->password)) {
-            // Simpan data ke session manual
+        // Coba cari di tabel admin
+        $admin = DB::table('admin_upa')->where('username', $username)->first();
+
+        if ($admin && $password === $admin->password) {
             session([
-            'login_username' => $user->username,
-            'tipe_user' => $user->tipe_user,
-            'id_referensi' => $user->id_referensi,
+                'login_username' => $admin->username,
+                'tipe_user' => 'admin',
+                'id_referensi' => $admin->id_admin,
             ]);
             return redirect('/dashboard');
         }
 
-        // Jika gagal login
+        // Jika tidak ada di admin, coba cari di mahasiswa
+        $mahasiswa = DB::table('mahasiswa')->where('username', $username)->first();
+
+        if ($mahasiswa && $password === $mahasiswa->password) {
+            session([
+                'login_username' => $mahasiswa->username,
+                'tipe_user' => 'mahasiswa',
+                'id_referensi' => $mahasiswa->id_mahasiswa,
+            ]);
+            return redirect('/dashboard');
+        }
+
+        // Jika tidak ditemukan di keduanya
         return back()->withErrors([
             'username' => 'Username atau password salah.',
         ])->withInput();
     }
 
-    /**
-     * Logout
-     */
     public function logout(Request $request)
     {
-        // Hapus session
         $request->session()->flush();
         $request->session()->regenerateToken();
 

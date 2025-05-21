@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,23 +8,19 @@ class Admin extends Authenticatable
 {
     use Notifiable;
 
-    protected $guard = 'admin';
-
-    protected $table = 'admin_upa';          // tabel sesuai DB
-    protected $primaryKey = 'id_admin';      // primary key sesuai DB
+    protected $table = 'admin';
+    protected $primaryKey = 'id_admin';
     public $timestamps = true;
 
     protected $fillable = [
-        'nama_admin', 'username', 'nip', 'email', 'password',
+        'username', 'password',
     ];
 
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $hidden = ['password'];
 
-    // Auto-hash password saat set password
-    public function setPasswordAttribute($password)
+    public function getAuthIdentifierName()
     {
-        $this->attributes['password'] = bcrypt($password);
+        return 'username';
     }
 }
+
