@@ -7,7 +7,7 @@
             </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <span class="h5 font-weight-bold mb-0 ml-2">Beranda</span>
+            <span class="h5 font-weight-bold mb-0 ml-2">Sistem Informasi Pendaftaran TOEIC</span>
         </li>
     </ul>
 
