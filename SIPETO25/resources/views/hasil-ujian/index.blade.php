@@ -1,4 +1,4 @@
-@extends('layouts.template') {{-- sesuaikan dengan nama layout kamu --}}
+@extends('layouts-mahasiswa.template') {{-- sesuaikan dengan nama layout kamu --}}
 
 @section('content')
 <style>

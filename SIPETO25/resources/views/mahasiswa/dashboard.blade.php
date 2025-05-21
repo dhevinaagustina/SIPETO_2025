@@ -1,4 +1,4 @@
-@extends('layouts.template')
+@extends('layouts-mahasiswa.template')
 
 @section('content')
 <div class="container-fluid py-4" style="background-color: #F8FAFC; min-height: 100vh;">

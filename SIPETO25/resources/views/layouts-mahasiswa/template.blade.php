@@ -24,7 +24,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
 <!--Navbar-->
-@include('layouts.header')
+@include('layouts-mahasiswa.header')
 <!-- /.navbar -->
 
 <!-- Main Sidebar Container -->
@@ -36,14 +36,14 @@
     </a> --}}
 
 <!--Sidebar-->
-@include('layouts.sidebar')
+@include('layouts-mahasiswa.sidebar')
 <!-- /.sidebar -->
 </aside>
   
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    @include('layouts.breadcrumb')
+    @include('layouts-mahasiswa.breadcrumb')
 
     <!-- Main content -->
     <section class="content">
@@ -53,7 +53,7 @@
   </div>
   <!-- /.content-wrapper -->
 
-@include('layouts.footer')
+@include('layouts-mahasiswa.footer')
 </div>
 <!-- ./wrapper -->
 
