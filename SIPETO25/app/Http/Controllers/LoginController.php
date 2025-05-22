@@ -32,7 +32,7 @@ class LoginController extends Controller
                 'tipe_user' => 'admin',
                 'id_referensi' => $admin->id_admin,
             ]);
-            return redirect('/dashboard');
+            return redirect('/dashboard/beranda-admin');
         }
 
         // Jika tidak ada di admin, coba cari di mahasiswa
@@ -44,7 +44,7 @@ class LoginController extends Controller
                 'tipe_user' => 'mahasiswa',
                 'id_referensi' => $mahasiswa->id_mahasiswa,
             ]);
-            return redirect('/dashboard');
+            return redirect('/dashboard/beranda-mahasiswa');
         }
 
         // Jika tidak ditemukan di keduanya
