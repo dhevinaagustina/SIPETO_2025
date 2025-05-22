@@ -13,7 +13,7 @@ class DashboardController extends Controller
             "list" => ['Home', 'Welcome']
         ];
     
-        $activeMenu = "dashboard";
+        $activeMenu = "dashboard-beranda";
     
         return view('mahasiswa.dashboard', [ 
             'breadcrumb' => $breadcrumb,

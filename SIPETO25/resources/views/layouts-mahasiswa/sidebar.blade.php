@@ -12,10 +12,10 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
                 @php
                     $menu = [
-                        ['label' => 'Beranda', 'icon' => 'fas fa-th-large', 'route' => '/dashboard', 'key' => 'dashboard', 'submenu' => [
-                             ['label' => 'Pesan', 'icon' => 'fas fa-bell', 'route' => '/dashboard/pesan', 'key' => 'dashboard-pesan'],
-                         ] //bagian ini nir, gatau gimana
-                        ],
+                        ['label' => 'Dashboard', 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
+                            ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => '/dashboard/beranda', 'key' => 'dashboard-beranda'],
+                            ['label' => 'Pesan', 'icon' => 'fas fa-bell', 'route' => '/dashboard/pesan', 'key' => 'dashboard-pesan'],
+                        ]],
                         ['label' => 'Daftar Ujian', 'icon' => 'fas fa-pencil-alt', 'key' => 'daftar-ujian', 'submenu' => [
                             ['label' => 'Gratis', 'icon' => 'fas fa-receipt', 'route' => '/daftar-ujian/gratis', 'key' => 'daftar-ujian-gratis'],
                             ['label' => 'Mandiri', 'icon' => 'fas fa-dollar-sign', 'route' => '/daftar-ujian/mandiri', 'key' => 'daftar-ujian-mandiri'],
@@ -24,12 +24,22 @@
                         ['label' => 'Riwayat Ujian', 'icon' => 'fas fa-clock', 'route' => '/riwayat-ujian', 'key' => 'riwayat-ujian'],
                         ['label' => 'Pengajuan Surat', 'icon' => 'fas fa-pen-fancy', 'route' => '/pengajuan-surat', 'key' => 'pengajuan-surat'],
                     ];
+                    
+                    // Function to check if any submenu item is active
+                    function isSubmenuActive($submenu, $activeMenu) {
+                        foreach ($submenu as $item) {
+                            if ($activeMenu == $item['key']) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
                 @endphp
 
                 @foreach ($menu as $item)
-                    <li class="nav-item mb-2 {{ isset($item['submenu']) ? 'has-treeview' : '' }}">
+                    <li class="nav-item mb-2 {{ isset($item['submenu']) ? 'has-treeview' : '' }} {{ isset($item['submenu']) && isSubmenuActive($item['submenu'], $activeMenu) ? 'menu-open' : '' }}">
                         @if (isset($item['submenu']))
-                            <a href="#" class="nav-link sidebar-button {{ str_starts_with($activeMenu, $item['key']) ? 'active' : '' }}">
+                            <a href="#" class="nav-link sidebar-button {{ isSubmenuActive($item['submenu'], $activeMenu) ? 'active-parent' : '' }}">
                                 <i class="{{ $item['icon'] }} nav-icon me-2"></i>
                                 <span>{{ $item['label'] }}</span>
                                 <i class="right fas fa-angle-down ms-auto"></i>
@@ -76,14 +86,19 @@
     margin: 0 auto 10px auto;
 }
 
-.sidebar .nav-link.active {
+/* Parent menu when child is active */
+.nav-item.menu-open > .nav-link {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+}
+
+/* Active menu items (both parent and child) */
+.sidebar-button.active,
+.nav-treeview .nav-link.active {
     background-color: #ffffff !important;
-    color: #242E58 !important;
+    color: #29335C !important;
     font-weight: 600;
     border-radius: 8px;
-}
-.sidebar .nav-link.active i {
-    color: #242E58 !important;
 }
 
 .sidebar-button {
@@ -99,13 +114,8 @@
     background-color: rgba(255, 255, 255, 0.1);
     transform: translateX(4px);
 }
-.sidebar-button.active {
-    background-color: #ffffff;
-    color: #29335C;
-    font-weight: bold;
-}
 .sidebar-button.active .nav-icon {
-    color: #29335C;
+    color: #29335C !important;
 }
 
 .nav-icon {
@@ -120,10 +130,5 @@
     font-size: 14px;
     padding-left: 35px;
     background-color: transparent !important;
-}
-.nav-treeview .nav-link.active {
-    background-color: #ffffff !important;
-    color: #29335C !important;
-    font-weight: 600;
 }
 </style>

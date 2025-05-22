@@ -55,7 +55,7 @@
                     <th>Nilai Listening</th>
                     <th>Nilai Reading</th>
                     <th>Total</th>
-                    <th>Status</th>
+                    <th>Status Mendaftar</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,7 +65,7 @@
                     <td>240</td>
                     <td>220</td>
                     <td>460</td>
-                    <td>Gagal</td>
+                    <td>Gratis</td>
                 </tr>
                 <tr>
                     <td>12051225</td>
@@ -73,7 +73,7 @@
                     <td>480</td>
                     <td>375</td>
                     <td>855</td>
-                    <td>Berhasil</td>
+                    <td>Mandiri</td>
                 </tr>
             </tbody>
         </table>
