@@ -23,6 +23,7 @@ class Mahasiswa extends Authenticatable
     {
         return 'id_mahasiswa';
     }
+    
 
     
 }
