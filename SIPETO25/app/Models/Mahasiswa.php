@@ -21,7 +21,9 @@ class Mahasiswa extends Authenticatable
 
     public function getAuthIdentifierName()
     {
-        return 'username';
+        return 'id_mahasiswa';
     }
+
+    
 }
 

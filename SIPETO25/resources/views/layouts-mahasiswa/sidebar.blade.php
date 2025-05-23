@@ -17,8 +17,8 @@
                          ] //bagian ini nir, gatau gimana
                         ],
                         ['label' => 'Daftar Ujian', 'icon' => 'fas fa-pencil-alt', 'key' => 'daftar-ujian', 'submenu' => [
-                            ['label' => 'Gratis', 'icon' => 'fas fa-receipt', 'route' => '/daftar-ujian/gratis', 'key' => 'daftar-ujian-gratis'],
-                            ['label' => 'Mandiri', 'icon' => 'fas fa-dollar-sign', 'route' => '/daftar-ujian/mandiri', 'key' => 'daftar-ujian-mandiri'],
+                            ['label' => 'Gratis', 'icon' => 'fas fa-receipt', 'route' => '/pendaftaran-toeic/gratis', 'key' => 'daftar-ujian-gratis'],
+                            ['label' => 'Mandiri', 'icon' => 'fas fa-dollar-sign', 'route' => '/pendaftaran-toeic/mandiri', 'key' => 'daftar-ujian-mandiri'],
                         ]],
                         ['label' => 'Hasil Ujian', 'icon' => 'fas fa-calendar-alt', 'route' => '/hasil-ujian', 'key' => 'hasil-ujian'],
                         ['label' => 'Riwayat Ujian', 'icon' => 'fas fa-clock', 'route' => '/riwayat-ujian', 'key' => 'riwayat-ujian'],
