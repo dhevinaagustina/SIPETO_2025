@@ -37,6 +37,7 @@ Route::prefix('admin')->group(function () {
 // =======================
 // Mahasiswa Routes (Protected)
 // =======================
+
 Route::middleware(['auth:mahasiswa'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/hasil-ujian', [UjianController::class, 'hasil'])->name('hasil.ujian');

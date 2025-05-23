@@ -248,11 +248,13 @@
           <div class="col-md-6">
             <select class="form-control">
               <option value="">Filter Jurusan</option>
-              <option>Teknologi Informasi</option>
+              <option>Teknik Kimia</option>
               <option>Teknik Elektro</option>
+              <option>Akuntansi</option>
+              <option>Administrasi Niaga</option>
+              <option>Teknik Sipil</option>
+              <option>Teknologi Informasi</option>
               <option>Teknik Mesin</option>
-              <option>Akutansi</option>
-              <option>Adminitrasi Niaga</option>
             </select>
           </div>
           <div class="col-md-6">

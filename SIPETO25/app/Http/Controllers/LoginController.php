@@ -30,11 +30,13 @@ class LoginController extends Controller
             Auth::guard('admin')->login($admin);
             session(['guard' => 'admin']);
             return redirect('/admin/dashboard');
+
         }
 
         // Cek sebagai Mahasiswa
         $mahasiswa = Mahasiswa::where('username', $username)->first();
         if ($mahasiswa && $password === $mahasiswa->password) {
+
             Auth::guard('mahasiswa')->login($mahasiswa);
             session(['guard' => 'mahasiswa']);
             return redirect('/dashboard');
