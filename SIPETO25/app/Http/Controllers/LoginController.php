@@ -39,7 +39,7 @@ class LoginController extends Controller
 
             Auth::guard('mahasiswa')->login($mahasiswa);
             session(['guard' => 'mahasiswa']);
-            return redirect('/dashboard');
+            return redirect('/dashboard/beranda');
         }
 
         return back()->withErrors([

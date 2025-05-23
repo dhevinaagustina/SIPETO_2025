@@ -106,7 +106,7 @@ class PendaftaranToeicController extends Controller
             'tanggal_daftar'    => now(),
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'Pendaftaran TOEIC gratis berhasil!');
+        return redirect()->route('dashboard/beranda')->with('success', 'Pendaftaran TOEIC gratis berhasil!');
     }
 
         public function createMandiri()

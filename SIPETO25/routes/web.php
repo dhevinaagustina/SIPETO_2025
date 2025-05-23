@@ -43,7 +43,7 @@ Route::prefix('admin')->group(function () {
 // =======================
 
 Route::middleware(['auth:mahasiswa'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/beranda', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/hasil-ujian', [UjianController::class, 'hasil'])->name('hasil.ujian');
     Route::get('/riwayat-ujian', [UjianController::class, 'riwayat'])->name('riwayat.ujian');
     Route::get('/pengajuan-surat', [SuratController::class, 'index'])->name('pengajuan.surat');
