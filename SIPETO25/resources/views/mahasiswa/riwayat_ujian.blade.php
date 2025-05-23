@@ -12,16 +12,6 @@
         cursor: pointer;
     }
 
-    .badge-success {
-        background-color: #4CAF50;
-        font-weight: 600;
-    }
-
-    .badge-danger {
-        background-color: #E53935;
-        font-weight: 600;
-    }
-
     /* Melebarkan tabel */
     .custom-table-wrapper {
         width: 100%;
@@ -39,9 +29,40 @@
         vertical-align: middle !important;
     }
 
-    h3 {
-        color: #29335C;
-        font-weight: 700;
+    .status-badge {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 16px;
+        font-size: 14px;
+        font-weight: 500;
+        color: white;
+        text-align: center;
+        min-width: 80px;
+    }
+
+    .badge-gratis {
+        background-color: #4CAF50; /* Hijau */
+    }
+
+    .badge-mandiri {
+        background-color: #2196F3; /* Biru */
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .custom-table-wrapper {
+            padding: 0 10px;
+        }
+        
+        th, td {
+            padding: 10px 12px !important;
+        }
+        
+        .status-badge {
+            padding: 4px 8px;
+            min-width: 70px;
+            font-size: 12px;
+        }
     }
 </style>
 
@@ -52,29 +73,29 @@
                 <tr>
                     <th>ID Ujian</th>
                     <th>Tanggal Ujian</th>
-                    <th>Nilai Listening</th>
-                    <th>Nilai Reading</th>
-                    <th>Total</th>
                     <th>Status Mendaftar</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>12050725</td>
-                    <td>7 Mei 2025</td>
-                    <td>240</td>
-                    <td>220</td>
-                    <td>460</td>
-                    <td>Gratis</td>
-                </tr>
-                <tr>
-                    <td>12051225</td>
-                    <td>12 Mei 2025</td>
-                    <td>480</td>
-                    <td>375</td>
-                    <td>855</td>
-                    <td>Mandiri</td>
-                </tr>
+                @forelse($riwayatUjian as $riwayat)
+                    <tr>
+                        <td>{{ $riwayat->id_ujian }}</td>
+                        <td>{{ \Carbon\Carbon::parse($riwayat->tanggal_ujian)->format('d M Y') }}</td>
+                        <td>
+                            @if($riwayat->jenis_pendaftaran == 'gratis')
+                                <span class="status-badge badge-gratis">Gratis</span>
+                            @else
+                                <span class="status-badge badge-mandiri">Mandiri</span>
+                            @endif
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-muted py-4">
+                            <i class="fas fa-info-circle mr-2"></i>Belum ada data riwayat ujian
+                        </td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
