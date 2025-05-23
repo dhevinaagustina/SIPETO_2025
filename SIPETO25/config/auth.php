@@ -36,23 +36,27 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'admin' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'admins',
         ],
         'mahasiswa' => [
-        'driver' => 'session',
-        'provider' => 'mahasiswa_logins',
+            'driver' => 'session',
+            'provider' => 'mahasiswas',
+        ],
     ],
-    'login' => [ // custom guard
-        'driver' => 'session',
-        'provider' => 'login_users',
+
+    'providers' => [
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+        'mahasiswas' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Mahasiswa::class,
+        ],
     ],
-    'admin' => [
-        'driver' => 'session',
-        'provider' => 'admins',  // nama provider di bawah, bisa disesuaikan
-    ],
-    ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -72,9 +76,9 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'mahasiswas' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Login::class,
+            'model' => App\Models\Mahasiswa::class,
         ],
         'mahasiswa_logins' => [
             'driver' => 'eloquent',

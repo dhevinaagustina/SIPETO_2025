@@ -21,4 +21,10 @@ class Mahasiswa extends Model
         'kampus',
         'status_ujian',
     ];
+    protected $hidden = ['password'];
+
+    public function getAuthIdentifierName()
+    {
+        return 'id_mahasiswa';
+    }
 }
