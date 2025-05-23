@@ -109,7 +109,7 @@ class PendaftaranToeicController extends Controller
         return redirect()->route('dashboard')->with('success', 'Pendaftaran TOEIC gratis berhasil!');
     }
 
-    public function createMandiri()
+        public function createMandiri()
     {
         $idMahasiswa = Auth::guard('mahasiswa')->id();
 
@@ -117,9 +117,10 @@ class PendaftaranToeicController extends Controller
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
-        $sudahDaftarMandiri = PendaftaranToeic::where('id_mahasiswa', $idMahasiswa)
+        // Hitung jumlah pendaftaran mandiri yang sudah dilakukan
+        $jumlahPendaftaranMandiri = PendaftaranToeic::where('id_mahasiswa', $idMahasiswa)
             ->where('tipe_ujian', 'mandiri')
-            ->exists();
+            ->count();
 
         return view('pendaftaran.form_mandiri', [
             'activeMenu' => 'pendaftaran-toeic/mandiri',
@@ -127,10 +128,11 @@ class PendaftaranToeicController extends Controller
                 'title' => 'Pendaftaran TOEIC Mandiri',
                 'list'  => ['Dashboard', 'Pendaftaran TOEIC Mandiri']
             ]),
-            'sudahDaftarMandiri' => $sudahDaftarMandiri,
+            'jumlahPendaftaranMandiri' => $jumlahPendaftaranMandiri,
             'urlItc' => 'https://itc-indonesia.com/contact-us-2/', 
         ]);
     }
+
 
     public function storeMandiri()
     {
