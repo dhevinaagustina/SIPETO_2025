@@ -7,6 +7,7 @@ use App\Http\Controllers\UjianController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CekDataController;
+use App\Http\Controllers\PendaftaranToeicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,31 +21,39 @@ Route::get('/', function () {
 })->name('landing');
 
 // =======================
-// Auth (Login)
+// Auth (Login & Logout)
 // =======================
 
-// Login
+// Login Mahasiswa
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Admin Login
+// Login Admin
 Route::prefix('admin')->group(function () {
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('admin.login');
-    Route::post('/login', [LoginController::class, 'login']);
+    Route::get('/login', [LoginController::class, 'showAdminLoginForm'])->name('admin.login');
+    Route::post('/login', [LoginController::class, 'loginAdmin']);
 });
-
 // =======================
-// Mahasiswa Routes
+// Mahasiswa Routes (Protected)
 // =======================
 
-Route::middleware([])->group(function () {
-    Route::get('/dashboard/beranda-mahasiswa', [DashboardController::class, 'index'])->name('dashboard-beranda');
-    Route::get('/daftar-ujian', [UjianController::class, 'daftar'])->name('daftar.ujian');
+Route::middleware(['auth:mahasiswa'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/hasil-ujian', [UjianController::class, 'hasil'])->name('hasil.ujian');
     Route::get('/riwayat-ujian', [UjianController::class, 'riwayat'])->name('riwayat.ujian');
     Route::get('/pengajuan-surat', [SuratController::class, 'index'])->name('pengajuan.surat');
+    
+    Route::get('/pendaftaran-toeic/gratis', [PendaftaranToeicController::class, 'create'])->name('pendaftaran.create');
+    Route::post('/pendaftaran-toeic/gratis', [PendaftaranToeicController::class, 'store'])->name('pendaftaran.store');
+
+    Route::get('/pendaftaran-toeic/mandiri', [PendaftaranToeicController::class, 'createMandiri'])->name('pendaftaran-toeic/mandiri.create');
+    Route::post('/pendaftaran-toeic/mandiri', [PendaftaranToeicController::class, 'storeMandiri'])->name('pendaftaran-toeic/mandiri.store');
+
 });
+
+
+
 
 // =======================
 // Admin Routes

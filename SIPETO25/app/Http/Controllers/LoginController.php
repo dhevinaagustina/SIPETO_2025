@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Mahasiswa;
+use App\Models\Admin;
 
 class LoginController extends Controller
 {
@@ -14,7 +16,6 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        // Validasi form
         $request->validate([
             'username' => 'required',
             'password' => 'required',
@@ -23,31 +24,24 @@ class LoginController extends Controller
         $username = $request->username;
         $password = $request->password;
 
-        // Coba cari di tabel admin
-        $admin = DB::table('admin_upa')->where('username', $username)->first();
-
+        // Cek sebagai Admin
+        $admin = Admin::where('username', $username)->first();
         if ($admin && $password === $admin->password) {
-            session([
-                'login_username' => $admin->username,
-                'tipe_user' => 'admin',
-                'id_referensi' => $admin->id_admin,
-            ]);
-            return redirect('/dashboard/beranda-admin');
+            Auth::guard('admin')->login($admin);
+            session(['guard' => 'admin']);
+            return redirect('/admin/dashboard');
+
         }
 
-        // Jika tidak ada di admin, coba cari di mahasiswa
-        $mahasiswa = DB::table('mahasiswa')->where('username', $username)->first();
-
+        // Cek sebagai Mahasiswa
+        $mahasiswa = Mahasiswa::where('username', $username)->first();
         if ($mahasiswa && $password === $mahasiswa->password) {
-            session([
-                'login_username' => $mahasiswa->username,
-                'tipe_user' => 'mahasiswa',
-                'id_referensi' => $mahasiswa->id_mahasiswa,
-            ]);
-            return redirect('/dashboard/beranda-mahasiswa');
+
+            Auth::guard('mahasiswa')->login($mahasiswa);
+            session(['guard' => 'mahasiswa']);
+            return redirect('/dashboard');
         }
 
-        // Jika tidak ditemukan di keduanya
         return back()->withErrors([
             'username' => 'Username atau password salah.',
         ])->withInput();
@@ -55,7 +49,10 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        $request->session()->flush();
+        $guard = session('guard', 'web');
+        Auth::guard($guard)->logout();
+
+        $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return redirect('/login');
