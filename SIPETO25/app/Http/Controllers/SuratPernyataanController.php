@@ -26,8 +26,8 @@ class SuratPernyataanController extends Controller
             'sudahMengajukan'     => $daftarSurat->isNotEmpty(),
             'activeMenu'          => 'surat_pernyataan',
             'breadcrumb'          => new Fluent([
-                'title' => 'Pengajuan Surat',
-                'list'  => ['Dashboard', 'Pengajuan Surat']
+                'title' => 'Pengajuan Surat Pernyataan',
+                'list'  => ['Pengajuan Surat']
             ]),
         ]);
     }
