@@ -313,42 +313,120 @@
         }
     }
 </style>
+@endsection
+
+@push('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Function to handle file upload preview and info
+        // --- Flash Success Message (dari session flash Laravel) ---
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session("success") }}',
+            });
+        @endif
+
+        // --- File Preview Functions ---
+        function handleFilePreview(input, preview, info) {
+            preview.innerHTML = '';
+            info.textContent = 'Tidak ada file yang dipilih';
+            
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                info.textContent = file.name;
+                
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        preview.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.innerHTML = '<span class="file-upload-placeholder">File PDF</span>';
+                }
+            }
+        }
+
         function setupFileUpload(inputId, previewId, infoSelector) {
             const input = document.getElementById(inputId);
             const preview = document.getElementById(previewId);
             const info = document.querySelector(infoSelector);
             
-            input.addEventListener('change', function(e) {
-                preview.innerHTML = '';
-                info.textContent = 'Tidak ada file yang dipilih';
-                
-                if (this.files && this.files[0]) {
-                    const file = this.files[0];
-                    info.textContent = file.name;
-                    
-                    if (file.type.match('image.*')) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const img = document.createElement('img');
-                            img.src = e.target.result;
-                            preview.appendChild(img);
-                        }
-                        reader.readAsDataURL(file);
-                    } else {
-                        preview.innerHTML = '<span class="file-upload-placeholder">File PDF</span>';
-                    }
+            if (input && preview && info) {
+                input.addEventListener('change', () => handleFilePreview(input, preview, info));
+            }
+        }
+
+        // --- Form Submission with Pre-check using AJAX ---
+        function handleFormSubmission(e) {
+            e.preventDefault();
+            const form = e.target;
+            const submitButton = form.querySelector('button[type="submit"]');
+            
+            if (!submitButton) return;
+
+            submitButton.disabled = true;
+            submitButton.innerHTML = 'Memproses...';
+
+            fetch('{{ route("pendaftaran.cek") }}', {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json',
                 }
+            })
+            .then(response => {
+                if (!response.ok) throw new Error(response.statusText);
+                return response.json();
+            })
+            .then(data => {
+                if (data.sudah_mendaftar) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Pendaftaran Gagal',
+                        text: 'Anda sudah pernah mendaftar TOEIC gratis.',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.reload(); // reload setelah user klik OK
+                    });
+                } else {
+                    form.removeEventListener('submit', handleFormSubmission); // Hindari loop submit
+                    form.submit(); // Submit asli
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Terjadi Kesalahan',
+                    text: 'Silakan coba lagi beberapa saat lagi.',
+                });
+            })
+            .finally(() => {
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Daftar';
             });
         }
-        
-        // Setup for each file upload
-        setupFileUpload('scan_ktp', 'ktp-preview', '.file-upload-group:nth-child(1) .file-upload-info');
-        setupFileUpload('scan_ktm', 'ktm-preview', '.file-upload-group:nth-child(2) .file-upload-info');
-        setupFileUpload('pas_foto', 'foto-preview', '.file-upload-group:nth-child(3) .file-upload-info');
+
+        // --- Init file upload preview ---
+        [
+            ['scan_ktp', 'ktp-preview', '.file-upload-group:nth-child(1) .file-upload-info'],
+            ['scan_ktm', 'ktm-preview', '.file-upload-group:nth-child(2) .file-upload-info'],
+            ['pas_foto', 'foto-preview', '.file-upload-group:nth-child(3) .file-upload-info']
+        ].forEach(([id, preview, info]) => setupFileUpload(id, preview, info));
+
+        // --- Attach custom submission handler ---
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', handleFormSubmission);
+        }
     });
 </script>
-@endsection
+
+
+@endpush
