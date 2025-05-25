@@ -583,6 +583,4 @@
         }
     });
 </script>
-
-
 @endpush

@@ -24,6 +24,14 @@ class PendaftaranToeicController extends Controller
             ->where('tipe_ujian', 'gratis')
             ->exists();
 
+        // Ambil data pendaftaran jika sudah mendaftar
+        $pendaftaran = null;
+        if ($sudahDaftarGratis) {
+            $pendaftaran = PendaftaranToeic::where('id_mahasiswa', $idMahasiswa)
+                ->where('tipe_ujian', 'gratis')
+                ->first();
+        }
+
         return view('pendaftaran.form', [
             'activeMenu' => 'pendaftaran-toeic',
             'breadcrumb' => new Fluent([
@@ -32,6 +40,7 @@ class PendaftaranToeicController extends Controller
             ]),
             'kampusList' => Kampus::pluck('nama')->toArray(),
             'sudahDaftarGratis' => $sudahDaftarGratis,
+            'pendaftaran' => $pendaftaran
         ]);
     }
 
