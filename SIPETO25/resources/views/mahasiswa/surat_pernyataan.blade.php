@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h4 class="mb-0">Pengajuan Surat Pernyataan</h4>
+        <h4 class="mb-0">Daftar Pengajuan</h4>
         <button id="btnCekAjukan" class="btn btn-primary">Ajukan</button>
     </div>
 
@@ -58,6 +58,13 @@
         </div>
     </div>
 </div>
+
+<style>
+    .btn-primary {
+        background-color: #29335C;
+        border-color: #29335C;
+    }
+</style>
 @endsection
 
 @push('js')

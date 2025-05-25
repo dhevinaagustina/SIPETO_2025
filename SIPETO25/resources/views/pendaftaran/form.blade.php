@@ -3,13 +3,57 @@
 @section('content')
 <div class="container">
     @if($sudahDaftarGratis)
-        <div class="alert alert-warning">
-            Anda sudah pernah mendaftar ujian TOEIC gratis.
-        </div>
-        <div class="text-center">
-            <a href="{{ route('pendaftaran-toeic/mandiri.create') }}" class="btn btn-primary">
-                Daftar TOEIC Mandiri
-            </a>
+        <div class="registration-complete-container">
+            <div class="success-header">
+                <div class="icon-container">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="#28a745" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </svg>
+                </div>
+                <h2>Pendaftaran TOEIC Gratis Berhasil!</h2>
+                <p class="text-muted">Anda sudah terdaftar untuk ujian TOEIC gratis</p>
+            </div>
+
+            <div class="registration-details">
+                <div class="detail-card">
+                    <h4>Informasi Pendaftaran</h4>
+                    <div class="detail-item">
+                        <span class="detail-label">Status Pendaftaran:</span>
+                        <span class="detail-value badge badge-success">Terverifikasi</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Tanggal Pendaftaran:</span>
+                        <span class="detail-value">{{ \Carbon\Carbon::parse($pendaftaran->tanggal_daftar)->translatedFormat('j F Y') }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Jenis Ujian:</span>
+                        <span class="detail-value">TOEIC Gratis</span>
+                    </div>
+                </div>
+
+                <div class="action-section">
+                    <div class="next-steps">
+                        <h4>Langkah Selanjutnya</h4>
+                        <ul>
+                            <li>Tunggu informasi jadwal ujian</li>
+                            <li>Persiapkan diri dengan materi TOEIC</li>
+                            <li>Pastikan datang tepat waktu saat hari ujian</li>
+                        </ul>
+                    </div>
+
+                    <div class="alternative-actions">
+                        <h4>Ujian TOEIC Mandiri</h4>
+                        <p>Anda hanya dapat mendaftar ujian gratis satu kali, daftar ujian mandiri untuk lanjut.</p>
+                        <a href="{{ route('pendaftaran-toeic/mandiri.create') }}" class="btn btn-primary btn-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                            </svg>
+                            Daftar TOEIC Mandiri
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     @else
         <form method="POST" action="{{ route('pendaftaran.store') }}" enctype="multipart/form-data" class="form-container">
@@ -187,6 +231,118 @@
 </div>
 
 <style>
+    .registration-complete-container {
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .success-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .icon-container {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        background-color: #e8f5e9;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .registration-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .detail-card {
+        flex: 1;
+        min-width: 300px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        border-left: 4px solid #29335C;
+    }
+
+    .detail-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px dashed #ddd;
+    }
+
+    .detail-label {
+        font-weight: 600;
+        color: #555;
+    }
+
+    .detail-value {
+        text-align: right;
+    }
+
+    .action-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .next-steps, .alternative-actions {
+        flex: 1;
+        min-width: 300px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+    }
+
+    .next-steps ul {
+        padding-left: 20px;
+    }
+
+    .next-steps li {
+        margin-bottom: 8px;
+    }
+
+    .alternative-actions {
+        border: 1px solid #29335C;
+    }
+
+    .btn-primary {
+        background-color: #29335C;
+        border-color: #29335C;
+        margin-top: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .btn-primary:hover {
+        background-color: #1a2238;
+        border-color: #1a2238;
+    }
+
+    @media (max-width: 768px) {
+        .registration-complete-container {
+            padding: 20px;
+        }
+        
+        .detail-card, .next-steps, .alternative-actions {
+            min-width: 100%;
+        }
+    }
+
     .form-container {
         max-width: 1200px;
         margin: 0 auto;
