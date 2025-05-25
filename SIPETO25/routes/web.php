@@ -41,15 +41,24 @@ Route::prefix('admin')->group(function () {
 // Mahasiswa Routes (Protected)
 // =======================
 Route::middleware(['auth:mahasiswa'])->group(function () {
-    Route::get('/dashboard/beranda', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/beranda', [DashboardController::class, 'index'])->name('dashboard.beranda');
     Route::get('/hasil-ujian', [UjianController::class, 'hasil'])->name('hasil.ujian');
     Route::get('/riwayat-ujian', [UjianController::class, 'riwayat'])->name('riwayat.ujian');
 
-    Route::get('/pendaftaran-toeic/gratis', [PendaftaranToeicController::class, 'create'])->name('pendaftaran.create');
-    Route::post('/pendaftaran-toeic/gratis', [PendaftaranToeicController::class, 'store'])->name('pendaftaran.store');
+    // TOEIC Gratis
+    Route::get('/pendaftaran-toeic/gratis', [PendaftaranToeicController::class, 'create'])
+        ->name('pendaftaran.create');
+    Route::post('/pendaftaran-toeic/gratis', [PendaftaranToeicController::class, 'store'])
+        ->name('pendaftaran.store');
+    Route::get('/pendaftaran-toeic/cek', [PendaftaranToeicController::class, 'cekGratis'])
+        ->name('pendaftaran.cek');
+    
 
-    Route::get('/pendaftaran-toeic/mandiri', [PendaftaranToeicController::class, 'createMandiri'])->name('pendaftaran-toeic/mandiri.create');
-    Route::post('/pendaftaran-toeic/mandiri', [PendaftaranToeicController::class, 'storeMandiri'])->name('pendaftaran-toeic/mandiri.store');
+    // TOEIC Mandiri
+    Route::get('/pendaftaran-toeic/mandiri', [PendaftaranToeicController::class, 'createMandiri'])
+        ->name('pendaftaran-toeic/mandiri.create');
+    Route::post('/pendaftaran-toeic/mandiri', [PendaftaranToeicController::class, 'storeMandiri'])
+        ->name('pendaftaran-toeic/mandiri.store');
 
     // Halaman dan aksi pengajuan surat
     Route::get('/surat_pernyataan', [SuratPernyataanController::class, 'mahasiswaIndex'])->name('mahasiswa.surat_pernyataan.index');
