@@ -31,8 +31,8 @@ class PendaftaranToeicController extends Controller
         return view('pendaftaran.form', [
             'activeMenu' => 'pendaftaran-toeic',
             'breadcrumb' => new Fluent([
-                'title' => 'Pendaftaran TOEIC',
-                'list'  => ['Dashboard', 'Pendaftaran TOEIC']
+                'title' => 'Pendaftaran TOEIC Gratis',
+                'list'  => ['Daftar Ujian', 'Gratis']
             ]),
             'kampusList' => Kampus::pluck('nama')->toArray(),
             'sudahDaftarGratis' => $sudahDaftarGratis,
@@ -126,7 +126,7 @@ class PendaftaranToeicController extends Controller
             'activeMenu' => 'pendaftaran-toeic/mandiri',
             'breadcrumb' => new \Illuminate\Support\Fluent([
                 'title' => 'Pendaftaran TOEIC Mandiri',
-                'list'  => ['Dashboard', 'Pendaftaran TOEIC Mandiri']
+                'list'  => ['Daftar Ujian', 'Mandiri']
             ]),
             'jumlahPendaftaranMandiri' => $jumlahPendaftaranMandiri,
             'urlItc' => 'https://itc-indonesia.com/contact-us-2/', 
