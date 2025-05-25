@@ -64,6 +64,31 @@
         background-color: #29335C;
         border-color: #29335C;
     }
+
+    .custom-ok-btn {
+        background-color: #29335C !important;
+        color: #fff !important;
+        border: none !important;
+        padding: 0.5rem 1.25rem;
+        border-radius: 0.25rem;
+        font-weight: 500;
+    }
+
+    .custom-ok-btn:hover {
+        background-color: #1f294a !important;
+    }
+
+    .table {
+        background-color: white;
+    }
+    
+    .table tbody {
+        background-color: white !important;
+    }
+    
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: white;
+    }
 </style>
 @endsection
 
@@ -93,8 +118,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     confirmButtonText: 'Saya Mengerti',
                     cancelButtonText: 'Batal',
                     customClass: {
-                        confirmButton: 'btn btn-primary me-2',
-                        cancelButton: 'btn btn-secondary'
+                        confirmButton: 'btn btn-primary mx-2',
+                        cancelButton: 'btn btn-secondary mx-2'
                     },
                     buttonsStyling: false,
                     reverseButtons: true
@@ -107,7 +132,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 Swal.fire({
                     icon: 'warning',
                     title: 'Peringatan',
-                    text: data.message
+                    text: data.message,
+                    confirmButtonText: 'OK',
+                    customClass: {
+                        confirmButton: 'btn custom-ok-btn'
+                    },
+                    buttonsStyling: false
                 });
             }
         })
@@ -116,7 +146,12 @@ document.addEventListener('DOMContentLoaded', function () {
             Swal.fire({
                 icon: 'error',
                 title: 'Terjadi Kesalahan',
-                text: 'Silakan coba lagi nanti.'
+                text: 'Silakan coba lagi nanti.',
+                confirmButtonText: 'OK',
+                customClass: {
+                    confirmButton: 'btn custom-ok-btn'
+                },
+                buttonsStyling: false
             });
         });
     });
@@ -137,13 +172,23 @@ document.addEventListener('DOMContentLoaded', function () {
                 Swal.fire({
                     icon: 'success',
                     title: 'Berhasil',
-                    text: data.message
+                    text: data.message,
+                    confirmButtonText: 'OK',
+                    customClass: {
+                        confirmButton: 'btn custom-ok-btn'
+                    },
+                    buttonsStyling: false
                 }).then(() => location.reload());
             } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Gagal',
-                    text: data.message
+                    text: data.message,
+                    confirmButtonText: 'OK',
+                    customClass: {
+                        confirmButton: 'btn custom-ok-btn'
+                    },
+                    buttonsStyling: false
                 });
             }
         })
@@ -152,7 +197,12 @@ document.addEventListener('DOMContentLoaded', function () {
             Swal.fire({
                 icon: 'error',
                 title: 'Terjadi Kesalahan',
-                text: 'Silakan coba lagi nanti.'
+                text: 'Silakan coba lagi nanti.',
+                confirmButtonText: 'OK',
+                customClass: {
+                    confirmButton: 'btn custom-ok-btn'
+                },
+                buttonsStyling: false
             });
         });
     }
