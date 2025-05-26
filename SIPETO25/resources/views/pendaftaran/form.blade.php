@@ -1,17 +1,18 @@
 @extends('layouts-mahasiswa.template')
 
 @section('content')
+
 <div class="container">
     @if($sudahDaftarGratis)
         <div class="registration-complete-container">
+            <!-- Header Section (integrated into container) -->
             <div class="success-header">
-                <div class="icon-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="#28a745" viewBox="0 0 16 16">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                <div class="success-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#29335C" viewBox="0 0 16 16">
+                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
                     </svg>
                 </div>
-                <h2>Pendaftaran TOEIC Gratis Berhasil!</h2>
-                <p class="text-muted">Anda sudah terdaftar untuk ujian TOEIC gratis</p>
+                <h2 class="success-title">Pendaftaran TOEIC Gratis Anda Telah Tercatat</h2>
             </div>
 
             <div class="registration-details">
@@ -31,25 +32,22 @@
                     </div>
                 </div>
 
-                <div class="action-section">
-                    <div class="next-steps">
-                        <h4>Langkah Selanjutnya</h4>
-                        <ul>
-                            <li>Tunggu informasi jadwal ujian</li>
-                            <li>Persiapkan diri dengan materi TOEIC</li>
-                            <li>Pastikan datang tepat waktu saat hari ujian</li>
-                        </ul>
+                <div class="success-notice">
+                    <div class="notice-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFC107" viewBox="0 0 16 16">
+                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                        </svg>
                     </div>
-
-                    <div class="alternative-actions">
-                        <h4>Ujian TOEIC Mandiri</h4>
-                        <p>Anda hanya dapat mendaftar ujian gratis satu kali, daftar ujian mandiri untuk lanjut.</p>
+                    <div class="notice-content">
+                        <h4>Perhatian Penting</h4>
+                        <p>Setiap mahasiswa hanya berhak mengikuti <strong>satu kali ujian TOEIC gratis</strong> selama masa studi.</p>
+                        <p>Untuk ujian berikutnya, silakan daftar melalui:</p>
                         <a href="{{ route('pendaftaran-toeic/mandiri.create') }}" class="btn btn-primary btn-block">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                             </svg>
-                            Daftar TOEIC Mandiri
+                            Ujian TOEIC Mandiri
                         </a>
                     </div>
                 </div>
@@ -231,6 +229,56 @@
 </div>
 
 <style>
+    .success-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 30px 0;
+    }
+
+    .success-icon {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 20px;
+        background-color: #f0f4ff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .success-title {
+        color: #29335C;
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    /* Notice Section */
+    .success-notice {
+        background-color: #fff9e6;
+        border-left: 4px solid #FFC107;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: left;
+        margin-top: 30px;
+        display: flex;
+        gap: 15px;
+    }
+
+    .notice-icon {
+        flex-shrink: 0;
+    }
+
+    .notice-content h4 {
+        color: #d39e00;
+        margin-bottom: 10px;
+    }
+
+    .notice-content p {
+        margin-bottom: 10px;
+        color: #5a4d00;
+    }
+
+    /* Registration Container */
     .registration-complete-container {
         max-width: 800px;
         margin: 30px auto;
@@ -238,24 +286,6 @@
         background-color: #fff;
         border-radius: 10px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .success-header {
-        text-align: center;
-        margin-bottom: 30px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #eee;
-    }
-
-    .icon-container {
-        width: 80px;
-        height: 80px;
-        margin: 0 auto 20px;
-        background-color: #e8f5e9;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
     .registration-details {
@@ -291,33 +321,7 @@
         text-align: right;
     }
 
-    .action-section {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        width: 100%;
-    }
-
-    .next-steps, .alternative-actions {
-        flex: 1;
-        min-width: 300px;
-        padding: 20px;
-        background-color: #f8f9fa;
-        border-radius: 8px;
-    }
-
-    .next-steps ul {
-        padding-left: 20px;
-    }
-
-    .next-steps li {
-        margin-bottom: 8px;
-    }
-
-    .alternative-actions {
-        border: 1px solid #29335C;
-    }
-
+    /* Button Styles */
     .btn-primary {
         background-color: #29335C;
         border-color: #29335C;
@@ -333,13 +337,22 @@
         border-color: #1a2238;
     }
 
+    /* Responsive Styles */
     @media (max-width: 768px) {
         .registration-complete-container {
             padding: 20px;
         }
         
-        .detail-card, .next-steps, .alternative-actions {
+        .detail-card {
             min-width: 100%;
+        }
+        
+        .success-notice {
+            flex-direction: column;
+        }
+        
+        .success-title {
+            font-size: 1.5rem;
         }
     }
 
