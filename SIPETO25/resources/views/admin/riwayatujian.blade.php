@@ -19,6 +19,7 @@
                 <option value="">Semua Status</option>
                 <option value="gratis">Gratis</option>
                 <option value="mandiri">Mandiri</option>
+                <option value="gratis & mandiri">Gratis & Mandiri</option>
             </select>
         </div>
     </div>
