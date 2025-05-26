@@ -13,7 +13,7 @@ class PendaftaranToeic extends Model
 
     protected $fillable = [
         'id_mahasiswa',
-         'tipe_ujian',
+        'tipe_ujian',
         'nik',
         'no_wa',
         'scan_ktm',
@@ -25,5 +25,11 @@ class PendaftaranToeic extends Model
     ];
 
     protected $dates = ['tanggal_daftar'];
+
+ public function mahasiswa()
+{
+    return $this->belongsTo(Mahasiswa::class, 'id_mahasiswa');
 }
 
+
+}

@@ -14,7 +14,7 @@ class Mahasiswa extends Authenticatable
     public $timestamps = true;
 
     protected $fillable = [
-        'username', 'password', // pastikan ini ada di tabel
+        'username', 'password',
     ];
 
     protected $hidden = ['password'];
@@ -23,8 +23,9 @@ class Mahasiswa extends Authenticatable
     {
         return 'id_mahasiswa';
     }
-    
 
-    
+public function pendaftaranToeic()
+{
+    return $this->hasOne(PendaftaranToeic::class, 'id_mahasiswa');
 }
-
+}
