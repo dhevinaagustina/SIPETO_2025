@@ -11,29 +11,31 @@
         <nav class="mt-4 px-3">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
                 @php
+                    // Hindari redeklarasi fungsi jika layout di-include berkali-kali
+                    if (!function_exists('isSubmenuActive')) {
+                        function isSubmenuActive($submenu, $activeMenu) {
+                            foreach ($submenu as $item) {
+                                if ($activeMenu == $item['key']) {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        }
+                    }
+
                     $menu = [
                         ['label' => 'Dashboard', 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
                             ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => '/dashboard/beranda', 'key' => 'dashboard-beranda'],
                             ['label' => 'Pesan', 'icon' => 'fas fa-bell', 'route' => '/dashboard/pesan', 'key' => 'dashboard-pesan'],
                         ]],
                         ['label' => 'Daftar Ujian', 'icon' => 'fas fa-pencil-alt', 'key' => 'daftar-ujian', 'submenu' => [
-                            ['label' => 'Gratis', 'icon' => 'fas fa-receipt', 'route' => '/pendaftaran-toeic/gratis', 'key' => 'daftar-ujian-gratis'],
-                            ['label' => 'Mandiri', 'icon' => 'fas fa-dollar-sign', 'route' => '/pendaftaran-toeic/mandiri', 'key' => 'daftar-ujian-mandiri'],
+                            ['label' => 'Gratis', 'icon' => 'fas fa-receipt', 'route' => '/pendaftaran-toeic/gratis', 'key' => 'pendaftaran-toeic'],
+                            ['label' => 'Mandiri', 'icon' => 'fas fa-dollar-sign', 'route' => '/pendaftaran-toeic/mandiri', 'key' => 'pendaftaran-toeic/mandiri'],
                         ]],
                         ['label' => 'Hasil Ujian', 'icon' => 'fas fa-calendar-alt', 'route' => '/hasil-ujian', 'key' => 'hasil-ujian'],
                         ['label' => 'Riwayat Ujian', 'icon' => 'fas fa-clock', 'route' => '/riwayat-ujian', 'key' => 'riwayat-ujian'],
-                        ['label' => 'Pengajuan Surat', 'icon' => 'fas fa-pen-fancy', 'route' => '/pengajuan-surat', 'key' => 'pengajuan-surat'],
+                        ['label' => 'Pengajuan Surat', 'icon' => 'fas fa-pen-fancy', 'route' => '/surat_pernyataan', 'key' => 'surat_pernyataan'],
                     ];
-                    
-                    // Function to check if any submenu item is active
-                    function isSubmenuActive($submenu, $activeMenu) {
-                        foreach ($submenu as $item) {
-                            if ($activeMenu == $item['key']) {
-                                return true;
-                            }
-                        }
-                        return false;
-                    }
                 @endphp
 
                 @foreach ($menu as $item)
@@ -72,7 +74,7 @@
                         <span>Log out</span>
                     </a>
                 </li>
-            </ul>   
+            </ul>
         </nav>
     </div>
 </aside>
@@ -86,13 +88,11 @@
     margin: 0 auto 10px auto;
 }
 
-/* Parent menu when child is active */
 .nav-item.menu-open > .nav-link {
     background-color: rgba(255, 255, 255, 0.1) !important;
     color: white !important;
 }
 
-/* Active menu items (both parent and child) */
 .sidebar-button.active,
 .nav-treeview .nav-link.active {
     background-color: #ffffff !important;
@@ -110,10 +110,12 @@
     font-weight: 500;
     transition: all 0.3s ease;
 }
+
 .sidebar-button:hover {
     background-color: rgba(255, 255, 255, 0.1);
     transform: translateX(4px);
 }
+
 .sidebar-button.active .nav-icon {
     color: #29335C !important;
 }
