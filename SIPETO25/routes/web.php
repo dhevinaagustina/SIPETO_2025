@@ -10,6 +10,7 @@ use App\Http\Controllers\SuratPernyataanController;
 use App\Http\Controllers\InputHasilUjianController;
 use App\Http\Controllers\PendaftaranToeicController;
 use App\Http\Controllers\RiwayatUjianController;
+use App\Http\Controllers\MahasiswaRiwayatUjianController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -46,7 +47,7 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
 
     Route::get('/dashboard/beranda', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/riwayat-ujian', [RiwayatUjianController::class, 'riwayat'])->name('riwayat.ujian');
-    Route::get('/pengajuan-surat', [SuratController::class, 'index'])->name('pengajuan.surat');
+
 
     Route::get('/pendaftaran-toeic/gratis', [PendaftaranToeicController::class, 'create'])->name('pendaftaran.create');
     Route::post('/pendaftaran-toeic/gratis', [PendaftaranToeicController::class, 'store'])->name('pendaftaran.store');
@@ -75,6 +76,11 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
     Route::post('/surat_pernyataan/ajukan', [SuratPernyataanController::class, 'ajukanSurat'])->name('mahasiswa.surat_pernyataan.ajukan');
     // ✅ Route tambahan untuk AJAX validasi sebelum ajukan surat
     Route::get('/surat_pernyataan/cek', [SuratPernyataanController::class, 'cekPengajuan'])->name('mahasiswa.surat_pernyataan.cek');
+
+    // web.php
+    Route::get('/mahasiswa/riwayat-ujian', [MahasiswaRiwayatUjianController::class, 'index'])->name('mahasiswa.riwayat');
+    Route::get('/mahasiswa/riwayat-ujian/ajax', [MahasiswaRiwayatUjianController::class, 'getData'])->name('mahasiswa.riwayat.ajax');
+
 });
 
 
