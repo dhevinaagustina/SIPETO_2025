@@ -32,7 +32,14 @@
                             ['label' => 'Gratis', 'icon' => 'fas fa-receipt', 'route' => '/pendaftaran-toeic/gratis', 'key' => 'pendaftaran-toeic'],
                             ['label' => 'Mandiri', 'icon' => 'fas fa-dollar-sign', 'route' => '/pendaftaran-toeic/mandiri', 'key' => 'pendaftaran-toeic/mandiri'],
                         ]],
-                        ['label' => 'Riwayat Ujian', 'icon' => 'fas fa-clock', 'route' => '/riwayat-ujian', 'key' => 'riwayat-ujian'],
+                        [
+                            'label'   => 'Riwayat Ujian',
+                            'icon'    => 'fas fa-clock',
+                            'route'   => route('mahasiswa.riwayat'),
+                            'key'     => 'riwayat-ujian',
+                            'active'  => request()->routeIs('mahasiswa.riwayat'),
+                        ]
+                        ,
                         ['label' => 'Pengajuan Surat', 'icon' => 'fas fa-pen-fancy', 'route' => '/surat_pernyataan', 'key' => 'surat_pernyataan'],
                     ];
                 @endphp
