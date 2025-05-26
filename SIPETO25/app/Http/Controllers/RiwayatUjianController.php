@@ -15,7 +15,7 @@ class RiwayatUjianController extends Controller
 
     public function getData(Request $request)
     {
-        // Ambil hanya pendaftaran TOEIC yang valid (berhasil daftar)
+        // Ambil data mahasiswa yang pendaftarannya valid
         $query = DB::table('pendaftaran_toeic as pt')
             ->join('mahasiswa as m', 'pt.id_mahasiswa', '=', 'm.id_mahasiswa')
             ->whereNotNull('pt.scan_ktm')
@@ -37,21 +37,38 @@ class RiwayatUjianController extends Controller
             $query->having('nama', 'like', '%' . $request->nama . '%');
         }
 
-        // Filter status: Gratis, Mandiri, atau keduanya
+        // Filter status
         if ($request->filled('status')) {
             $status = $request->status;
 
-            if ($status === 'Gratis') {
+            if ($status === 'gratis') {
                 $query->havingRaw("status_pendaftaran = 'gratis'");
-            } elseif ($status === 'Mandiri') {
+            } elseif ($status === 'mandiri') {
                 $query->havingRaw("status_pendaftaran = 'mandiri'");
-            } elseif ($status === 'Gratis & Mandiri') {
+            } elseif ($status === 'gratis & mandiri') {
                 $query->havingRaw("status_pendaftaran LIKE '%gratis%' AND status_pendaftaran LIKE '%mandiri%'");
             }
         }
 
         return DataTables::of($query)
             ->addIndexColumn()
+            ->filter(function ($instance) {
+                // optional custom filter
+            })
+            ->editColumn('id', function ($row) {
+                // Cek apakah sudah ada di riwayat_ujian
+                $exists = DB::table('riwayat_ujian')->where('id_mahasiswa', $row->id)->exists();
+
+                if (!$exists) {
+                    DB::table('riwayat_ujian')->insert([
+                        'id_mahasiswa' => $row->id,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]);
+                }
+
+                return $row->id;
+            })
             ->make(true);
     }
 }
