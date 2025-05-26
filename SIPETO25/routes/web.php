@@ -7,10 +7,9 @@ use App\Http\Controllers\UjianController;
 use App\Http\Controllers\SuratController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\CekDataController;
-
-use App\Http\Controllers\InputHasilUjianController;
-
 use App\Http\Controllers\PendaftaranToeicController;
+use App\Http\Controllers\RiwayatUjianController;
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -44,10 +43,9 @@ Route::prefix('admin')->group(function () {
 
 Route::middleware(['auth:mahasiswa'])->group(function () {
     Route::get('/dashboard/beranda', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/hasil-ujian', [UjianController::class, 'hasil'])->name('hasil.ujian');
-    Route::get('/riwayat-ujian', [UjianController::class, 'riwayat'])->name('riwayat.ujian');
+    Route::get('/riwayat-ujian', [RiwayatUjianController::class, 'riwayat'])->name('riwayat.ujian');
     Route::get('/pengajuan-surat', [SuratController::class, 'index'])->name('pengajuan.surat');
-    
+
     Route::get('/pendaftaran-toeic/gratis', [PendaftaranToeicController::class, 'create'])->name('pendaftaran.create');
     Route::post('/pendaftaran-toeic/gratis', [PendaftaranToeicController::class, 'store'])->name('pendaftaran.store');
 
@@ -57,27 +55,26 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
 });
 
 
-
-
 // =======================
 // Admin Routes
 // =======================
 
 Route::prefix('admin')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+
     Route::get('/cekdata', [CekDataController::class, 'index'])->name('cekdata.index');
+    Route::get('/cekdata/data', [CekDataController::class, 'getData'])->name('cekdata.data');
     Route::get('/cekdata/export-excel', [CekDataController::class, 'exportExcel'])->name('cekdata.export.excel');
     Route::get('/cekdata/export-pdf', [CekDataController::class, 'exportPDF'])->name('cekdata.export.pdf');
-    Route::get('/cekdata/data', [CekDataController::class, 'getData'])->name('cekdata.data');
 
-    // Route untuk menampilkan daftar hasil ujian
-Route::get('/hasil-ujian', [InputHasilUjianController::class, 'index'])->name('hasil-ujian.index');
+    Route::get('/riwayat-ujian', [RiwayatUjianController::class, 'index'])->name('admin.riwayat');
+    Route::get('/riwayat-ujian/ajax', [RiwayatUjianController::class, 'getData'])->name('admin.riwayat.ajax');
 
-// Route untuk menampilkan form input hasil ujian
-Route::get('/input-hasil-ujian', [InputHasilUjianController::class, 'create'])->name('inputujian.create');
-
-// Route untuk menyimpan data hasil ujian
-Route::post('/input-hasil-ujian', [InputHasilUjianController::class, 'store'])->name('inputujian.store');
+    Route::post('/logout', function () {
+        Auth::logout();
+        return redirect()->route('login');
+    })->name('admin.logout');
 });
-
-
 
