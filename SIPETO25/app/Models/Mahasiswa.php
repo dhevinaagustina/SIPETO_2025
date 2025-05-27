@@ -14,14 +14,14 @@ class Mahasiswa extends Authenticatable
     public $timestamps = true;
 
     protected $fillable = [
-        'username', 'password', // pastikan ini ada di tabel
+        'username', 'password',
     ];
 
     protected $hidden = ['password'];
 
     public function getAuthIdentifierName()
     {
-        return 'username';
+        return 'id_mahasiswa';
     }
 
     public function messages()
@@ -30,3 +30,10 @@ class Mahasiswa extends Authenticatable
     }
 }
 
+
+
+public function pendaftaranToeic()
+{
+    return $this->hasOne(PendaftaranToeic::class, 'id_mahasiswa');
+}
+}
