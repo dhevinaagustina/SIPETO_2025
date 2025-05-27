@@ -8,12 +8,16 @@ class Admin extends Authenticatable
 {
     use Notifiable;
 
-    protected $table = 'admin';
+    protected $table = 'admin_upa';
     protected $primaryKey = 'id_admin';
     public $timestamps = true;
 
     protected $fillable = [
-        'username', 'password',
+        'nama_admin',
+        'username',
+        'nip',
+        'email',
+        'password',
     ];
 
     protected $hidden = ['password'];

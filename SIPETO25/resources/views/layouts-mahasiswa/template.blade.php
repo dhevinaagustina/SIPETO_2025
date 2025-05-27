@@ -18,7 +18,8 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
 
-  @stack('css') <!-- Digunakan untuk memanggil custom css dari perintah push('css') pada masing masing view-->
+  {{-- @stack('css') <!-- Digunakan untuk memanggil custom css dari perintah push('css') pada masing masing view--> --}}
+  @stack('styles')
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->

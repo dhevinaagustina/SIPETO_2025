@@ -41,17 +41,17 @@ return [
             'provider' => 'users',
         ],
         'mahasiswa' => [
-        'driver' => 'session',
-        'provider' => 'mahasiswa_logins',
-    ],
-    'login' => [ // custom guard
-        'driver' => 'session',
-        'provider' => 'login_users',
-    ],
-    'admin' => [
-        'driver' => 'session',
-        'provider' => 'admins',  // nama provider di bawah, bisa disesuaikan
-    ],
+            'driver' => 'session',
+            'provider' => 'mahasiswa_logins',
+        ],
+        'login' => [ // custom guard
+            'driver' => 'session',
+            'provider' => 'login_users',
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',  // nama provider di bawah, bisa disesuaikan
+        ],
     ],
 
     /*
@@ -70,7 +70,6 @@ return [
     | Supported: "database", "eloquent"
     |
     */
-
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
@@ -85,13 +84,13 @@ return [
         //     'table' => 'users',
         // ],
         'login_users' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Login::class,
-    ],
-    'admins' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Admin::class,  // model admin (kalau ada)
-    ],
+            'driver' => 'eloquent',
+            'model' => App\Models\Login::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,  // model admin (kalau ada)
+        ],
     ],
 
     /*

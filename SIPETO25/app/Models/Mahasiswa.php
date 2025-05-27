@@ -23,5 +23,10 @@ class Mahasiswa extends Authenticatable
     {
         return 'username';
     }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'mahasiswa_id', 'id_mahasiswa');
+    }
 }
 
