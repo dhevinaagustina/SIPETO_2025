@@ -30,8 +30,13 @@ class Mahasiswa extends Authenticatable
     }
 
 
+
     public function pendaftaranToeic()
     {
         return $this->hasOne(PendaftaranToeic::class, 'id_mahasiswa');
     }
 }
+
+
+
+
