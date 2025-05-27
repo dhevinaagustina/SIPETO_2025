@@ -78,7 +78,7 @@ class SuratPernyataanController extends Controller
     {
         $data = SuratPernyataan::with('mahasiswa')->get();
 
-        return view('admin.surat_pernyataan.index', [
+        return view('admin.surat_pernyataan', [
             'data'        => $data,
             'activeMenu'  => 'surat_pernyataan',
             'breadcrumb'  => new Fluent([
