@@ -28,11 +28,15 @@ class Mahasiswa extends Authenticatable
     {
         return $this->hasMany(Message::class, 'mahasiswa_id', 'id_mahasiswa');
     }
-    
+
+
+
     public function pendaftaranToeic()
     {
         return $this->hasOne(PendaftaranToeic::class, 'id_mahasiswa');
     }
 }
+
+
 
 
