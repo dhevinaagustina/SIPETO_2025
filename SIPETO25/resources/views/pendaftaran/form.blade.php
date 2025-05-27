@@ -54,7 +54,7 @@
             </div>
         </div>
     @else
-        <form method="POST" action="{{ route('pendaftaran.store') }}" enctype="multipart/form-data" class="form-container">
+        <form method="POST" action="{{ route('pendaftaran.store') }}" enctype="multipart/form-data" class="form-container" id="form-data">
             @csrf
 
             <div class="form-row">
@@ -220,7 +220,7 @@
             </div>
 
             <div class="form-submit">
-                <button type="submit" class="btn btn-primary">
+                <button type="button" onclick="submitForm()" class="btn btn-primary">
                     Daftar
                 </button>
             </div>
@@ -531,56 +531,127 @@
             }
         }
 
+        submitForm = () => {
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: 'Pastikan data dan dokumen yang Anda inputkan sudah benar.',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Daftar!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                   $('#form-data').submit()
+
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = 'Memproses...';
+
+                    fetch('{{ route("pendaftaran.cek") }}', {
+                        method: 'GET',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json',
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error(response.statusText);
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.sudah_mendaftar) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Pendaftaran Gagal',
+                                text: 'Anda sudah pernah mendaftar TOEIC gratis.',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+
+                                window.location.reload();
+                            });
+                        } else {
+                            form.removeEventListener('submit', handleFormSubmission);
+                            form.submit();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Terjadi Kesalahan',
+                            text: 'Silakan coba lagi beberapa saat lagi.',
+                        });
+                    })
+                    .finally(() => {
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = 'Daftar';
+                    });
+                }
+            });
+        }
+
         // --- Form Submission with Pre-check using AJAX ---
         function handleFormSubmission(e) {
             e.preventDefault();
             const form = e.target;
-            const submitButton = form.querySelector('button[type="submit"]');
-            
-            if (!submitButton) return;
 
-            submitButton.disabled = true;
-            submitButton.innerHTML = 'Memproses...';
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: 'Pastikan data dan dokumen yang Anda inputkan sudah benar.',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Daftar!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const submitButton = form.querySelector('button[type="submit"]');
+                    if (!submitButton) return;
 
-            fetch('{{ route("pendaftaran.cek") }}', {
-                method: 'GET',
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Accept': 'application/json',
-                }
-            })
-            .then(response => {
-                if (!response.ok) throw new Error(response.statusText);
-                return response.json();
-            })
-            .then(data => {
-                if (data.sudah_mendaftar) {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Pendaftaran Gagal',
-                        text: 'Anda sudah pernah mendaftar TOEIC gratis.',
-                        confirmButtonText: 'OK'
-                    }).then(() => {
-                        window.location.reload(); // reload setelah user klik OK
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = 'Memproses...';
+
+                    fetch('{{ route("pendaftaran.cek") }}', {
+                        method: 'GET',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json',
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) throw new Error(response.statusText);
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.sudah_mendaftar) {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Pendaftaran Gagal',
+                                text: 'Anda sudah pernah mendaftar TOEIC gratis.',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+
+                                window.location.reload();
+                            });
+                        } else {
+                            form.removeEventListener('submit', handleFormSubmission);
+                            form.submit();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Terjadi Kesalahan',
+                            text: 'Silakan coba lagi beberapa saat lagi.',
+                        });
+                    })
+                    .finally(() => {
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = 'Daftar';
                     });
-                } else {
-                    form.removeEventListener('submit', handleFormSubmission); // Hindari loop submit
-                    form.submit(); // Submit asli
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Terjadi Kesalahan',
-                    text: 'Silakan coba lagi beberapa saat lagi.',
-                });
-            })
-            .finally(() => {
-                submitButton.disabled = false;
-                submitButton.innerHTML = 'Daftar';
             });
         }
+
 
         // --- Init file upload preview ---
         [
