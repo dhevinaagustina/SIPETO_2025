@@ -46,18 +46,6 @@ return [
         ],
     ],
 
-    'providers' => [
-        'admins' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
-        ],
-        'mahasiswas' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Mahasiswa::class,
-        ],
-    ],
-
-
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -76,27 +64,24 @@ return [
     */
 
     'providers' => [
-        'mahasiswas' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Mahasiswa::class,
-        ],
-        'mahasiswa_logins' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Login::class,
-        ],
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
-        'login_users' => [
+    'admins' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Admin::class,
+    ],
+    'mahasiswas' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Mahasiswa::class,
+    ],
+    'mahasiswa_logins' => [
         'driver' => 'eloquent',
         'model' => App\Models\Login::class,
     ],
-    'admins' => [
+    'login_users' => [
         'driver' => 'eloquent',
-        'model' => App\Models\Admin::class,  // model admin (kalau ada)
+        'model' => App\Models\Login::class,
     ],
-    ],
+],
+
 
     /*
     |--------------------------------------------------------------------------
