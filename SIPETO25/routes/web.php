@@ -12,7 +12,7 @@ use App\Http\Controllers\MahasiswaRiwayatUjianController;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Admin\MessageController;
-use App\Http\Controllers\Student\MessageControllerMhs;
+use App\Http\Controllers\PesanController;
 use App\Http\Controllers\ToeicController;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,7 +31,7 @@ Route::get('/', function () {
 // =======================
 // Auth (Login & Logout)
 // =======================
-// Login Mahasiswa
+
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -51,6 +51,10 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
 
     Route::get('/riwayat-ujian', [RiwayatUjianController::class, 'riwayat'])->name('riwayat.ujian');
     Route::get('/dashboard/beranda', [DashboardController::class, 'index'])->name('dashboard.beranda');
+
+    // Pesan
+    Route::get('/dashboard/pesan', [PesanController::class, 'index'])->name('pesan.index');
+    Route::get('/dashboard/pesan/{id}', [PesanController::class, 'show'])->name('pesan.show');
 
     // ARTIKEL 
     Route::get('/toeic-resources', [ToeicController::class, 'index'])->name('toeic.resources');
@@ -84,16 +88,16 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
     Route::get('/mahasiswa/riwayat-ujian', [MahasiswaRiwayatUjianController::class, 'index'])->name('mahasiswa.riwayat');
     Route::get('/mahasiswa/riwayat-ujian/ajax', [MahasiswaRiwayatUjianController::class, 'getData'])->name('mahasiswa.riwayat.ajax');
 
-    Route::middleware([])->group(function () {
-    Route::get('/dashboard/beranda', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard/pesan', [\App\Http\Controllers\Student\MessageController::class, 'index'])->name('student.messages.index');
-    Route::post('/messages/{message}/mark-as-read', [\App\Http\Controllers\Student\MessageController::class, 'markAsRead'])->name('student.messages.markAsRead');
-    Route::get('/mahasiswa/pesan', [\App\Http\Controllers\Student\MessageController::class, 'index']);
-    });
+    // Route::middleware([])->group(function () {
+    // Route::get('/dashboard/beranda', [DashboardController::class, 'index'])->name('dashboard');
+    // Route::get('/dashboard/pesan', [\App\Http\Controllers\Student\MessageController::class, 'index'])->name('student.messages.index');
+    // Route::post('/messages/{message}/mark-as-read', [\App\Http\Controllers\Student\MessageController::class, 'markAsRead'])->name('student.messages.markAsRead');
+    // Route::get('/mahasiswa/pesan', [\App\Http\Controllers\Student\MessageController::class, 'index']);
+    // });
 
-    Route::get('/pesan', function () {
-        return view('pesan.index');
-    });
+    // Route::get('/pesan', function () {
+    //     return view('pesan.index');
+    // });
 
 });
 
@@ -106,8 +110,8 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
             return view('admin.dashboard');
         })->name('admin.dashboard');
 
-    Route::get('/messages', [MessageController::class, 'create']);
-    Route::post('/messages/send', [MessageController::class, 'send']);
+    // Route::get('/messages', [MessageController::class, 'create']);
+    // Route::post('/messages/send', [MessageController::class, 'send']);
     
     //route cek data
     Route::get('/cekdata', [CekDataController::class, 'index'])->name('cekdata.index');
@@ -121,8 +125,4 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
     Route::get('/riwayat-ujian/ajax', [RiwayatUjianController::class, 'getData'])->name('admin.riwayat.ajax');
     Route::post('/admin/riwayat-ujian/simpan', [RiwayatUjianController::class, 'simpan'])->name('riwayatujian.simpan');
 
-    Route::post('/logout', function () {
-        Auth::logout();
-        return redirect()->route('login');
-    })->name('admin.logout');
 });
