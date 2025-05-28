@@ -49,12 +49,17 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        $guard = session('guard', 'web');
-        Auth::guard($guard)->logout();
+        // Deteksi guard yang sedang aktif
+        if (Auth::guard('admin')->check()) {
+            Auth::guard('admin')->logout();
+        } else {
+            Auth::guard('mahasiswa')->logout(); // default mahasiswa
+        }
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return redirect('/login');
     }
+
 }
