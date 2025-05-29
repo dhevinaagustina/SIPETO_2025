@@ -166,18 +166,19 @@
       margin: 0;
       padding: 0;
       display: flex;
-      gap: 20px;
+      gap: 15px;
+      align-items: center;
     }
 
     .navmenu ul li {
-      margin: 20px;
+      margin: 0px;
     }
 
 
     .navmenu a {
       text-decoration: none;
       color: #fff;
-      padding: 8px 12px;
+      padding: 8px 15px;
     }
 
     .navmenu .btn {
@@ -231,7 +232,6 @@
         <li><a href="#footer">Kontak</a></li>
       </ul>
       <a href="/login" class="btn btn-warning">Masuk</a>
-      <a href="/register" class="btn btn-outline-light">Daftar</a>
     </nav>
   </div>
 </header>
@@ -362,7 +362,7 @@
         }
         
         .feature-box {
-            padding: 30px;
+            padding: 40px;
             border-radius: 15px;
             height: 100%;
             transition: all 0.3s ease;
@@ -397,8 +397,8 @@
         }
         
         .feature-icon img {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             object-fit: contain;
         }
         /* Why SIPETO Section */
@@ -410,7 +410,6 @@
             position: relative;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
         
         .why-graphic img {
@@ -427,6 +426,7 @@
             height: 100%;
             background: linear-gradient(to bottom, rgba(67, 97, 238, 0.2), rgba(63, 55, 201, 0.5));
         }
+        
         
         .why-content h2 {
             font-weight: 700;
@@ -455,6 +455,9 @@
             margin-bottom: 5px;
             color: var(--dark);
         }
+
+        
+        
         
         /* Footer */
         .footer {
@@ -472,6 +475,7 @@
             margin-bottom: 20px;
             position: relative;
             padding-bottom: 10px;
+            color: #ffffff
         }
         
         .footer h4::after {
@@ -489,6 +493,12 @@
             margin-bottom: 15px;
         }
         
+        .footer-description {
+            color: white !important; /* Force white color */
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+
         .institution-name {
             font-weight: 500;
             color: rgba(255, 255, 255, 0.8);
@@ -672,9 +682,9 @@
 .schedule-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  padding: 18px;
+  padding: 20px;
   transition: all 0.2s ease;
 }
 
@@ -795,7 +805,7 @@
       <div class="location">Gedung Teknologi Informasi - Ruang LPR 07/Lt.7</div>
       <div class="status-badge available">Tersedia</div>
       <div class="quota">Kuota: 30/50</div>
-      <a href="#" class="register-btn">Daftar Sesi Ini</a>
+      
     </div>
 
     <!-- Card 2 -->
@@ -808,7 +818,7 @@
       <div class="location">Gedung Teknologi Informasi - Ruang LPR 06/Lt.7</div>
       <div class="status-badge available">Tersedia</div>
       <div class="quota">Kuota: 42/50</div>
-      <a href="#" class="register-btn">Daftar Sesi Ini</a>
+      
     </div>
 
     <!-- Card 3 -->
@@ -821,7 +831,7 @@
       <div class="location">Gedung Teknologi Informasi - Ruang LPR 07/Lt.7</div>
       <div class="status-badge almost-full">Hampir Penuh</div>
       <div class="quota">Kuota: 48/50</div>
-      <a href="#" class="register-btn">Daftar Sesi Ini</a>
+      
     </div>
 
     <!-- Card 4 -->
@@ -834,7 +844,7 @@
       <div class="location">Gedung Teknologi Informasi - Ruang LPR 06/Lt.7</div>
       <div class="status-badge available">Tersedia</div>
       <div class="quota">Kuota: 15/50</div>
-      <a href="#" class="register-btn">Daftar Sesi Ini</a>
+      
     </div>
   </div>
 
@@ -848,11 +858,15 @@
             <div class="row align-items-center">
                 <!-- Graphic Column - Building Image -->
                 <div class="col-lg-6 d-none d-lg-block">
-                    <div class="why-graphic">
-                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Gedung Politeknik" class="img-fluid building-image">
-                        <div class="image-overlay"></div>
-                    </div>
-                </div>
+                  <div class="why-graphic">
+                      <div class="circle-image-container">
+                          <img src="{{ asset('assets/img/why.png') }}" alt="Why SIPETO" class="circle-image">
+                          <div class="circle-overlay"></div>
+                      </div>
+                  </div>
+              </div>
+
+              
                 
                 <!-- Content Column -->
                 <div class="col-lg-6">
@@ -918,7 +932,7 @@
                         <div class="logo-images">
                           <img src="{{ asset('img/logo.png') }}"  alt="SIPETO" style="height: 70px; margin-right: 10px;">
                             <p class="institution-name mt-2">Politeknik Negeri Malang</p>
-                            <p class="mt-2 text-muted">Sistem Pengelolaan Ujian TOEIC Terintegrasi</p>
+                            <p class="mt-2 footer-description">Sistem Pengelolaan Ujian TOEIC Terintegrasi</p>
                         </div>
                     </div>
                 </div>
