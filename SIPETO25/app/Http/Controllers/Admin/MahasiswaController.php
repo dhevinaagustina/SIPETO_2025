@@ -73,4 +73,42 @@ class MahasiswaController extends Controller
             'keyword' => $keyword
         ]);
     }
+
+    // public function show($id)
+    // {
+    //     $mahasiswa = Mahasiswa::findOrFail($id);
+
+    //     return view('admin.mahasiswa.show', [
+    //         'mahasiswa' => $mahasiswa,
+    //         'activeMenu' => 'mahasiswa', // agar tidak error
+    //     ]);
+    // }
+
+    public function showAjax($id)
+    {
+        $mahasiswa = Mahasiswa::findOrFail($id);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $mahasiswa
+        ]);
+    }
+    public function show($id)
+    {
+        $mhs = Mahasiswa::find($id);
+    
+        if (!$mhs) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Data tidak ditemukan.'
+            ], 404);
+        }
+    
+        return response()->json([
+            'status' => 'success',
+            'data' => $mhs
+        ]);
+    }
+    
+
 }

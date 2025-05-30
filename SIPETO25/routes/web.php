@@ -118,8 +118,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/', [MahasiswaController::class, 'index'])->name('index');
         Route::get('/baru', [MahasiswaController::class, 'mahasiswaBaru'])->name('baru');
         Route::get('/status', [MahasiswaController::class, 'statusPendaftaran'])->name('status');
-        Route::get('/{id}', [MahasiswaController::class, 'show'])->name('show');
+        Route::get('/{id}', [MahasiswaController::class, 'showAjax'])->name('admin.mahasiswa.showAjax');
         Route::post('/cari', [MahasiswaController::class, 'cari'])->name('cari');
+       
+
     });
     
     // Laporan & Export Data
