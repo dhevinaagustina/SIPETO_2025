@@ -3,9 +3,10 @@
 namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 use Illuminate\Support\Collection;
 
-class MahasiswaExport implements FromCollection
+class MahasiswaExport implements FromCollection, WithHeadings
 {
     protected $data;
 
@@ -16,20 +17,27 @@ class MahasiswaExport implements FromCollection
 
     public function collection()
     {
-        $rows = collect();
-        $rows->push(['No', 'NIM', 'Nama', 'Jurusan', 'Prodi', 'Status']);
+        return $this->data->map(function ($item, $index) {
+            return [
+                'No' => $index + 1,
+                'NIM' => $item->nim,
+                'Nama' => $item->nama_mahasiswa,
+                'Email' => $item->email,
+                'Tanggal Daftar' => $item->created_at->format('d/m/Y'),
+                'Status' => $item->pendaftaranToeic ? 'Terdaftar TOEIC' : 'Belum Daftar'
+            ];
+        });
+    }
 
-        foreach ($this->data as $index => $mhs) {
-            $rows->push([
-                $index + 1,
-                $mhs['nim'],
-                $mhs['nama'],
-                $mhs['jurusan'],
-                $mhs['prodi'],
-                $mhs['status']
-            ]);
-        }
-
-        return $rows;
+    public function headings(): array
+    {
+        return [
+            'No',
+            'NIM',
+            'Nama',
+            'Email',
+            'Tanggal Daftar',
+            'Status'
+        ];
     }
 }

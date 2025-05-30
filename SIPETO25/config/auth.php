@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'mahasiswas',
         ],
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
     ],
 
     /*
@@ -64,23 +68,27 @@ return [
     */
 
     'providers' => [
-    'admins' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Admin::class,
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+        'mahasiswas' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Mahasiswa::class,
+        ],
+        'mahasiswa_logins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Login::class,
+        ],
+        'login_users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Login::class,
+        ],
     ],
-    'mahasiswas' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Mahasiswa::class,
-    ],
-    'mahasiswa_logins' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Login::class,
-    ],
-    'login_users' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Login::class,
-    ],
-],
 
 
     /*

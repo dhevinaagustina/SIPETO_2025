@@ -8,49 +8,51 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <nav class="mt-4 px-3">
+        <nav class="mt-4 px-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
                 @php
-                    $menu = [
-                        ['label' => 'Dashboard', 'icon' => 'fas fa-tachometer-alt', 'route' => 'admin.dashboard', 'key' => 'dashboard'],
-                        ['label' => 'Data Peserta', 'icon' => 'fas fa-users', 'route' => 'admin.data-peserta', 'key' => 'data-peserta'],
-                        ['label' => 'Input Hasil', 'icon' => 'fas fa-file-upload', 'route' => 'admin.input-hasil', 'key' => 'input-hasil'],
-                        ['label' => 'Kelola Ujian', 'icon' => 'fas fa-calendar-alt', 'key' => 'kelola-ujian', 'submenu' => [
-                            ['label' => 'Jadwal Ujian', 'icon' => 'fas fa-calendar-day', 'route' => 'admin.jadwal-ujian', 'key' => 'jadwal-ujian'],
-                            ['label' => 'Sesi Ujian', 'icon' => 'fas fa-clock', 'route' => 'admin.sesi-ujian', 'key' => 'sesi-ujian'],
-                        ]],
-                        ['label' => 'Laporan', 'icon' => 'fas fa-chart-bar', 'key' => 'laporan', 'submenu' => [
-                            ['label' => 'Statistik Peserta', 'icon' => 'fas fa-chart-line', 'route' => 'admin.statistik-peserta', 'key' => 'statistik-peserta'],
-                            ['label' => 'Hasil Ujian', 'icon' => 'fas fa-file-alt', 'route' => 'admin.laporan-hasil', 'key' => 'laporan-hasil'],
-                        ]],
-                        ['label' => 'Pengaturan', 'icon' => 'fas fa-cog', 'route' => 'admin.pengaturan', 'key' => 'pengaturan'],
-                    ];
-                    
-                    function isSubmenuActive($submenu, $activeMenu) {
-                        foreach ($submenu as $item) {
-                            if ($activeMenu == $item['key']) {
-                                return true;
+                    if (!function_exists('isSubmenuActive')) {
+                        function isSubmenuActive($submenu, $activeMenu) {
+                            foreach ($submenu as $item) {
+                                if ($activeMenu == $item['key']) {
+                                    return true;
+                                }
                             }
+                            return false;
                         }
-                        return false;
                     }
+
+                    $menu = [
+                        ['label' => 'Statistik Pendaftaran', 'icon' => 'fas fa-chart-pie', 'route' => 'admin.dashboard', 'key' => 'dashboard'],
+                        ['label' => 'Manajemen Mahasiswa', 'icon' => 'fas fa-users', 'key' => 'mahasiswa', 'submenu' => [
+                            ['label' => 'Data Mahasiswa', 'icon' => 'fas fa-list', 'route' => 'admin.mahasiswa.index', 'key' => 'mahasiswa-index'],
+                            ['label' => 'Mahasiswa Baru', 'icon' => 'fas fa-user-plus', 'route' => 'admin.mahasiswa.baru', 'key' => 'mahasiswa-baru'],
+                            ['label' => 'Status Pendaftaran', 'icon' => 'fas fa-clipboard-check', 'route' => 'admin.mahasiswa.status', 'key' => 'mahasiswa-status'],
+                        ]],
+                        ['label' => 'Laporan & Export', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
+                            ['label' => 'Laporan Pendaftaran', 'icon' => 'fas fa-file-alt', 'route' => 'admin.laporan.pendaftaran', 'key' => 'laporan-pendaftaran'],
+                            ['label' => 'Export Data', 'icon' => 'fas fa-download', 'route' => 'admin.laporan.export', 'key' => 'laporan-export'],
+                        ]],
+                    ];
                 @endphp
 
                 @foreach ($menu as $item)
-                    <li class="nav-item mb-2 {{ isset($item['submenu']) ? 'has-treeview' : '' }} {{ isset($item['submenu']) && isSubmenuActive($item['submenu'], $activeMenu) ? 'menu-open' : '' }}">
+                    <li class="nav-item mb-1 {{ isset($item['submenu']) ? 'has-treeview' : '' }} {{ isset($item['submenu']) && isSubmenuActive($item['submenu'], $activeMenu) ? 'menu-open' : '' }}">
                         @if (isset($item['submenu']))
                             <a href="#" class="nav-link sidebar-button {{ isSubmenuActive($item['submenu'], $activeMenu) ? 'active-parent' : '' }}">
-                                <i class="{{ $item['icon'] }} nav-icon me-2"></i>
-                                <span>{{ $item['label'] }}</span>
-                                <i class="right fas fa-angle-down ms-auto"></i>
+                                <i class="{{ $item['icon'] }} nav-icon"></i>
+                                <p>
+                                    {{ $item['label'] }}
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
                             </a>
-                            <ul class="nav nav-treeview ps-4">
+                            <ul class="nav nav-treeview">
                                 @foreach ($item['submenu'] as $sub)
                                     <li class="nav-item">
                                         <a href="{{ route($sub['route']) }}"
                                            class="nav-link sidebar-button {{ $activeMenu == $sub['key'] ? 'active' : '' }}">
-                                            <i class="{{ $sub['icon'] }} nav-icon me-2"></i>
-                                            <span>{{ $sub['label'] }}</span>
+                                            <i class="{{ $sub['icon'] }} nav-icon"></i>
+                                            <p>{{ $sub['label'] }}</p>
                                         </a>
                                     </li>
                                 @endforeach
@@ -58,66 +60,68 @@
                         @else
                             <a href="{{ route($item['route']) }}"
                                class="nav-link sidebar-button {{ $activeMenu == $item['key'] ? 'active' : '' }}">
-                                <i class="{{ $item['icon'] }} nav-icon me-2"></i>
-                                <span>{{ $item['label'] }}</span>
+                                <i class="{{ $item['icon'] }} nav-icon"></i>
+                                <p>{{ $item['label'] }}</p>
                             </a>
                         @endif
                     </li>
                 @endforeach
-            </ul>   
+            </ul>
         </nav>
     </div>
 </aside>
 
 <style>
-.sidebar-logo {
-    width: 100px;
-    height: auto;
-    display: block;
-    margin: 0 auto 10px auto;
-}
-
-.nav-item.menu-open > .nav-link {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-    color: white !important;
-}
-
-.sidebar-button.active,
-.nav-treeview .nav-link.active {
-    background-color: #ffffff !important;
-    color: #29335C !important;
-    font-weight: 600;
-    border-radius: 8px;
-}
-
-.sidebar-button {
-    display: flex;
-    align-items: center;
-    padding: 10px 16px;
-    border-radius: 8px;
-    color: #ffffff;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-.sidebar-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    transform: translateX(4px);
-}
-.sidebar-button.active .nav-icon {
-    color: #29335C !important;
-}
-
-.nav-icon {
-    width: 20px;
-    text-align: center;
-    color: white;
-    margin-right: 10px;
-    transition: color 0.3s;
-}
-
-.nav-treeview .nav-link {
-    font-size: 14px;
-    padding-left: 35px;
-    background-color: transparent !important;
-}
-</style>
+    .sidebar-logo {
+        width: 100px;
+        height: auto;
+        display: block;
+        margin: 0 auto 10px auto;
+    }
+    
+    .sidebar-button {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        padding: 8px 12px;
+        border-radius: 6px;
+        color: #ffffff;
+        transition: all 0.2s ease;
+    }
+    
+    .sidebar-button p {
+        margin: 0;
+        flex: 1;
+        font-weight: 500;
+    }
+    
+    .sidebar-button:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .sidebar-button.active {
+        background-color: #ffffff !important;
+        color: #29335C !important;
+        font-weight: 600;
+        border-radius: 6px;
+    }
+    
+    .sidebar-button.active .nav-icon {
+        color: #29335C !important;
+    }
+    
+    .nav-icon {
+        width: 18px;
+        text-align: center;
+        margin-right: 10px;
+        font-size: 14px;
+        color: #ffffff;
+    }
+    
+    .nav-treeview .nav-link {
+        font-size: 13px;
+        padding-left: 32px;
+        background-color: transparent !important;
+    }
+    </style>
+    

@@ -19,6 +19,15 @@ class Mahasiswa extends Authenticatable
 
     protected $hidden = ['password'];
 
+    public static function getStatusCounts()
+    {
+        return [
+            'total' => self::count(),
+            'aktif' => self::where('status', 'aktif')->count(),
+            'non_aktif' => self::where('status', 'non-aktif')->count()
+        ];
+    }
+    
     public function getAuthIdentifierName()
     {
         return 'id_mahasiswa';
