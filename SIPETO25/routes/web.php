@@ -109,7 +109,7 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
 // =======================
 // Admin Routes
 // =======================
-Route::prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('admin')->group(function(){
     // Dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     
@@ -151,10 +151,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/surat-pernyataan/generate/{id}', [\App\Http\Controllers\SuratPernyataanController::class, 'generateSurat'])
         ->name('admin.surat_pernyataan.generate');
 
-    // Informasi
+      // InformasiAdd commentMore actions
     Route::get('/informasi', [InformasiController::class, 'create']);
     Route::post('/informasi', [InformasiController::class, 'store'])->name('admin.informasi.store');
-
     // Logout
     Route::post('/logout', function () {
         Auth::logout();
