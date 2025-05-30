@@ -11,6 +11,7 @@ use Yajra\DataTables\Facades\DataTables;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\CekDataExport;
+use Illuminate\Support\Fluent;
 
 class CekDataController extends Controller
 {
@@ -21,7 +22,16 @@ class CekDataController extends Controller
         $sudahMendaftar = PendaftaranToeic::distinct('id_mahasiswa')->count('id_mahasiswa');
         $jadwalMendatang = 0; // Ganti jika kamu punya tabel jadwal_ujian nanti
 
-        return view('admin.cekdata', compact('totalMahasiswa', 'sudahMendaftar', 'jadwalMendatang'));
+        return view('admin.cekdata', [
+            'totalMahasiswa' => $totalMahasiswa,
+            'sudahMendaftar' => $sudahMendaftar,
+            'jadwalMendatang' => $jadwalMendatang,
+            'breadcrumb' => new Fluent([
+                'title' => 'Daftar Mahasiswa',
+                'list'  => ['Cek Data']
+            ]),
+            'activeMenu' => 'cek-data' // This matches the 'key' in your sidebar menu
+        ]);
     }
 
     // Ambil data untuk DataTables

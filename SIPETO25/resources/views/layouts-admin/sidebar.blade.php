@@ -28,9 +28,9 @@
                             ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => '/dashboard/beranda', 'key' => 'dashboard-beranda'],
                             ['label' => ' Tulis Pesan', 'icon' => 'fas fa-bell', 'route' => '/dashboard/pesan', 'key' => 'dashboard-pesan'],
                         ]],
-                        ['label' => 'Cek Data', 'icon'    => 'fas fa-search', 'route' => route('mahasiswa.riwayat'), 'key' => 'riwayat-ujian', 'active' => request()->routeIs('mahasiswa.riwayat')],
-                        ['label' => 'Riwayat Ujian', 'icon'    => 'fas fa-clock', 'route' => route('mahasiswa.riwayat'), 'key' => 'riwayat-ujian', 'active' => request()->routeIs('mahasiswa.riwayat')],
-                        ['label' => 'Pengajuan Surat', 'icon' => 'fas fa-pen-fancy', 'route' => '/surat_pernyataan', 'key' => 'surat_pernyataan'],
+                        ['label' => 'Cek Data', 'icon'    => 'fas fa-search', 'route' => route('cekdata.index'), 'key' => 'cek-data'],
+                        ['label' => 'Riwayat Ujian', 'icon'    => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian', 'active' => request()->routeIs('admin.riwayat')],
+                        ['label' => 'Pengajuan Surat', 'icon' => 'fas fa-pen-fancy', 'route' => route('admin.surat_pernyataan.index'), 'key' => 'surat_pernyataan'],
                     ];
                 @endphp
 
