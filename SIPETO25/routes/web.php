@@ -108,39 +108,39 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
 // Admin Routes
 // =======================
     Route::prefix('admin')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
 
+    // Dashboard
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
 
-    // Route::get('/messages', [MessageController::class, 'create']);
-    // Route::post('/messages/send', [MessageController::class, 'send']);
-    
-    //route cek data
+    // Cek Data TOEIC
     Route::get('/cekdata', [CekDataController::class, 'index'])->name('cekdata.index');
     Route::get('/cekdata/data', [CekDataController::class, 'getData'])->name('cekdata.data');
     Route::get('/cekdata/export-excel', [CekDataController::class, 'exportExcel'])->name('cekdata.export.excel');
     Route::get('/cekdata/export-pdf', [CekDataController::class, 'exportPDF'])->name('cekdata.export.pdf');
     Route::get('/cekdata/{id_mahasiswa}', [CekDataController::class, 'showDetail'])->name('cekdata.show');
 
-
-    //route riwayat ujian
-
+    // Riwayat Ujian TOEIC
     Route::get('/riwayat-ujian', [RiwayatUjianController::class, 'index'])->name('admin.riwayat');
     Route::get('/riwayat-ujian/ajax', [RiwayatUjianController::class, 'getData'])->name('admin.riwayat.ajax');
-    Route::post('/admin/riwayat-ujian/simpan', [RiwayatUjianController::class, 'simpan'])->name('riwayatujian.simpan');
+    Route::post('/riwayat-ujian/simpan', [RiwayatUjianController::class, 'simpan'])->name('riwayatujian.simpan');
 
+    // Surat Pernyataan
+    Route::get('/surat-pernyataan', [\App\Http\Controllers\SuratPernyataanController::class, 'index'])
+        ->name('admin.surat_pernyataan.index');
 
-    Route::get('/surat-pernyataan', [SuratPernyataanController::class, 'index'])->name('admin.surat_pernyataan.index');
-    Route::post('/surat-pernyataan/upload/{id}', [SuratPernyataanController::class, 'upload'])->name('admin.surat_pernyataan.upload');
+    Route::get('/surat-pernyataan/generate/{id}', [\App\Http\Controllers\SuratPernyataanController::class, 'generateSurat'])
+        ->name('admin.surat_pernyataan.generate');
 
+    // Informasi
     Route::get('/informasi', [InformasiController::class, 'create']);
     Route::post('/informasi', [InformasiController::class, 'store'])->name('admin.informasi.store');
 
+    // Logout
     Route::post('/logout', function () {
         Auth::logout();
         return redirect()->route('login');
     })->name('admin.logout');
+
 });
-
-

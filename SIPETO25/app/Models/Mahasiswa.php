@@ -35,6 +35,12 @@ class Mahasiswa extends Authenticatable
     {
         return $this->hasOne(PendaftaranToeic::class, 'id_mahasiswa');
     }
+
+    // Relasi ke surat pernyataan
+    public function suratPernyataan()
+    {
+        return $this->hasMany(SuratPernyataan::class, 'id_mahasiswa');
+    }
 }
 
 
