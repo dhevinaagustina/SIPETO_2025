@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\ToeicController;
-
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\LaporanController;
+use App\Http\Controllers\Admin\MahasiswaController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -107,40 +109,55 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
 // =======================
 // Admin Routes
 // =======================
-    Route::prefix('admin')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
-
-
-    // Route::get('/messages', [MessageController::class, 'create']);
-    // Route::post('/messages/send', [MessageController::class, 'send']);
+    Route::prefix('admin')->group(function(){
+    // Dashboard
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     
-    //route cek data
+    // Manajemen Mahasiswa
+    Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
+        Route::get('/', [MahasiswaController::class, 'index'])->name('index');
+        Route::get('/baru', [MahasiswaController::class, 'mahasiswaBaru'])->name('baru');
+        Route::get('/status', [MahasiswaController::class, 'statusPendaftaran'])->name('status');
+        Route::get('/{id}', [MahasiswaController::class, 'showAjax'])->name('admin.mahasiswa.showAjax');
+        Route::post('/cari', [MahasiswaController::class, 'cari'])->name('cari');
+       
+
+    });
+    
+    // Laporan & Export Data
+    Route::prefix('laporan')->name('laporan.')->group(function () {
+        Route::get('/pendaftaran', [LaporanController::class, 'pendaftaran'])->name('pendaftaran');
+        Route::get('/export', [LaporanController::class, 'export'])->name('export');
+        Route::post('/generate', [LaporanController::class, 'generate'])->name('generate');
+    });
+
+
+    // Cek Data TOEIC
     Route::get('/cekdata', [CekDataController::class, 'index'])->name('cekdata.index');
     Route::get('/cekdata/data', [CekDataController::class, 'getData'])->name('cekdata.data');
     Route::get('/cekdata/export-excel', [CekDataController::class, 'exportExcel'])->name('cekdata.export.excel');
     Route::get('/cekdata/export-pdf', [CekDataController::class, 'exportPDF'])->name('cekdata.export.pdf');
     Route::get('/cekdata/{id_mahasiswa}', [CekDataController::class, 'showDetail'])->name('cekdata.show');
 
-
-    //route riwayat ujian
-
+    // Riwayat Ujian TOEIC
     Route::get('/riwayat-ujian', [RiwayatUjianController::class, 'index'])->name('admin.riwayat');
     Route::get('/riwayat-ujian/ajax', [RiwayatUjianController::class, 'getData'])->name('admin.riwayat.ajax');
-    Route::post('/admin/riwayat-ujian/simpan', [RiwayatUjianController::class, 'simpan'])->name('riwayatujian.simpan');
+    Route::post('/riwayat-ujian/simpan', [RiwayatUjianController::class, 'simpan'])->name('riwayatujian.simpan');
 
+    // Surat Pernyataan
+    Route::get('/surat-pernyataan', [\App\Http\Controllers\SuratPernyataanController::class, 'index'])
+        ->name('admin.surat_pernyataan.index');
 
-    Route::get('/surat-pernyataan', [SuratPernyataanController::class, 'index'])->name('admin.surat_pernyataan.index');
-    Route::post('/surat-pernyataan/upload/{id}', [SuratPernyataanController::class, 'upload'])->name('admin.surat_pernyataan.upload');
+    Route::get('/surat-pernyataan/generate/{id}', [\App\Http\Controllers\SuratPernyataanController::class, 'generateSurat'])
+        ->name('admin.surat_pernyataan.generate');
 
+      // InformasiAdd commentMore actions
     Route::get('/informasi', [InformasiController::class, 'create']);
     Route::post('/informasi', [InformasiController::class, 'store'])->name('admin.informasi.store');
-
+    // Logout
     Route::post('/logout', function () {
         Auth::logout();
         return redirect()->route('login');
     })->name('admin.logout');
+
 });
-
-
