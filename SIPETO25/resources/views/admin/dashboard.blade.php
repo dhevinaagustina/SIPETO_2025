@@ -4,203 +4,262 @@
 @section('page-title', 'Dashboard Admin')
 
 @php
-    // Set breadcrumb for admin dashboard
     $breadcrumb = (object) [
         'title' => 'Dashboard Admin',
         'list' => ['Home', 'Dashboard']
+    ];
+    
+    $stats = [
+        'total_pendaftar' => 1240,
+        'pendaftar_bulan_ini' => 156,
+        'persentase_kenaikan' => 12.5,
+        'mahasiswa_baru' => 84,
+        'belum_lengkap' => 32
     ];
 @endphp
 
 @section('content')
 <div class="container-fluid">
-    <!-- Stats Cards Row -->
+    <!-- Statistik Pendaftaran -->
     <div class="row mb-4">
-        <div class="col-md-6 col-lg-3">
-            <div class="card stat-card animate__animated animate__fadeIn">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="card-title text-muted mb-2">Total Peserta</h5>
-                            <h2 class="mb-0">{{ $stats['total_peserta'] }}</h2>
-                        </div>
-                        <div class="icon-circle bg-primary">
-                            <i class="fas fa-users text-white"></i>
-                        </div>
-                    </div>
-                    <p class="text-success mt-3 mb-0">
-                        <i class="fas fa-arrow-up mr-1"></i> 12% dari bulan lalu
-                    </p>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h3 class="card-title"><i class="fas fa-chart-pie mr-2"></i>Statistik Pendaftaran</h3>
                 </div>
-            </div>
-        </div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Total Pendaftar -->
+                        <div class="col-md-3 col-sm-6">
+                            <div class="info-box bg-primary">
+                                <span class="info-box-icon"><i class="fas fa-users"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Total Pendaftar</span>
+                                    <span class="info-box-number">{{ $stats['total_pendaftar'] }}</span>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 100%"></div>
+                                    </div>
+                                    <span class="progress-description">
+                                        Seluruh periode
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
 
-        <div class="col-md-6 col-lg-3">
-            <div class="card stat-card animate__animated animate__fadeIn animate__delay-1s">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="card-title text-muted mb-2">Tingkat Kelulusan</h5>
-                            <h2 class="mb-0">{{ $stats['kelulusan'] }}%</h2>
+                        <!-- Pendaftar Bulan Ini -->
+                        <div class="col-md-3 col-sm-6">
+                            <div class="info-box bg-success">
+                                <span class="info-box-icon"><i class="fas fa-user-plus"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Pendaftar Bulan Ini</span>
+                                    <span class="info-box-number">{{ $stats['pendaftar_bulan_ini'] }}</span>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: {{ $stats['persentase_kenaikan'] }}%"></div>
+                                    </div>
+                                    <span class="progress-description">
+                                        Naik {{ $stats['persentase_kenaikan'] }}% dari bulan lalu
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="icon-circle bg-success">
-                            <i class="fas fa-check-circle text-white"></i>
-                        </div>
-                    </div>
-                    <p class="text-success mt-3 mb-0">
-                        <i class="fas fa-arrow-up mr-1"></i> 5% dari periode lalu
-                    </p>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-6 col-lg-3">
-            <div class="card stat-card animate__animated animate__fadeIn animate__delay-2s">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="card-title text-muted mb-2">Pengajuan Surat</h5>
-                            <h2 class="mb-0">{{ $stats['pengajuan_surat'] }}</h2>
+                        <!-- Mahasiswa Baru -->
+                        <div class="col-md-3 col-sm-6">
+                            <div class="info-box bg-info">
+                                <span class="info-box-icon"><i class="fas fa-user-graduate"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Mahasiswa Baru</span>
+                                    <span class="info-box-number">{{ $stats['mahasiswa_baru'] }}</span>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 70%"></div>
+                                    </div>
+                                    <span class="progress-description">
+                                        Dari total pendaftar bulan ini
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="icon-circle bg-warning">
-                            <i class="fas fa-envelope text-white"></i>
-                        </div>
-                    </div>
-                    <p class="text-danger mt-3 mb-0">
-                        <i class="fas fa-arrow-down mr-1"></i> 2 dari minggu lalu
-                    </p>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-6 col-lg-3">
-            <div class="card stat-card animate__animated animate__fadeIn animate__delay-3s">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="card-title text-muted mb-2">Ujian Mendatang</h5>
-                            <h2 class="mb-0">{{ $stats['ujian_mendatang'] }}</h2>
+                        <!-- Belum Lengkap -->
+                        <div class="col-md-3 col-sm-6">
+                            <div class="info-box bg-warning">
+                                <span class="info-box-icon"><i class="fas fa-exclamation-circle"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Belum Lengkap</span>
+                                    <span class="info-box-number">{{ $stats['belum_lengkap'] }}</span>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: {{ ($stats['belum_lengkap']/$stats['pendaftar_bulan_ini'])*100 }}%"></div>
+                                    </div>
+                                    <span class="progress-description">
+                                        Dokumen belum lengkap
+                                    </span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="icon-circle bg-info">
-                            <i class="fas fa-calendar-check text-white"></i>
+                    </div>
+
+                    <!-- Grafik Pendaftaran -->
+                    <div class="row mt-4">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <h3 class="card-title">Trend Pendaftaran 6 Bulan Terakhir</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <canvas id="pendaftaranChart" style="height: 300px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <p class="text-info mt-3 mb-0">
-                        <i class="fas fa-clock mr-1"></i> 1 minggu lagi
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Charts Row -->
-    <div class="row mb-4">
-        <div class="col-lg-8">
-            <div class="card animate__animated animate__fadeIn">
-                <div class="card-header border-0 bg-white">
-                    <h3 class="card-title">Perkembangan Peserta Ujian</h3>
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container" style="height: 300px;">
-                        <canvas id="participantsChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4">
-            <div class="card animate__animated animate__fadeIn">
-                <div class="card-header border-0 bg-white">
-                    <h3 class="card-title">Distribusi Skor</h3>
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="chart-container" style="height: 300px;">
-                        <canvas id="scoreDistributionChart"></canvas>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <h3 class="card-title">Distribusi Prodi</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <canvas id="prodiChart" style="height: 300px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Recent Registrations Row -->
+    <!-- Manajemen Mahasiswa -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h3 class="card-title"><i class="fas fa-users mr-2"></i>Manajemen Mahasiswa</h3>
+                    <div>
+                        <a href="{{ route('admin.mahasiswa.index') }}" class="btn btn-sm btn-primary">
+                            <i class="fas fa-list mr-1"></i> Lihat Semua
+                        </a>
+                        <a href="{{ route('admin.mahasiswa.baru') }}" class="btn btn-sm btn-success">
+                            <i class="fas fa-user-plus mr-1"></i> Tambah Baru
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-search mr-2"></i>Cari Mahasiswa</h5>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Nama atau NIM...">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3>{{ $stats['mahasiswa_baru'] }}</h3>
+                                    <p>Mahasiswa Baru Bulan Ini</p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-user-graduate"></i>
+                                </div>
+                                <a href="{{ route('admin.mahasiswa.baru') }}" class="small-box-footer">
+                                    More info <i class="fas fa-arrow-circle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5><i class="fas fa-clock mr-2"></i>Pendaftaran Terbaru</h5>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Nama</th>
+                                            <th>NIM</th>
+                                            <th>Tanggal</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>John Doe</td>
+                                            <td>12345678</td>
+                                            <td>20 Mei 2025</td>
+                                            <td><span class="badge bg-success">Aktif</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jane Smith</td>
+                                            <td>12345679</td>
+                                            <td>19 Mei 2025</td>
+                                            <td><span class="badge bg-success">Aktif</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Michael Johnson</td>
+                                            <td>12345680</td>
+                                            <td>18 Mei 2025</td>
+                                            <td><span class="badge bg-warning">Pending</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Laporan & Export Data -->
     <div class="row">
         <div class="col-12">
-            <div class="card animate__animated animate__fadeIn">
-                <div class="card-header border-0 bg-white">
-                    <h3 class="card-title">Pendaftaran Terbaru</h3>
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-sm btn-primary">
-                            <i class="fas fa-download"></i> Export
-                        </button>
+            <div class="card">
+                <div class="card-header bg-white">
+                    <h3 class="card-title"><i class="fas fa-file-export mr-2"></i>Laporan & Export Data</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card bg-gradient-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Laporan Pendaftaran</h3>
+                                </div>
+                                <div class="card-body">
+                                    <p>Generate laporan pendaftaran berdasarkan periode atau kriteria tertentu</p>
+                                    <a href="{{ route('admin.laporan.pendaftaran') }}" class="btn btn-outline-light">
+                                        <i class="fas fa-file-alt mr-1"></i> Buat Laporan
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-gradient-success">
+                                <div class="card-header">
+                                    <h3 class="card-title">Export Data Excel</h3>
+                                </div>
+                                <div class="card-body">
+                                    <p>Export data mahasiswa dalam format Excel untuk pengolahan lebih lanjut</p>
+                                    <a href="{{ route('admin.laporan.export') }}?format=excel" class="btn btn-outline-light">
+                                        <i class="fas fa-file-excel mr-1"></i> Export Excel
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card bg-gradient-info">
+                                <div class="card-header">
+                                    <h3 class="card-title">Export Data PDF</h3>
+                                </div>
+                                <div class="card-body">
+                                    <p>Export data mahasiswa dalam format PDF untuk keperluan dokumentasi</p>
+                                    <a href="{{ route('admin.laporan.export') }}?format=pdf" class="btn btn-outline-light">
+                                        <i class="fas fa-file-pdf mr-1"></i> Export PDF
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="card-body table-responsive p-0">
-                    <table class="table table-hover text-nowrap">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Nama</th>
-                                <th>NIM</th>
-                                <th>Program Studi</th>
-                                <th>Tanggal Daftar</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>John Doe</td>
-                                <td>12345678</td>
-                                <td>Teknik Informatika</td>
-                                <td>20 Mei 2025</td>
-                                <td><span class="badge bg-success">Aktif</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-info">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jane Smith</td>
-                                <td>12345679</td>
-                                <td>Sistem Informasi</td>
-                                <td>19 Mei 2025</td>
-                                <td><span class="badge bg-success">Aktif</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-info">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Michael Johnson</td>
-                                <td>12345680</td>
-                                <td>Manajemen</td>
-                                <td>18 Mei 2025</td>
-                                <td><span class="badge bg-warning">Pending</span></td>
-                                <td>
-                                    <button class="btn btn-sm btn-info">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="card-footer clearfix">
-                    <a href="{{ route('admin.data-peserta') }}" class="btn btn-sm btn-secondary float-right">Lihat Semua</a>
                 </div>
             </div>
         </div>
@@ -209,17 +268,17 @@
 
 @push('scripts')
 <script>
-    // Participants Chart
-    const ctx1 = document.getElementById('participantsChart').getContext('2d');
+    // Pendaftaran Chart
+    const ctx1 = document.getElementById('pendaftaranChart').getContext('2d');
     new Chart(ctx1, {
         type: 'line',
         data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
             datasets: [{
-                label: 'Jumlah Peserta',
-                data: [120, 190, 150, 200, 170, 240, 210, 180, 220, 250, 230, 300],
-                borderColor: '#29335C',
-                backgroundColor: 'rgba(41, 51, 92, 0.1)',
+                label: 'Jumlah Pendaftar',
+                data: [120, 150, 180, 140, 200, 240],
+                borderColor: '#3c8dbc',
+                backgroundColor: 'rgba(60, 141, 188, 0.1)',
                 tension: 0.3,
                 fill: true,
                 borderWidth: 2
@@ -249,21 +308,20 @@
         }
     });
 
-    // Score Distribution Chart
-    const ctx2 = document.getElementById('scoreDistributionChart').getContext('2d');
+    // Prodi Chart
+    const ctx2 = document.getElementById('prodiChart').getContext('2d');
     new Chart(ctx2, {
         type: 'doughnut',
         data: {
-            labels: ['400-500', '501-600', '601-700', '701-800', '801-900', '901-990'],
+            labels: ['Teknik Informatika', 'Sistem Informasi', 'Manajemen', 'Akuntansi', 'Lainnya'],
             datasets: [{
-                data: [15, 25, 30, 20, 7, 3],
+                data: [35, 25, 20, 15, 5],
                 backgroundColor: [
-                    '#FF6B35',
-                    '#FFA630',
-                    '#1E90FF',
-                    '#6A4C93',
-                    '#29335C',
-                    '#1E4B8F'
+                    '#f56954',
+                    '#00a65a',
+                    '#f39c12',
+                    '#00c0ef',
+                    '#3c8dbc'
                 ],
                 borderWidth: 0
             }]
@@ -282,57 +340,86 @@
 </script>
 @endpush
 
-@php
-    // Data dummy untuk preview
-    $user = (object)[
-        'name' => 'Admin Dummy',
-        'photo' => 'https://randomuser.me/api/portraits/women/45.jpg'
-    ];
-    
-    $stats = [
-        'total_peserta' => 1240,
-        'kelulusan' => 68,
-        'pengajuan_surat' => 24,
-        'ujian_mendatang' => 3
-    ];
-@endphp
-
 <style>
-    .stat-card {
-        border-radius: 10px;
-        border: none;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .stat-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    }
-    
-    .icon-circle {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
+    .info-box {
+        box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+        border-radius: .25rem;
+        background-color: #fff;
         display: flex;
+        margin-bottom: 1rem;
+        min-height: 80px;
+        padding: .5rem;
+        position: relative;
+    }
+    
+    .info-box .info-box-icon {
+        border-radius: .25rem;
+        -ms-flex-align: center;
         align-items: center;
+        display: flex;
+        font-size: 1.875rem;
         justify-content: center;
-        font-size: 1.25rem;
+        text-align: center;
+        width: 70px;
     }
     
-    .card-header {
-        border-bottom: 1px solid rgba(0,0,0,0.1);
+    .info-box .info-box-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        line-height: 1.8;
+        flex: 1;
+        padding: 0 10px;
     }
     
-    .card-title {
-        color: #29335C;
-        font-weight: 600;
+    .info-box .info-box-text {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     
-    table.table thead th {
-        background-color: #f8f9fa;
-        color: #29335C;
-        font-weight: 600;
+    .info-box .info-box-number {
+        display: block;
+        font-weight: 700;
+    }
+    
+    .small-box {
+        border-radius: .25rem;
+        box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+        display: block;
+        margin-bottom: 20px;
+        position: relative;
+    }
+    
+    .small-box > .inner {
+        padding: 10px;
+    }
+    
+    .small-box h3 {
+        font-size: 38px;
+        font-weight: 700;
+        margin: 0 0 10px;
+        padding: 0;
+        white-space: nowrap;
+    }
+    
+    .small-box p {
+        font-size: 15px;
+    }
+    
+    .small-box .icon {
+        color: rgba(0,0,0,.15);
+        z-index: 0;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        font-size: 70px;
+        transition: all .3s linear;
+    }
+    
+    .small-box:hover .icon {
+        font-size: 75px;
     }
 </style>
 @endsection

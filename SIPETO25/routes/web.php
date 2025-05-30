@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\ToeicController;
-
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\LaporanController;
+use App\Http\Controllers\Admin\MahasiswaController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -107,12 +109,26 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
 // =======================
 // Admin Routes
 // =======================
-    Route::prefix('admin')->group(function () {
-
+Route::prefix('admin')->name('admin.')->group(function () {
     // Dashboard
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    
+    // Manajemen Mahasiswa
+    Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
+        Route::get('/', [MahasiswaController::class, 'index'])->name('index');
+        Route::get('/baru', [MahasiswaController::class, 'mahasiswaBaru'])->name('baru');
+        Route::get('/status', [MahasiswaController::class, 'statusPendaftaran'])->name('status');
+        Route::get('/{id}', [MahasiswaController::class, 'show'])->name('show');
+        Route::post('/cari', [MahasiswaController::class, 'cari'])->name('cari');
+    });
+    
+    // Laporan & Export Data
+    Route::prefix('laporan')->name('laporan.')->group(function () {
+        Route::get('/pendaftaran', [LaporanController::class, 'pendaftaran'])->name('pendaftaran');
+        Route::get('/export', [LaporanController::class, 'export'])->name('export');
+        Route::post('/generate', [LaporanController::class, 'generate'])->name('generate');
+    });
+
 
     // Cek Data TOEIC
     Route::get('/cekdata', [CekDataController::class, 'index'])->name('cekdata.index');
