@@ -42,7 +42,7 @@ class Mahasiswa extends Authenticatable
     }
     public function pendaftaranToeic()
     {
-        return $this->hasOne(PendaftaranToeic::class, 'id_mahasiswa');
+        return $this->hasMany(PendaftaranToeic::class, 'id_mahasiswa');
     }
 
     // Relasi ke surat pernyataan

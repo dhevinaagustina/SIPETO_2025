@@ -171,6 +171,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
+                            {{-- Kalo bisa jangan diubah ya (Note: Dhevina) --}}
                             <h5><i class="fas fa-clock mr-2"></i>Pendaftaran Terbaru</h5>
                             <div class="table-responsive">
                                 <table class="table table-hover">
@@ -183,24 +184,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>John Doe</td>
-                                            <td>12345678</td>
-                                            <td>20 Mei 2025</td>
-                                            <td><span class="badge bg-success">Aktif</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jane Smith</td>
-                                            <td>12345679</td>
-                                            <td>19 Mei 2025</td>
-                                            <td><span class="badge bg-success">Aktif</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michael Johnson</td>
-                                            <td>12345680</td>
-                                            <td>18 Mei 2025</td>
-                                            <td><span class="badge bg-warning">Pending</span></td>
-                                        </tr>
+                                        @forelse ($pendaftaranTerbaru as $item)
+                                            <tr>
+                                                <td>{{ $item->mahasiswa->nama_mahasiswa ?? '-' }}</td>
+                                                <td>{{ $item->mahasiswa->nim ?? '-' }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->tanggal_daftar)->translatedFormat('d F Y') }}</td>
+                                                <td>
+                                                    @if ($item->tipe_ujian === 'gratis')
+                                                        <span class="badge bg-success">Gratis</span>
+                                                    @elseif ($item->tipe_ujian === 'mandiri')
+                                                        <span class="badge bg-primary">Mandiri</span>
+                                                    @else
+                                                        <span class="badge bg-secondary">{{ ucfirst($item->tipe_ujian) }}</span>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="text-center text-muted">Tidak ada data terbaru.</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
