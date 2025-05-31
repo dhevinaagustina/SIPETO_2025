@@ -131,12 +131,13 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
         Route::post('/generate', [LaporanController::class, 'generate'])->name('generate');
     });
 
-        Route::prefix('cekdata')->group(function () {
-         Route::get('/cekdata', [CekDataController::class, 'index'])->name('cekdata');
-        Route::get('/cekdata/data', [CekDataController::class, 'getData'])->name('cekdata.getdata'); // AJAX
-        Route::get('/show-dokumen/{id}', [CekDataController::class, 'showDokumen'])->name('cekdata.showDokumen');
-        Route::get('/{id_mahasiswa}', [CekDataController::class, 'showDetail'])->name('cekdata.show');
+    Route::prefix('cekdata')->name('cekdata.')->group(function () {
+        Route::get('/', [CekDataController::class, 'index'])->name('index');
+        Route::get('/data', [CekDataController::class, 'getData'])->name('getdata'); // AJAX
+        Route::get('/show-dokumen/{id}', [CekDataController::class, 'showDokumen'])->name('showDokumen');
+        Route::get('/{id_mahasiswa}', [CekDataController::class, 'showDetail'])->name('show');
     });
+
 
     // Riwayat Ujian TOEIC
     Route::get('/riwayat-ujian', [RiwayatUjianController::class, 'index'])->name('admin.riwayat');
