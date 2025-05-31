@@ -34,19 +34,20 @@ class PendaftaranToeic extends Model
         return $this->belongsTo(Mahasiswa::class, 'id_mahasiswa');
     }
 
-    // Accessor untuk path file, sudah bagus
+   // Accessor untuk path file (digunakan untuk <img> atau link file)
     public function getScanKtpPathAttribute()
     {
-        return 'foto/ktp/' . $this->scan_ktp;
+        return $this->scan_ktp ? 'storage/' . $this->scan_ktp : null;
     }
 
     public function getScanKtmPathAttribute()
     {
-        return 'foto/ktm/' . $this->scan_ktm;
+        return $this->scan_ktm ? 'storage/' . $this->scan_ktm : null;
     }
 
     public function getPasFotoPathAttribute()
     {
-        return 'foto/pasfoto/' . $this->pas_foto;
+        return $this->pas_foto ? 'storage/' . $this->pas_foto : null;
     }
+
 }

@@ -27,50 +27,50 @@
 
     {{-- Dokumen Gambar --}}
     <h5 class="mt-4">Dokumen Pendaftaran</h5>
-    <div class="row">
-        @php
-            $dokumen = [
-        ['label' => 'Kartu Tanda Penduduk (KTP)', 'field' => 'scan_ktp'],
-        ['label' => 'Kartu Tanda Mahasiswa (KTM)', 'field' => 'scan_ktm'],
-        ['label' => 'Pas Foto (3x4)', 'field' => 'pas_foto'],
-    ];
-@endphp
-
-<div class="row">
-@foreach ($dokumen as $item)
     @php
-        switch ($item['field']) {
-            case 'scan_ktp':
-                $file = $pendaftaran->scan_ktp_path;
-                break;
-            case 'scan_ktm':
-                $file = $pendaftaran->scan_ktm_path;
-                break;
-            case 'pas_foto':
-                $file = $pendaftaran->pas_foto_path;
-                break;
-            default:
-                $file = null;
-                break;
-        }
-
-        $exists = $file && file_exists(storage_path('app/public/' . $file));
+        $dokumen = [
+            ['label' => 'Kartu Tanda Penduduk (KTP)', 'field' => 'scan_ktp'],
+            ['label' => 'Kartu Tanda Mahasiswa (KTM)', 'field' => 'scan_ktm'],
+            ['label' => 'Pas Foto (3x4)', 'field' => 'pas_foto'],
+        ];
     @endphp
 
-    <div class="col-md-4 text-center">
-        <p><strong>{{ $item['label'] }}</strong></p>
+    <div class="row">
+        @foreach ($dokumen as $item)
+            @php
+                switch ($item['field']) {
+                    case 'scan_ktp':
+                        $file = $pendaftaran->scan_ktp_path;
+                        break;
+                    case 'scan_ktm':
+                        $file = $pendaftaran->scan_ktm_path;
+                        break;
+                    case 'pas_foto':
+                        $file = $pendaftaran->pas_foto_path;
+                        break;
+                    default:
+                        $file = null;
+                        break;
+                }
 
-        @if ($exists)
-            <img src="{{ asset('storage/' . $file) }}" alt="{{ $item['label'] }}" class="img-fluid rounded shadow-sm mb-2 d-block mx-auto" style="max-height: 200px;">
-            <div>
-                <a href="{{ asset('storage/' . $file) }}" target="_blank" class="btn btn-sm btn-primary">Lihat Full</a>
-                <a href="{{ asset('storage/' . $file) }}" download class="btn btn-sm btn-secondary">Download</a>
+                $relativePath = $file ? str_replace('storage/', '', $file) : null;
+                $exists = $file && file_exists(storage_path('app/public/' . $relativePath));
+            @endphp
+
+            <div class="col-md-4 text-center">
+                <p><strong>{{ $item['label'] }}</strong></p>
+
+                @if ($exists)
+                    <img src="{{ asset('storage/' . $relativePath) }}" alt="{{ $item['label'] }}" class="img-fluid rounded shadow-sm mb-2 d-block mx-auto" style="max-height: 200px;">
+                    <div>
+                        <a href="{{ asset('storage/' . $relativePath) }}" target="_blank" class="btn btn-sm btn-primary">Lihat Full</a>
+                        <a href="{{ asset('storage/' . $relativePath) }}" download class="btn btn-sm btn-secondary">Download</a>
+                    </div>
+                @else
+                    <span class="text-muted">Belum upload {{ explode('(', $item['label'])[0] }}</span>
+                @endif
             </div>
-        @else
-            <span class="text-muted">Belum upload {{ explode('(', $item['label'])[0] }}</span>
-        @endif
-    </div>
-    @endforeach
+        @endforeach
     </div>
 
     <a href="{{ route('cekdata.index') }}" class="btn btn-secondary mt-3">← Kembali</a>
