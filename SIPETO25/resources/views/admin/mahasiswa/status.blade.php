@@ -35,7 +35,7 @@
                                 @endif
                             </td>
                             <td>
-                                {{ $mhs->pendaftaranToeic ? $mhs->pendaftaranToeic->created_at->format('d/m/Y') : '-' }}
+                                {{ $mhs->pendaftaranToeic->first() ? $mhs->pendaftaranToeic->first()->created_at->format('d/m/Y') : '-' }}
                             </td>
                         </tr>
                         @endforeach
