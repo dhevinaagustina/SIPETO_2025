@@ -137,10 +137,10 @@
                 <div class="card-header bg-white d-flex justify-content-between align-items-center">
                     <h3 class="card-title"><i class="fas fa-users mr-2"></i>Manajemen Mahasiswa</h3>
                     <div>
-                        <a href="{{ route('admin.mahasiswa.index') }}" class="btn btn-sm btn-primary">
+                        <a href="{{ route('mahasiswa.index') }}" class="btn btn-sm btn-primary">
                             <i class="fas fa-list mr-1"></i> Lihat Semua
                         </a>
-                        <a href="{{ route('admin.mahasiswa.baru') }}" class="btn btn-sm btn-success">
+                        <a href="{{ route('mahasiswa.baru') }}" class="btn btn-sm btn-success">
                             <i class="fas fa-user-plus mr-1"></i> Tambah Baru
                         </a>
                     </div>
@@ -165,12 +165,13 @@
                                 <div class="icon">
                                     <i class="fas fa-user-graduate"></i>
                                 </div>
-                                <a href="{{ route('admin.mahasiswa.baru') }}" class="small-box-footer">
+                                <a href="{{ route('mahasiswa.baru') }}" class="small-box-footer">
                                     More info <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
                         </div>
                         <div class="col-md-6">
+                            {{-- Kalo bisa jangan diubah ya (Note: Dhevina) --}}
                             <h5><i class="fas fa-clock mr-2"></i>Pendaftaran Terbaru</h5>
                             <div class="table-responsive">
                                 <table class="table table-hover">
@@ -183,24 +184,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>John Doe</td>
-                                            <td>12345678</td>
-                                            <td>20 Mei 2025</td>
-                                            <td><span class="badge bg-success">Aktif</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jane Smith</td>
-                                            <td>12345679</td>
-                                            <td>19 Mei 2025</td>
-                                            <td><span class="badge bg-success">Aktif</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michael Johnson</td>
-                                            <td>12345680</td>
-                                            <td>18 Mei 2025</td>
-                                            <td><span class="badge bg-warning">Pending</span></td>
-                                        </tr>
+                                        @forelse ($pendaftaranTerbaru as $item)
+                                            <tr>
+                                                <td>{{ $item->mahasiswa->nama_mahasiswa ?? '-' }}</td>
+                                                <td>{{ $item->mahasiswa->nim ?? '-' }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->tanggal_daftar)->translatedFormat('d F Y') }}</td>
+                                                <td>
+                                                    @if ($item->tipe_ujian === 'gratis')
+                                                        <span class="badge bg-success">Gratis</span>
+                                                    @elseif ($item->tipe_ujian === 'mandiri')
+                                                        <span class="badge bg-primary">Mandiri</span>
+                                                    @else
+                                                        <span class="badge bg-secondary">{{ ucfirst($item->tipe_ujian) }}</span>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="text-center text-muted">Tidak ada data terbaru.</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>
@@ -227,7 +230,7 @@
                                 </div>
                                 <div class="card-body">
                                     <p>Generate laporan pendaftaran berdasarkan periode atau kriteria tertentu</p>
-                                    <a href="{{ route('admin.laporan.pendaftaran') }}" class="btn btn-outline-light">
+                                    <a href="{{ route('laporan.pendaftaran') }}" class="btn btn-outline-light">
                                         <i class="fas fa-file-alt mr-1"></i> Buat Laporan
                                     </a>
                                 </div>
@@ -240,7 +243,7 @@
                                 </div>
                                 <div class="card-body">
                                     <p>Export data mahasiswa dalam format Excel untuk pengolahan lebih lanjut</p>
-                                    <a href="{{ route('admin.laporan.export') }}?format=excel" class="btn btn-outline-light">
+                                    <a href="{{ route('laporan.export') }}?format=excel" class="btn btn-outline-light">
                                         <i class="fas fa-file-excel mr-1"></i> Export Excel
                                     </a>
                                 </div>
@@ -253,7 +256,7 @@
                                 </div>
                                 <div class="card-body">
                                     <p>Export data mahasiswa dalam format PDF untuk keperluan dokumentasi</p>
-                                    <a href="{{ route('admin.laporan.export') }}?format=pdf" class="btn btn-outline-light">
+                                    <a href="{{ route('laporan.export') }}?format=pdf" class="btn btn-outline-light">
                                         <i class="fas fa-file-pdf mr-1"></i> Export PDF
                                     </a>
                                 </div>

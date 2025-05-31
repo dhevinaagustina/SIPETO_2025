@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin; // Updated namespace
 
 use App\Http\Controllers\Controller;
 use App\Models\Mahasiswa;
+use App\Models\PendaftaranToeic;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -26,10 +27,16 @@ class DashboardController extends Controller
             'belum_lengkap' => Mahasiswa::whereDoesntHave('pendaftaranToeic')->count()
         ];
 
+        $pendaftaranTerbaru = PendaftaranToeic::with('mahasiswa')
+        ->orderByDesc('tanggal_daftar')
+        ->take(5)
+        ->get();
+
         return view('admin.dashboard', [
             'breadcrumb' => $breadcrumb,
             'activeMenu' => $activeMenu,
-            'stats' => $stats
+            'stats' => $stats,
+            'pendaftaranTerbaru' => $pendaftaranTerbaru
         ]);
     }
 
@@ -41,5 +48,24 @@ class DashboardController extends Controller
         return $lastMonthCount > 0 
             ? round(($currentMonthCount - $lastMonthCount) / $lastMonthCount * 100, 2)
             : 100;
+    }
+
+        public function getTerbaru()
+    {
+        $data = PendaftaranToeic::with('mahasiswa') // Eager load relasi mahasiswa
+            ->orderByDesc('tanggal_daftar')
+            ->take(5)
+            ->get();
+
+        $formatted = $data->map(function ($item) {
+            return [
+                'nama' => $item->mahasiswa->nama_mahasiswa ?? '-',      // dari relasi
+                'nim' => $item->mahasiswa->nim ?? '-',        // dari relasi
+                'tanggal_daftar' => $item->tanggal_daftar,
+                'tipe_ujian' => $item->tipe_ujian,
+            ];
+        });
+
+        return response()->json(['data' => $formatted]);
     }
 }

@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #29335C;">
     <!-- Brand Logo -->
-    <a href="{{ route('admin.dashboard') }}" class="brand-link text-center py-4">
+    <a href="{{ route('dashboard') }}" class="brand-link text-center py-4">
         <img src="{{ asset('adminlte/dist/img/logo-sipeto-2.png') }}" class="sidebar-logo mb-2" alt="Logo SIPETO">
         <h5 class="text-white font-weight-bold m-0">SIPETO</h5>
         <small class="text-white d-block">Admin Dashboard</small>
@@ -23,15 +23,15 @@
                     }
 
                     $menu = [
-                        ['label' => 'Statistik Pendaftaran', 'icon' => 'fas fa-chart-pie', 'route' => 'admin.dashboard', 'key' => 'dashboard'],
+                        ['label' => 'Statistik Pendaftaran', 'icon' => 'fas fa-chart-pie', 'route' => 'dashboard', 'key' => 'dashboard'],
                         ['label' => 'Manajemen Mahasiswa', 'icon' => 'fas fa-users', 'key' => 'mahasiswa', 'submenu' => [
-                            ['label' => 'Data Mahasiswa', 'icon' => 'fas fa-list', 'route' => 'admin.mahasiswa.index', 'key' => 'mahasiswa-index'],
-                            ['label' => 'Mahasiswa Baru', 'icon' => 'fas fa-user-plus', 'route' => 'admin.mahasiswa.baru', 'key' => 'mahasiswa-baru'],
-                            ['label' => 'Status Pendaftaran', 'icon' => 'fas fa-clipboard-check', 'route' => 'admin.mahasiswa.status', 'key' => 'mahasiswa-status'],
+                            ['label' => 'Data Mahasiswa', 'icon' => 'fas fa-list', 'route' => 'mahasiswa.index', 'key' => 'mahasiswa-index'],
+                            ['label' => 'Mahasiswa Baru', 'icon' => 'fas fa-user-plus', 'route' => 'mahasiswa.baru', 'key' => 'mahasiswa-baru'],
+                            ['label' => 'Status Pendaftaran', 'icon' => 'fas fa-clipboard-check', 'route' => 'mahasiswa.status', 'key' => 'mahasiswa-status'],
                         ]],
                         ['label' => 'Laporan & Export', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
-                            ['label' => 'Laporan Pendaftaran', 'icon' => 'fas fa-file-alt', 'route' => 'admin.laporan.pendaftaran', 'key' => 'laporan-pendaftaran'],
-                            ['label' => 'Export Data', 'icon' => 'fas fa-download', 'route' => 'admin.laporan.export', 'key' => 'laporan-export'],
+                            ['label' => 'Laporan Pendaftaran', 'icon' => 'fas fa-file-alt', 'route' => 'laporan.pendaftaran', 'key' => 'laporan-pendaftaran'],
+                            ['label' => 'Export Data', 'icon' => 'fas fa-download', 'route' => 'laporan.export', 'key' => 'laporan-export'],
                         ]],
                     ];
                 @endphp
