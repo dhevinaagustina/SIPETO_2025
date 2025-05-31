@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 @extends('layouts-admin.template')
 
+
 @section('content')
 <style>
     .card-header-custom {
@@ -94,9 +95,6 @@
             flex-direction: column;
             align-items: stretch;
         }
-        .filter-container .form-controlshow {
-            width: 80%;
-        }
         .entries-dropdown {
             width: 100%;
             justify-content: space-between;
@@ -148,7 +146,7 @@
             </tr>
           </thead>
           <tbody>
-           {{-- diisi data dari database --}}
+           {{-- Data di-load via AJAX --}}
           </tbody>
         </table>
         
@@ -169,99 +167,59 @@
     </div>
   </div>
 </section>
-@endsection
 
-@section('scripts')
-    {{-- DataTables & jQuery --}}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    <script>
-        $(document).ready(function () {
-            let table = $('#mahasiswaTable').DataTable({
-                processing: true,
-                serverSide: true,
-                pageLength: 10, // Default entries per page
-                lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]], // Options for entries per page
-                ajax: {
-                    url: "{{ route('cekdata.data') }}",
-                    data: function (d) {
-                        d.jurusan = $('#filterJurusan').val();
-                        d.search = $('#searchMahasiswa').val();
-                    }
-                },
-                columns: [
-                    { 
-                        data: 'DT_RowIndex', 
-                        name: 'DT_RowIndex', 
-                        orderable: false, 
-                        searchable: false 
-                    },
-                    { 
-                        data: 'nim', 
-                        name: 'nim' 
-                    },
-                    { 
-                        data: 'nama', 
-                        name: 'nama' 
-                    },
-                    { 
-                        data: 'jurusan', 
-                        name: 'jurusan' 
-                    },
-                    { 
-                        data: 'prodi', 
-                        name: 'prodi' 
-                    },
-                    { 
-                        data: 'id', 
-                        name: 'dokumen',
-                        orderable: false,
-                        searchable: false,
-                        render: function(data, type, row) {
-                            return `
-                                <a href="{{ url('admin/dokumen-mahasiswa') }}/${data}" class="btn-dokumen">
-                                    💬 Lihat Dokumen
-                                </a>
-                            `;
-                        }
-                    },
-                ],
-                language: {
-                    emptyTable: "Tidak ada data tersedia di tabel",
-                    processing: "Memuat...",
-                    search: "Cari:",
-                    lengthMenu: "Tampilkan _MENU_ entri",
-                    info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-                    infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-                    paginate: {
-                        previous: "Sebelumnya",
-                        next: "Berikutnya"
-                    }
-                }
-            });
+@push('scripts')
+<script>
+$(document).ready(function () {
+    let table = $('#mahasiswaTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "{{ route('cekdata.data') }}",
+            data: function (d) {
+                d.jurusan = $('#filterJurusan').val();
+                d.searchMahasiswa = $('#searchMahasiswa').val();
+            }
+        },
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+            { data: 'nim', name: 'nim' },
+            { data: 'nama_mahasiswa', name: 'nama_mahasiswa' },
+            { data: 'jurusan', name: 'jurusan' },
+            { data: 'prodi', name: 'prodi' },
+            { data: 'dokumen', name: 'dokumen', orderable: false, searchable: false },
+        ],
+        language: {
+            emptyTable: "Tidak ada data tersedia di tabel",
+            processing: "Memuat...",
+            search: "Cari:",
+            lengthMenu: "Tampilkan _MENU_ entri",
+            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+            infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
+            paginate: {
+                previous: "Sebelumnya",
+                next: "Berikutnya"
+            }
+        }
+    });
 
-            // Filter by jurusan
-            $('#filterJurusan').on('change', function () {
-                table.ajax.reload();
-            });
+    $('#filterJurusan').on('change', function () {
+        table.ajax.reload();
+    });
 
-            // Search input
-            $('#searchMahasiswa').on('keyup', function () {
-                table.ajax.reload();
-            });
+    $('#searchMahasiswa').on('keyup', function () {
+        table.ajax.reload();
+    });
 
-            // Change entries per page
-            $('#entriesSelect').on('change', function () {
-                table.page.len($(this).val()).draw();
-            });
+    $('#entriesSelect').on('change', function () {
+        table.page.len($(this).val()).draw();
+    });
 
-            // Update entries select when DataTables page length changes
-            table.on('length.dt', function (e, settings, len) {
-                $('#entriesSelect').val(len);
-            });
-        });
-    </script>
+    table.on('length.dt', function (e, settings, len) {
+        $('#entriesSelect').val(len);
+    });
+});
+</script>
+@endpush
 @endsection
