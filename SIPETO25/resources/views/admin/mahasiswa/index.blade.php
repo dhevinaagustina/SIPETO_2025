@@ -9,7 +9,7 @@
         <div class="card-header bg-white">
             <div class="d-flex justify-content-between align-items-center">
                 <h3 class="card-title">Daftar Mahasiswa</h3>
-                <form action="{{ route('admin.mahasiswa.cari') }}" method="GET" class="form-inline">
+                <form action="{{ route('mahasiswa.cari') }}" method="GET" class="form-inline">
                     <div class="input-group">
                         <input type="text" name="keyword" class="form-control" placeholder="Cari NIM/Nama...">
                         <div class="input-group-append">

@@ -10,7 +10,7 @@
             <h3 class="card-title">Filter Laporan</h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('admin.laporan.generate') }}" method="POST">
+            <form action="{{ route('laporan.generate') }}" method="POST">
                 @csrf
                 <div class="row">
                     <div class="col-md-4">

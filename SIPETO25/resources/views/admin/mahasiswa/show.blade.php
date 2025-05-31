@@ -15,6 +15,6 @@
         </div>
     </div>
 
-    <a href="{{ route('admin.mahasiswa.index') }}" class="btn btn-secondary mt-3">Kembali</a>
+    <a href="{{ route('mahasiswa.index') }}" class="btn btn-secondary mt-3">Kembali</a>
 </div>
 @endsection
