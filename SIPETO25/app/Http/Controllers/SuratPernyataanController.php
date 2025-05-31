@@ -80,10 +80,17 @@ class SuratPernyataanController extends Controller
 
     // Admin
     // Admin lihat daftar pengajuan
-    public function index()
-    {
-    $data = \App\Models\SuratPernyataan::with('mahasiswa')->get();
-    return view('admin.surat_pernyataan', compact('data'));
+    public function index() {
+        $data = \App\Models\SuratPernyataan::with('mahasiswa')->get();
+        
+        return view('admin.surat_pernyataan', [
+            'data' => $data,
+            'activeMenu' => 'surat-pernyataan',
+            'breadcrumb' => new Fluent([
+                'title' => 'Daftar Pengajuan Surat Pernyataan',
+                'list'  => ['Pengajuan Surat']
+            ])
+        ]);
     }
 
  public function generateSurat($id)
