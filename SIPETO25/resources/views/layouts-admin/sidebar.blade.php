@@ -26,11 +26,16 @@
                     $menu = [
                         ['label' => 'Dashboard', 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
                             ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => '/dashboard/beranda', 'key' => 'dashboard-beranda'],
-                            ['label' => ' Tulis Pesan', 'icon' => 'fas fa-bell', 'route' => '/dashboard/pesan', 'key' => 'dashboard-pesan'],
+                            ['label' => 'Tulis Pesan', 'icon' => 'fas fa-bell', 'route' => '/dashboard/pesan', 'key' => 'dashboard-pesan'],
                         ]],
-                        ['label' => 'Cek Data', 'icon'    => 'fas fa-search', 'route' => route('cekdata.index'), 'key' => 'cek-data'],
-                        ['label' => 'Riwayat Ujian', 'icon'    => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian'],
+                        ['label' => 'Cek Data', 'icon' => 'fas fa-search', 'route' => route('cekdata.index'), 'key' => 'cek-data'],
+                        ['label' => 'Riwayat Ujian', 'icon' => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian'],
                         ['label' => 'Pengajuan Surat', 'icon' => 'fas fa-pen-fancy', 'route' => route('admin.surat_pernyataan.index'), 'key' => 'surat-pernyataan'],
+                        ['label' => 'Status Pendaftaran', 'icon' => 'fas fa-clipboard-check', 'route' => route('mahasiswa.status'), 'key' => 'mahasiswa-status'],
+                        ['label' => 'Laporan & Export', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
+                            ['label' => 'Laporan Pendaftaran', 'icon' => 'fas fa-file-alt', 'route' => 'laporan.pendaftaran', 'key' => 'laporan-pendaftaran'],
+                            ['label' => 'Export Data', 'icon' => 'fas fa-download', 'route' => 'laporan.export', 'key' => 'laporan-export'],
+                        ]],
                     ];
                 @endphp
 
@@ -75,7 +80,6 @@
                         @csrf
                     </form>
                 </li>
-
             </ul>
         </nav>
     </div>
