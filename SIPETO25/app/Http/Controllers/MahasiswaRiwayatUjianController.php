@@ -30,7 +30,7 @@ class MahasiswaRiwayatUjianController extends Controller
             'activeMenu' => 'riwayat-ujian',
             'breadcrumb' => new \Illuminate\Support\Fluent([
                 'title' => 'Riwayat Ujian',
-                'list'  => ['Beranda', 'Riwayat Ujian']
+                'list'  => ['Riwayat Ujian']
             ]),
             'title' => 'Riwayat Ujian',
             'riwayat' => $riwayat
