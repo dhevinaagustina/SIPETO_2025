@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ config('app.name', 'SIPETO')}}</title>
 
-  <meta name="csrf-token" content="{{ csrf_token() }}"> <!--Untuk mengirimkan token laravel CSRF pada setiap req ajax-->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -18,45 +18,26 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
 
-  {{-- @stack('css') <!-- Digunakan untuk memanggil custom css dari perintah push('css') pada masing masing view--> --}}
   @stack('styles')
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
-<!--Navbar-->
-@include('layouts-admin.header')
-<!-- /.navbar -->
-
-<!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-    {{-- <!-- Brand Logo -->
-    <a href="{{ url('/')}}" class="brand-link">
-      <img src="{{ asset('adminlte/dist/img/logo-sipeto.png') }}" alt="SIPETO" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">SIPETO</span>
-    </a> --}}
-
-<!--Sidebar-->
-@include('layouts-admin.sidebar')
-<!-- /.sidebar -->
-</aside>
+  @include('layouts-admin.header')
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    @include('layouts-admin.sidebar')
+  </aside>
   
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     @include('layouts-admin.breadcrumb')
 
-    <!-- Main content -->
     <section class="content">
-    @yield('content')
+      @yield('content')
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
 
-@include('layouts-admin.footer')
+  @include('layouts-admin.footer')
 </div>
-<!-- ./wrapper -->
 
 <!-- jQuery -->
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
@@ -64,19 +45,19 @@
 <!-- Bootstrap 4 -->
 <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
- <!-- DataTables & Plugins -->
- <script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
- <script src="{{ asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
- <script src="{{ asset('adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
- <script src="{{ asset('adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
- <script src="{{ asset('adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
- <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
- <script src="{{ asset('adminlte/plugins/jszip/jszip.min.js') }}"></script>
- <script src="{{ asset('adminlte/plugins/pdfmake/pdfmake.min.js') }}"></script>
- <script src="{{ asset('adminlte/plugins/pdfmake/vfs_fonts.js') }}"></script>
- <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
- <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
- <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colvis.min.js') }}"></script>
+<!-- DataTables & Plugins -->
+<script src="{{ asset('adminlte/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/pdfmake/pdfmake.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/pdfmake/vfs_fonts.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colvis.min.js') }}"></script>
 
 <!-- AdminLTE App -->
 <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
@@ -90,9 +71,61 @@
   });
 </script>
 
-@stack('js') <!-- Digunakan untuk memanggil custom js dari perintah push('js') pada masing-masing view -->
+@stack('js')
 
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('adminlte/dist/js/demo.js') }}"></script>
+
+<!-- Script filterTable manual -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const entriesSelect = document.getElementById('entriesSelect');
+    const filterStatus = document.getElementById('filterStatus');
+    const searchInput = document.getElementById('searchInput');
+    const table = document.getElementById('tableSurat');
+    if (!table) return; // Jika tabel tidak ada, hentikan
+
+    const tbody = table.querySelector('tbody');
+    let rows = Array.from(tbody.querySelectorAll('tr'));
+
+    function filterTable() {
+        const statusFilter = filterStatus ? filterStatus.value.toLowerCase() : '';
+        const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+        const entries = entriesSelect ? parseInt(entriesSelect.value) : rows.length;
+
+        let visibleCount = 0;
+
+        rows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            if (cells.length < 6) {
+                row.style.display = 'none';
+                return;
+            }
+
+            const statusCell = cells[5];
+            const statusText = statusCell.textContent.trim().toLowerCase();
+
+            const rowText = Array.from(cells).map(c => c.textContent.toLowerCase()).join(' ');
+
+            const statusMatch = statusFilter === '' || statusText.includes(statusFilter);
+            const searchMatch = rowText.includes(searchTerm);
+
+            if (statusMatch && searchMatch && visibleCount < entries) {
+                row.style.display = '';
+                visibleCount++;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+
+    if (entriesSelect) entriesSelect.addEventListener('change', filterTable);
+    if (filterStatus) filterStatus.addEventListener('change', filterTable);
+    if (searchInput) searchInput.addEventListener('input', filterTable);
+
+    filterTable();
+});
+</script>
+
 </body>
 </html>

@@ -194,6 +194,20 @@
 
     <script>
         $(document).ready(function () {
+
+            // Custom filter untuk kolom status (index 5)
+            $.fn.dataTable.ext.search.push(
+                function(settings, data, dataIndex) {
+                    var selectedStatus = $('#filterStatus').val();
+                    var status = $(data[5]).text().trim().toLowerCase();
+
+                    if (selectedStatus === "" || status === selectedStatus.toLowerCase()) {
+                        return true;
+                    }
+                    return false;
+                }
+            );
+
             var table = $('#tableSurat').DataTable({
                 language: {
                     emptyTable: "Tidak ada data tersedia di tabel",
@@ -211,11 +225,10 @@
                 lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
                 pagingType: "full_numbers",
                 dom: '<"top"lf>rt<"bottom"ip>',
+
                 initComplete: function() {
-                    // Hide default DataTables pagination
+                    // Hide default DataTables pagination if pakai custom
                     $('.dataTables_paginate').hide();
-                    
-                    // Initialize custom pagination
                     updateCustomPagination();
                 },
                 drawCallback: function() {
@@ -223,31 +236,29 @@
                 }
             });
 
-            // Function to update custom pagination
+            // Fungsi custom pagination seperti yang kamu punya
             function updateCustomPagination() {
                 var info = table.page.info();
                 var pagination = $('#customPagination');
                 pagination.empty();
-                
-                // Previous button
+
                 pagination.append(
                     '<li class="page-item" id="prevPage">' +
                     '<a class="page-link" href="#" aria-label="Previous">' +
                     '<span aria-hidden="true">Previous</span>' +
                     '</a></li>'
                 );
-                
-                // Page numbers
+
                 var start = Math.max(1, info.page - 2);
                 var end = Math.min(info.pages, info.page + 2);
-                
+
                 if (info.page > 3) {
                     pagination.append(
                         '<li class="page-item"><a class="page-link" href="#">1</a></li>' +
                         '<li class="page-item disabled"><a class="page-link" href="#">...</a></li>'
                     );
                 }
-                
+
                 for (var i = start; i <= end; i++) {
                     var active = i === info.page + 1 ? 'active' : '';
                     pagination.append(
@@ -255,32 +266,29 @@
                         '<a class="page-link" href="#">' + i + '</a></li>'
                     );
                 }
-                
+
                 if (info.page < info.pages - 3) {
                     pagination.append(
                         '<li class="page-item disabled"><a class="page-link" href="#">...</a></li>' +
                         '<li class="page-item"><a class="page-link" href="#">' + info.pages + '</a></li>'
                     );
                 }
-                
-                // Next button
+
                 pagination.append(
                     '<li class="page-item" id="nextPage">' +
                     '<a class="page-link" href="#" aria-label="Next">' +
                     '<span aria-hidden="true">Next</span>' +
                     '</a></li>'
                 );
-                
-                // Enable/disable Previous/Next buttons
+
                 $('#prevPage').toggleClass('disabled', !info.hasPrevious);
                 $('#nextPage').toggleClass('disabled', !info.hasNext);
             }
-            
-            // Handle custom pagination clicks
+
             $('#customPagination').on('click', 'a.page-link', function(e) {
                 e.preventDefault();
                 var li = $(this).parent();
-                
+
                 if (li.is('#prevPage')) {
                     table.page('previous').draw('page');
                 } else if (li.is('#nextPage')) {
@@ -296,17 +304,12 @@
                 table.page.len($(this).val()).draw();
             });
 
-            // Filter by status
+            // Filter by status (pakai custom filter)
             $('#filterStatus').on('change', function() {
-                var status = $(this).val();
-                if (status === '') {
-                    table.columns(5).search('').draw();
-                } else {
-                    table.columns(5).search(status).draw();
-                }
+                table.draw();
             });
 
-            // Search input
+            // Search input default DataTables search global
             $('#searchInput').on('keyup', function() {
                 table.search($(this).val()).draw();
             });
