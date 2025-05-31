@@ -5,12 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Fluent;
 
 class RiwayatUjianController extends Controller
 {
     public function index()
     {
-        return view('admin.riwayatujian');
+        return view('admin.riwayatujian', [
+            'activeMenu' => 'riwayat-ujian',
+            'breadcrumb' => new Fluent([
+                'title' => 'Daftar Riwayat Ujian Mahasiswa',
+                'list'  => ['Riwayat Ujian']
+            ])
+        ]);
     }
 
     public function getData(Request $request)

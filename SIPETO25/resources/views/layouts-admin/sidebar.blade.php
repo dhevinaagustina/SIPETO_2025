@@ -29,7 +29,7 @@
                             ['label' => ' Tulis Pesan', 'icon' => 'fas fa-bell', 'route' => '/dashboard/pesan', 'key' => 'dashboard-pesan'],
                         ]],
                         ['label' => 'Cek Data', 'icon'    => 'fas fa-search', 'route' => route('cekdata.index'), 'key' => 'cek-data'],
-                        ['label' => 'Riwayat Ujian', 'icon'    => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian', 'active' => request()->routeIs('admin.riwayat')],
+                        ['label' => 'Riwayat Ujian', 'icon'    => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian'],
                         ['label' => 'Pengajuan Surat', 'icon' => 'fas fa-pen-fancy', 'route' => route('admin.surat_pernyataan.index'), 'key' => 'surat-pernyataan'],
                     ];
                 @endphp

@@ -2,11 +2,6 @@
 
 @section('content')
 <style>
-    .card-header-custom {
-        background-color: #f8f9fa;
-        border-bottom: 1px solid #dee2e6;
-        padding: 15px 20px;
-    }
     .table-custom {
         width: 100%;
         margin-bottom: 1rem;
@@ -41,13 +36,6 @@
         color: #6c757d;
         margin-bottom: 15px;
     }
-    .footer-text {
-        text-align: center;
-        color: #6c757d;
-        margin-top: 20px;
-        padding-top: 10px;
-        border-top: 1px solid #dee2e6;
-    }
     .pagination .page-item.active .page-link {
         background-color: #29335C;
         border-color: #dee2e6;
@@ -73,29 +61,46 @@
         align-items: center;
         flex-wrap: wrap;
     }
-    .filter-container .form-control {
-        flex: 1;
-        min-width: 150px;
+    .filter-container {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
     }
     .entries-dropdown {
         display: flex;
         align-items: center;
         gap: 10px;
+        min-width: 180px; 
+        flex: 1; 
     }
     .entries-dropdown select {
-        width: 80px;
+        width: 10%; 
         padding: 8px;
         border-radius: 4px;
         border: 1px solid #ced4da;
     }
+    #filterJurusan {
+        min-width: 200px; 
+        flex: 0.5; 
+        padding: 8px;
+    }
+    #searchMahasiswa {
+        min-width: 250px; 
+        flex: 0.5; 
+        padding: 8px;
+    }
     @media (max-width: 768px) {
         .filter-container {
             flex-direction: column;
-            align-items: stretch;
+            gap: 8px;
         }
-        .entries-dropdown {
+        .entries-dropdown, 
+        #filterJurusan, 
+        #searchMahasiswa {
             width: 100%;
-            justify-content: space-between;
+            min-width: unset;
+            flex: none;
         }
     }
 </style>
@@ -104,14 +109,14 @@
     <div class="container-fluid">
         <div class="filter-container mb-3">
             <div class="entries-dropdown">
-                <span>Show</span>
+                <span>Tampilkan</span>
                 <select id="entriesSelect" name="entriesSelect" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
                 </select>
-                <span>entries</span>
+                <span>entri</span>
             </div>
 
             <select id="filterJurusan" name="filterJurusan" class="form-control">
@@ -127,26 +132,22 @@
 
             <input type="text" id="searchMahasiswa" name="searchMahasiswa" class="form-control" placeholder="Cari mahasiswa">
         </div>
-
-        <div class="card">
-            <div class="card-body">
-                <table id="mahasiswaTable" class="table-custom">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>NIM</th>
-                            <th>Nama</th>
-                            <th>Jurusan</th>
-                            <th>Prodi</th>
-                            <th>Dokumen</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{-- Data will be loaded by DataTable --}}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <table id="mahasiswaTable" class="table-custom">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>NIM</th>
+                    <th>Nama</th>
+                    <th>Jurusan</th>
+                    <th>Prodi</th>
+                    <th>Dokumen</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{-- Data will be loaded by DataTable --}}
+            </tbody>
+        </table> 
+        <br>
     </div>
 </section>
 
@@ -154,6 +155,7 @@
 <script>
     $(document).ready(function () {
         let table = $('#mahasiswaTable').DataTable({
+            dom: 'tp',
             processing: true,
             serverSide: true,
             ajax: {
