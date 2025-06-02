@@ -94,7 +94,8 @@
                     
                     @php
                         $ext = strtolower(pathinfo($pesan->lampiran, PATHINFO_EXTENSION));
-                        $filePath = 'storage/' . $pesan->lampiran;
+                        $filePath = 'storage/lampiran_informasi/' . $pesan->lampiran;
+
                     @endphp
 
                     @if($pesan->tipe_lampiran === 'link')
