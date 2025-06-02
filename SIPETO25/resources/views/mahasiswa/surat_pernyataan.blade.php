@@ -47,6 +47,7 @@
         color: #6c757d;
         padding: 20px;
         text-align: center;
+        font-style: italic;
     }
     .btn-primary-custom {
         background-color: #29335C;
@@ -177,7 +178,7 @@
                 </tr>
             </thead>
             <tbody>
-                @if ($sudahMengajukan && isset($daftarSurat))
+                @if(isset($daftarSurat) && count($daftarSurat) > 0)
                     @foreach ($daftarSurat as $i => $surat)
                         <tr data-status="{{ $surat->status }}">
                             <td>{{ $i + 1 }}</td>
@@ -201,7 +202,7 @@
                 @else
                     <tr>
                         <td colspan="6" class="no-data">
-                            <i class="fas fa-info-circle mr-2"></i>Belum ada pengajuan surat
+                            Belum ada pengajuan surat
                         </td>
                     </tr>
                 @endif
@@ -225,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const rowStatus = $(this).data('status');
             const statusMatch = status === '' || rowStatus === status;
             
-            if (statusMatch) {
+            if (statusMatch && !$(this).hasClass('no-data-row')) {
                 $(this).show();
                 visibleRows++;
                 // Hide rows beyond the current page limit
@@ -239,13 +240,16 @@ document.addEventListener('DOMContentLoaded', function () {
         
         // Show no data message if no rows visible
         if (visibleRows === 0) {
+            // Remove existing no-data message if any
+            $('#pengajuanTable tbody .no-data-row').remove();
+            
             $('#pengajuanTable tbody').append(
-                '<tr><td colspan="6" class="no-data">' +
-                '<i class="fas fa-info-circle mr-2"></i>Tidak ada data yang sesuai dengan filter' +
+                '<tr class="no-data-row"><td colspan="6" class="no-data">' +
+                'Tidak ada data yang sesuai dengan filter' +
                 '</td></tr>'
             );
         } else {
-            $('#pengajuanTable tbody .no-data').remove();
+            $('#pengajuanTable tbody .no-data-row').remove();
         }
     }
     

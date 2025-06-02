@@ -47,6 +47,7 @@
         color: #6c757d;
         padding: 20px;
         text-align: center;
+        font-style: italic;
     }
     .filter-container {
         display: flex;
@@ -123,26 +124,28 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($riwayat as $row)
-                    <tr data-status="{{ $row->tipe_ujian }}">
-                        <td>{{ $row->nim }}</td>
-                        <td>{{ $row->nama_mahasiswa }}</td>
-                        <td>{{ \Carbon\Carbon::parse($row->tanggal_pendaftaran)->translatedFormat('d F Y') }}</td>
-                        <td>
-                            @if($row->tipe_ujian === 'gratis')
-                                <span class="status-badge badge-gratis">Gratis</span>
-                            @elseif($row->tipe_ujian === 'mandiri')
-                                <span class="status-badge badge-mandiri">Mandiri</span>
-                            @endif
-                        </td>
-                    </tr>
-                @empty
+                @if(count($riwayat) > 0)
+                    @foreach($riwayat as $row)
+                        <tr data-status="{{ $row->tipe_ujian }}">
+                            <td>{{ $row->nim }}</td>
+                            <td>{{ $row->nama_mahasiswa }}</td>
+                            <td>{{ \Carbon\Carbon::parse($row->tanggal_pendaftaran)->translatedFormat('d F Y') }}</td>
+                            <td>
+                                @if($row->tipe_ujian === 'gratis')
+                                    <span class="status-badge badge-gratis">Gratis</span>
+                                @elseif($row->tipe_ujian === 'mandiri')
+                                    <span class="status-badge badge-mandiri">Mandiri</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                @else
                     <tr>
                         <td colspan="4" class="no-data">
-                            <i class="fas fa-info-circle mr-2"></i>Belum ada data riwayat ujian
+                            Belum ada riwayat ujian
                         </td>
                     </tr>
-                @endforelse
+                @endif
             </tbody>
         </table>
     </div>
@@ -161,7 +164,7 @@ $(document).ready(function() {
             const rowStatus = $(this).data('status');
             const statusMatch = status === '' || rowStatus === status;
             
-            if (statusMatch) {
+            if (statusMatch && !$(this).hasClass('no-data-row')) {
                 $(this).show();
                 visibleRows++;
                 // Hide rows beyond the current page limit
@@ -175,13 +178,16 @@ $(document).ready(function() {
         
         // Show no data message if no rows visible
         if (visibleRows === 0) {
+            // Remove existing no-data message if any
+            $('#riwayatTable tbody .no-data-row').remove();
+            
             $('#riwayatTable tbody').append(
-                '<tr><td colspan="4" class="no-data">' +
-                '<i class="fas fa-info-circle mr-2"></i>Tidak ada data yang sesuai dengan filter' +
+                '<tr class="no-data-row"><td colspan="4" class="no-data">' +
+                'Tidak ada data yang sesuai dengan filter' +
                 '</td></tr>'
             );
         } else {
-            $('#riwayatTable tbody .no-data').remove();
+            $('#riwayatTable tbody .no-data-row').remove();
         }
     }
     
@@ -191,7 +197,7 @@ $(document).ready(function() {
         if (rowsPerPage > 0) {
             let visibleCount = 0;
             $('#riwayatTable tbody tr').each(function() {
-                if ($(this).is(':visible')) {
+                if ($(this).is(':visible') && !$(this).hasClass('no-data-row')) {
                     visibleCount++;
                     if (visibleCount > rowsPerPage) {
                         $(this).hide();
