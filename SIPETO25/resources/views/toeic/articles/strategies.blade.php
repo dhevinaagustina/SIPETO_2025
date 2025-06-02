@@ -320,6 +320,10 @@
       background-color: #388e3c;
     }
 
+    .custom-card-header {
+      background-color: #2e7d32;
+    }
+
     @media (max-width: 768px) {
       .time-grid {
         grid-template-columns: 1fr;
@@ -335,6 +339,8 @@
         justify-content: flex-start;
         padding-bottom: 10px;
       }
+
+      
     }
   </style>
 </head>
@@ -821,6 +827,46 @@
                     <div class="form-check mb-2">
                       <input class="form-check-input" type="checkbox" id="strategy4" checked>
                       <label class="form-check-label" for="strategy4">Kelola waktu ketat</label>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- Add this section right before the "Final CTA" section -->
+              <section class="mb-5 pt-4">
+                <h2 class="section-title">
+                  <span class="section-icon"><i class="bi bi-pencil-square"></i></span>
+                  <span>Latihan Soal Online</span>
+                </h2>
+                
+                <div class="card strategy-card border-primary">
+                  <div class="card-header custom-card-header text-white">
+                    <i class="bi bi-link-45deg"></i> Sumber Latihan TOEIC
+                  </div>
+                  <div class="card-body">
+                    <div class="row align-items-center">
+                      <div class="col-md-8">
+                        <h5>TOEIC TestPro by ESTUDYME</h5>
+                        <p>Untuk latihan soal TOEIC online dengan simulasi yang mirip tes asli, Anda dapat mengunjungi platform berikut:</p>
+                        <div class="d-flex align-items-center mt-3">
+                          <i class="bi bi-check-circle-fill text-success fs-4 me-3"></i>
+                          <div>
+                            <p class="mb-1 fw-bold">Fitur Utama:</p>
+                            <ul class="list-unstyled">
+                              <li><i class="bi bi-check me-2 text-success"></i> Simulasi tes TOEIC lengkap</li>
+                              <li><i class="bi bi-check me-2 text-success"></i> Pembahasan jawaban</li>
+                              <li><i class="bi bi-check me-2 text-success"></i> Timer seperti tes sebenarnya</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4 text-center">
+                        <img src="{{ asset('adminlte/dist/img/download.png') }}"  alt="ESTUDYME Logo" class="img-fluid mb-3" style="max-height: 80px;">
+                        <a href="https://estudyme.com/en/toeic-testpro/" target="_blank" class="btn btn-success btn-lg w-100">
+                          <i class="bi bi-box-arrow-up-right me-2"></i> Kunjungi Website
+                        </a>
+                        <small class="text-muted">*Link eksternal</small>
+                      </div>
                     </div>
                   </div>
                 </div>

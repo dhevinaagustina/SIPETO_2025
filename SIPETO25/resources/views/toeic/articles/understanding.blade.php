@@ -382,7 +382,7 @@
                           <div class="accordion-item">
                             <h3 class="accordion-header">
                               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#part5">
-                                Part 5: Kalimat Tidak Lengkap (30 pertanyaan)
+                                Part 2: Kalimat Tidak Lengkap (30 pertanyaan)
                               </button>
                             </h3>
                             <div id="part5" class="accordion-collapse collapse" data-bs-parent="#readingAccordion">
