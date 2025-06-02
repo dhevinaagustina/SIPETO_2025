@@ -26,7 +26,7 @@
                    $menu = [
                         ['label' => 'Dashboard', 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
                             ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => route('dashboard'), 'key' => 'dashboard-admberanda'],
-                            ['label' => 'Tulis Pesan', 'icon' => 'fas fa-bell', 'route' => '/dashboard/pesan', 'key' => 'dashboard-pesan'],
+                            ['label' => 'Tulis Pesan', 'icon' => 'fas fa-bell', 'route' => route('admin.kirim_informasi'), 'key' => 'dashboard-pesan'],
                         ]],
                         ['label' => 'Cek Data', 'icon' => 'fas fa-search', 'route' => route('cekdata.index'), 'key' => 'cek-data'],
                         ['label' => 'Riwayat Ujian', 'icon' => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian'],

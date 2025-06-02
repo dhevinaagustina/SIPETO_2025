@@ -120,10 +120,11 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
         Route::get('/status', [MahasiswaController::class, 'statusPendaftaran'])->name('status');
         Route::get('/{id}', [MahasiswaController::class, 'showAjax'])->name('admin.mahasiswa.showAjax');
         Route::post('/cari', [MahasiswaController::class, 'cari'])->name('cari');
-       
-
     });
-    
+
+    Route::get('/kirim-informasi', [InformasiController::class, 'create'])->name('admin.kirim_informasi');
+    Route::post('/kirim-informasi', [InformasiController::class, 'store'])->name('admin.informasi_store');
+
     // Laporan & Export Data
     Route::prefix('laporan')->name('laporan.')->group(function () {
         Route::get('/pendaftaran', [LaporanController::class, 'pendaftaran'])->name('pendaftaran');
