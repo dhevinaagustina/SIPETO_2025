@@ -12,9 +12,35 @@
     $stats = [
         'total_pendaftar' => 1240,
         'pendaftar_bulan_ini' => 156,
-        'persentase_kenaikan' => 12.5,
         'mahasiswa_baru' => 84,
-        'belum_lengkap' => 32
+        'belum_mendaftar' => 72
+    ];
+    
+    $pendaftaranTerbaru = [
+        (object) [
+            'nama' => 'Dini Elminingtyas Rahayu Wilujeng',
+            'nim' => '2341760078',
+            'tanggal' => '25 Mei 2025',
+            'status' => 'Gratis'
+        ],
+        (object) [
+            'nama' => 'Dini Elminingtyas Rahayu Wilujeng',
+            'nim' => '2341760078',
+            'tanggal' => '25 Mei 2025',
+            'status' => 'Mandiri'
+        ],
+        (object) [
+            'nama' => 'Danica Naswya Putrinlar',
+            'nim' => '2341760076',
+            'tanggal' => '23 Mei 2025',
+            'status' => 'Mandiri'
+        ],
+        (object) [
+            'nama' => 'Danica Naswya Putrinlar',
+            'nim' => '2341760076',
+            'tanggal' => '22 Mei 2025',
+            'status' => 'Gratis'
+        ]
     ];
 @endphp
 
@@ -29,12 +55,12 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <!-- Total Pendaftar -->
-                        <div class="col-md-3 col-sm-6">
+                        <!-- Total Pendaftaran -->
+                        <div class="col-md-4 col-sm-6">
                             <div class="info-box bg-primary">
                                 <span class="info-box-icon"><i class="fas fa-users"></i></span>
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Total Pendaftar</span>
+                                    <span class="info-box-text">Total Pendaftaran</span>
                                     <span class="info-box-number">{{ $stats['total_pendaftar'] }}</span>
                                     <div class="progress">
                                         <div class="progress-bar" style="width: 100%"></div>
@@ -46,52 +72,35 @@
                             </div>
                         </div>
 
-                        <!-- Pendaftar Bulan Ini -->
-                        <div class="col-md-3 col-sm-6">
+                        <!-- Sudah Mendaftar -->
+                        <div class="col-md-4 col-sm-6">
                             <div class="info-box bg-success">
-                                <span class="info-box-icon"><i class="fas fa-user-plus"></i></span>
+                                <span class="info-box-icon"><i class="fas fa-check-circle"></i></span>
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Pendaftar Bulan Ini</span>
-                                    <span class="info-box-number">{{ $stats['pendaftar_bulan_ini'] }}</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: {{ $stats['persentase_kenaikan'] }}%"></div>
-                                    </div>
-                                    <span class="progress-description">
-                                        Naik {{ $stats['persentase_kenaikan'] }}% dari bulan lalu
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Mahasiswa Baru -->
-                        <div class="col-md-3 col-sm-6">
-                            <div class="info-box bg-info">
-                                <span class="info-box-icon"><i class="fas fa-user-graduate"></i></span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Mahasiswa Baru</span>
+                                    <span class="info-box-text">Sudah Mendaftar</span>
                                     <span class="info-box-number">{{ $stats['mahasiswa_baru'] }}</span>
                                     <div class="progress">
-                                        <div class="progress-bar" style="width: 70%"></div>
+                                        <div class="progress-bar" style="width: 53.8%"></div>
                                     </div>
                                     <span class="progress-description">
-                                        Dari total pendaftar bulan ini
+                                        53.8% dari pendaftar bulan ini
                                     </span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Belum Lengkap -->
-                        <div class="col-md-3 col-sm-6">
-                            <div class="info-box bg-warning">
-                                <span class="info-box-icon"><i class="fas fa-exclamation-circle"></i></span>
+                        <!-- Belum Mendaftar -->
+                        <div class="col-md-4 col-sm-6">
+                            <div class="info-box bg-danger">
+                                <span class="info-box-icon"><i class="fas fa-times-circle"></i></span>
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Belum Lengkap</span>
-                                    <span class="info-box-number">{{ $stats['belum_lengkap'] }}</span>
+                                    <span class="info-box-text">Belum Mendaftar</span>
+                                    <span class="info-box-number">{{ $stats['belum_mendaftar'] }}</span>
                                     <div class="progress">
-                                        <div class="progress-bar" style="width: {{ ($stats['belum_lengkap']/$stats['pendaftar_bulan_ini'])*100 }}%"></div>
+                                        <div class="progress-bar" style="width: 46.2%"></div>
                                     </div>
                                     <span class="progress-description">
-                                        Dokumen belum lengkap
+                                        46.2% dari pendaftar bulan ini
                                     </span>
                                 </div>
                             </div>
@@ -140,9 +149,6 @@
                         <a href="{{ route('mahasiswa.index') }}" class="btn btn-sm btn-primary">
                             <i class="fas fa-list mr-1"></i> Lihat Semua
                         </a>
-                        <a href="{{ route('mahasiswa.baru') }}" class="btn btn-sm btn-success">
-                            <i class="fas fa-user-plus mr-1"></i> Tambah Baru
-                        </a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -171,7 +177,6 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            {{-- Kalo bisa jangan diubah ya (Note: Dhevina) --}}
                             <h5><i class="fas fa-clock mr-2"></i>Pendaftaran Terbaru</h5>
                             <div class="table-responsive">
                                 <table class="table table-hover">
@@ -184,26 +189,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($pendaftaranTerbaru as $item)
+                                        @foreach($pendaftaranTerbaru as $item)
                                             <tr>
-                                                <td>{{ $item->mahasiswa->nama_mahasiswa ?? '-' }}</td>
-                                                <td>{{ $item->mahasiswa->nim ?? '-' }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($item->tanggal_daftar)->translatedFormat('d F Y') }}</td>
+                                                <td>{{ $item->nama }}</td>
+                                                <td>{{ $item->nim }}</td>
+                                                <td>{{ $item->tanggal }}</td>
                                                 <td>
-                                                    @if ($item->tipe_ujian === 'gratis')
+                                                    @if(strtolower($item->status) === 'gratis')
                                                         <span class="badge bg-success">Gratis</span>
-                                                    @elseif ($item->tipe_ujian === 'mandiri')
-                                                        <span class="badge bg-primary">Mandiri</span>
                                                     @else
-                                                        <span class="badge bg-secondary">{{ ucfirst($item->tipe_ujian) }}</span>
+                                                        <span class="badge bg-primary">Mandiri</span>
                                                     @endif
                                                 </td>
                                             </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="4" class="text-center text-muted">Tidak ada data terbaru.</td>
-                                            </tr>
-                                        @endforelse
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
