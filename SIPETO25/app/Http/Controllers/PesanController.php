@@ -24,7 +24,7 @@ class PesanController extends Controller
             'activeMenu' => 'pesan',
             'breadcrumb' => new Fluent([
                 'title' => 'Pesan Masuk',
-                'list'  => ['Beranda', 'Pesan']
+                'list'  => ['Dashboard', 'Pesan']
             ]),
             'title' => 'Pesan Masuk',
             'pesan' => $pesan
@@ -48,7 +48,7 @@ class PesanController extends Controller
             'activeMenu' => 'pesan',
             'breadcrumb' => new Fluent([
                 'title' => $pesan->judul,
-                'list'  => ['Beranda', 'Pesan', $pesan->judul]
+                'list'  => ['Pesan', $pesan->judul]
             ]),
             'title' => $pesan->judul,
             'pesan' => $pesan
