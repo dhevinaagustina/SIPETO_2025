@@ -31,7 +31,7 @@
 <!-- /.navbar -->
 
 <!-- Main Sidebar Container -->
-@include('admin.layouts.sidebar')
+@include('layouts-admin.sidebar')
   
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
