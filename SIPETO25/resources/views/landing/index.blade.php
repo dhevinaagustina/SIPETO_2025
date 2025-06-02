@@ -237,8 +237,7 @@
 </header>
 
   <!-- Hero Section (Carousel) -->
-  <section id="hero" class="hero d-flex align-items-center">
-    <div id="heroCarousel" class="carousel slide carousel-fade w-100" data-bs-ride="carousel" data-bs-interval="3000">
+    <div id="heroCarousel" class="carousel slide carousel-fade w-100" data-bs-ride="carousel" data-bs-interval="2000">
       <!-- Indicators -->
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
@@ -274,7 +273,7 @@
             <div class="carousel-content text-white">
               <h1 class="fw-bold">Pantau Hasil dan Riwayat</h1>
               <p>Cek nilai dan riwayat ujian TOEIC Anda dengan mudah.</p>
-              <a href="#schedule" class="btn btn-warning">Lihat Jadwal</a>
+              <a href="#schedule" class="btn btn-warning">Lihat</a>
             </div>
           </div>
         </div>
@@ -788,70 +787,61 @@
 }
 </style>
 
-<div class="schedule-container" style="color: white;">
-  <div class="schedule-header">
-    <h1 style="color: white;">Jadwal Tes TOEIC</h1>
-    <p style="color: white;">Berikut adalah jadwal tes TOEIC yang tersedia melalui sistem SIPETO</p>
+<!-- Alur Pendaftaran TOEIC Dinamis -->
+<section style="background-color: #f9f9f9; padding: 60px 20px;">
+  <h2 style="text-align: center; margin-bottom: 40px; color: #1A2A6C;">Alur Pendaftaran TOEIC</h2>
+  <div id="alur-container" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px; max-width: 1100px; margin: 0 auto; color: #0F172A;">
+    <!-- Item akan dimasukkan lewat JavaScript -->
   </div>
+</section>
 
-  <div class="schedule-grid">
-    <!-- Card 1 -->
-    <div class="schedule-card">
-      <div class="date-time">
-        <strong>1 Juni 2026</strong>
-        <span>08:00 - 11:00</span>
-      </div>
-      <div class="session-title">TOEIC (REGULER) SESI - 1</div>
-      <div class="location">Gedung Teknologi Informasi - Ruang LPR 07/Lt.7</div>
-      <div class="status-badge available">Tersedia</div>
-      <div class="quota">Kuota: 30/50</div>
-      
-    </div>
+<script>
+  const alurItems = [
+    { icon: '🔐', label: 'Login ke SIPETO' },
+    { icon: '🧑‍💻', label: 'Lengkapi Profil' },
+    { icon: '📝', label: 'Pilih Jenis Ujian' },
+    { icon: '📎', label: 'Unggah Dokumen' },
+    { icon: '✅', label: 'Konfirmasi & Validasi' }
+  ];
 
-    <!-- Card 2 -->
-    <div class="schedule-card">
-      <div class="date-time">
-        <strong>1 Juni 2026</strong>
-        <span>13:00 - 16:00</span>
-      </div>
-      <div class="session-title">TOEIC (REGULER) SESI - 2</div>
-      <div class="location">Gedung Teknologi Informasi - Ruang LPR 06/Lt.7</div>
-      <div class="status-badge available">Tersedia</div>
-      <div class="quota">Kuota: 42/50</div>
-      
-    </div>
+  const container = document.getElementById('alur-container');
 
-    <!-- Card 3 -->
-    <div class="schedule-card">
-      <div class="date-time">
-        <strong>8 Juni 2026</strong>
-        <span>09:00 - 11:00</span>
-      </div>
-      <div class="session-title">TOEIC (REGULER) SESI - 1</div>
-      <div class="location">Gedung Teknologi Informasi - Ruang LPR 07/Lt.7</div>
-      <div class="status-badge almost-full">Hampir Penuh</div>
-      <div class="quota">Kuota: 48/50</div>
-      
-    </div>
+  alurItems.forEach(item => {
+    const div = document.createElement('div');
+    div.style.flex = '1';
+    div.style.minWidth = '150px';
+    div.style.textAlign = 'center';
 
-    <!-- Card 4 -->
-    <div class="schedule-card">
-      <div class="date-time">
-        <strong>8 Juni 2026</strong>
-        <span>13:00 - 16:00</span>
-      </div>
-      <div class="session-title">TOEIC (REGULER) SESI - 2</div>
-      <div class="location">Gedung Teknologi Informasi - Ruang LPR 06/Lt.7</div>
-      <div class="status-badge available">Tersedia</div>
-      <div class="quota">Kuota: 15/50</div>
-      
-    </div>
-  </div>
+    div.innerHTML = `
+      <div style="font-size: 2.5rem;">${item.icon}</div>
+      <p>${item.label}</p>
+    `;
 
-  <div class="view-all">
-    <a href="#" class="view-all-btn">Lihat Semua Jadwal</a>
-  </div>
-</div>
+    container.appendChild(div);
+  });
+</script>
+
+  <!-- CTA Section -->
+<section class="cta-section" style="text-align: center; padding: 80px 20px; background: linear-gradient(135deg, #2A3F88 0%, #1A2A6C 100%); color: white;">
+  <h2 style="margin-bottom: 20px;">Sudah Siap Mendaftar?</h2>
+  <p style="font-size: 1.2rem; margin-bottom: 30px;">
+    Ambil langkah awal menuju masa depan global Anda bersama TOEIC.
+  </p>
+  <a href="javascript:void(0)" onclick="scrollToTop()" class="cta-button" style="background-color: #FFD700; color: #1f2b6c; border: none; padding: 15px 40px; font-size: 1.2rem; border-radius: 5px; font-weight: bold; cursor: pointer; text-decoration: none;">
+    Mulai Pendaftaran
+  </a>
+</section>
+
+<!-- Scroll to Top Script -->
+<script>
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+</script>
+
     <!-- Why SIPETO Section -->
     <section id="why" class="why-section section">
         <div class="container">
