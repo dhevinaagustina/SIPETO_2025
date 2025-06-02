@@ -4,7 +4,6 @@
 <style>
     .table-custom {
         width: 100%;
-        margin-bottom: 1rem;
         color: #212529;
         background-color: #fff;
         border-collapse: collapse;
@@ -60,30 +59,51 @@
         gap: 10px;
         align-items: center;
         flex-wrap: wrap;
-        margin-bottom: 15px;
-    }
-    .filter-container .form-control {
-        flex: 1;
-        min-width: 150px;
     }
     .entries-dropdown {
         display: flex;
         align-items: center;
         gap: 10px;
+        min-width: 180px; 
+        flex: 1; 
     }
     .entries-dropdown select {
-        width: 80px;
+        width: 10%; 
         padding: 8px;
         border-radius: 4px;
         border: 1px solid #ced4da;
     }
+    #filterStatus {
+        min-width: 200px; 
+        flex: 0.5; 
+        padding: 8px;
+    }
+    #searchInput {
+        min-width: 250px; 
+        flex: 0.5; 
+        padding: 8px;
+    }
+    @media (max-width: 768px) {
+        .filter-container {
+            flex-direction: column;
+            gap: 8px;
+        }
+        .entries-dropdown, 
+        #filterStatus, 
+        #searchInput {
+            width: 100%;
+            min-width: unset;
+            flex: none;
+        }
+    }
     .dataTables_paginate {
-        display: none; /* Hide default DataTables pagination */
+        display: none; 
     }
     .pagination-container {
         display: flex;
         justify-content: flex-end;
-        margin-top: 20px;
+        margin-top: 7px;
+        margin-bottom: 25px;
     }
     .pagination {
         margin: 0;
@@ -97,25 +117,25 @@
         @endif
         
         {{-- FILTER + SEARCH --}}
-        <div class="filter-container">
+        <div class="filter-container mb-3">
             <div class="entries-dropdown">
-                <span>Show</span>
+                <span>Tampilkan</span>
                 <select id="entriesSelect" name="entriesSelect" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
                 </select>
-                <span>entries</span>
+                <span>entri</span>
             </div>
 
             <select id="filterStatus" name="filterStatus" class="form-control">
-                <option value="">Semua Status</option>
+                <option value="">Filter</option>
                 <option value="selesai">Selesai</option>
                 <option value="diajukan">Diajukan</option>
             </select>
             
-            <input type="text" id="searchInput" name="searchInput" class="form-control" placeholder="Cari...">
+            <input type="text" id="searchInput" name="searchInput" class="form-control" placeholder="Cari mahasiswa">
         </div>
 
         <table id="tableSurat" class="table-custom">
@@ -171,13 +191,13 @@
         <div class="pagination-container">
             <nav aria-label="Page navigation">
                 <ul class="pagination" id="customPagination">
-                    <li class="page-item" id="prevPage"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item" id="prevPage"><a class="page-link" href="#">Sebelumnya</a></li>
                     <li class="page-item active"><a class="page-link" href="#">1</a></li>
                     <li class="page-item"><a class="page-link" href="#">2</a></li>
                     <li class="page-item"><a class="page-link" href="#">3</a></li>
                     <li class="page-item"><a class="page-link" href="#">4</a></li>
                     <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item" id="nextPage"><a class="page-link" href="#">Next</a></li>
+                    <li class="page-item" id="nextPage"><a class="page-link" href="#">Selanjutnya</a></li>
                 </ul>
             </nav>
         </div>
@@ -194,8 +214,6 @@
 
     <script>
         $(document).ready(function () {
-
-            // Custom filter untuk kolom status (index 5)
             $.fn.dataTable.ext.search.push(
                 function(settings, data, dataIndex) {
                     var selectedStatus = $('#filterStatus').val();
@@ -224,7 +242,7 @@
                 pageLength: 10,
                 lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
                 pagingType: "full_numbers",
-                dom: '<"top"lf>rt<"bottom"ip>',
+                dom: 'tp',
 
                 initComplete: function() {
                     // Hide default DataTables pagination if pakai custom
@@ -236,7 +254,6 @@
                 }
             });
 
-            // Fungsi custom pagination seperti yang kamu punya
             function updateCustomPagination() {
                 var info = table.page.info();
                 var pagination = $('#customPagination');
@@ -299,22 +316,18 @@
                 }
             });
 
-            // Change entries per page
             $('#entriesSelect').on('change', function() {
                 table.page.len($(this).val()).draw();
             });
 
-            // Filter by status (pakai custom filter)
             $('#filterStatus').on('change', function() {
                 table.draw();
             });
 
-            // Search input default DataTables search global
             $('#searchInput').on('keyup', function() {
                 table.search($(this).val()).draw();
             });
 
-            // Initialize entries select with current value
             $('#entriesSelect').val(table.page.len());
         });
     </script>
