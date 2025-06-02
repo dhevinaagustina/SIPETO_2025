@@ -60,6 +60,7 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
     // Pesan
     Route::get('/dashboard/pesan', [PesanController::class, 'index'])->name('pesan.index');
     Route::get('/dashboard/pesan/{id}', [PesanController::class, 'show'])->name('pesan.show');
+    Route::get('/dashboard/pesan/{id}/download', [PesanController::class, 'download'])->name('pesan.download');
 
     // ARTIKEL 
     Route::get('/toeic-resources', [ToeicController::class, 'index'])->name('toeic.resources');
