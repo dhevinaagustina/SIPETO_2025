@@ -73,9 +73,6 @@
 
 @stack('js')
 
-<!-- AdminLTE for demo purposes -->
-<script src="{{ asset('adminlte/dist/js/demo.js') }}"></script>
-
 <!-- Script filterTable manual -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
