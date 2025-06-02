@@ -9,39 +9,6 @@
         'list' => ['Home', 'Dashboard']
     ];
     
-    $stats = [
-        'total_pendaftar' => 1240,
-        'pendaftar_bulan_ini' => 156,
-        'mahasiswa_baru' => 84,
-        'belum_mendaftar' => 72
-    ];
-    
-    $pendaftaranTerbaru = [
-        (object) [
-            'nama' => 'Dini Elminingtyas Rahayu Wilujeng',
-            'nim' => '2341760078',
-            'tanggal' => '25 Mei 2025',
-            'status' => 'Gratis'
-        ],
-        (object) [
-            'nama' => 'Dini Elminingtyas Rahayu Wilujeng',
-            'nim' => '2341760078',
-            'tanggal' => '25 Mei 2025',
-            'status' => 'Mandiri'
-        ],
-        (object) [
-            'nama' => 'Danica Naswya Putrinlar',
-            'nim' => '2341760076',
-            'tanggal' => '23 Mei 2025',
-            'status' => 'Mandiri'
-        ],
-        (object) [
-            'nama' => 'Danica Naswya Putrinlar',
-            'nim' => '2341760076',
-            'tanggal' => '22 Mei 2025',
-            'status' => 'Gratis'
-        ]
-    ];
 @endphp
 
 @section('content')
@@ -176,6 +143,7 @@
                             </div>
                         </div>
                         <div class="col-md-6">
+                             {{-- Kalo bisa jangan diubah ya (Note: Dhevina) --}}
                             <h5><i class="fas fa-clock mr-2"></i>Pendaftaran Terbaru</h5>
                             <div class="table-responsive">
                                 <table class="table table-hover">
@@ -188,20 +156,26 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($pendaftaranTerbaru as $item)
+                                        @forelse ($pendaftaranTerbaru as $item)
                                             <tr>
-                                                <td>{{ $item->nama }}</td>
-                                                <td>{{ $item->nim }}</td>
-                                                <td>{{ $item->tanggal }}</td>
+                                                <td>{{ $item->mahasiswa->nama_mahasiswa ?? '-' }}</td>
+                                                <td>{{ $item->mahasiswa->nim ?? '-' }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($item->tanggal_daftar)->translatedFormat('d F Y') }}</td>
                                                 <td>
-                                                    @if(strtolower($item->status) === 'gratis')
+                                                    @if ($item->tipe_ujian === 'gratis')
                                                         <span class="badge bg-success">Gratis</span>
-                                                    @else
+                                                    @elseif ($item->tipe_ujian === 'mandiri')
                                                         <span class="badge bg-primary">Mandiri</span>
+                                                    @else
+                                                        <span class="badge bg-secondary">{{ ucfirst($item->tipe_ujian) }}</span>
                                                     @endif
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="text-center text-muted">Tidak ada data terbaru.</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

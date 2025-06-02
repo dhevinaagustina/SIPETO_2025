@@ -7,7 +7,9 @@ use App\Models\Mahasiswa;
 use App\Exports\MahasiswaExport;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
-use PDF;
+use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class LaporanController extends Controller
 {
