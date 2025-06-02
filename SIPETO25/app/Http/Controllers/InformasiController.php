@@ -16,6 +16,7 @@ class InformasiController extends Controller
 
     public function store(Request $request)
     {
+        // Validasi input
         $request->validate([
             'judul' => 'required|string|max:255',
             'isi' => 'required|string',
@@ -26,43 +27,53 @@ class InformasiController extends Controller
 
         // Upload lampiran jika ada
         $namaFile = null;
+        $tipeLampiran = null;
+
         if ($request->hasFile('lampiran')) {
             $lampiran = $request->file('lampiran');
             $namaFile = time() . '_' . $lampiran->getClientOriginalName();
             $lampiran->storeAs('public/lampiran_informasi', $namaFile);
+            $tipeLampiran = $lampiran->getClientOriginalExtension(); // hasil: jpg, pdf, dll
         }
 
         // Simpan ke tabel informasi
         $informasiId = DB::table('informasi')->insertGetId([
             'judul' => $request->judul,
-            'isi' => $request->isi,
+            'isi' => strip_tags($request->isi),
             'lampiran' => $namaFile,
+            'tipe_lampiran' => $tipeLampiran,
             'ditujukan_ke' => $request->ditujukan_ke,
-            'id_admin' => 1, // Dummy, nanti diganti dengan Auth::id()
+            'status' => $request->status === 'gagal' ? 'gagal' : 'berhasil',
+            'id_admin' => auth()->id(),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
 
-        // Pastikan informasi berhasil tersimpan
+        // Cek jika gagal simpan
         if (!$informasiId) {
             return back()->with('error', 'Gagal menyimpan informasi.');
         }
 
-        // Ambil daftar mahasiswa
+        // Tentukan mahasiswa penerima
         $mahasiswaIds = [];
 
         if ($request->ditujukan_ke === 'semua') {
             $mahasiswaIds = DB::table('mahasiswa')->pluck('id_mahasiswa')->toArray();
-        } elseif ($request->has('mahasiswa_tertentu')) {
+        } else {
             $mahasiswaIds = $request->mahasiswa_tertentu;
         }
 
-        // Simpan ke tabel pivot informasi_mahasiswa
+        // Simpan ke pivot informasi_mahasiswa
+        $dataPivot = [];
         foreach ($mahasiswaIds as $idMahasiswa) {
-            DB::table('informasi_mahasiswa')->insert([
+            $dataPivot[] = [
                 'id_informasi' => $informasiId,
                 'id_mahasiswa' => $idMahasiswa,
-            ]);
+            ];
+        }
+
+        if (!empty($dataPivot)) {
+            DB::table('informasi_mahasiswa')->insert($dataPivot);
         }
 
         return back()->with('success', 'Informasi berhasil dikirim.');
