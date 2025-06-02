@@ -41,20 +41,28 @@
     }
     .btn-lampiran {
         border-radius: 20px;
-        padding: 8px 20px;
+        padding: 6px 15px;
         margin-right: 10px;
         margin-bottom: 10px;
+        background-color: #29335C;
+        color: white;
+        font-size: 0.85rem;
+        border: none;
     }
     .img-lampiran {
         max-width: 100%;
         height: auto;
         border-radius: 8px;
-        margin-top: 15px;
+        margin-bottom: 15px;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
     .pesan-icon {
         margin-right: 8px;
         color: #29335C;
+    }
+    .lampiran-preview {
+        margin-top: 25px;
+        margin-bottom: 15px;
     }
 </style>
 
@@ -84,19 +92,31 @@
                 <div class="lampiran-section">
                     <h5><i class="fas fa-paperclip pesan-icon"></i> Lampiran</h5>
                     
+                    @php
+                        $ext = strtolower(pathinfo($pesan->lampiran, PATHINFO_EXTENSION));
+                        $filePath = 'storage/' . $pesan->lampiran;
+                    @endphp
+
                     @if($pesan->tipe_lampiran === 'link')
                         <a href="{{ $pesan->lampiran }}" target="_blank" class="btn btn-info btn-lampiran">
                             <i class="fas fa-external-link-alt"></i> Kunjungi Link
                         </a>
-                    @elseif(in_array($pesan->tipe_lampiran, ['dokumen', 'gambar']))
-                        <a href="{{ asset('storage/' . $pesan->lampiran) }}" target="_blank" class="btn btn-primary btn-lampiran">
-                            <i class="fas fa-download"></i> Unduh Lampiran
-                        </a>
-                        @if($pesan->tipe_lampiran === 'gambar')
-                            <div class="mt-3">
-                                <img src="{{ asset('storage/' . $pesan->lampiran) }}" class="img-lampiran" alt="Lampiran Gambar">
+                    @else
+                        @if(in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp']))
+                            <div class="lampiran-preview">
+                                <img src="{{ asset($filePath) }}" class="img-lampiran" alt="Lampiran Gambar">
                             </div>
                         @endif
+
+                        @if($ext === 'pdf')
+                            <div class="lampiran-preview">
+                                <iframe src="{{ asset($filePath) }}" width="100%" height="500px"></iframe>
+                            </div>
+                        @endif
+
+                        <a href="{{ route('pesan.download', $pesan->id) }}" class="btn btn-lampiran">
+                            <i class="fas fa-download"></i> Unduh Lampiran
+                        </a>
                     @endif
                 </div>
             @endif
