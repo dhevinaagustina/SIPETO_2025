@@ -18,7 +18,7 @@
   {{-- Main Content --}}
   <div class="container">
     {{-- Announcements Section --}}
-    <div class="row mb-5">
+    {{-- <div class="row mb-5">
       <div class="col-12">
         <div class="card shadow-sm border-0 animate__animated animate__fadeIn">
           <div class="card-header bg-white border-0 pt-4">
@@ -44,7 +44,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
 
 {{-- Articles Section --}}
 <div class="row g-4 mb-5">
