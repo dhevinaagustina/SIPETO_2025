@@ -46,7 +46,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <!-- Statistik Pendaftaran -->
+     <!-- Statistik Pendaftaran -->
     <div class="row mb-4">
         <div class="col-12">
             <div class="card">
@@ -60,7 +60,7 @@
                             <div class="info-box bg-primary">
                                 <span class="info-box-icon"><i class="fas fa-users"></i></span>
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Total Pendaftaran</span>
+                                    <span class="info-box-text">Total Mahasiswa</span>
                                     <span class="info-box-number">{{ $stats['total_pendaftar'] }}</span>
                                     <div class="progress">
                                         <div class="progress-bar" style="width: 100%"></div>
@@ -80,10 +80,10 @@
                                     <span class="info-box-text">Sudah Mendaftar</span>
                                     <span class="info-box-number">{{ $stats['mahasiswa_baru'] }}</span>
                                     <div class="progress">
-                                        <div class="progress-bar" style="width: 53.8%"></div>
+                                        <div class="progress-bar" style="width: {{ $persentaseSudah }}%"></div>
                                     </div>
                                     <span class="progress-description">
-                                        53.8% dari pendaftar bulan ini
+                                        {{ $persentaseSudah }}% dari total mahasiswa
                                     </span>
                                 </div>
                             </div>
@@ -97,10 +97,10 @@
                                     <span class="info-box-text">Belum Mendaftar</span>
                                     <span class="info-box-number">{{ $stats['belum_mendaftar'] }}</span>
                                     <div class="progress">
-                                        <div class="progress-bar" style="width: 46.2%"></div>
+                                        <div class="progress-bar" style="width: {{ $persentaseBelum }}%"></div>
                                     </div>
                                     <span class="progress-description">
-                                        46.2% dari pendaftar bulan ini
+                                        {{ $persentaseBelum }}% dari total mahasiswa
                                     </span>
                                 </div>
                             </div>
@@ -124,7 +124,7 @@
                         <div class="col-md-4">
                             <div class="card">
                                 <div class="card-header bg-white">
-                                    <h3 class="card-title">Distribusi Prodi</h3>
+                                    <h3 class="card-title">Distribusi Jurusan</h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="chart">
@@ -165,13 +165,12 @@
                             </div>
                             <div class="small-box bg-info">
                                 <div class="inner">
-                                    <h3>{{ $stats['mahasiswa_baru'] }}</h3>
                                     <p>Mahasiswa Baru Bulan Ini</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa-user-graduate"></i>
                                 </div>
-                                <a href="{{ route('mahasiswa.baru') }}" class="small-box-footer">
+                                <a href="{{ route('cekdata.index') }}" class="small-box-footer">
                                     More info <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
@@ -278,7 +277,7 @@
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
             datasets: [{
                 label: 'Jumlah Pendaftar',
-                data: [120, 150, 180, 140, 200, 240],
+                data: [6],
                 borderColor: '#3c8dbc',
                 backgroundColor: 'rgba(60, 141, 188, 0.1)',
                 tension: 0.3,
@@ -310,14 +309,14 @@
         }
     });
 
-    // Prodi Chart
+    // Jurusan Chart
     const ctx2 = document.getElementById('prodiChart').getContext('2d');
     new Chart(ctx2, {
         type: 'doughnut',
         data: {
-            labels: ['Teknik Informatika', 'Sistem Informasi', 'Manajemen', 'Akuntansi', 'Lainnya'],
+            labels: ['Teknik Informatika', 'Teknologi Infomasi', 'Teknik Mesin', 'Teknik Sipil', 'Teknik Kimia', 'Administrasi Niaga', 'Teknik Elektro', 'Akutansi'],
             datasets: [{
-                data: [35, 25, 20, 15, 5],
+                data: [1, 15, 2, 1, 2, 1, 2, 1],
                 backgroundColor: [
                     '#f56954',
                     '#00a65a',

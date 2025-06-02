@@ -1,71 +1,100 @@
 <?php
 
-namespace App\Http\Controllers\Admin; // Updated namespace
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Mahasiswa;
 use App\Models\PendaftaranToeic;
-use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function index()
     {
+        // Hitung total mahasiswa
+        $totalMahasiswa = Mahasiswa::count();
+
+        // Hitung mahasiswa yang sudah mendaftar TOEIC (unik berdasarkan id_mahasiswa = NIM)
+        $mahasiswaSudahDaftar = PendaftaranToeic::distinct('id_mahasiswa')->count('id_mahasiswa');
+
+        // Hitung mahasiswa yang belum mendaftar
+        $mahasiswaBelumDaftar = $totalMahasiswa - $mahasiswaSudahDaftar;
+
+        // Hitung total semua pendaftaran TOEIC
+        $totalPendaftaranToeic = PendaftaranToeic::count();
+
+        // Hitung persentase
+        $persentaseSudah = $totalMahasiswa > 0 ? round(($mahasiswaSudahDaftar / $totalMahasiswa) * 100, 1) : 0;
+        $persentaseBelum = 100 - $persentaseSudah;
+
+        // Ambil pendaftaran terbaru
+        $pendaftaranTerbaru = PendaftaranToeic::with('mahasiswa')
+            ->orderByDesc('tanggal_daftar')
+            ->take(6)
+            ->get();
+
+        // Grafik: Trend Pendaftaran 6 Bulan Terakhir
+        $bulan = collect();
+        $jumlahPerBulan = collect();
+
+        for ($i = 5; $i >= 0; $i--) {
+            $date = Carbon::now()->subMonths($i);
+            $label = $date->translatedFormat('F Y');
+
+            $jumlah = PendaftaranToeic::whereYear('tanggal_daftar', $date->year)
+                ->whereMonth('tanggal_daftar', $date->month)
+                ->count();
+
+            $bulan->push($label);
+            $jumlahPerBulan->push($jumlah);
+        }
+
+        // Grafik: Distribusi Jurusan
+        $distribusiJurusan = Mahasiswa::join('pendaftaran_toeic', 'mahasiswa.nim', '=', 'pendaftaran_toeic.id_mahasiswa')
+            ->select('mahasiswa.jurusan', DB::raw('count(*) as total'))
+            ->groupBy('mahasiswa.jurusan')
+            ->orderByDesc('total')
+            ->get();
+
+        $jurusanLabels = $distribusiJurusan->pluck('jurusan');
+        $jurusanData = $distribusiJurusan->pluck('total');
+
+        // Grafik: Distribusi Prodi
+        $distribusiProdi = Mahasiswa::join('pendaftaran_toeic', 'mahasiswa.nim', '=', 'pendaftaran_toeic.id_mahasiswa')
+            ->select('mahasiswa.prodi', DB::raw('count(*) as total'))
+            ->groupBy('mahasiswa.prodi')
+            ->orderByDesc('total')
+            ->get();
+
+        $prodiLabels = $distribusiProdi->pluck('prodi');
+        $prodiData = $distribusiProdi->pluck('total');
+
+        // Breadcrumb dan aktif menu
         $breadcrumb = (object) [
             'title' => 'Dashboard Admin',
             'list' => ['Home', 'Dashboard']
         ];
-
         $activeMenu = 'dashboard';
-
-        // Get real statistics from database
-        $stats = [
-            'total_pendaftar' => Mahasiswa::count(),
-            'pendaftar_bulan_ini' => Mahasiswa::whereMonth('created_at', Carbon::now()->month)->count(),
-            'persentase_kenaikan' => $this->calculateGrowthRate(),
-            'mahasiswa_baru' => Mahasiswa::whereDate('created_at', Carbon::today())->count(),
-            'belum_lengkap' => Mahasiswa::whereDoesntHave('pendaftaranToeic')->count()
-        ];
-
-        $pendaftaranTerbaru = PendaftaranToeic::with('mahasiswa')
-        ->orderByDesc('tanggal_daftar')
-        ->take(5)
-        ->get();
 
         return view('admin.dashboard', [
             'breadcrumb' => $breadcrumb,
             'activeMenu' => $activeMenu,
-            'stats' => $stats,
-            'pendaftaranTerbaru' => $pendaftaranTerbaru
+            'stats' => [
+                'total_pendaftar' => $totalMahasiswa,
+                'mahasiswa_baru' => $mahasiswaSudahDaftar,
+                'belum_mendaftar' => $mahasiswaBelumDaftar,
+            ],
+            'persentaseSudah' => $persentaseSudah,
+            'persentaseBelum' => $persentaseBelum,
+            'pendaftaranTerbaru' => $pendaftaranTerbaru,
+            'bulan' => $bulan,
+            'jumlahPerBulan' => $jumlahPerBulan,
+            'jurusanLabels' => $jurusanLabels,
+            'jurusanData' => $jurusanData,
+            'prodiLabels' => $prodiLabels,
+            'prodiData' => $prodiData,
         ]);
-    }
-
-    private function calculateGrowthRate()
-    {
-        $currentMonthCount = Mahasiswa::whereMonth('created_at', Carbon::now()->month)->count();
-        $lastMonthCount = Mahasiswa::whereMonth('created_at', Carbon::now()->subMonth()->month)->count();
-        
-        return $lastMonthCount > 0 
-            ? round(($currentMonthCount - $lastMonthCount) / $lastMonthCount * 100, 2)
-            : 100;
-    }
-
-        public function getTerbaru()
-    {
-        $data = PendaftaranToeic::with('mahasiswa') // Eager load relasi mahasiswa
-            ->orderByDesc('tanggal_daftar')
-            ->take(5)
-            ->get();
-
-        $formatted = $data->map(function ($item) {
-            return [
-                'nama' => $item->mahasiswa->nama_mahasiswa ?? '-',      // dari relasi
-                'nim' => $item->mahasiswa->nim ?? '-',        // dari relasi
-                'tanggal_daftar' => $item->tanggal_daftar,
-                'tipe_ujian' => $item->tipe_ujian,
-            ];
-        });
-
-        return response()->json(['data' => $formatted]);
     }
 }
