@@ -274,7 +274,7 @@
     </div>
     
     <div class="footer-actions">
-        <a href="{{ route('cekdata.index') }}" class="btn btn-primary">Kembali ke Daftar</a>
+        <a href="{{ route('admin.cekdata.index') }}" class="btn btn-primary">Kembali ke Daftar</a>
     </div>
 </div>
 @endsection

@@ -113,9 +113,7 @@
                 <div class="card-header bg-white d-flex justify-content-between align-items-center">
                     <h3 class="card-title"><i class="fas fa-users mr-2"></i>Manajemen Mahasiswa</h3>
                     <div>
-                        <a href="{{ route('mahasiswa.index') }}" class="btn btn-sm btn-primary">
-                            <i class="fas fa-list mr-1"></i> Lihat Semua
-                        </a>
+                        <a href="{{ route('admin.mahasiswa.index') }}" class="btn btn-primary">Lihat Semua</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -137,7 +135,7 @@
                                 <div class="icon">
                                     <i class="fas fa-user-graduate"></i>
                                 </div>
-                                <a href="{{ route('cekdata.index') }}" class="small-box-footer">
+                                <a href="{{ route('admin.cekdata.index') }}" class="small-box-footer">
                                     More info <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
@@ -202,7 +200,7 @@
                                 </div>
                                 <div class="card-body">
                                     <p>Generate laporan pendaftaran berdasarkan periode atau kriteria tertentu</p>
-                                    <a href="{{ route('laporan.pendaftaran') }}" class="btn btn-outline-light">
+                                    <a href="{{ route('admin.laporan.pendaftaran') }}" class="btn btn-outline-light">
                                         <i class="fas fa-file-alt mr-1"></i> Buat Laporan
                                     </a>
                                 </div>
@@ -215,7 +213,7 @@
                                 </div>
                                 <div class="card-body">
                                     <p>Export data mahasiswa dalam format Excel untuk pengolahan lebih lanjut</p>
-                                    <a href="{{ route('laporan.export') }}?format=excel" class="btn btn-outline-light">
+                                    <a href="{{ route('admin.laporan.export') }}?format=excel" class="btn btn-outline-light">
                                         <i class="fas fa-file-excel mr-1"></i> Export Excel
                                     </a>
                                 </div>
@@ -228,7 +226,7 @@
                                 </div>
                                 <div class="card-body">
                                     <p>Export data mahasiswa dalam format PDF untuk keperluan dokumentasi</p>
-                                    <a href="{{ route('laporan.export') }}?format=pdf" class="btn btn-outline-light">
+                                    <a href="{{ route('admin.laporan.export') }}?format=pdf" class="btn btn-outline-light">
                                         <i class="fas fa-file-pdf mr-1"></i> Export PDF
                                     </a>
                                 </div>

@@ -154,7 +154,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-            url: "{{ route('cekdata.getdata') }}",
+            url: "{{ route('admin.cekdata.getdata') }}",
                 data: function (d) {
                     d.status = $('#filterStatus').val();
                     d.searchMahasiswa = $('#searchMahasiswa').val();
