@@ -70,7 +70,7 @@ class CekDataController extends Controller
             ->addIndexColumn()
             ->addColumn('dokumen', function ($row) {
                 return $row->id_pendaftaran
-                    ? '<a href="' . route('cekdata.admin.cek-dokumen', $row->id_pendaftaran). '" class="btn btn-info btn-sm">Lihat Dokumen</a>'
+                    ? '<a href="' . route('admin.cekdata.cek-dokumen', $row->id_pendaftaran) . '" class="btn btn-info btn-sm">Lihat Dokumen</a>'
                     : '<span class="text-muted">Belum mendaftar</span>';
             })
             ->rawColumns(['dokumen'])

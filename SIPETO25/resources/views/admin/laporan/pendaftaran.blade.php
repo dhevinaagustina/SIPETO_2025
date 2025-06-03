@@ -10,7 +10,7 @@
             <h3 class="card-title">Filter Laporan Pendaftaran TOEIC</h3>
         </div>
         <div class="card-body">
-            <form method="GET" action="{{ route('laporan.generate') }}">
+            <form method="GET" action="{{ route('admin.laporan.generate') }}">
                 @csrf
                 <div class="row">
                     <!-- Format -->
