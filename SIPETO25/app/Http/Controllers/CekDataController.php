@@ -30,10 +30,7 @@ class CekDataController extends Controller
         ]);
     }
 
-    /**
-     * Ambil data mahasiswa + status pendaftaran TOEIC terbaru (DataTables).
-     */
- public function getData(Request $request)
+    public function getData(Request $request)
     {
         $subquery = DB::table('pendaftaran_toeic as pt1')
             ->select('pt1.*')
@@ -53,15 +50,19 @@ class CekDataController extends Controller
                 'pt.id as id_pendaftaran'
             ]);
 
-        if ($request->filled('jurusan')) {
-            $query->where('mahasiswa.jurusan', $request->jurusan);
+        if ($request->filled('status')) {
+            if ($request->status === 'sudah') {
+                $query->whereNotNull('pt.id');
+            } elseif ($request->status === 'belum') {
+                $query->whereNull('pt.id');
+            }
         }
 
         $search = $request->input('searchMahasiswa') ?? $request->input('search.value');
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
                 $q->where('mahasiswa.nama_mahasiswa', 'like', "%{$search}%")
-                  ->orWhere('mahasiswa.nim', 'like', "%{$search}%");
+                ->orWhere('mahasiswa.nim', 'like', "%{$search}%");
             });
         }
 

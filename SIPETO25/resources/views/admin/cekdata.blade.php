@@ -80,7 +80,7 @@
         border-radius: 4px;
         border: 1px solid #ced4da;
     }
-    #filterJurusan {
+    #filterStatus {
         min-width: 200px; 
         flex: 0.5; 
         padding: 8px;
@@ -96,7 +96,7 @@
             gap: 8px;
         }
         .entries-dropdown, 
-        #filterJurusan, 
+        #filterStatus, 
         #searchMahasiswa {
             width: 100%;
             min-width: unset;
@@ -119,15 +119,10 @@
                 <span>entri</span>
             </div>
 
-            <select id="filterJurusan" name="filterJurusan" class="form-control">
+            <select id="filterStatus" name="filterStatus" class="form-control">
                 <option value="">Filter</option>
-                <option>Teknologi Informasi</option>
-                <option>Teknik Kimia</option>
-                <option>Teknik Elektro</option>
-                <option>Teknik Mesin</option>
-                <option>Teknik Sipil</option>
-                <option>Akuntansi</option>
-                <option>Administrasi Niaga</option>
+                <option value="sudah">Sudah Daftar</option>
+                <option value="belum">Belum Daftar</option>
             </select>
 
             <input type="text" id="searchMahasiswa" name="searchMahasiswa" class="form-control" placeholder="Cari mahasiswa">
@@ -159,12 +154,13 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('cekdata.getdata') }}",
+            url: "{{ route('cekdata.getdata') }}",
                 data: function (d) {
-                    d.jurusan = $('#filterJurusan').val();
+                    d.status = $('#filterStatus').val();
                     d.searchMahasiswa = $('#searchMahasiswa').val();
                 }
             },
+
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                 { data: 'nim', name: 'nim' },
@@ -187,7 +183,7 @@
             }
         });
 
-        $('#filterJurusan').on('change', function () {
+        $('#filterStatus').on('change', function () {
             table.ajax.reload();
         });
 

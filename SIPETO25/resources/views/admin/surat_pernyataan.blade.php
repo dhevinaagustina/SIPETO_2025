@@ -141,7 +141,7 @@
         <table id="tableSurat" class="table-custom">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Nama Mahasiswa</th>
                     <th>NIM</th>
                     <th>Prodi</th>
@@ -154,7 +154,7 @@
             <tbody>
                 @foreach ($data as $item)
                     <tr>
-                        <td>{{ $item->id }}</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->mahasiswa->nama_mahasiswa }}</td>
                         <td>{{ $item->mahasiswa->nim }}</td>
                         <td>{{ $item->mahasiswa->prodi }}</td>
@@ -175,7 +175,7 @@
                         </td>
                         <td>
                             @if (!$item->file_surat)
-                                <a href="{{ route('admin.surat_pernyataan.generate', $item->id) }}" class="btn btn-sm btn-primary">
+                                <a href="{{ route('admin.surat_pernyataan.generate', $item->id) }}" class="btn btn-sm btn-primary">Cetak</a>
                                     Generate Surat
                                 </a>
                             @else

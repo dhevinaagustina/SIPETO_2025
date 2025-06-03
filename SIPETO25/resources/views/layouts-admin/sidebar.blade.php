@@ -34,7 +34,7 @@
                         ['label' => 'Status Pendaftaran', 'icon' => 'fas fa-clipboard-check', 'route' => route('mahasiswa.status'), 'key' => 'mahasiswa-status'],
                         ['label' => 'Laporan & Export', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
                             ['label' => 'Laporan Pendaftaran', 'icon' => 'fas fa-file-alt', 'route' => route('laporan.pendaftaran'), 'key' => 'laporan-pendaftaran'],
-                            ['label' => 'Export Data', 'icon' => 'fas fa-download', 'route' => 'laporan.export', 'key' => 'laporan-export'],
+                            ['label' => 'Export Data', 'icon' => 'fas fa-download', 'route' => route('laporan.export'), 'key' => 'laporan-export'],
                         ]],
                     ];
                 @endphp

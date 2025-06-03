@@ -128,10 +128,18 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
 
     // Laporan & Export Data
     Route::prefix('laporan')->name('laporan.')->group(function () {
+
     Route::get('/pendaftaran', [LaporanController::class, 'pendaftaran'])->name('pendaftaran');
     Route::get('/export', [LaporanController::class, 'export'])->name('export');
     Route::get('/generate', [LaporanController::class, 'generate'])->name('generate'); // ← diperbaiki
 });
+
+
+        Route::get('/pendaftaran', [LaporanController::class, 'pendaftaran'])->name('pendaftaran');
+        Route::get('/export', [LaporanController::class, 'export'])->name('export');
+        Route::post('/generate', [LaporanController::class, 'generate'])->name('generate');
+        Route::get('/laporan/export-pdf', [DashboardController::class, 'exportPdf'])->name('admin.laporan.export_pdf');
+    });
 
 
     // Cek Data TOEIC
