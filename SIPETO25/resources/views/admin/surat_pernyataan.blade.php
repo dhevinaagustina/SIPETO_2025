@@ -141,7 +141,7 @@
         <table id="tableSurat" class="table-custom">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Nama Mahasiswa</th>
                     <th>NIM</th>
                     <th>Prodi</th>
@@ -154,7 +154,7 @@
             <tbody>
                 @foreach ($data as $item)
                     <tr>
-                        <td>{{ $item->id }}</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->mahasiswa->nama_mahasiswa }}</td>
                         <td>{{ $item->mahasiswa->nim }}</td>
                         <td>{{ $item->mahasiswa->prodi }}</td>
