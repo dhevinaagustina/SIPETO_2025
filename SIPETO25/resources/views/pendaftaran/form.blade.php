@@ -475,6 +475,34 @@
         padding: 4px 20px;
         font-size: 1.1em;
     }
+
+    .btn-primary-custom {
+        background-color: #29335C;
+        border-color: #29335C;
+        color: #fff;
+        padding: 8px 20px;
+        border-radius: 4px;
+    }
+
+    .btn-primary-custom:hover {
+        background-color: #1f294a;
+        border-color: #1f294a;
+        color: #fff;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: #fff;
+        padding: 8px 20px;
+        border-radius: 4px;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+        color: #fff;
+    }
     
     @media (max-width: 768px) {
         .form-column {
@@ -495,6 +523,11 @@
                 icon: 'success',
                 title: 'Berhasil!',
                 text: '{{ session("success") }}',
+                confirmButtonText: 'OK',
+                customClass: {
+                    confirmButton: 'btn btn-primary-custom'
+                },
+                buttonsStyling: false
             });
         @endif
 
@@ -538,10 +571,16 @@
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Ya, Daftar!',
-                cancelButtonText: 'Batal'
+                cancelButtonText: 'Batal',
+                customClass: {
+                    confirmButton: 'btn btn-primary-custom mx-2',
+                    cancelButton: 'btn btn-secondary mx-2'
+                },
+                buttonsStyling: false,
+                reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
-                   $('#form-data').submit()
+                    $('#form-data').submit();
 
                     submitButton.disabled = true;
                     submitButton.innerHTML = 'Memproses...';
@@ -563,9 +602,12 @@
                                 icon: 'warning',
                                 title: 'Pendaftaran Gagal',
                                 text: 'Anda sudah pernah mendaftar TOEIC gratis.',
-                                confirmButtonText: 'OK'
+                                confirmButtonText: 'OK',
+                                customClass: {
+                                    confirmButton: 'btn btn-primary-custom'
+                                },
+                                buttonsStyling: false
                             }).then(() => {
-
                                 window.location.reload();
                             });
                         } else {
@@ -579,6 +621,11 @@
                             icon: 'error',
                             title: 'Terjadi Kesalahan',
                             text: 'Silakan coba lagi beberapa saat lagi.',
+                            confirmButtonText: 'OK',
+                            customClass: {
+                                confirmButton: 'btn btn-primary-custom'
+                            },
+                            buttonsStyling: false
                         });
                     })
                     .finally(() => {
@@ -600,7 +647,13 @@
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonText: 'Ya, Daftar!',
-                cancelButtonText: 'Batal'
+                cancelButtonText: 'Batal',
+                customClass: {
+                    confirmButton: 'btn btn-primary-custom mx-2',
+                    cancelButton: 'btn btn-secondary mx-2'
+                },
+                buttonsStyling: false,
+                reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
                     const submitButton = form.querySelector('button[type="submit"]');
@@ -626,9 +679,12 @@
                                 icon: 'warning',
                                 title: 'Pendaftaran Gagal',
                                 text: 'Anda sudah pernah mendaftar TOEIC gratis.',
-                                confirmButtonText: 'OK'
+                                confirmButtonText: 'OK',
+                                customClass: {
+                                    confirmButton: 'btn btn-primary-custom'
+                                },
+                                buttonsStyling: false
                             }).then(() => {
-
                                 window.location.reload();
                             });
                         } else {
@@ -642,6 +698,11 @@
                             icon: 'error',
                             title: 'Terjadi Kesalahan',
                             text: 'Silakan coba lagi beberapa saat lagi.',
+                            confirmButtonText: 'OK',
+                            customClass: {
+                                confirmButton: 'btn btn-primary-custom'
+                            },
+                            buttonsStyling: false
                         });
                     })
                     .finally(() => {
