@@ -159,12 +159,13 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('cekdata.getdata') }}",
+                url: "{{ secure_url(route('cekdata.getdata', [], false)) }}",
                 data: function (d) {
                     d.jurusan = $('#filterJurusan').val();
                     d.searchMahasiswa = $('#searchMahasiswa').val();
                 }
             },
+
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                 { data: 'nim', name: 'nim' },

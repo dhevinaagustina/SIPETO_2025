@@ -265,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const btnCekAjukan = document.getElementById('btnCekAjukan');
 
     btnCekAjukan.addEventListener('click', function () {
-        fetch("{{ route('mahasiswa.surat_pernyataan.cek') }}", {
+        fetch("/surat_pernyataan/cek", {
             method: 'GET',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',

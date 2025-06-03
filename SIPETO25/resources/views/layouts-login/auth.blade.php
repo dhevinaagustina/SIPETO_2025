@@ -6,10 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- AdminLTE CSS -->
-  <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css')}}">
+  <link rel="stylesheet" href="{{ secure_asset('adminlte/dist/css/adminlte.min.css') }}">
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
+  <link rel="stylesheet" href="{{ secure_asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
+
 
   @stack('styles')
 
@@ -46,9 +47,10 @@
 <body class="hold-transition login-page">
 
   <!-- Background Video -->
+<!-- Background Video -->
   <div class="background-container">
     <video autoplay muted loop playsinline>
-      <source src="{{ asset('video/gedung.MP4') }}" type="video/mp4">
+      <source src="{{ secure_asset('video/gedung.MP4') }}" type="video/mp4">
       Browser Anda tidak mendukung video.
     </video>
   </div>
@@ -56,10 +58,9 @@
   <!-- Konten Halaman Login -->
   @yield('content')
 
-  <!-- JavaScript -->
-  <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
- <script src="{{ asset('adminlte/dist/js/adminlte.min.js') }}"></script>
+  <script src="{{ secure_asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
+  <script src="{{ secure_asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ secure_asset('adminlte/dist/js/adminlte.min.js') }}"></script>
 
   @stack('scripts')
 </body>

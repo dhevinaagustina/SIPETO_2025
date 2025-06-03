@@ -168,14 +168,14 @@
                         </td>
                         <td>
                             @if ($item->file_surat)
-                                <a href="{{ asset('storage/' . $item->file_surat) }}" class="btn btn-sm btn-outline-success" target="_blank">Lihat</a>
+                                <a href="{{ secure_asset('storage/' . $item->file_surat) }}" class="btn btn-sm btn-outline-success" target="_blank">Lihat</a>
                             @else
                                 <span class="text-muted">Belum tersedia</span>
                             @endif
                         </td>
                         <td>
                             @if (!$item->file_surat)
-                                <a href="{{ route('admin.surat_pernyataan.generate', $item->id) }}" class="btn btn-sm btn-primary">
+                                <a href="{{ route('admin.surat_pernyataan.generate', $item->id) }}" class="btn btn-sm btn-primary">Cetak</a>
                                     Generate Surat
                                 </a>
                             @else
