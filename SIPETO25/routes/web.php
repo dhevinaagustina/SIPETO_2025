@@ -148,7 +148,6 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
         Route::get('/data', [CekDataController::class, 'getData'])->name('getdata'); // AJAX
         Route::get('/admin/cek-dokumen/{id}', [CekDataController::class, 'showDokumen'])->name('admin.cek-dokumen');
         Route::get('/{id_mahasiswa}', [CekDataController::class, 'showDetail'])->name('show');
-    });
 
     // Riwayat Ujian TOEIC
     Route::get('/riwayat-ujian', [RiwayatUjianController::class, 'index'])->name('admin.riwayat');
@@ -171,5 +170,4 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
         Auth::logout();
         return redirect()->route('login');
     })->name('admin.logout');
-
 });
