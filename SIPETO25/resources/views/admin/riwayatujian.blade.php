@@ -148,7 +148,7 @@ $(function() {
         processing: true,
         serverSide: true,
         ajax: {
-                url: "{{ secure_url(route('admin.riwayat.ajax', [], false)) }}",
+            url: '{{ route("admin.riwayat.ajax") }}',
             data: function (d) {
                 d.nama = $('#searchNama').val();
                 d.status = $('#filterStatus').val();
