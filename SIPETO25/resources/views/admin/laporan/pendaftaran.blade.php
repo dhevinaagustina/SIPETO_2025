@@ -5,44 +5,35 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="card">
+    <div class="card shadow-sm">
         <div class="card-header bg-white">
-            <h3 class="card-title">Filter Laporan</h3>
+            <h3 class="card-title">Filter Laporan Pendaftaran TOEIC</h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('laporan.generate') }}" method="POST">
+            <form method="GET" action="{{ route('admin.laporan.generate') }}">
                 @csrf
                 <div class="row">
+                    <!-- Format -->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>Tanggal Mulai</label>
-                            <input type="date" name="start_date" class="form-control" 
-                                   value="{{ request('start_date') }}">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Tanggal Akhir</label>
-                            <input type="date" name="end_date" class="form-control" 
-                                   value="{{ request('end_date') }}">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Format</label>
-                            <select name="format" class="form-control">
+                            <label for="format">Format Laporan</label>
+                            <select name="format" id="format" class="form-control" required>
                                 <option value="excel">Excel</option>
                                 <option value="pdf">PDF</option>
                             </select>
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-download mr-1"></i> Generate Laporan
-                </button>
+
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-download mr-1"></i> Generate Laporan
+                    </button>
+                </div>
             </form>
         </div>
     </div>
+</div>
 
     @if(isset($mahasiswa) && $mahasiswa->count() > 0)
     <div class="card mt-4">
