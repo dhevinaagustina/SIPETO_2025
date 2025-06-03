@@ -717,7 +717,7 @@
         });
 
         $('#confirmBack').on('click', function() {
-            window.location.href = "{{ route('dashboard') }}";
+            window.location.href = "{{ route('admin.dashboard') }}";
         });
 
         // Help button
