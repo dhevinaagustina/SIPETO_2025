@@ -40,11 +40,11 @@ class Mahasiswa extends Authenticatable
 
 
     }
+
     public function pendaftaranToeic()
     {
-        return $this->hasMany(PendaftaranToeic::class, 'id_mahasiswa');
+    return $this->hasMany(\App\Models\PendaftaranToeic::class, 'id_mahasiswa', 'id_mahasiswa');
     }
-
     // Relasi ke surat pernyataan
     public function suratPernyataan()
     {

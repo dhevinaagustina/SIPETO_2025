@@ -132,7 +132,7 @@
                             </div>
                             <div class="small-box bg-info">
                                 <div class="inner">
-                                    <p>Mahasiswa Baru Bulan Ini</p>
+                                    <p>Cek Data Bulan Ini</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa-user-graduate"></i>
