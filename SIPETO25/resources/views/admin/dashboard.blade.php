@@ -243,15 +243,18 @@
 
 @push('scripts')
 <script>
-    // Pendaftaran Chart
+    // Ambil data dari controller Laravel
+    const bulan = @json($bulan);
+    const jumlahPendaftar = @json($jumlahPerBulan);
+
     const ctx1 = document.getElementById('pendaftaranChart').getContext('2d');
     new Chart(ctx1, {
         type: 'line',
         data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+            labels: bulan,
             datasets: [{
                 label: 'Jumlah Pendaftar',
-                data: [6],
+                data: jumlahPendaftar,
                 borderColor: '#3c8dbc',
                 backgroundColor: 'rgba(60, 141, 188, 0.1)',
                 tension: 0.3,
@@ -264,7 +267,7 @@
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    display: false
+                    display: true
                 }
             },
             scales: {
