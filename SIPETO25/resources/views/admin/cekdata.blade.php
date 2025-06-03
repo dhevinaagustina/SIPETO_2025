@@ -159,7 +159,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ secure_url(route('cekdata.getdata', [], false)) }}",
+            url: "{{ route('cekdata.getdata') }}",
                 data: function (d) {
                     d.jurusan = $('#filterJurusan').val();
                     d.searchMahasiswa = $('#searchMahasiswa').val();

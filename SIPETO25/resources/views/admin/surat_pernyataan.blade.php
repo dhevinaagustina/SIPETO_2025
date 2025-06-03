@@ -168,7 +168,7 @@
                         </td>
                         <td>
                             @if ($item->file_surat)
-                                <a href="{{ secure_asset('storage/' . $item->file_surat) }}" class="btn btn-sm btn-outline-success" target="_blank">Lihat</a>
+                                <a href="{{ asset('storage/' . $item->file_surat) }}" class="btn btn-sm btn-outline-success" target="_blank">Lihat</a>
                             @else
                                 <span class="text-muted">Belum tersedia</span>
                             @endif

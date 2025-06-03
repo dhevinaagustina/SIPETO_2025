@@ -33,7 +33,7 @@
         </div>
       @endif
 
-      <form action="{{ secure_url('/login') }}" method="POST">
+      <form action="{{ url('/login') }}" method="POST">
         @csrf
 
         {{-- Username --}}
