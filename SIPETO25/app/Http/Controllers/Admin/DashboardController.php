@@ -97,4 +97,23 @@ class DashboardController extends Controller
             'prodiData' => $prodiData,
         ]);
     }
+
+     public function getTerbaru()
+    {
+        $data = PendaftaranToeic::with('mahasiswa') // Eager load relasi mahasiswa
+            ->orderByDesc('tanggal_daftar')
+            ->take(5)
+            ->get();
+
+        $formatted = $data->map(function ($item) {
+            return [
+                'nama' => $item->mahasiswa->nama_mahasiswa ?? '-',      // dari relasi
+                'nim' => $item->mahasiswa->nim ?? '-',        // dari relasi
+                'tanggal_daftar' => $item->tanggal_daftar,
+                'tipe_ujian' => $item->tipe_ujian,
+            ];
+        });
+
+        return response()->json(['data' => $formatted]);
+    }
 }
