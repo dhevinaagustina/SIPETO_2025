@@ -118,7 +118,7 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
     Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
         Route::get('/', [MahasiswaController::class, 'index'])->name('index');
         Route::get('/baru', [MahasiswaController::class, 'mahasiswaBaru'])->name('baru');
-        Route::get('/status', [MahasiswaController::class, 'statusPendaftaran'])->name('status');
+        // Route::get('/status', [MahasiswaController::class, 'statusPendaftaran'])->name('status');
         Route::get('/{id}', [MahasiswaController::class, 'showAjax'])->name('showAjax');
         Route::post('/cari', [MahasiswaController::class, 'cari'])->name('cari');
     });
