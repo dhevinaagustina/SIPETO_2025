@@ -256,24 +256,25 @@
                     <h4>{{ $item['label'] }}</h4>
                     <div class="doc-preview">
                         @if ($exists)
-                            <img src="{{ asset('storage/' . $relativePath) }}" alt="{{ $item['label'] }}" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
+                           <img src="{{ asset('storage/' . $relativePath) }}" alt="{{ $item['label'] }}" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
                         @else
                             <span class="text-muted">Belum upload {{ $item['label'] }}</span>
                         @endif
                     </div>
                     @if ($exists)
                         <div class="doc-actions">
-                            <a href="{{ asset('storage/' . $relativePath) }}" download class="btn btn-secondary">Download</a>
+                            <a href="{{ asset('storage/' . $relativePath) }}" download class="btn btn-secondary">Download</a>Add commentMore actions
                             <a href="{{ asset('storage/' . $relativePath) }}" target="_blank" class="btn btn-primary">Lihat Full</a>
                         </div>
                     @endif
                 </div>
+
             @endforeach
         </div>
     </div>
     
     <div class="footer-actions">
-        <a href="{{ route('cekdata.index') }}" class="btn btn-primary">Kembali ke Daftar</a>
+        <a href="{{ route('admin.cekdata.index') }}" class="btn btn-primary">Kembali ke Daftar</a>
     </div>
 </div>
 @endsection

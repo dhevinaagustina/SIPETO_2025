@@ -24,7 +24,7 @@ class PesanController extends Controller
             'activeMenu' => 'pesan',
             'breadcrumb' => new Fluent([
                 'title' => 'Pesan Masuk',
-                'list'  => ['Dashboard', 'Pesan']
+                'list'  => ['Beranda', 'Pesan']
             ]),
             'title' => 'Pesan Masuk',
             'pesan' => $pesan
@@ -33,22 +33,13 @@ class PesanController extends Controller
 
     public function show($id)
     {
-        $id_mahasiswa = Auth::user()->id_mahasiswa;
-
-        $pesan = Pesan::with('mahasiswa')->findOrFail($id);
-
-        $bolehLihat = $pesan->ditujukan_ke === 'semua' ||
-            $pesan->mahasiswa->contains('id', $id_mahasiswa);
-
-        if (! $bolehLihat) {
-            abort(403, 'Anda tidak memiliki akses ke pesan ini.');
-        }
+        $pesan = Pesan::findOrFail($id);
 
         return view('pesan-mahasiswa.show', [
             'activeMenu' => 'pesan',
             'breadcrumb' => new Fluent([
                 'title' => $pesan->judul,
-                'list'  => ['Pesan', $pesan->judul]
+                'list'  => ['Beranda', 'Pesan', $pesan->judul]
             ]),
             'title' => $pesan->judul,
             'pesan' => $pesan
@@ -57,29 +48,22 @@ class PesanController extends Controller
 
     public function download($id)
     {
-        $id_mahasiswa = Auth::user()->id_mahasiswa;
+        $pesan = Pesan::findOrFail($id);
 
-        $pesan = Pesan::with('mahasiswa')->findOrFail($id);
-
-        $bolehLihat = $pesan->ditujukan_ke === 'semua' ||
-            $pesan->mahasiswa->contains('id', $id_mahasiswa);
-
-        if (! $bolehLihat) {
-            abort(403, 'Anda tidak memiliki akses untuk mengunduh lampiran ini.');
+        if (!$pesan->lampiran) {
+            abort(404, 'Tidak ada lampiran.');
         }
 
-        if (!$pesan->lampiran || !in_array($pesan->tipe_lampiran, ['dokumen', 'gambar'])) {
-            abort(404, 'Lampiran tidak tersedia atau bukan tipe yang dapat diunduh.');
-        }
+        $path = 'lampiran_informasi/' . $pesan->lampiran;
 
-        $path = storage_path('app/public/lampiran_informasi/' . $pesan->lampiran);
-
-
-
-        if (!file_exists($path)) {
+        if (!Storage::disk('public')->exists($path)) {
             abort(404, 'Lampiran tidak ditemukan.');
         }
 
-        return response()->download($path);
+        return Storage::disk('public')->download($path, $pesan->lampiran);
+
     }
+
+
+
 }

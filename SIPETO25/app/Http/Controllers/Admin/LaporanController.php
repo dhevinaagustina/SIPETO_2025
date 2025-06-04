@@ -7,7 +7,8 @@ use App\Models\Mahasiswa;
 use App\Exports\MahasiswaExport;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
-use PDF;
+use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class LaporanController extends Controller
 {
@@ -23,8 +24,10 @@ class LaporanController extends Controller
         $startDate = request()->input('start_date', Carbon::now()->subMonth()->format('Y-m-d'));
         $endDate = request()->input('end_date', Carbon::now()->format('Y-m-d'));
 
-        $mahasiswa = Mahasiswa::whereBetween('created_at', [$startDate, $endDate])
-            ->get();
+        // Ambil hanya mahasiswa yang memiliki pendaftaran TOEIC di rentang tanggal
+        $mahasiswa = Mahasiswa::whereHas('pendaftaranToeic', function ($query) use ($startDate, $endDate) {
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        })->with('pendaftaranToeic')->get();
 
         return view('admin.laporan.pendaftaran', compact(
             'breadcrumb',
@@ -35,44 +38,52 @@ class LaporanController extends Controller
         ));
     }
 
-    public function export()
-    {
-        $format = request()->query('format', 'excel');
-        $startDate = request()->query('start_date');
-        $endDate = request()->query('end_date');
 
-        $query = Mahasiswa::query();
-        
-        if ($startDate && $endDate) {
-            $query->whereBetween('created_at', [$startDate, $endDate]);
-        }
-
-        $data = $query->get();
-
-        if ($format === 'pdf') {
-            $pdf = PDF::loadView('admin.laporan.export_pdf', [
-                'data' => $data,
-                'startDate' => $startDate,
-                'endDate' => $endDate
-            ]);
-            return $pdf->download('laporan-mahasiswa-'.now()->format('Y-m-d').'.pdf');
-        }
-
-        return Excel::download(new MahasiswaExport($data), 'data-mahasiswa.xlsx');
-    }
-
-    public function generate(Request $request)
+     public function generate(Request $request)
     {
         $validated = $request->validate([
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
             'format' => 'required|in:excel,pdf'
         ]);
 
         return redirect()->route('admin.laporan.export', [
-            'start_date' => $validated['start_date'],
-            'end_date' => $validated['end_date'],
             'format' => $validated['format']
         ]);
+    }
+
+    public function export(Request $request)
+    {
+        $format = $request->query('format', 'excel');
+
+        $data = Mahasiswa::with('pendaftaranToeic')
+            ->whereHas('pendaftaranToeic') // hanya yang sudah daftar TOEIC
+            ->orderBy('nim')
+            ->get();
+
+        if ($format === 'pdf') {
+            $mahasiswa = $data->map(function ($item) {
+                $pendaftaran = $item->pendaftaranToeic->first(); // ambil yang pertama
+                return [
+                    'nim' => $item->nim,
+                    'nama' => $item->nama_mahasiswa,
+                    'email' => $item->email,
+                    'tanggal_daftar' => optional($pendaftaran)->created_at,
+                    'status' => $pendaftaran ? 'Terdaftar' : 'Belum Daftar'
+                ];
+            });
+
+            $pdf = PDF::loadView('admin.laporan.export_pdf', [
+            'mahasiswa' => $mahasiswa
+            ])->setPaper('a4', 'landscape');
+
+            return $pdf->download('laporan-pendaftaran-toeic-' . now()->format('Y-m-d') . '.pdf');
+        }
+
+        // Untuk export Excel
+        return Excel::download(new MahasiswaExport($data), 'laporan-pendaftaran-toeic-' . now()->format('Y-m-d') . '.xlsx');
+    }
+
+    public function index()
+    {
+        return view('admin.laporan.index');
     }
 }

@@ -39,7 +39,7 @@ Route::get('/', function () {
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-// Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Login Admin
 Route::prefix('admin')->group(function () {
@@ -110,40 +110,44 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
 // =======================
 // Admin Routes
 // =======================
-    Route::prefix('admin')->group(function(){
+   Route::prefix('admin')->name('admin.')->group(function () {
     // Dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-    
+
     // Manajemen Mahasiswa
     Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {
         Route::get('/', [MahasiswaController::class, 'index'])->name('index');
         Route::get('/baru', [MahasiswaController::class, 'mahasiswaBaru'])->name('baru');
-        Route::get('/status', [MahasiswaController::class, 'statusPendaftaran'])->name('status');
-        Route::get('/{id}', [MahasiswaController::class, 'showAjax'])->name('admin.mahasiswa.showAjax');
+        // Route::get('/status', [MahasiswaController::class, 'statusPendaftaran'])->name('status');
+        Route::get('/{id}', [MahasiswaController::class, 'showAjax'])->name('showAjax');
         Route::post('/cari', [MahasiswaController::class, 'cari'])->name('cari');
-       
-
     });
-    
+
+    // Kirim Informasi
+    Route::get('/kirim-informasi', [InformasiController::class, 'create'])->name('kirim_informasi');
+    Route::post('/kirim-informasi', [InformasiController::class, 'store'])->name('informasi_store');
+
     // Laporan & Export Data
     Route::prefix('laporan')->name('laporan.')->group(function () {
         Route::get('/pendaftaran', [LaporanController::class, 'pendaftaran'])->name('pendaftaran');
         Route::get('/export', [LaporanController::class, 'export'])->name('export');
-        Route::post('/generate', [LaporanController::class, 'generate'])->name('generate');
+        Route::get('/generate', [LaporanController::class, 'generate'])->name('generate');
+        Route::get('/export-pdf', [DashboardController::class, 'exportPdf'])->name('export_pdf');
     });
 
     // Cek Data TOEIC
-        Route::prefix('cekdata')->name('cekdata.')->group(function () {
+    Route::prefix('cekdata')->name('cekdata.')->group(function () {
         Route::get('/', [CekDataController::class, 'index'])->name('index');
-        Route::get('/data', [CekDataController::class, 'getData'])->name('getdata'); // AJAX
-        Route::get('/admin/cek-dokumen/{id}', [CekDataController::class, 'showDokumen'])->name('admin.cek-dokumen');
+        Route::get('/data', [CekDataController::class, 'getData'])->name('getdata');
+        Route::get('/admin/cek-dokumen/{id}', [CekDataController::class, 'showDokumen'])->name('cek-dokumen');
         Route::get('/{id_mahasiswa}', [CekDataController::class, 'showDetail'])->name('show');
     });
 
     // Riwayat Ujian TOEIC
-    Route::get('/riwayat-ujian', [RiwayatUjianController::class, 'index'])->name('admin.riwayat');
-    Route::get('/riwayat-ujian/ajax', [RiwayatUjianController::class, 'getData'])->name('admin.riwayat.ajax');
-    Route::post('/riwayat-ujian/simpan', [RiwayatUjianController::class, 'simpan'])->name('riwayatujian.simpan');
+    Route::get('/riwayat-ujian', [RiwayatUjianController::class, 'index'])->name('riwayat');
+    Route::get('/riwayat-ujian/ajax', [RiwayatUjianController::class, 'getData'])->name('riwayat.ajax');
+    Route::post('/riwayat-ujian/simpan', [RiwayatUjianController::class, 'simpan'])->name('riwayat.simpan');
+    });
 
     // Surat Pernyataan
     Route::get('/surat-pernyataan', [\App\Http\Controllers\SuratPernyataanController::class, 'index'])
@@ -161,5 +165,3 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
         Auth::logout();
         return redirect()->route('login');
     })->name('admin.logout');
-
-});

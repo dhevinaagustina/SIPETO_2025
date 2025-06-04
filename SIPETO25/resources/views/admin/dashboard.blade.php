@@ -9,18 +9,11 @@
         'list' => ['Home', 'Dashboard']
     ];
     
-    $stats = [
-        'total_pendaftar' => 1240,
-        'pendaftar_bulan_ini' => 156,
-        'persentase_kenaikan' => 12.5,
-        'mahasiswa_baru' => 84,
-        'belum_lengkap' => 32
-    ];
 @endphp
 
 @section('content')
 <div class="container-fluid">
-    <!-- Statistik Pendaftaran -->
+     <!-- Statistik Pendaftaran -->
     <div class="row mb-4">
         <div class="col-12">
             <div class="card">
@@ -29,12 +22,12 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <!-- Total Pendaftar -->
-                        <div class="col-md-3 col-sm-6">
+                        <!-- Total Pendaftaran -->
+                        <div class="col-md-4 col-sm-6">
                             <div class="info-box bg-primary">
                                 <span class="info-box-icon"><i class="fas fa-users"></i></span>
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Total Pendaftar</span>
+                                    <span class="info-box-text">Total Mahasiswa</span>
                                     <span class="info-box-number">{{ $stats['total_pendaftar'] }}</span>
                                     <div class="progress">
                                         <div class="progress-bar" style="width: 100%"></div>
@@ -46,52 +39,35 @@
                             </div>
                         </div>
 
-                        <!-- Pendaftar Bulan Ini -->
-                        <div class="col-md-3 col-sm-6">
+                        <!-- Sudah Mendaftar -->
+                        <div class="col-md-4 col-sm-6">
                             <div class="info-box bg-success">
-                                <span class="info-box-icon"><i class="fas fa-user-plus"></i></span>
+                                <span class="info-box-icon"><i class="fas fa-check-circle"></i></span>
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Pendaftar Bulan Ini</span>
-                                    <span class="info-box-number">{{ $stats['pendaftar_bulan_ini'] }}</span>
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: {{ $stats['persentase_kenaikan'] }}%"></div>
-                                    </div>
-                                    <span class="progress-description">
-                                        Naik {{ $stats['persentase_kenaikan'] }}% dari bulan lalu
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Mahasiswa Baru -->
-                        <div class="col-md-3 col-sm-6">
-                            <div class="info-box bg-info">
-                                <span class="info-box-icon"><i class="fas fa-user-graduate"></i></span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Mahasiswa Baru</span>
+                                    <span class="info-box-text">Sudah Mendaftar</span>
                                     <span class="info-box-number">{{ $stats['mahasiswa_baru'] }}</span>
                                     <div class="progress">
-                                        <div class="progress-bar" style="width: 70%"></div>
+                                        <div class="progress-bar" style="width: {{ $persentaseSudah }}%"></div>
                                     </div>
                                     <span class="progress-description">
-                                        Dari total pendaftar bulan ini
+                                        {{ $persentaseSudah }}% dari total mahasiswa
                                     </span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Belum Lengkap -->
-                        <div class="col-md-3 col-sm-6">
-                            <div class="info-box bg-warning">
-                                <span class="info-box-icon"><i class="fas fa-exclamation-circle"></i></span>
+                        <!-- Belum Mendaftar -->
+                        <div class="col-md-4 col-sm-6">
+                            <div class="info-box bg-danger">
+                                <span class="info-box-icon"><i class="fas fa-times-circle"></i></span>
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Belum Lengkap</span>
-                                    <span class="info-box-number">{{ $stats['belum_lengkap'] }}</span>
+                                    <span class="info-box-text">Belum Mendaftar</span>
+                                    <span class="info-box-number">{{ $stats['belum_mendaftar'] }}</span>
                                     <div class="progress">
-                                        <div class="progress-bar" style="width: {{ ($stats['belum_lengkap']/$stats['pendaftar_bulan_ini'])*100 }}%"></div>
+                                        <div class="progress-bar" style="width: {{ $persentaseBelum }}%"></div>
                                     </div>
                                     <span class="progress-description">
-                                        Dokumen belum lengkap
+                                        {{ $persentaseBelum }}% dari total mahasiswa
                                     </span>
                                 </div>
                             </div>
@@ -115,7 +91,7 @@
                         <div class="col-md-4">
                             <div class="card">
                                 <div class="card-header bg-white">
-                                    <h3 class="card-title">Distribusi Prodi</h3>
+                                    <h3 class="card-title">Distribusi Jurusan</h3>
                                 </div>
                                 <div class="card-body">
                                     <div class="chart">
@@ -137,12 +113,7 @@
                 <div class="card-header bg-white d-flex justify-content-between align-items-center">
                     <h3 class="card-title"><i class="fas fa-users mr-2"></i>Manajemen Mahasiswa</h3>
                     <div>
-                        <a href="{{ route('mahasiswa.index') }}" class="btn btn-sm btn-primary">
-                            <i class="fas fa-list mr-1"></i> Lihat Semua
-                        </a>
-                        <a href="{{ route('mahasiswa.baru') }}" class="btn btn-sm btn-success">
-                            <i class="fas fa-user-plus mr-1"></i> Tambah Baru
-                        </a>
+                        <a href="{{ route('admin.mahasiswa.index') }}" class="btn btn-primary">Lihat Semua</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -159,19 +130,18 @@
                             </div>
                             <div class="small-box bg-info">
                                 <div class="inner">
-                                    <h3>{{ $stats['mahasiswa_baru'] }}</h3>
-                                    <p>Mahasiswa Baru Bulan Ini</p>
+                                    <p>Cek Data Bulan Ini</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa-user-graduate"></i>
                                 </div>
-                                <a href="{{ route('mahasiswa.baru') }}" class="small-box-footer">
+                                <a href="{{ route('admin.cekdata.index') }}" class="small-box-footer">
                                     More info <i class="fas fa-arrow-circle-right"></i>
                                 </a>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            {{-- Kalo bisa jangan diubah ya (Note: Dhevina) --}}
+                             {{-- Kalo bisa jangan diubah ya (Note: Dhevina) --}}
                             <h5><i class="fas fa-clock mr-2"></i>Pendaftaran Terbaru</h5>
                             <div class="table-responsive">
                                 <table class="table table-hover">
@@ -230,7 +200,7 @@
                                 </div>
                                 <div class="card-body">
                                     <p>Generate laporan pendaftaran berdasarkan periode atau kriteria tertentu</p>
-                                    <a href="{{ route('laporan.pendaftaran') }}" class="btn btn-outline-light">
+                                    <a href="{{ route('admin.laporan.pendaftaran') }}" class="btn btn-outline-light">
                                         <i class="fas fa-file-alt mr-1"></i> Buat Laporan
                                     </a>
                                 </div>
@@ -243,7 +213,7 @@
                                 </div>
                                 <div class="card-body">
                                     <p>Export data mahasiswa dalam format Excel untuk pengolahan lebih lanjut</p>
-                                    <a href="{{ route('laporan.export') }}?format=excel" class="btn btn-outline-light">
+                                    <a href="{{ route('admin.laporan.export') }}?format=excel" class="btn btn-outline-light">
                                         <i class="fas fa-file-excel mr-1"></i> Export Excel
                                     </a>
                                 </div>
@@ -256,7 +226,7 @@
                                 </div>
                                 <div class="card-body">
                                     <p>Export data mahasiswa dalam format PDF untuk keperluan dokumentasi</p>
-                                    <a href="{{ route('laporan.export') }}?format=pdf" class="btn btn-outline-light">
+                                    <a href="{{ route('admin.laporan.export') }}?format=pdf" class="btn btn-outline-light">
                                         <i class="fas fa-file-pdf mr-1"></i> Export PDF
                                     </a>
                                 </div>
@@ -271,15 +241,18 @@
 
 @push('scripts')
 <script>
-    // Pendaftaran Chart
+    // Ambil data dari controller Laravel
+    const bulan = @json($bulan);
+    const jumlahPendaftar = @json($jumlahPerBulan);
+
     const ctx1 = document.getElementById('pendaftaranChart').getContext('2d');
     new Chart(ctx1, {
         type: 'line',
         data: {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+            labels: bulan,
             datasets: [{
                 label: 'Jumlah Pendaftar',
-                data: [120, 150, 180, 140, 200, 240],
+                data: jumlahPendaftar,
                 borderColor: '#3c8dbc',
                 backgroundColor: 'rgba(60, 141, 188, 0.1)',
                 tension: 0.3,
@@ -292,7 +265,7 @@
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    display: false
+                    display: true
                 }
             },
             scales: {
@@ -311,14 +284,14 @@
         }
     });
 
-    // Prodi Chart
+    // Jurusan Chart
     const ctx2 = document.getElementById('prodiChart').getContext('2d');
     new Chart(ctx2, {
         type: 'doughnut',
         data: {
-            labels: ['Teknik Informatika', 'Sistem Informasi', 'Manajemen', 'Akuntansi', 'Lainnya'],
+            labels: ['Teknik Informatika', 'Teknologi Infomasi', 'Teknik Mesin', 'Teknik Sipil', 'Teknik Kimia', 'Administrasi Niaga', 'Teknik Elektro', 'Akutansi'],
             datasets: [{
-                data: [35, 25, 20, 15, 5],
+                data: [1, 15, 2, 1, 2, 1, 2, 1],
                 backgroundColor: [
                     '#f56954',
                     '#00a65a',

@@ -63,18 +63,19 @@ class PendaftaranToeicController extends Controller
 
         $validated = $request->validate([
             'nama'              => 'required|string|max:255',
-            'nim'               => 'required|string|max:50',
+            'nim'               => ['required', 'regex:/^[0-9]+$/', 'min:8', 'max:20'],
             'jurusan'           => 'required|string|max:100',
             'prodi'             => 'required|string|max:100',
             'kampus'            => 'required|string|max:100',
-            'nik'               => 'required|string|max:255',
-            'no_wa'             => 'required|string|max:20',
+            'nik'               => ['required', 'regex:/^[0-9]+$/', 'min:8', 'max:25'],
+            'no_wa'             => ['required', 'regex:/^[0-9]+$/', 'min:10', 'max:20'],
             'alamat_asal'       => 'required|string|max:255',
             'alamat_sekarang'   => 'required|string|max:255',
             'scan_ktp'          => 'required|file|mimes:jpg,jpeg,png,pdf|max:102400',
             'scan_ktm'          => 'required|file|mimes:jpg,jpeg,png,pdf|max:102400',
             'pas_foto'          => 'required|file|mimes:jpg,jpeg,png,pdf|max:102400',
         ]);
+
 
         try {
             $ktpPath = $request->file('scan_ktp')->store('uploads/ktp', 'public');
