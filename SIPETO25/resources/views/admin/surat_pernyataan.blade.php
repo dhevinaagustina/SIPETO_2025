@@ -137,55 +137,52 @@
             
             <input type="text" id="searchInput" name="searchInput" class="form-control" placeholder="Cari mahasiswa">
         </div>
-
-        <table id="tableSurat" class="table-custom">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama Mahasiswa</th>
-                    <th>NIM</th>
-                    <th>Prodi</th>
-                    <th>Tanggal Pengajuan</th>
-                    <th>Status</th>
-                    <th>File Surat</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($data as $item)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->mahasiswa->nama_mahasiswa }}</td>
-                        <td>{{ $item->mahasiswa->nim }}</td>
-                        <td>{{ $item->mahasiswa->prodi }}</td>
-                        <td>{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d-m-Y') }}</td>
-                        <td>
-                            @if ($item->status === 'selesai')
-                                <span class="badge bg-success">Selesai</span>
-                            @else
-                                <span class="badge bg-warning text-dark">Diajukan</span>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($item->file_surat)
-                                <a href="{{ asset('storage/' . $item->file_surat) }}" class="btn btn-sm btn-outline-success" target="_blank">Lihat</a>
-                            @else
-                                <span class="text-muted">Belum tersedia</span>
-                            @endif
-                        </td>
-                        <td>
-                            @if (!$item->file_surat)
-                                <a href="{{ route('admin.surat_pernyataan.generate', $item->id) }}" class="btn btn-sm btn-primary">Cetak</a>
-                                    Generate Surat
-                                </a>
-                            @else
-                                 <button class="btn btn-sm btn-secondary" disabled>Sudah dibuat</button>
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+<table id="tableSurat" class="table-custom">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>Nama Mahasiswa</th>
+            <th>NIM</th>
+            <th>Prodi</th>
+            <th>Tanggal Pengajuan</th>
+            <th>Status</th>
+            <th>File Surat</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($data as $item)
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $item->mahasiswa->nama_mahasiswa }}</td>
+                <td>{{ $item->mahasiswa->nim }}</td>
+                <td>{{ $item->mahasiswa->prodi }}</td>
+                <td>{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d-m-Y') }}</td>
+                <td class="text-center align-middle">
+                    @if ($item->status === 'selesai')
+                        <span class="badge bg-success">Selesai</span>
+                    @else
+                        <span class="badge bg-warning text-dark">Diajukan</span>
+                    @endif
+                </td>
+                <td class="text-center align-middle">
+                    @if ($item->file_surat)
+                        <a href="{{ asset('storage/' . $item->file_surat) }}" class="btn btn-sm btn-outline-success" target="_blank">Lihat</a>
+                    @else
+                        <span class="text-muted">Belum tersedia</span>
+                    @endif
+                </td>
+                <td class="text-center align-middle">
+                    @if (!$item->file_surat)
+                        <a href="{{ route('admin.surat_pernyataan.generate', $item->id) }}" class="btn btn-sm btn-primary">Cetak Surat</a>
+                    @else
+                        <button class="btn btn-sm btn-secondary" disabled>Sudah dibuat</button>
+                    @endif
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
 
         <!-- Custom Pagination -->
         <div class="pagination-container">
