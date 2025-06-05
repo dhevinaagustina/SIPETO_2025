@@ -220,31 +220,40 @@
 </head>
 
 <body>
-  <!-- Header -->
-  <header id="header" class="header fixed-top" style="background-color: #1f2b6c;">
-    <div class="container d-flex justify-content-between align-items-center py-2">
-      <!-- Logo -->
-      <a href="/" class="logo d-flex align-items-center">
-        <img src="assets/img/logo-poltek.png" alt="Polinema" height="40">
-        <img src="assets/img/logo.png" alt="SIPETO" height="40" class="ms-2">
-        <div class="ms-2">
-          <h1 class="text-white mb-0" style="font-size: 1.2rem;">SIPETO</h1>
-          <p class="text-white mb-0" style="font-size: 0.8rem;">Sistem Pendaftaran TOEIC</p>
+ <!-- Header -->
+<header id="header" class="header fixed-top" style="background-color: #1f2b6c;">
+  <div class="container d-flex justify-content-between align-items-center py-2">
+    <!-- Logo -->
+    <div class="d-flex align-items-center">
+      <button class="btn btn-sm btn-outline-light me-3" onclick="window.location.href='/dashboard/beranda'">
+        <i class="bi bi-arrow-left"></i> Kembali
+      </button>
+      <a href="/" class="logo d-flex align-items-center text-decoration-none">
+        <img src="{{ asset('assets/img/logo poltek.png') }}" alt="Polinema" height="40">
+        <img src="{{ asset('assets/img/logo.png') }}" alt="SIPETO" height="40" class="ms-2">
+        <div class="ms-2 text-white">
+          <h1 class="mb-0" style="font-size: 1.2rem; line-height: 1.2;">SIPETO</h1>
+          <p class="mb-0" style="font-size: 0.7rem;">Sistem Pendidikan TOEIC</p>
         </div>
       </a>
-
-      <!-- Navigation -->
-      <nav class="navmenu">
-        <ul class="d-flex mb-0">
-          <li><a href="index.html" class="text-white">Beranda</a></li>
-          <li><a href="toeic-guide.html" class="text-white active">Panduan TOEIC</a></li>
-          <li><a href="schedule.html" class="text-white">Jadwal Tes</a></li>
-          <li><a href="results.html" class="text-white">Hasil Tes</a></li>
-        </ul>
-        <a href="login.html" class="btn btn-warning ms-3">Masuk</a>
-      </nav>
     </div>
-  </header>
+
+    <!-- Navigation -->
+    {{-- <nav class="navmenu">
+      <ul class="d-flex mb-0 list-unstyled align-items-center">
+        <li class="me-3"><a href="index.html" class="text-white text-decoration-none">Beranda</a></li>
+        <li class="me-3"><a href="toeic-guide.html" class="text-white text-decoration-none active">Panduan TOEIC</a></li>
+        <li class="me-3"><a href="schedule.html" class="text-white text-decoration-none">Jadwal Tes</a></li>
+        <li class="me-3"><a href="results.html" class="text-white text-decoration-none">Hasil Tes</a></li>
+        <li>
+          <a href="login.html" class="btn btn-warning btn-sm px-3">
+            <i class="bi bi-box-arrow-in-right me-1"></i> Masuk
+          </a>
+        </li>
+      </ul>
+    </nav> --}}
+  </div>
+</header>
 
   <!-- Main Content -->
   <main style="padding-top: 70px;">
