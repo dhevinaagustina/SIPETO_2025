@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Pagination\Paginator;
 
 use Carbon\Carbon;
 
@@ -29,6 +30,9 @@ class AppServiceProvider extends ServiceProvider
         if (request()->header('x-forwarded-proto') === 'https') {
             URL::forceScheme('https');
         }
+        
+        // Gunakan Bootstrap untuk pagination
+        Paginator::useBootstrap();
 
             View::composer('*', function ($view) {
             $user = Auth::user();

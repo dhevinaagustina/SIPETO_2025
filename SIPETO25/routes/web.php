@@ -17,8 +17,8 @@ use App\Http\Controllers\PesanController;
 use App\Http\Controllers\ToeicController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\LaporanController;
-use App\Http\Controllers\Admin\MahasiswaController;
 use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\MahasiswaController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -116,8 +116,9 @@ Route::prefix('admin')->name('admin.')->middleware('admin_or_super')->group(func
     // Dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-    // Kelola Admin - hanya untuk super admin
+   
         Route::middleware('superadmin_only')->group(function () {
+            // Kelola Admin - hanya untuk super admin
             Route::get('/kelola-admin', [SuperAdminController::class, 'index'])->name('kelola_admin');
             Route::get('/kelola-admin/create', [SuperAdminController::class, 'create'])->name('kelola_admin.create');
             Route::post('/kelola-admin', [SuperAdminController::class, 'store'])->name('kelola_admin.store');
@@ -125,7 +126,15 @@ Route::prefix('admin')->name('admin.')->middleware('admin_or_super')->group(func
             Route::put('/kelola-admin/{id}', [SuperAdminController::class, 'update'])->name('kelola_admin.update');
             Route::delete('/kelola-admin/{id}', [SuperAdminController::class, 'destroy'])->name('kelola_admin.destroy');
 
-
+            // Kelola Mahasiswa
+            Route::prefix('mahasiswa')->group(function () {
+                Route::get('/', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
+                Route::get('/create', [MahasiswaController::class, 'create'])->name('mahasiswa.create');
+                Route::post('/', [MahasiswaController::class, 'store'])->name('mahasiswa.store');
+                Route::get('/{id}/edit', [MahasiswaController::class, 'edit'])->name('mahasiswa.edit');
+                Route::put('/{id}', [MahasiswaController::class, 'update'])->name('mahasiswa.update');
+                Route::delete('/{id}', [MahasiswaController::class, 'destroy'])->name('mahasiswa.destroy');
+            });
         });
 
     // Manajemen Mahasiswa
