@@ -18,6 +18,7 @@ use App\Http\Controllers\ToeicController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\MahasiswaController;
+use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -110,9 +111,22 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
 // =======================
 // Admin Routes
 // =======================
-   Route::prefix('admin')->name('admin.')->group(function () {
+Route::prefix('admin')->name('admin.')->middleware('admin_or_super')->group(function () {
+
     // Dashboard
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    // Kelola Admin - hanya untuk super admin
+        Route::middleware('superadmin_only')->group(function () {
+            Route::get('/kelola-admin', [SuperAdminController::class, 'index'])->name('kelola_admin');
+            Route::get('/kelola-admin/create', [SuperAdminController::class, 'create'])->name('kelola_admin.create');
+            Route::post('/kelola-admin', [SuperAdminController::class, 'store'])->name('kelola_admin.store');
+            Route::get('/kelola-admin/{id}/edit', [SuperAdminController::class, 'edit'])->name('kelola_admin.edit');
+            Route::put('/kelola-admin/{id}', [SuperAdminController::class, 'update'])->name('kelola_admin.update');
+            Route::delete('/kelola-admin/{id}', [SuperAdminController::class, 'destroy'])->name('kelola_admin.destroy');
+
+
+        });
 
     // Manajemen Mahasiswa
     Route::prefix('mahasiswa')->name('mahasiswa.')->group(function () {

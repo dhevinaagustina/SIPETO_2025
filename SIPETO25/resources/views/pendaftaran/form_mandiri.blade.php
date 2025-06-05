@@ -30,14 +30,39 @@
                             </li>
                         </ul>
                         <div class="text-center">
-                            <form action="{{ route('pendaftaran-toeic/mandiri.store') }}" method="POST">
+                            <!-- Ubah tombol submit jadi button biasa -->
+                            <button type="button" class="btn btn-register" data-toggle="modal" data-target="#confirmModal">
+                                Kunjungi Website <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                            <p class="mt-2 small text-muted">Anda akan diarahkan ke situs resmi ITC</p>
+
+                            <!-- Form tetap disimpan, tapi tanpa tombol submit -->
+                            <form id="mandiriForm" action="{{ route('pendaftaran-toeic/mandiri.store') }}" method="POST" style="display:none;">
                                 @csrf
-                                <button type="submit" class="btn btn-register">
-                                    Kunjungi Website <i class="fas fa-arrow-right ml-2"></i>
-                                </button>
-                                <p class="mt-2 small text-muted">Anda akan diarahkan ke situs resmi ITC</p>
                             </form>
                         </div>
+
+                        <!-- Modal Konfirmasi -->
+                        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Pendaftaran Mandiri</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Apakah anda benar-benar ingin melakukan pendaftaran mandiri?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                                <button type="button" id="confirmBtn" class="btn btn-primary">Ya</button>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -135,4 +160,19 @@
         }
     }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('confirmBtn').addEventListener('click', function() {
+            // Ganti URL ini ke website resmi ITC yang sebenarnya
+            const urlITC = 'https://itc-indonesia.com/contact-us-2/';
+
+            // Buka di tab baru
+            window.open(urlITC, '_blank');
+
+            // Tutup modal setelah klik
+            $('#confirmModal').modal('hide');
+        });
+    });
+</script>
 @endsection
