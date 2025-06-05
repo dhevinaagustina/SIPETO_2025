@@ -10,34 +10,75 @@
     <div class="sidebar">
         <nav class="mt-4 px-3">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-                @php
-                    // Hindari redeklarasi fungsi jika layout di-include berkali-kali
-                    if (!function_exists('isSubmenuActive')) {
-                        function isSubmenuActive($submenu, $activeMenu) {
-                            foreach ($submenu as $item) {
-                                if ($activeMenu == $item['key']) {
-                                    return true;
-                                }
-                            }
-                            return false;
-                        }
-                    }
+            @php
+                use Illuminate\Support\Facades\Auth;
 
-                   $menu = [
-                        ['label' => 'Dashboard', 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
-                            ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => route('admin.dashboard'), 'key' => 'dashboard-admberanda'],
-                            ['label' => 'Tulis Pesan', 'icon' => 'fas fa-bell', 'route' => route('admin.kirim_informasi'), 'key' => 'dashboard-pesan'],
-                        ]],
+                // Cek siapa yang sedang login
+                $user = null;
+                $isSuperAdmin = false;
+
+                if (Auth::guard('super_admin')->check()) {
+                    $user = Auth::guard('super_admin')->user();
+                    $isSuperAdmin = true;
+                } elseif (Auth::guard('admin')->check()) {
+                    $user = Auth::guard('admin')->user();
+                    $isSuperAdmin = false;
+                }
+
+                if (!function_exists('isSubmenuActive')) {
+                    function isSubmenuActive($submenu, $activeMenu) {
+                        foreach ($submenu as $item) {
+                            if ($activeMenu == $item['key']) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                }
+
+                // Menu super admin
+                if ($isSuperAdmin) {
+                    $menu = [
+                        [
+                            'label' => 'Dashboard', 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
+                                ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => route('admin.dashboard'), 'key' => 'dashboard-admberanda'],
+                                ['label' => 'Tulis Pesan', 'icon' => 'fas fa-bell', 'route' => route('admin.kirim_informasi'), 'key' => 'dashboard-pesan'],
+                            ]
+                        ],
                         ['label' => 'Cek Data', 'icon' => 'fas fa-search', 'route' => route('admin.cekdata.index'), 'key' => 'cek-data'],
                         ['label' => 'Riwayat Ujian', 'icon' => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian'],
                         ['label' => 'Pengajuan Surat', 'icon' => 'fas fa-pen-fancy', 'route' => route('admin.surat_pernyataan.index'), 'key' => 'surat-pernyataan'],
-                        // ['label' => 'Status Pendaftaran', 'icon' => 'fas fa-clipboard-check', 'route' => route('admin.mahasiswa.status'), 'key' => 'mahasiswa-status'],
-                        ['label' => 'Laporan & Export', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
-                            ['label' => 'Laporan Pendaftaran', 'icon' => 'fas fa-file-alt', 'route' => route('admin.laporan.pendaftaran'), 'key' => 'laporan-pendaftaran'],
-                            ['label' => 'Export Data', 'icon' => 'fas fa-download', 'route' => route('admin.laporan.export'), 'key' => 'laporan-export'],
-                        ]],
+                        ['label' => 'Manajemen Admin', 'icon' => 'fas fa-users-cog', 'route' => route('admin.kelola_admin'), 'key' => 'kelola-admin'],
+                        [
+                            'label' => 'Laporan & Export', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
+                                ['label' => 'Laporan Pendaftaran', 'icon' => 'fas fa-file-alt', 'route' => route('admin.laporan.pendaftaran'), 'key' => 'laporan-pendaftaran'],
+                                ['label' => 'Export Data', 'icon' => 'fas fa-download', 'route' => route('admin.laporan.export'), 'key' => 'laporan-export'],
+                            ]
+                        ],
                     ];
-                @endphp
+                } else {
+                    // Menu admin biasa
+                    $menu = [
+                        [
+                            'label' => 'Dashboard', 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
+                                ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => route('admin.dashboard'), 'key' => 'dashboard-admberanda'],
+                                ['label' => 'Tulis Pesan', 'icon' => 'fas fa-bell', 'route' => route('admin.kirim_informasi'), 'key' => 'dashboard-pesan'],
+                            ]
+                        ],
+                        ['label' => 'Cek Data', 'icon' => 'fas fa-search', 'route' => route('admin.cekdata.index'), 'key' => 'cek-data'],
+                        ['label' => 'Riwayat Ujian', 'icon' => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian'],
+                        ['label' => 'Pengajuan Surat', 'icon' => 'fas fa-pen-fancy', 'route' => route('admin.surat_pernyataan.index'), 'key' => 'surat-pernyataan'],
+                        [
+                            'label' => 'Laporan & Export', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
+                                ['label' => 'Laporan Pendaftaran', 'icon' => 'fas fa-file-alt', 'route' => route('admin.laporan.pendaftaran'), 'key' => 'laporan-pendaftaran'],
+                                ['label' => 'Export Data', 'icon' => 'fas fa-download', 'route' => route('admin.laporan.export'), 'key' => 'laporan-export'],
+                            ]
+                        ],
+                    ];
+                }
+            @endphp
+
+
 
                 @foreach ($menu as $item)
                     <li class="nav-item mb-2 {{ isset($item['submenu']) ? 'has-treeview' : '' }} {{ isset($item['submenu']) && isSubmenuActive($item['submenu'], $activeMenu) ? 'menu-open' : '' }}">
