@@ -75,36 +75,33 @@
                     </div>
 
                     <!-- Grafik Pendaftaran -->
-                    <div class="row mt-4">
-                        <div class="col-md-8">
-                            <div class="card">
-                                <div class="card-header bg-white">
-                                    <h3 class="card-title">Trend Pendaftaran 6 Bulan Terakhir</h3>
-                                </div>
-                                <div class="card-body">
-                                    <div class="chart">
-                                        <canvas id="pendaftaranChart" style="height: 300px;"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-header bg-white">
-                                    <h3 class="card-title">Distribusi Jurusan</h3>
-                                </div>
-                                <div class="card-body">
-                                    <div class="chart">
-                                        <canvas id="prodiChart" style="height: 300px;"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="row mt-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h3 class="card-title">Trend Pendaftaran 6 Bulan Terakhir</h3>
+            </div>
+            <div class="card-body">
+                <div class="chart">
+                    <canvas id="pendaftaranChart" style="height: 300px;"></canvas>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h3 class="card-title">Distribusi Jurusan</h3>
+            </div>
+            <div class="card-body">
+                <div class="chart">
+                    <canvas id="prodiChart" style="height: 300px;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
     <!-- Manajemen Mahasiswa -->
     <div class="row mb-4">
@@ -316,9 +313,9 @@
     new Chart(ctx2, {
         type: 'doughnut',
         data: {
-            labels: ['Teknik Informatika', 'Teknologi Infomasi', 'Teknik Mesin', 'Teknik Sipil', 'Teknik Kimia', 'Administrasi Niaga', 'Teknik Elektro', 'Akutansi'],
+            labels: ['Teknologi Infomasi', 'Teknik Mesin', 'Teknik Sipil', 'Teknik Kimia', 'Administrasi Niaga', 'Teknik Elektro', 'Akutansi'],
             datasets: [{
-                data: [1, 15, 2, 1, 2, 1, 2, 1],
+                data: [55, 2, 21, 3, 5, 19, 2],
                 backgroundColor: [
                     '#f56954',
                     '#00a65a',

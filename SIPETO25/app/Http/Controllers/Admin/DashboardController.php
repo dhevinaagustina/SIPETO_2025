@@ -51,7 +51,7 @@ class DashboardController extends Controller
             $jumlahPerBulan->push($jumlah);
         }
 
-        // Grafik: Distribusi Jurusan
+        // Grafik: Distribusi Jurusan (yang daftar TOEIC)
         $distribusiJurusan = Mahasiswa::join('pendaftaran_toeic', 'mahasiswa.nim', '=', 'pendaftaran_toeic.id_mahasiswa')
             ->select('mahasiswa.jurusan', DB::raw('count(*) as total'))
             ->groupBy('mahasiswa.jurusan')
@@ -61,7 +61,7 @@ class DashboardController extends Controller
         $jurusanLabels = $distribusiJurusan->pluck('jurusan');
         $jurusanData = $distribusiJurusan->pluck('total');
 
-        // Grafik: Distribusi Prodi
+        // Grafik: Distribusi Prodi (yang daftar TOEIC)
         $distribusiProdi = Mahasiswa::join('pendaftaran_toeic', 'mahasiswa.nim', '=', 'pendaftaran_toeic.id_mahasiswa')
             ->select('mahasiswa.prodi', DB::raw('count(*) as total'))
             ->groupBy('mahasiswa.prodi')
@@ -70,6 +70,15 @@ class DashboardController extends Controller
 
         $prodiLabels = $distribusiProdi->pluck('prodi');
         $prodiData = $distribusiProdi->pluck('total');
+
+        // Grafik: Semua Mahasiswa per Prodi (tanpa filter pendaftaran)
+        $semuaProdi = Mahasiswa::select('prodi', DB::raw('count(*) as total'))
+            ->groupBy('prodi')
+            ->orderByDesc('total')
+            ->get();
+
+        $semuaProdiLabels = $semuaProdi->pluck('prodi');
+        $semuaProdiData = $semuaProdi->pluck('total');
 
         // Breadcrumb dan aktif menu
         $breadcrumb = (object) [
@@ -95,10 +104,12 @@ class DashboardController extends Controller
             'jurusanData' => $jurusanData,
             'prodiLabels' => $prodiLabels,
             'prodiData' => $prodiData,
+            'semuaProdiLabels' => $semuaProdiLabels,
+            'semuaProdiData' => $semuaProdiData,
         ]);
     }
 
-     public function getTerbaru()
+    public function getTerbaru()
     {
         $data = PendaftaranToeic::with('mahasiswa') // Eager load relasi mahasiswa
             ->orderByDesc('tanggal_daftar')
@@ -116,6 +127,4 @@ class DashboardController extends Controller
 
         return response()->json(['data' => $formatted]);
     }
-
 }
-
