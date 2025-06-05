@@ -110,16 +110,22 @@
     <div class="row mb-4">
         <div class="col-12">
             <div class="card">
-                <div class="card-header bg-white d-flex justify-content-between align-items-center">
-                    <h3 class="card-title"><i class="fas fa-users mr-2"></i>Manajemen Mahasiswa</h3>
-                    <div>
-                        <a href="{{ route('admin.mahasiswa.index') }}" class="btn btn-primary">Lihat Semua</a>
+                <div class="card-header bg-white">
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                        <h3 class="card-title mb-2 mb-md-0">
+                            <i class="fas fa-users mr-2 text-primary"></i>Cek Data Mahasiswa (Pendaftar)
+                        </h3>
+                        {{-- <div class="ms-md-auto">
+                            <a href="{{ route('admin.mahasiswa.index') }}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-list mr-1"></i> Lihat Semua
+                            </a>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <h5><i class="fas fa-search mr-2"></i>Cari Mahasiswa</h5>
+                            {{-- <h5><i class="fas fa-search mr-2"></i>Cari Mahasiswa</h5>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" placeholder="Nama atau NIM...">
                                 <div class="input-group-append">
@@ -127,17 +133,38 @@
                                         <i class="fas fa-search"></i>
                                     </button>
                                 </div>
-                            </div>
-                            <div class="small-box bg-info">
-                                <div class="inner">
-                                    <p>Cek Data Bulan Ini</p>
+                            </div> --}}
+                            <div class="h-100 position-relative">
+                                <div class="small-box bg-gradient-info">
+                                    <!-- Pure decorative elements -->
+                                    <div class="floating-shapes">
+                                        <div class="shape-circle"></div>
+                                        <div class="shape-triangle"></div>
+                                    </div>
+                                    
+                                    <div class="inner">
+                                        <h3>Data Mahasiswa</h3>
+                                        <p>Cek Data</p>
+                                        
+                                        <!-- Visual decoration only -->
+                                        <div class="visual-ornament">
+                                            <div class="line-pattern"></div>
+                                            <div class="icon-grid">
+                                                <i class="fas fa-user"></i>
+                                                <i class="fas fa-book"></i>
+                                                <i class="fas fa-university"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="icon">
+                                        <i class="fas fa-user-graduate"></i>
+                                    </div>
+                                    
+                                    <a href="#" class="small-box-footer">
+                                        Lihat Detail <i class="fas fa-arrow-right"></i>
+                                    </a>
                                 </div>
-                                <div class="icon">
-                                    <i class="fas fa-user-graduate"></i>
-                                </div>
-                                <a href="{{ route('admin.cekdata.index') }}" class="small-box-footer">
-                                    More info <i class="fas fa-arrow-circle-right"></i>
-                                </a>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -359,43 +386,125 @@
         display: block;
         font-weight: 700;
     }
+
+     .floating-shapes {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+    }
+    
+    .shape-circle {
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 2px dashed rgba(255,255,255,0.3);
+        top: 20%;
+        left: 10%;
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    .visual-ornament {
+        margin-top: 20px;
+    }
+    
+    .line-pattern {
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+        margin: 15px 0;
+    }
+    
+    .icon-grid {
+        display: flex;
+        justify-content: space-around;
+        color: rgba(255,255,255,0.7);
+        font-size: 18px;
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        25% { transform: translate(5px, 5px) rotate(2deg); }
+        50% { transform: translate(0, 10px) rotate(0deg); }
+        75% { transform: translate(-5px, 5px) rotate(-2deg); }
+    }
     
     .small-box {
-        border-radius: .25rem;
-        box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
-        display: block;
-        margin-bottom: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        min-height: 200px; /* Tinggi minimum */
+        height: 100%; /* Jika parent punya height tertentu */
         position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: none;
     }
-    
+
+    .small-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
     .small-box > .inner {
-        padding: 10px;
+        flex: 1; /* Mengisi ruang tersisa */
+        padding: 20px;
+        position: relative;
+        z-index: 1;
     }
-    
+
     .small-box h3 {
-        font-size: 38px;
+        font-size: 28px;
         font-weight: 700;
-        margin: 0 0 10px;
+        margin: 0 0 5px;
         padding: 0;
-        white-space: nowrap;
+        color: white;
     }
-    
+
     .small-box p {
-        font-size: 15px;
+        font-size: 20px;
+        margin: 0;
+        color: rgba(255,255,255,0.9);
     }
-    
+
     .small-box .icon {
-        color: rgba(0,0,0,.15);
+        color: rgba(255,255,255,0.2);
         z-index: 0;
         position: absolute;
-        right: 15px;
-        top: 15px;
-        font-size: 70px;
-        transition: all .3s linear;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 80px;
+        transition: all 0.3s ease;
     }
-    
+
     .small-box:hover .icon {
-        font-size: 75px;
+        font-size: 85px;
+        color: rgba(255,255,255,0.25);
+    }
+
+    .small-box-footer {
+        background-color: rgba(0,0,0,0.1);
+        color: white;
+        display: block;
+        padding: 10px 0;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        z-index: 1;
+        font-weight: 500;
+    }
+
+    .small-box-footer:hover {
+        background-color: rgba(0,0,0,0.2);
+        color: white;
+    }
+
+    .bg-gradient-info {
+        background: linear-gradient(135deg, #17a2b8 0%, #1abc9c 100%);
     }
 </style>
 @endsection
