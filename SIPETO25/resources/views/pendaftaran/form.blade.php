@@ -1,54 +1,323 @@
 @extends('layouts-mahasiswa.template')
 
 @section('content')
+<style>
+    :root {
+        --primary-color: #29335C;
+        --secondary-color: #3f37c9;
+        --success-color: #28AE38;
+        --danger-color: #DB2B39;
+        --warning-color: #f8961e;
+        --light-color: #f8f9fa;
+        --dark-color: #212529;
+    }
+    
+    .mandiri-container {
+        width: 97%;
+        margin: 5px auto;
+        animation: fadeIn 0.5s ease-in-out;
+    }
+    
+    .mandiri-card {
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    
+    .mandiri-header {
+        background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .mandiri-header h4 {
+        margin: 0;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        font-size: 1.25rem;
+    }
+    
+    .mandiri-header i {
+        margin-right: 10px;
+    }
+    
+    .registration-details {
+        margin-top: 20px;
+    }
+    
+    .detail-card {
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 25px;
+        margin-bottom: 20px;
+    }
+    
+    .detail-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px dashed #ddd;
+    }
+    
+    .detail-label {
+        font-weight: 600;
+        color: #555;
+    }
+    
+    .detail-value {
+        text-align: right;
+    }
+    
+    .badge-success {
+        background-color: var(--success-color);
+        color: white;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+    }
+    
+    .success-notice {
+        background-color: #fff9e6;
+        border-left: 4px solid var(--warning-color);
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .notice-content h4 {
+        color: var(--warning-color);
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+    }
+    
+    .notice-content p {
+        margin-bottom: 10px;
+        color: #5a4d00;
+        font-size: 0.95rem;
+    }
+    
+    .notice-icon svg {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .btn-register {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 10px 25px;
+        border-radius: 30px;
+        font-weight: 600;
+        transition: all 0.3s;
+        border: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        font-size: 0.95rem;
+    }
+    
+    .btn-register:hover {
+        background-color: var(--light-color);
+        color: var(--primary-color);
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .mandiri-container {
+            padding: 0;
+        }
+        
+        .mandiri-card, .detail-card {
+            padding: 15px;
+        }
+        
+        .success-notice {
+            flex-direction: column;
+        }
+    }
 
-<div class="container">
+    .form-container {
+        width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+    }
+    
+    .form-column {
+        flex: 1;
+        padding: 0 15px;
+        min-width: 300px;
+    }
+    
+    .form-section {
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: normal;
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    
+    .file-upload-group {
+        margin-bottom: 20px;
+    }
+    
+    .file-upload-wrapper {
+        position: relative;
+        margin-top: 5px;
+    }
+    
+    .file-upload-preview {
+        border: 1px dashed #ccc;
+        padding: 15px;
+        text-align: center;
+        min-height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+    
+    .file-upload-placeholder {
+        color: #6c757d;
+    }
+    
+    .file-upload-input {
+        display: none;
+    }
+    
+    .file-upload-button {
+        display: inline-block;
+        padding: 4px 12px;
+        background-color: #29335C;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 10px;
+        color: whitesmoke;
+    }
+    
+    .file-upload-button:hover {
+        background-color: #e0e0e0;
+        color: #29335C;
+    }
+    
+    .file-upload-info {
+        display: inline-block;
+        color: #6c757d;
+    }
+    
+    .file-upload-hint {
+        display: block;
+        margin-top: 5px;
+        color: #6c757d;
+        font-size: 0.8em;
+    }
+    
+    .file-upload-preview img {
+        max-width: 100%;
+        max-height: 200px;
+    }
+    
+    .form-submit {
+        text-align: center;
+        margin-top: 20px;
+    }
+    
+    .btn-primary {
+        background-color: #29335C;
+        border-color: #29335C;
+        padding: 4px 20px;
+        font-size: 1.1em;
+    }
+    
+    @media (max-width: 768px) {
+        .form-column {
+            flex: 100%;
+        }
+    }
+</style>
+
+<div class="mandiri-container animate__animated animate__fadeIn">
     @if($sudahDaftarGratis)
-        <div class="registration-complete-container">
-            <!-- Header Section (integrated into container) -->
-            <div class="success-header">
-                <div class="success-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#29335C" viewBox="0 0 16 16">
-                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                    </svg>
-                </div>
-                <h2 class="success-title">Pendaftaran TOEIC Gratis Anda Telah Tercatat</h2>
-            </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mandiri-card">
+                    <div class="mandiri-header animate__animated animate__fadeInDown">
+                        <h4><i class="fas fa-check-circle me-2"></i> Pendaftaran TOEIC Gratis Anda Telah Tercatat</h4>
+                    </div>
 
-            <div class="registration-details">
-                <div class="detail-card">
-                    <h4>Informasi Pendaftaran</h4>
-                    <div class="detail-item">
-                        <span class="detail-label">Status Pendaftaran:</span>
-                        <span class="detail-value badge badge-success">Terverifikasi</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Tanggal Pendaftaran:</span>
-                        <span class="detail-value">{{ \Carbon\Carbon::parse($pendaftaran->tanggal_daftar)->translatedFormat('j F Y') }}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Jenis Ujian:</span>
-                        <span class="detail-value">TOEIC Gratis</span>
-                    </div>
-                </div>
+                    <div class="registration-details">
+                        <div class="detail-card">
+                            <h4>Informasi Pendaftaran</h4>
+                            <div class="detail-item">
+                                <span class="detail-label">Status Pendaftaran:</span>
+                                <span class="detail-value badge badge-success">Terverifikasi</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Tanggal Pendaftaran:</span>
+                                <span class="detail-value">{{ \Carbon\Carbon::parse($pendaftaran->tanggal_daftar)->translatedFormat('j F Y') }}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Jenis Ujian:</span>
+                                <span class="detail-value">TOEIC Gratis</span>
+                            </div>
+                        </div>
 
-                <div class="success-notice">
-                    <div class="notice-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFC107" viewBox="0 0 16 16">
-                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                        </svg>
-                    </div>
-                    <div class="notice-content">
-                        <h4>Perhatian Penting</h4>
-                        <p>Setiap mahasiswa hanya berhak mengikuti <strong>satu kali ujian TOEIC gratis</strong> selama masa studi.</p>
-                        <p>Untuk ujian berikutnya, silakan daftar melalui:</p>
-                        <a href="{{ route('pendaftaran-toeic/mandiri.create') }}" class="btn btn-primary btn-block">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-                            </svg>
-                            Ujian TOEIC Mandiri
-                        </a>
+                        <div class="success-notice">
+                            <div class="notice-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#FFC107" viewBox="0 0 16 16">
+                                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                </svg>
+                            </div>
+                            <div class="notice-content">
+                                <h4>Perhatian Penting</h4>
+                                <p>Setiap mahasiswa hanya berhak mengikuti <strong>satu kali ujian TOEIC gratis</strong> selama masa studi.</p>
+                                <p>Untuk ujian berikutnya, silakan daftar melalui:</p>
+                                <a href="{{ route('pendaftaran-toeic/mandiri.create') }}" class="btn btn-register">
+                                    <i class="fas fa-pencil-alt"></i> Ujian TOEIC Mandiri
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -56,7 +325,6 @@
     @else
         <form method="POST" action="{{ route('pendaftaran.store') }}" enctype="multipart/form-data" class="form-container" id="form-data">
             @csrf
-
             <div class="form-row">
                 <!-- Left Column -->
                 <div class="form-column">
@@ -157,8 +425,6 @@
                             </span>
                         @enderror
                     </div>
-
-                    
                 </div>
             </div>
 
@@ -227,290 +493,6 @@
         </form>
     @endif
 </div>
-
-<style>
-    .success-header {
-        text-align: center;
-        margin-bottom: 30px;
-        padding: 30px 0;
-    }
-
-    .success-icon {
-        width: 100px;
-        height: 100px;
-        margin: 0 auto 20px;
-        background-color: #f0f4ff;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .success-title {
-        color: #29335C;
-        font-size: 1.8rem;
-        margin-bottom: 15px;
-    }
-
-    /* Notice Section */
-    .success-notice {
-        background-color: #fff9e6;
-        border-left: 4px solid #FFC107;
-        padding: 20px;
-        border-radius: 8px;
-        text-align: left;
-        margin-top: 30px;
-        display: flex;
-        gap: 15px;
-    }
-
-    .notice-icon {
-        flex-shrink: 0;
-    }
-
-    .notice-content h4 {
-        color: #d39e00;
-        margin-bottom: 10px;
-    }
-
-    .notice-content p {
-        margin-bottom: 10px;
-        color: #5a4d00;
-    }
-
-    /* Registration Container */
-    .registration-complete-container {
-        max-width: 800px;
-        margin: 30px auto;
-        padding: 30px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .registration-details {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        margin-bottom: 30px;
-    }
-
-    .detail-card {
-        flex: 1;
-        min-width: 300px;
-        padding: 20px;
-        background-color: #f8f9fa;
-        border-radius: 8px;
-        border-left: 4px solid #29335C;
-    }
-
-    .detail-item {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-        padding-bottom: 10px;
-        border-bottom: 1px dashed #ddd;
-    }
-
-    .detail-label {
-        font-weight: 600;
-        color: #555;
-    }
-
-    .detail-value {
-        text-align: right;
-    }
-
-    /* Button Styles */
-    .btn-primary {
-        background-color: #29335C;
-        border-color: #29335C;
-        margin-top: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-    }
-
-    .btn-primary:hover {
-        background-color: #1a2238;
-        border-color: #1a2238;
-    }
-
-    /* Responsive Styles */
-    @media (max-width: 768px) {
-        .registration-complete-container {
-            padding: 20px;
-        }
-        
-        .detail-card {
-            min-width: 100%;
-        }
-        
-        .success-notice {
-            flex-direction: column;
-        }
-        
-        .success-title {
-            font-size: 1.5rem;
-        }
-    }
-
-    .form-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    
-    .form-row {
-        display: flex;
-        flex-wrap: wrap;
-        margin: 0 -15px;
-    }
-    
-    .form-column {
-        flex: 1;
-        padding: 0 15px;
-        min-width: 300px;
-    }
-    
-    .form-section {
-        margin-bottom: 30px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #eee;
-    }
-    
-    .form-group {
-        margin-bottom: 15px;
-    }
-    
-    .form-group label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: normal;
-    }
-    
-    .form-control {
-        width: 100%;
-        height: 10%;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
-    
-    .file-upload-group {
-        margin-bottom: 20px;
-    }
-    
-    .file-upload-wrapper {
-        position: relative;
-        margin-top: 5px;
-    }
-    
-    .file-upload-preview {
-        border: 1px dashed #ccc;
-        padding: 15px;
-        text-align: center;
-        min-height: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #f8f9fa;
-        border-radius: 4px;
-        margin-bottom: 10px;
-    }
-    
-    .file-upload-placeholder {
-        color: #6c757d;
-    }
-    
-    .file-upload-input {
-        display: none;
-    }
-    
-    .file-upload-button {
-        display: inline-block;
-        padding: 4px 12px;
-        background-color: #29335C;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-right: 10px;
-        color: whitesmoke
-    }
-    
-    .file-upload-button:hover {
-        background-color: #e0e0e0;
-        color: #29335C
-    }
-    
-    .file-upload-info {
-        display: inline-block;
-        color: #6c757d;
-    }
-    
-    .file-upload-hint {
-        display: block;
-        margin-top: 5px;
-        color: #6c757d;
-        font-size: 0.8em;
-    }
-    
-    .file-upload-preview img {
-        max-width: 100%;
-        max-height: 200px;
-    }
-    
-    .form-submit {
-        text-align: center;
-        margin-top: 20px;
-    }
-    
-    .btn-primary {
-        background-color: #29335C;
-        border-color: #29335C;
-        padding: 4px 20px;
-        font-size: 1.1em;
-    }
-
-    .btn-primary-custom {
-        background-color: #29335C;
-        border-color: #29335C;
-        color: #fff;
-        padding: 8px 20px;
-        border-radius: 4px;
-    }
-
-    .btn-primary-custom:hover {
-        background-color: #1f294a;
-        border-color: #1f294a;
-        color: #fff;
-    }
-
-    .btn-secondary {
-        background-color: #6c757d;
-        border-color: #6c757d;
-        color: #fff;
-        padding: 8px 20px;
-        border-radius: 4px;
-    }
-
-    .btn-secondary:hover {
-        background-color: #5a6268;
-        border-color: #545b62;
-        color: #fff;
-    }
-    
-    @media (max-width: 768px) {
-        .form-column {
-            flex: 100%;
-        }
-    }
-</style>
-@endsection
 
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -713,7 +695,6 @@
             });
         }
 
-
         // --- Init file upload preview ---
         [
             ['scan_ktp', 'ktp-preview', '.file-upload-group:nth-child(1) .file-upload-info'],
@@ -729,3 +710,4 @@
     });
 </script>
 @endpush
+@endsection

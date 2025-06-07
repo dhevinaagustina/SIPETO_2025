@@ -2,110 +2,212 @@
 
 @section('content')
 <style>
-    .pesan-container {
-        width: 100%; 
-        margin: 0 auto;
-        padding: 10px;
+    :root {
+        --primary-color: #29335C;
+        --secondary-color: #3f37c9;
+        --success-color: #4cc9f0;
+        --danger-color: #f72585;
+        --warning-color: #f8961e;
+        --light-color: #f8f9fa;
+        --dark-color: #212529;
+        --gray-light: #f1f3f5;
     }
-    .pesan-card {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    
+    .pesan-container {
+        width: 97%;
+        margin: 10px auto;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        animation: fadeIn 0.4s ease-out;
+    }
+    
+    .pesan-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        padding: 25px 30px;
+        margin-bottom: 0;
+    }
+    
+    .pesan-header h4 {
+        margin: 0;
+        font-weight: 600;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+    }
+    
+    .pesan-header i {
+        margin-right: 12px;
+        font-size: 1.3rem;
+    }
+    
+    .pesan-list {
+        border-radius: 0 0 12px 12px;
         overflow: hidden;
     }
-    .pesan-header {
-        background-color: #fff;
-        padding: 15px 20px;
-        border-bottom: 1px solid #eee;
-    }
-    .pesan-list {
-        border: none;
-    }
+    
     .pesan-item {
-        padding: 15px 20px;
-        border-bottom: 1px solid #eee !important;
-        transition: all 0.2s;
+        padding: 20px 25px;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        transition: all 0.2s ease;
+        display: block;
+        text-decoration: none;
+        color: var(--dark-color);
+        background-color: white;
     }
+    
     .pesan-item:hover {
-        background-color: #f8f9fa;
+        background-color: var(--gray-light);
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     }
+    
+    .pesan-unread {
+        background-color: rgba(41, 51, 92, 0.03);
+    }
+    
     .pesan-judul {
         font-weight: 500;
-        color: #333;
+        color: var(--dark-color);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         max-width: 70%;
+        font-size: 1.05rem;
     }
+    
     .pesan-tanggal {
         color: #6c757d;
         white-space: nowrap;
-    }
-    .pesan-footer {
-        background-color: #fff;
-        padding: 10px 20px;
-        color: #6c757d;
         font-size: 0.9rem;
     }
+    
+    .pesan-footer {
+        padding: 20px;
+        background-color: white;
+        color: #6c757d;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+    
     .pesan-empty {
         padding: 40px 20px;
         text-align: center;
         color: #6c757d;
+        background-color: white;
     }
+    
+    .pesan-empty i {
+        color: var(--primary-color);
+        margin-bottom: 15px;
+        font-size: 2.5rem;
+    }
+    
     .pesan-icon {
-        color: #29335C;
-        margin-right: 8px;
+        color: var(--primary-color);
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
     }
+    
     .badge-buka {
-        background-color: #29335C !important;
+        background-color: var(--primary-color) !important;
         color: white;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 500;
     }
-    .pesan-unread {
-        font-weight: bold;
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .pesan-container {
+            margin: 10px;
+            border-radius: 10px;
+        }
+        
+        .pesan-header {
+            padding: 20px;
+        }
+        
+        .pesan-header h4 {
+            font-size: 1.3rem;
+        }
+        
+        .pesan-item {
+            padding: 15px 20px;
+        }
+        
+        .pesan-judul {
+            max-width: 60%;
+            font-size: 1rem;
+        }
     }
 </style>
 
 <div class="pesan-container">
-    <div class="pesan-card">
-        <div class="pesan-header">
-            <h4>Daftar Pesan</h4>
-        </div>
+    <div class="pesan-header">
+        <h4><i class="fas fa-envelope"></i> Daftar Pesan</h4>
+    </div>
 
-        <div class="pesan-list">
-            @foreach($pesan as $item)
-                <a href="{{ route('pesan.show', $item->id) }}" class="pesan-item d-block text-decoration-none {{ $item->is_read ? '' : 'pesan-unread' }}">
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div class="d-flex align-items-center" style="width: 75%;">
-                            <i class="fas {{ $item->is_read ? 'fa-envelope-open' : 'fa-envelope' }} pesan-icon"></i>
-                            <span class="pesan-judul">{{ $item->judul }}</span>
-                        </div>
-                        <span class="pesan-tanggal">{{ $item->created_at->format('d M Y') }}</span>
+    <div class="pesan-list">
+        @foreach($pesan as $item)
+            <a href="{{ route('pesan.show', $item->id) }}" class="pesan-item {{ $item->is_read ? '' : 'pesan-unread' }}">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div class="d-flex align-items-center" style="width: 75%;">
+                        <i class="fas {{ $item->is_read ? 'fa-envelope-open' : 'fa-envelope' }} pesan-icon"></i>
+                        <span class="pesan-judul">{{ $item->judul }}</span>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center mt-2">
-                        <small class="text-muted">
-                            <i class="fas fa-clock pesan-icon"></i>
-                            {{ $item->created_at->diffForHumans() }}
-                        </small>
-                        @if(!$item->is_read)
-                            <span class="badge badge-buka rounded-pill px-2">
-                                Buka
-                            </span>
-                        @endif
-                    </div>
-                </a>
-            @endforeach
-            
-            @if($pesan->isEmpty())
-                <div class="pesan-empty">
-                    <i class="fas fa-inbox fa-3x mb-3"></i>
-                    <p>Tidak ada pesan yang tersedia</p>
+                    <span class="pesan-tanggal">{{ $item->created_at->format('d M Y') }}</span>
                 </div>
-            @endif
-        </div>
+                <div class="d-flex justify-content-between align-items-center mt-2">
+                    <small>
+                        <i class="fas fa-clock pesan-icon"></i>
+                        {{ $item->created_at->diffForHumans() }}
+                    </small>
+                    @if(!$item->is_read)
+                        <span class="badge-buka">Buka</span>
+                    @endif
+                </div>
+            </a>
+        @endforeach
         
-        <div class="pesan-footer">
-            Menampilkan <strong>{{ $pesan->count() }}</strong> pesan
-        </div>
+        @if($pesan->isEmpty())
+            <div class="pesan-empty">
+                <i class="fas fa-inbox"></i>
+                <p>Tidak ada pesan yang tersedia</p>
+                <small>Semua pesan yang Anda terima akan muncul di sini</small>
+            </div>
+        @endif
+    </div>
+    
+    <div class="pesan-footer">
+        Menampilkan <strong>{{ $pesan->count() }}</strong> pesan
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Enhanced hover effect for message items
+        $('.pesan-item').on('mouseenter', function() {
+            $(this).css({
+                'transform': 'translateX(5px)',
+                'box-shadow': '0 5px 15px rgba(0,0,0,0.08)'
+            });
+        }).on('mouseleave', function() {
+            $(this).css({
+                'transform': 'translateX(0)',
+                'box-shadow': 'none'
+            });
+        });
+    });
+</script>
 @endsection

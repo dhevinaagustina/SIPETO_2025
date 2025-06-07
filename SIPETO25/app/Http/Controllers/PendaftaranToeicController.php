@@ -35,7 +35,7 @@ class PendaftaranToeicController extends Controller
         return view('pendaftaran.form', [
             'activeMenu' => 'pendaftaran-toeic',
             'breadcrumb' => new Fluent([
-                'title' => 'Pendaftaran TOEIC',
+                'title' => 'Pendaftaran TOEIC Gratis',
                 'list'  => ['Daftar Ujian', 'Gratis']
             ]),
             'kampusList' => Kampus::pluck('nama')->toArray(),
