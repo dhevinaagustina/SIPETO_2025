@@ -1,28 +1,62 @@
 @extends('layouts-admin.template')
 
 @section('content')
-<div class="container">
-    <h4 class="mb-3">Manajemen Admin</h4>
+<style>
+    .table-custom {
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #212529;
+        background-color: #fff;
+        border-collapse: collapse;
+        text-align: center;
+        border: 1px solid #29335C;
+    }
+    .table-custom th, 
+    .table-custom td {
+        border: 1px solid #29335C;
+        padding: 12px;
+    }
+    .table-custom thead th {
+        background-color: #29335C;
+        color: #fff;
+    }
+    .table-custom tbody tr:nth-child(even) {
+        background-color: #f8f9fa;
+    }
+    .btn-primary {
+        background-color: #29335C;
+        border-color: #29335C;
+    }
+    .btn-primary:hover {
+        background-color: #1a2341;
+        border-color: #1a2341;
+    }
+    .btn-warning {
+        color: #fff;
+    }
+</style>
 
+<div class="container-fluid">
     {{-- Flash Message --}}
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
     {{-- Tombol Tambah Admin --}}
-    <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalTambahAdmin">
-        Tambah Admin
-    </button>
-
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalTambahAdmin">
+          Tambah Admin
+      </button>
+    </div>
     {{-- Tabel Admin --}}
-    <table class="table table-bordered table-striped">
+    <table class="table-custom">
         <thead>
             <tr>
                 <th>Username</th>
                 <th>Nama</th>
                 <th>NIP</th>
                 <th>Email</th>
-                <th width="130px">Aksi</th>
+                <th width="150px">Aksi</th>
             </tr>
         </thead>
         <tbody>
@@ -45,7 +79,6 @@
                             onclick="setFormAction('{{ route('admin.kelola_admin.destroy', $admin->id_admin) }}')">
                             Hapus
                         </button>
-
                     </td>
                 </tr>
             @endforeach
@@ -89,7 +122,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-          <button type="submit" class="btn btn-success">Simpan</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
         </div>
       </div>
     </form>
@@ -130,6 +163,3 @@
     }
 </script>
 @endpush
-
-
-
