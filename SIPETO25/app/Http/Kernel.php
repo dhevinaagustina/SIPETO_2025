@@ -74,6 +74,7 @@ class Kernel extends Http
         'superadmin_only' => \App\Http\Middleware\SuperAdminOnly::class,
         'isalumni' => \App\Http\Middleware\IsAlumni::class,
         'isaktif' => \App\Http\Middleware\IsMahasiswaAktif::class,
+        'auth.mahasiswa.or.dosen' => \App\Http\Middleware\AuthMahasiswaOrDosen::class,
     ];
 //     protected $routeMiddleware = [
 //     // ...

@@ -122,19 +122,23 @@ class PendaftaranToeicController extends Controller
     // Form TOEIC Mandiri
     public function createMandiri()
     {
-        $idMahasiswa = Auth::guard('mahasiswa')->id();
+        $akun = $this->getUser();
+        $guard = $this->getUserGuard();
 
-        if (!$idMahasiswa) {
+        if (!$akun || !$guard) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
-        $jumlahPendaftaranMandiri = PendaftaranToeic::where('id_mahasiswa', $idMahasiswa)
+        $idField = 'id_' . $guard;
+        $idValue = $akun->id;
+
+        $jumlahPendaftaranMandiri = PendaftaranToeic::where($idField, $idValue)
             ->where('tipe_ujian', 'mandiri')
             ->count();
 
         return view('pendaftaran.form_mandiri', [
             'activeMenu' => 'pendaftaran-toeic/mandiri',
-            'breadcrumb' => new Fluent([
+            'breadcrumb' => new \Illuminate\Support\Fluent([
                 'title' => 'Pendaftaran TOEIC Mandiri',
                 'list'  => ['Daftar Ujian', 'Mandiri']
             ]),
@@ -143,43 +147,46 @@ class PendaftaranToeicController extends Controller
         ]);
     }
 
+
     // Simpan TOEIC Mandiri
     public function storeMandiri(Request $request)
     {
-        $idMahasiswa = Auth::guard('mahasiswa')->id();
+        $akun = $this->getUser();
+        $guard = $this->getUserGuard();
 
-        if (!$idMahasiswa) {
-            return redirect()->route('login')->with('error', 'Autentikasi gagal. Silakan login kembali.');
+        if (!$akun || !$guard) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
-        $sudahDaftarMandiri = PendaftaranToeic::where('id_mahasiswa', $idMahasiswa)
+        $idField = 'id_' . $guard;
+        $idValue = $akun->id;
+
+        $sudahDaftar = PendaftaranToeic::where($idField, $idValue)
             ->where('tipe_ujian', 'mandiri')
             ->exists();
 
-        if (!$sudahDaftarMandiri) {
-            $mahasiswa = Auth::guard('mahasiswa')->user();
-
+        if (!$sudahDaftar) {
             PendaftaranToeic::create([
-                'id_mahasiswa'      => $idMahasiswa,
-                'tipe_ujian'        => 'mandiri',
-                'nama'              => $mahasiswa->nama ?? '-',
-                'nim'               => $mahasiswa->nim ?? '-',
-                'jurusan'           => $mahasiswa->jurusan ?? '-',
-                'prodi'             => $mahasiswa->prodi ?? '-',
-                'kampus'            => $mahasiswa->kampus ?? '-',
-                'nik'               => $mahasiswa->nik ?? '-',
-                'no_wa'             => $mahasiswa->no_wa ?? '-',
-                'alamat_asal'       => $mahasiswa->alamat_asal ?? '-',
-                'alamat_sekarang'   => $mahasiswa->alamat_sekarang ?? '-',
-                'scan_ktp'          => '-',
-                'scan_ktm'          => '-',
-                'pas_foto'          => '-',
-                'tanggal_daftar'    => now(),
+                $idField             => $idValue,
+                'tipe_ujian'         => 'mandiri',
+                'nama'               => $akun->nama ?? '-',
+                'nim'                => $akun->nim ?? '-',
+                'jurusan'            => $akun->jurusan ?? '-',
+                'prodi'              => $akun->prodi ?? '-',
+                'kampus'             => $akun->kampus ?? '-',
+                'nik'                => $akun->nik ?? '-',
+                'no_wa'              => $akun->no_wa ?? '-',
+                'alamat_asal'        => $akun->alamat_asal ?? '-',
+                'alamat_sekarang'    => $akun->alamat_sekarang ?? '-',
+                'scan_ktp'           => '-',
+                'scan_ktm'           => '-',
+                'pas_foto'           => '-',
+                'tanggal_daftar'     => now(),
             ]);
         }
 
-        // Redirect ke halaman ITC
         return redirect()->away('https://itc-indonesia.com/contact-us-2/');
     }
+
 
 }

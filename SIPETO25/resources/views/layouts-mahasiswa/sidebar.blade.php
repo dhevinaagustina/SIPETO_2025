@@ -23,66 +23,99 @@
             }
         }
 
-            $user = Auth::guard('mahasiswa')->user();
-            $status = $user?->status;
+           $menu = [];
 
-            $menu = [
-                [
-                    'label' => 'Menu',
-                    'icon' => 'fas fa-th-large',
-                    'key' => 'dashboard',
-                    'submenu' => [
-                        ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => '/dashboard/beranda', 'key' => 'dashboard-beranda'],
-                        ['label' => 'Pesan', 'icon' => 'fas fa-bell', 'route' => '/dashboard/pesan', 'key' => 'pesan'],
+            if (Auth::guard('mahasiswa')->check()) {
+                $user = Auth::guard('mahasiswa')->user();
+                $status = $user?->status;
+
+                $menu = [
+                    [
+                        'label' => 'Menu',
+                        'icon' => 'fas fa-th-large',
+                        'key' => 'dashboard',
+                        'submenu' => [
+                            ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => '/dashboard/beranda', 'key' => 'dashboard-beranda'],
+                            ['label' => 'Pesan', 'icon' => 'fas fa-bell', 'route' => '/dashboard/pesan', 'key' => 'pesan'],
+                        ]
                     ]
-                ],
-            ];
+                ];
 
-            // Submenu Daftar Ujian dinamis berdasarkan status
-            $daftarUjianSubmenu = [];
+                // Submenu Daftar Ujian
+                $daftarUjianSubmenu = [];
 
-            // ✅ Mahasiswa aktif bisa Gratis dan Mandiri
-            if ($status === 'aktif') {
+                if ($status === 'aktif') {
+                    $daftarUjianSubmenu[] = [
+                        'label' => 'Gratis',
+                        'icon' => 'fas fa-receipt',
+                        'route' => '/pendaftaran-toeic/gratis',
+                        'key' => 'pendaftaran-toeic'
+                    ];
+                }
+
                 $daftarUjianSubmenu[] = [
-                    'label' => 'Gratis',
-                    'icon' => 'fas fa-receipt',
-                    'route' => '/pendaftaran-toeic/gratis',
-                    'key' => 'pendaftaran-toeic'
+                    'label' => 'Mandiri',
+                    'icon' => 'fas fa-dollar-sign',
+                    'route' => '/pendaftaran-toeic/mandiri',
+                    'key' => 'pendaftaran-toeic/mandiri'
+                ];
+
+                $menu[] = [
+                    'label' => 'Daftar Ujian',
+                    'icon' => 'fas fa-pencil-alt',
+                    'key' => 'daftar-ujian',
+                    'submenu' => $daftarUjianSubmenu
+                ];
+
+                $menu[] = [
+                    'label'  => 'Riwayat Ujian',
+                    'icon'   => 'fas fa-clock',
+                    'route'  => route('mahasiswa.riwayat'),
+                    'key'    => 'riwayat-ujian',
+                    'active' => request()->routeIs('mahasiswa.riwayat'),
+                ];
+
+                $menu[] = [
+                    'label' => 'Pengajuan Surat',
+                    'icon' => 'fas fa-pen-fancy',
+                    'route' => '/surat_pernyataan',
+                    'key' => 'surat_pernyataan'
                 ];
             }
 
-            // ✅ Semua (aktif & alumni) bisa Mandiri
-            $daftarUjianSubmenu[] = [
-                'label' => 'Mandiri',
-                'icon' => 'fas fa-dollar-sign',
-                'route' => '/pendaftaran-toeic/mandiri',
-                'key' => 'pendaftaran-toeic/mandiri'
-            ];
+            elseif (Auth::guard('dosen')->check()) {
+                $user = Auth::guard('dosen')->user();
 
-            // Tambahkan submenu ke menu utama
-            $menu[] = [
-                'label' => 'Daftar Ujian',
-                'icon' => 'fas fa-pencil-alt',
-                'key' => 'daftar-ujian',
-                'submenu' => $daftarUjianSubmenu
-            ];
+                $menu = [
+                    [
+                        'label' => 'Menu',
+                        'icon' => 'fas fa-th-large',
+                        'key' => 'dashboard',
+                        'submenu' => [
+                            ['label' => 'Pesan', 'icon' => 'fas fa-bell', 'route' => '/dashboard/pesan', 'key' => 'pesan'],
+                        ]
+                    ],
+                    [
+                        'label' => 'Daftar Ujian',
+                        'icon' => 'fas fa-pencil-alt',
+                        'key' => 'daftar-ujian',
+                        'submenu' => [
+                            ['label' => 'Mandiri', 'icon' => 'fas fa-dollar-sign', 'route' => '/pendaftaran-toeic/mandiri', 'key' => 'pendaftaran-toeic/mandiri']
+                        ]
+                    ],
+                    [
+                        'label' => 'Artikel TOEIC',
+                        'icon' => 'fas fa-book',
+                        'key' => 'toeic-resources',
+                        'submenu' => [
+                            ['label' => 'Pemahaman TOEIC', 'icon' => 'fas fa-info-circle', 'route' => '/toeic-resources/understanding', 'key' => 'toeic-understanding'],
+                            ['label' => 'Strategi TOEIC', 'icon' => 'fas fa-lightbulb', 'route' => '/toeic-resources/strategies', 'key' => 'toeic-strategies'],
+                            ['label' => 'Latihan Soal', 'icon' => 'fas fa-edit', 'route' => '/toeic-resources/practice', 'key' => 'toeic-practice'],
+                        ]
+                    ]
+                ];
+            }
 
-            // Riwayat
-            $menu[] = [
-                'label'  => 'Riwayat Ujian',
-                'icon'   => 'fas fa-clock',
-                'route'  => route('mahasiswa.riwayat'),
-                'key'    => 'riwayat-ujian',
-                'active' => request()->routeIs('mahasiswa.riwayat'),
-            ];
-
-            // Pengajuan Surat
-            $menu[] = [
-                'label' => 'Pengajuan Surat',
-                'icon' => 'fas fa-pen-fancy',
-                'route' => '/surat_pernyataan',
-                'key' => 'surat_pernyataan'
-            ];
             @endphp
 
                 @foreach ($menu as $item)

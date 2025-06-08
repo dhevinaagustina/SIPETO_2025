@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Mahasiswa;
 use App\Models\Admin;
 use App\Models\SuperAdmin;
+use App\Models\Dosen;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -27,6 +29,7 @@ class LoginController extends Controller
     Auth::guard('super_admin')->logout();
     Auth::guard('admin')->logout();
     Auth::guard('mahasiswa')->logout();
+    Auth::guard('dosen')->logout();
     $request->session()->invalidate();
     $request->session()->regenerateToken();
 
@@ -62,10 +65,18 @@ class LoginController extends Controller
 
         // 🚨 Cek status: alumni atau aktif
        if ($mahasiswa->status === 'alumni') {
-    return redirect()->route('pendaftaran-toeic/mandiri.create');
-} else {
-    return redirect()->route('dashboard.beranda');
-}
+        return redirect()->route('pendaftaran-toeic/mandiri.create');
+        } else {
+            return redirect()->route('dashboard.beranda');
+        }
+    }
+
+    // ✅ 4. Dosen
+    $dosen = Dosen::where('username', $username)->first();
+    if ($dosen && $password === $dosen->password) {
+        Auth::guard('dosen')->login($dosen);
+        session(['guard' => 'dosen']);
+        return redirect()->route('dashboard.beranda'); // Sesuaikan dengan rute dashboard dosen
     }
 
     // ❌ Gagal login

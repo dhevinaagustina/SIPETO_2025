@@ -113,6 +113,24 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
     //     return view('pesan.index');
     // });
 
+Route::middleware(['auth.mahasiswa.or.dosen'])->group(function () {
+    // Akses terbatas untuk dosen
+    Route::get('/dashboard/beranda', [DashboardController::class, 'index'])->name('dashboard.beranda');
+
+    Route::get('/pendaftaran-toeic/mandiri', [PendaftaranToeicController::class, 'createMandiri'])->name('pendaftaran-toeic/mandiri.create');
+    Route::post('/pendaftaran-toeic/mandiri', [PendaftaranToeicController::class, 'storeMandiri'])->name('pendaftaran-toeic/mandiri.store');
+
+    Route::get('/toeic-resources', [ToeicController::class, 'index'])->name('toeic.resources');
+    Route::get('/toeic-resources/understanding', [ToeicController::class, 'understanding'])->name('toeic.understanding');
+    Route::get('/toeic-resources/strategies', [ToeicController::class, 'strategies'])->name('toeic.strategies');
+    Route::get('/toeic-resources/practice', [ToeicController::class, 'practice'])->name('toeic.practice');
+
+    Route::get('/dashboard/pesan', [PesanController::class, 'index'])->name('pesan.index');
+    Route::get('/dashboard/pesan/{id}', [PesanController::class, 'show'])->name('pesan.show');
+    Route::get('/dashboard/pesan/{id}/download', [PesanController::class, 'download'])->name('pesan.download');
+});
+
+
 
 
 // =======================

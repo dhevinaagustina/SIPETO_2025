@@ -52,6 +52,10 @@ return [
         'driver' => 'session',
         'provider' => 'super_admins',
         ],
+        'dosen' => [
+        'driver' => 'session',
+        'provider' => 'dosens',
+        ],
     ],
 
     /*
@@ -95,7 +99,12 @@ return [
         'super_admins' => [
         'driver' => 'eloquent',
         'model' => App\Models\SuperAdmin::class,
-    ],
+        ],
+        'dosens' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\Dosen::class,
+        ],
+       
     ],
 
 

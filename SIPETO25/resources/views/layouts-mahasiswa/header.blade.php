@@ -1,5 +1,16 @@
 @php
-    $user = Auth::guard('mahasiswa')->user();
+    use Illuminate\Support\Facades\Auth;
+
+    $user = null;
+    $nama = 'Pengguna';
+
+    if (Auth::guard('mahasiswa')->check()) {
+        $user = Auth::guard('mahasiswa')->user();
+        $nama = $user->nama_mahasiswa ?? 'Mahasiswa';
+    } elseif (Auth::guard('dosen')->check()) {
+        $user = Auth::guard('dosen')->user();
+        $nama = $user->nama_dosen ?? 'Dosen';
+    }
 @endphp
 
 
@@ -21,7 +32,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link d-flex align-items-center" data-toggle="dropdown" href="#" role="button">
                 <span class="font-weight-bold mr-2 d-none d-sm-inline">
-                    {{ $user->nama_mahasiswa ?? $user->nama ?? 'Pengguna' }}
+                    {{ $nama }}
                 </span>
                 <img src="{{ asset('adminlte/dist/img/avatar2.png') }}" alt="User Avatar"
                     class="img-circle elevation-1" style="width: 32px; height: 32px; object-fit: cover;">
@@ -29,7 +40,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right">
                 <a href="{{ route('logout') }}" class="dropdown-item"
-                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fas fa-sign-out-alt mr-2"></i> Logout
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -38,4 +49,5 @@
             </div>
         </li>
     </ul>
+
 </nav>
