@@ -1,7 +1,7 @@
 @php
-    $guard = session('guard');
-    $user = Auth::guard($guard)->user();
+    $user = Auth::guard('mahasiswa')->user();
 @endphp
+
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom-0 px-3">
     <!-- Left navbar links -->

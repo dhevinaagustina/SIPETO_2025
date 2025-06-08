@@ -2,9 +2,9 @@
 
 namespace App\Http;
 
-use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Foundation\Http\Kernel as Http;
 
-class Kernel extends HttpKernel
+class Kernel extends Http
 {
     /**
      * The application's global HTTP middleware stack.
@@ -72,7 +72,8 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'admin_or_super' => \App\Http\Middleware\AdminOrSuperAdmin::class,
         'superadmin_only' => \App\Http\Middleware\SuperAdminOnly::class,
-
+        'isalumni' => \App\Http\Middleware\IsAlumni::class,
+        'isaktif' => \App\Http\Middleware\IsMahasiswaAktif::class,
     ];
 //     protected $routeMiddleware = [
 //     // ...
