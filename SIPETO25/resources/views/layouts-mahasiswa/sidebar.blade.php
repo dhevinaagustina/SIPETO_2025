@@ -6,43 +6,84 @@
         <small class="text-white d-block">Sistem Pendaftaran TOEIC</small>
     </a>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <nav class="mt-4 px-3">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-                @php
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <nav class="mt-4 px-3">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+                    @php
                     // Hindari redeklarasi fungsi jika layout di-include berkali-kali
                     if (!function_exists('isSubmenuActive')) {
-                        function isSubmenuActive($submenu, $activeMenu) {
-                            foreach ($submenu as $item) {
-                                if ($activeMenu == $item['key']) {
-                                    return true;
-                                }
-                            }
-                            return false;
-                        }
+                    function isSubmenuActive($submenu, $activeMenu) {
+                    foreach ($submenu as $item) {
+                    if ($activeMenu == $item['key']) {
+                        return true;
                     }
+                }
+                return false;
+            }
+        }
 
-                    $menu = [
-                        ['label' => 'Menu', 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
-                            ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => '/dashboard/beranda', 'key' => 'dashboard-beranda'],
-                            ['label' => 'Pesan', 'icon' => 'fas fa-bell', 'route' => '/dashboard/pesan', 'key' => 'pesan'],
-                        ]],
-                        ['label' => 'Daftar Ujian', 'icon' => 'fas fa-pencil-alt', 'key' => 'daftar-ujian', 'submenu' => [
-                            ['label' => 'Gratis', 'icon' => 'fas fa-receipt', 'route' => '/pendaftaran-toeic/gratis', 'key' => 'pendaftaran-toeic'],
-                            ['label' => 'Mandiri', 'icon' => 'fas fa-dollar-sign', 'route' => '/pendaftaran-toeic/mandiri', 'key' => 'pendaftaran-toeic/mandiri'],
-                        ]],
-                        [
-                            'label'   => 'Riwayat Ujian',
-                            'icon'    => 'fas fa-clock',
-                            'route'   => route('mahasiswa.riwayat'),
-                            'key'     => 'riwayat-ujian',
-                            'active'  => request()->routeIs('mahasiswa.riwayat'),
-                        ]
-                        ,
-                        ['label' => 'Pengajuan Surat', 'icon' => 'fas fa-pen-fancy', 'route' => '/surat_pernyataan', 'key' => 'surat_pernyataan'],
-                    ];
-                @endphp
+            $user = Auth::guard('mahasiswa')->user();
+            $status = $user?->status;
+
+            $menu = [
+                [
+                    'label' => 'Menu',
+                    'icon' => 'fas fa-th-large',
+                    'key' => 'dashboard',
+                    'submenu' => [
+                        ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => '/dashboard/beranda', 'key' => 'dashboard-beranda'],
+                        ['label' => 'Pesan', 'icon' => 'fas fa-bell', 'route' => '/dashboard/pesan', 'key' => 'pesan'],
+                    ]
+                ],
+            ];
+
+            // Submenu Daftar Ujian dinamis berdasarkan status
+            $daftarUjianSubmenu = [];
+
+            // ✅ Mahasiswa aktif bisa Gratis dan Mandiri
+            if ($status === 'aktif') {
+                $daftarUjianSubmenu[] = [
+                    'label' => 'Gratis',
+                    'icon' => 'fas fa-receipt',
+                    'route' => '/pendaftaran-toeic/gratis',
+                    'key' => 'pendaftaran-toeic'
+                ];
+            }
+
+            // ✅ Semua (aktif & alumni) bisa Mandiri
+            $daftarUjianSubmenu[] = [
+                'label' => 'Mandiri',
+                'icon' => 'fas fa-dollar-sign',
+                'route' => '/pendaftaran-toeic/mandiri',
+                'key' => 'pendaftaran-toeic/mandiri'
+            ];
+
+            // Tambahkan submenu ke menu utama
+            $menu[] = [
+                'label' => 'Daftar Ujian',
+                'icon' => 'fas fa-pencil-alt',
+                'key' => 'daftar-ujian',
+                'submenu' => $daftarUjianSubmenu
+            ];
+
+            // Riwayat
+            $menu[] = [
+                'label'  => 'Riwayat Ujian',
+                'icon'   => 'fas fa-clock',
+                'route'  => route('mahasiswa.riwayat'),
+                'key'    => 'riwayat-ujian',
+                'active' => request()->routeIs('mahasiswa.riwayat'),
+            ];
+
+            // Pengajuan Surat
+            $menu[] = [
+                'label' => 'Pengajuan Surat',
+                'icon' => 'fas fa-pen-fancy',
+                'route' => '/surat_pernyataan',
+                'key' => 'surat_pernyataan'
+            ];
+            @endphp
 
                 @foreach ($menu as $item)
                     <li class="nav-item mb-2 {{ isset($item['submenu']) ? 'has-treeview' : '' }} {{ isset($item['submenu']) && isSubmenuActive($item['submenu'], $activeMenu) ? 'menu-open' : '' }}">
