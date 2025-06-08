@@ -40,7 +40,7 @@
                     if ($isSuperAdmin) {
                         $menu = [
                             [
-                                'label' => 'Dashboard', 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
+                                'label' => 'Menu', 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
                                     ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => route('admin.dashboard'), 'key' => 'dashboard-admberanda'],
                                     ['label' => 'Tulis Pesan', 'icon' => 'fas fa-bell', 'route' => route('admin.kirim_informasi'), 'key' => 'dashboard-pesan'],
                                 ]

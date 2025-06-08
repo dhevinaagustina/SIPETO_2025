@@ -41,7 +41,7 @@
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-
+    
     {{-- Tombol Tambah Admin --}}
     <div class="d-flex justify-content-end">
       <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalTambahAdmin">
@@ -67,9 +67,14 @@
                     <td>{{ $admin->nip }}</td>
                     <td>{{ $admin->email }}</td>
                     <td>
-                        <a href="{{ route('admin.kelola_admin.edit', $admin->id_admin) }}" class="btn btn-sm btn-warning">
+                        {{-- Tombol Edit: trigger modal --}}
+                        <button type="button" 
+                            class="btn btn-sm btn-warning" 
+                            data-toggle="modal" 
+                            data-target="#modalEditAdmin"
+                            onclick="setEditModalData('{{ $admin->id_admin }}', '{{ $admin->username }}', '{{ $admin->nama_admin }}', '{{ $admin->nip }}', '{{ $admin->email }}')">
                             Edit
-                        </a>
+                        </button>
 
                         {{-- Tombol Hapus: trigger modal --}}
                         <button type="button" 
@@ -129,12 +134,56 @@
   </div>
 </div>
 
+{{-- Modal Edit Admin --}}
+<div class="modal fade" id="modalEditAdmin" tabindex="-1" role="dialog" aria-labelledby="modalEditAdminLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" id="formEditAdmin">
+      @csrf
+      @method('PUT')
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Admin</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-2">
+            <label>Username</label>
+            <input type="text" name="username" id="edit_username" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label>Nama Admin</label>
+            <input type="text" name="nama_admin" id="edit_nama_admin" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label>NIP</label>
+            <input type="text" name="nip" id="edit_nip" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label>Email</label>
+            <input type="email" name="email" id="edit_email" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label>Password (kosongkan jika tidak ingin diubah)</label>
+            <input type="password" name="password" class="form-control">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
 {{-- Modal Konfirmasi Hapus --}}
 <div class="modal fade" id="modalHapusAdmin" tabindex="-1" role="dialog" aria-labelledby="modalHapusAdminLabel" aria-hidden="true">
   <div class="modal-dialog">
     <form method="POST" id="formHapusAdmin">
         @csrf
-        @method('DELETE') {{-- Ini WAJIB --}}
+        @method('DELETE')
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Konfirmasi Hapus</h5>
@@ -160,6 +209,18 @@
     function setFormAction(actionUrl) {
         document.getElementById('formHapusAdmin').setAttribute('action', actionUrl);
         console.log("Setting form action to:", actionUrl);
+    }
+    
+    function setEditModalData(id, username, nama_admin, nip, email) {
+        // Set form action URL
+        const form = document.getElementById('formEditAdmin');
+        form.setAttribute('action', `/admin/kelola_admin/${id}`);
+        
+        // Fill form fields
+        document.getElementById('edit_username').value = username;
+        document.getElementById('edit_nama_admin').value = nama_admin;
+        document.getElementById('edit_nip').value = nip;
+        document.getElementById('edit_email').value = email;
     }
 </script>
 @endpush
