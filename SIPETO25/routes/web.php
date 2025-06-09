@@ -97,10 +97,12 @@ Route::middleware(['auth:mahasiswa'])->group(function () {
         Route::post('/pendaftaran-toeic/mandiri', [PendaftaranToeicController::class, 'storeMandiri'])->name('pendaftaran-toeic/mandiri.store');
 
         // Surat Pernyataan
+
+    });
+
         Route::get('/surat_pernyataan', [SuratPernyataanController::class, 'mahasiswaIndex'])->name('mahasiswa.surat_pernyataan.index');
         Route::post('/surat_pernyataan/ajukan', [SuratPernyataanController::class, 'ajukanSurat'])->name('mahasiswa.surat_pernyataan.ajukan');
         Route::get('/surat_pernyataan/cek', [SuratPernyataanController::class, 'cekPengajuan'])->name('mahasiswa.surat_pernyataan.cek');
-    });
 });
 
     // Route::middleware([])->group(function () {
