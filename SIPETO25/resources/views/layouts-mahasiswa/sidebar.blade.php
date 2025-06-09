@@ -103,16 +103,16 @@
                             ['label' => 'Mandiri', 'icon' => 'fas fa-dollar-sign', 'route' => '/pendaftaran-toeic/mandiri', 'key' => 'pendaftaran-toeic/mandiri']
                         ]
                     ],
-                    [
-                        'label' => 'Artikel TOEIC',
-                        'icon' => 'fas fa-book',
-                        'key' => 'toeic-resources',
-                        'submenu' => [
-                            ['label' => 'Pemahaman TOEIC', 'icon' => 'fas fa-info-circle', 'route' => '/toeic-resources/understanding', 'key' => 'toeic-understanding'],
-                            ['label' => 'Strategi TOEIC', 'icon' => 'fas fa-lightbulb', 'route' => '/toeic-resources/strategies', 'key' => 'toeic-strategies'],
-                            ['label' => 'Latihan Soal', 'icon' => 'fas fa-edit', 'route' => '/toeic-resources/practice', 'key' => 'toeic-practice'],
-                        ]
-                    ]
+                    // [
+                    //     'label' => 'Artikel TOEIC',
+                    //     'icon' => 'fas fa-book',
+                    //     'key' => 'toeic-resources',
+                    //     'submenu' => [
+                    //         ['label' => 'Pemahaman TOEIC', 'icon' => 'fas fa-info-circle', 'route' => '/toeic-resources/understanding', 'key' => 'toeic-understanding'],
+                    //         ['label' => 'Strategi TOEIC', 'icon' => 'fas fa-lightbulb', 'route' => '/toeic-resources/strategies', 'key' => 'toeic-strategies'],
+                    //         ['label' => 'Latihan Soal', 'icon' => 'fas fa-edit', 'route' => '/toeic-resources/practice', 'key' => 'toeic-practice'],
+                    //     ]
+                    // ]
                 ];
             }
 

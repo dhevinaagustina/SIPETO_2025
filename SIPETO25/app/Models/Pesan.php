@@ -16,4 +16,10 @@ class Pesan extends Model
     {
         return $this->belongsToMany(Mahasiswa::class, 'informasi_mahasiswa', 'id_informasi', 'id_mahasiswa');
     }
+
+    public function dosen()
+    {
+        return $this->belongsToMany(Dosen::class, 'informasi_dosen', 'id_informasi', 'id_dosen');
+    }
+
 }
