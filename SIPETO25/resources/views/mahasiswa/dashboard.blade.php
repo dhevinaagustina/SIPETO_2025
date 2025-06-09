@@ -9,8 +9,8 @@
   {{-- Hero Banner --}}
   <div class="text-center mb-5">
     <div class="py-4 px-4 mx-auto text-white" style="background: linear-gradient(135deg, #29335C 0%, #1E4B8F 100%); border-radius: 12px; max-width: 960px; box-shadow: 0 6px 18px rgba(41, 51, 92, 0.12);">
-      <h2 class="mb-2 fw-semibold animate__animated animate__fadeInDown" style="font-size: 1.75rem;">Welcome to SIPETO</h2>
-      <p class="mb-0 fs-6 animate__animated animate__fadeIn animate__delay-1s">Your complete TOEIC preparation platform</p>
+      <h2 class="mb-2 fw-semibold animate__animated animate__fadeInDown" style="font-size: 1.75rem;">Selamat Datang di SIPETO</h2>
+      <p class="mb-0 fs-6 animate__animated animate__fadeIn animate__delay-1s">Platform persiapan TOEIC lengkap Anda</p>
     </div>
   </div>
   
@@ -50,31 +50,31 @@
 <div class="row g-4 mb-5">
   <div class="col-12">
     <h3 class="fw-bold mb-4" style="color: #29335C;">
-      <i class="fas fa-newspaper text-primary me-3" style="width: 24px; text-align: center;"></i> TOEIC Learning Resources
+      <i class="fas fa-newspaper text-primary me-3" style="width: 24px; text-align: center;"></i> Sumber Belajar TOEIC
     </h3>
   </div>
 
   @php
     $articles = [
       [
-        'title' => 'Understanding TOEIC',
-        'content' => 'Learn about the TOEIC test format, scoring system, and how it can benefit your academic and professional journey.',
+        'title' => 'Memahami TOEIC',
+        'content' => 'Pelajari tentang format tes TOEIC, sistem penilaian, dan bagaimana hal itu dapat bermanfaat bagi perjalanan akademis dan profesional Anda.',
         'image' => 'https://img.freepik.com/free-vector/collaboration-concept-illustration_114360-2590.jpg?uid=R113173288&ga=GA1.1.1978484221.1748225306&semt=ais_items_boosted&w=740',
         'icon' => 'fas fa-question-circle',
         'color' => '#FF6B35',
         'link' => route('toeic.understanding')
       ],
       [
-        'title' => 'Test-Taking Strategies',
-        'content' => 'Discover proven techniques to maximize your score in both Listening and Reading sections.',
+        'title' => 'Strategi Mengikuti Ujian',
+        'content' => 'Temukan teknik yang terbukti untuk memaksimalkan skor Anda di bagian Mendengarkan dan Membaca.',
         'image' => 'https://img.freepik.com/free-vector/hand-drawn-business-strategy-concept_23-2149171108.jpg?uid=R113173288&ga=GA1.1.1978484221.1748225306&semt=ais_items_boosted&w=740',
         'icon' => 'fas fa-lightbulb',
         'color' => '#1E90FF',
         'link' => route('toeic.strategies')
       ],
       [
-        'title' => 'Practice Resources',
-        'content' => 'Access our curated collection of practice tests and study materials to boost your preparation.',
+        'title' => 'Sumber Latihan',
+        'content' => 'Akses koleksi tes latihan dan materi belajar pilihan kami untuk meningkatkan persiapan Anda.',
         'image' => 'https://img.freepik.com/free-vector/professional-development-teachers-abstract-concept-illustration-school-authority-initiative-training-teachers-conference-seminar-qualification-programme_335657-3477.jpg?uid=R113173288&ga=GA1.1.1978484221.1748225306&semt=ais_items_boosted&w=740',
         'icon' => 'fas fa-book',
         'color' => '#6A4C93',
@@ -101,7 +101,7 @@
         </div>
         <div class="mt-auto pt-3">
           <a href="{{ $article['link'] }}" class="btn btn-sm px-3 py-2 rounded-pill w-50 text-start d-flex justify-content-between align-items-center" style="background-color: {{ $article['color'] }}; color: white;">
-            <span>Read More</span>
+            <span>Baca Selengkapnya</span>
             <i class="fas fa-arrow-right ms-2"></i>
           </a>
         </div>
@@ -117,7 +117,7 @@
       <div class="card-header bg-white border-0 pt-4 pb-3">
         <h3 class="fw-bold mb-0 d-flex align-items-center justify-content-center" style="color: #29335C;">
           <i class="fas fa-trophy text-warning mx-3" style="font-size: 1.5rem;"></i>
-          <span class="text-center">TOEIC Quick Tips</span>
+          <span class="text-center">Tips Singkat TOEIC</span>
           <i class="fas fa-trophy text-warning mx-3" style="font-size: 1.5rem;"></i>
         </h3>
       </div>
@@ -131,12 +131,12 @@
                      style="background-color: #FF6B35; color: white; width: 50px; height: 50px; flex-shrink: 0;">
                   <i class="fas fa-headphones fs-5"></i>
                 </div>
-                <h5 class="fw-bold mb-0" style="color: #29335C; padding-left: 8px;">Listening Section</h5>
+                <h5 class="fw-bold mb-0" style="color: #29335C; padding-left: 8px;">Bagian Mendengarkan</h5>
               </div>
               <ul class="text-muted ps-4 mb-0">
-                <li class="mb-2">Focus on question words</li>
-                <li class="mb-2">Note keywords in dialogues</li>
-                <li>Practice with accents</li>
+                <li class="mb-2">Fokus pada kata tanya</li>
+                <li class="mb-2">Perhatikan kata kunci dalam dialog</li>
+                <li>Berlatihlah dengan aksen</li>
               </ul>
             </div>
           </div>
@@ -149,12 +149,12 @@
                      style="background-color: #1E90FF; color: white; width: 50px; height: 50px; flex-shrink: 0;">
                   <i class="fas fa-book-reader fs-5"></i>
                 </div>
-                <h5 class="fw-bold mb-0" style="color: #29335C; padding-left: 8px;">Reading Section</h5>
+                <h5 class="fw-bold mb-0" style="color: #29335C; padding-left: 8px;">Bagian Membaca</h5>
               </div>
               <ul class="text-muted ps-4 mb-0">
-                <li class="mb-2">Skim passages first</li>
-                <li class="mb-2">Watch for synonyms</li>
-                <li>Manage time wisely</li>
+                <li class="mb-2">Baca sekilas bagian-bagiannya terlebih dahulu</li>
+                <li class="mb-2">Perhatikan sinonimnya</li>
+                <li>Kelola waktu dengan bijak</li>
               </ul>
             </div>
           </div>
@@ -167,12 +167,12 @@
                      style="background-color: #6A4C93; color: white; width: 50px; height: 50px; flex-shrink: 0;">
                   <i class="fas fa-clock fs-5"></i>
                 </div>
-                <h5 class="fw-bold mb-0" style="color: #29335C; padding-left: 8px;">Test Day</h5>
+                <h5 class="fw-bold mb-0" style="color: #29335C; padding-left: 8px;">Hari Ujian</h5>
               </div>
               <ul class="text-muted ps-4 mb-0">
-                <li class="mb-2">Arrive early</li>
-                <li class="mb-2">Bring required documents</li>
-                <li>Stay calm and focused</li>
+                <li class="mb-2">Tiba lebih awal</li>
+                <li class="mb-2">Bawa dokumen yang diperlukan</li>
+                <li>Tetap tenang dan fokus</li>
               </ul>
             </div>
           </div>
