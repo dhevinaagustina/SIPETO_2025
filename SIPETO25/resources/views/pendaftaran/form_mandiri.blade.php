@@ -205,6 +205,10 @@
                         </li>
                         <li>
                             <i class="fas fa-check-circle"></i>
+                            Terbuka untuk alumni dan dosen Politeknik Negeri Malang
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
                             Biaya pendaftaran: <span class="price">Rp450.000</span>
                         </li>
                         <li>

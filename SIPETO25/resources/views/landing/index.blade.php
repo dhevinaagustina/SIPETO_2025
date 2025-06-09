@@ -247,7 +247,7 @@
 
       <div class="carousel-inner">
         <!-- Slide 1 -->
-        <div class="carousel-item active" style="background-image: url('{{ asset('assets/img/slide1.png') }}');">
+        <div class="carousel-item active" style="background-image: url('{{ asset('assets/img/poltek1.jpeg') }}');">
           <div class="container d-flex h-100 align-items-center">
             <div class="carousel-content text-white">
               <h1 class="fw-bold">Selamat Datang di <span class="text-warning">SIPETO!</span></h1>
@@ -257,7 +257,7 @@
         </div>
 
         <!-- Slide 2 -->
-        <div class="carousel-item" style="background-image: url('{{ asset('assets/img/slide2.png') }}');">
+        <div class="carousel-item" style="background-image: url('{{ asset('assets/img/poltek2.jpeg') }}');">
           <div class="container d-flex h-100 align-items-center">
             <div class="carousel-content text-white">
               <h1 class="fw-bold">Daftar TOEIC Online</h1>
@@ -268,7 +268,7 @@
         </div>
 
         <!-- Slide 3 -->
-        <div class="carousel-item" style="background-image: url('{{ asset('assets/img/slide3.png') }}');">
+        <div class="carousel-item" style="background-image: url('{{ asset('assets/img/poltek3.jpeg') }}');">
           <div class="container d-flex h-100 align-items-center">
             <div class="carousel-content text-white">
               <h1 class="fw-bold">Pantau Hasil dan Riwayat</h1>
@@ -592,7 +592,7 @@
                             <div class="feature-icon mx-auto">
                                 <i class="bi bi-pencil-square" style="font-size: 2.5rem; color: #ff7e33;"></i>
                             </div>
-                            <p>Pendaftaran ujian TOEIC langsung dari sistem, tanpa formulir manual. Setelah daftar, Anda otomatis diarahkan ke situs resmi ujian.</p>
+                            <p>Lakukan pendaftaran ujian TOEIC secara praktis dan cepat langsung dari sistem.</p>
                             <a href="#" class="btn btn-outline-primary mt-3">Daftar Sekarang</a>
                         </div>
                     </div>
@@ -606,7 +606,7 @@
                             <div class="feature-icon mx-auto">
                                 <i class="bi bi-graph-up" style="font-size: 2.5rem; color: #4361ee;"></i>
                             </div>
-                            <p>Lihat hasil Ujian TOEIC Anda langsung dari akun. Nilai ditampilkan dengan jelas, bisa langsung digunakan untuk keperluan akademik.</p>
+                            <p>Lihat hasil Ujian TOEIC Anda yang dikirimkan oleh admin melalui fitur pesan secara langsung dari akun.</p>
                             <a href="#" class="btn btn-outline-primary mt-3">Cek Hasil</a>
                         </div>
                     </div>
@@ -849,12 +849,34 @@
                 <!-- Graphic Column - Building Image -->
                 <div class="col-lg-6 d-none d-lg-block">
                   <div class="why-graphic">
-                      <div class="circle-image-container">
-                          <img src="{{ asset('assets/img/why.png') }}" alt="Why SIPETO" class="circle-image">
-                          <div class="circle-overlay"></div>
+                      <div style="
+                          width: 500px; 
+                          height: 500px; 
+                          border-radius: 50%; 
+                          overflow: hidden; 
+                          position: relative;
+                          background: #fff; 
+                          display: flex;
+                          justify-content: center;
+                          align-items: center;
+                      ">
+                          <img src="{{ asset('assets/img/why.png') }}" alt="Why SIPETO" 
+                              style="
+                                  width: 80%;
+                                  height: 80%;
+                                  object-fit: contain;
+                                  animation: zoom 4s ease-in-out infinite;
+                              ">
                       </div>
                   </div>
               </div>
+
+              <style>
+                  @keyframes zoom {
+                      0%, 100% { transform: scale(1); }
+                      50% { transform: scale(1.2); } 
+                  }
+              </style>
 
               
                 
