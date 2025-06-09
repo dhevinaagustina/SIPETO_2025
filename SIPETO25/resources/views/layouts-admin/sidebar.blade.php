@@ -37,27 +37,29 @@
                 }
 
                 // Menu super admin
-                    if ($isSuperAdmin) {
-                        $menu = [
-                            [
-                                'label' => 'Menu', 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
-                                    ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => route('admin.dashboard'), 'key' => 'dashboard-admberanda'],
-                                    ['label' => 'Tulis Pesan', 'icon' => 'fas fa-bell', 'route' => route('admin.kirim_informasi'), 'key' => 'dashboard-pesan'],
-                                ]
-                            ],
-                            ['label' => 'Cek Data', 'icon' => 'fas fa-search', 'route' => route('admin.cekdata.index'), 'key' => 'cek-data'],
-                            ['label' => 'Riwayat Ujian', 'icon' => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian'],
-                            ['label' => 'Pengajuan Surat', 'icon' => 'fas fa-pen-fancy', 'route' => route('admin.surat_pernyataan.index'), 'key' => 'surat-pernyataan'],
-                            ['label' => 'Manajemen Admin', 'icon' => 'fas fa-users-cog', 'route' => route('admin.kelola_admin'), 'key' => 'kelola-admin'],
-                            ['label' => 'Manajemen Mahasiswa', 'icon' => 'fas fa-user-graduate', 'route' => route('admin.mahasiswa.index'), 'key' => 'kelola-mahasiswa'],
-                            [
-                                'label' => 'Laporan & Export', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
-                                    ['label' => 'Laporan Pendaftaran', 'icon' => 'fas fa-file-alt', 'route' => route('admin.laporan.pendaftaran'), 'key' => 'laporan-pendaftaran'],
-                                    ['label' => 'Export Data', 'icon' => 'fas fa-download', 'route' => route('admin.laporan.export'), 'key' => 'laporan-export'],
-                                ]
-                            ],
-                        ];
-                    }
+                if ($isSuperAdmin) {
+                    $menu = [
+                        [
+                            'label' => 'Menu', 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
+                                ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => route('admin.dashboard'), 'key' => 'dashboard-admberanda'],
+                                ['label' => 'Tulis Pesan', 'icon' => 'fas fa-bell', 'route' => route('admin.kirim_informasi'), 'key' => 'dashboard-pesan'],
+                            ]
+                        ],
+                        ['label' => 'Cek Data', 'icon' => 'fas fa-search', 'route' => route('admin.cekdata.index'), 'key' => 'cek-data'],
+                        ['label' => 'Riwayat Ujian', 'icon' => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian'],
+                        ['label' => 'Pengajuan Surat', 'icon' => 'fas fa-pen-fancy', 'route' => route('admin.surat_pernyataan.index'), 'key' => 'surat-pernyataan'],
+                        ['label' => 'Manajemen Admin', 'icon' => 'fas fa-users-cog', 'route' => route('admin.kelola_admin'), 'key' => 'kelola-admin'],
+                        ['label' => 'Manajemen Mahasiswa', 'icon' => 'fas fa-user-graduate', 'route' => route('admin.mahasiswa.index'), 'key' => 'kelola-mahasiswa'],
+                        ['label' => 'Manajemen Dosen', 'icon' => 'fas fa-chalkboard-teacher', 'route' => route('admin.dosen.index'), 'key' => 'kelola-dosen'], // ← Tambahan di sini
+                        [
+                            'label' => 'Laporan & Export', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
+                                ['label' => 'Laporan Pendaftaran', 'icon' => 'fas fa-file-alt', 'route' => route('admin.laporan.pendaftaran'), 'key' => 'laporan-pendaftaran'],
+                                ['label' => 'Export Data', 'icon' => 'fas fa-download', 'route' => route('admin.laporan.export'), 'key' => 'laporan-export'],
+                            ]
+                        ],
+                    ];
+                }
+
                     else {
                     // Menu admin biasa
                     $menu = [
