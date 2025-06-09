@@ -387,44 +387,75 @@
     <form id="formInformasi" method="POST" action="{{ route('admin.informasi.store') }}" enctype="multipart/form-data">
         @csrf
 
-        <!-- Penerima Section -->
-        <div class="form-section animate__animated animate__fadeIn">
-            <h5 class="form-section-title"><i class="fas fa-users"></i> Penerima Informasi</h5>
-            <div class="radio-group">
-                <label class="radio-option">
-                    <input class="form-check-input" type="radio" name="ditujukan_ke" id="semua" value="semua" checked>
-                    <span class="ms-2">Semua Mahasiswa</span>
-                </label>
-                <label class="radio-option">
-                    <input class="form-check-input" type="radio" name="ditujukan_ke" id="tertentu" value="tertentu">
-                    <span class="ms-2">Mahasiswa Tertentu</span>
-                </label>
-            </div>
+    <!-- Penerima Section -->
+    <div class="form-section animate__animated animate__fadeIn">
+        <h5 class="form-section-title"><i class="fas fa-users"></i> Penerima Informasi</h5>
 
-            <!-- Mahasiswa Tertentu -->
-            <div class="mt-4" id="pilihMahasiswa" style="display: none;">
-                <div class="row">
-                    <div class="col-md-9">
-                        <label class="form-label">Pilih Mahasiswa</label>
-                        <select id="mahasiswaSelect" class="form-control select2" style="width: 100%;">
-                            <option value=""></option>
-                            @foreach($mahasiswa as $mhs)
-                                <option value="{{ $mhs->id_mahasiswa }}" data-nama="{{ $mhs->nama_mahasiswa }}">
-                                    {{ $mhs->nama_mahasiswa }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-3 d-flex align-items-end">
-                        <button type="button" id="addStudentBtn" class="btn btn-primary w-100">
-                            <i class="fas fa-plus me-1"></i> Tambah
-                        </button>
-                    </div>
-                </div>
-
-                <div id="selectedStudentsContainer" class="mt-3"></div>
-            </div>
+        <div class="radio-group">
+            <label class="radio-option">
+                <input class="form-check-input" type="radio" name="ditujukan_ke" value="semua_mahasiswa" checked>
+                <span class="ms-2">Semua Mahasiswa</span>
+            </label>
+            <label class="radio-option">
+                <input class="form-check-input" type="radio" name="ditujukan_ke" value="mahasiswa_tertentu">
+                <span class="ms-2">Mahasiswa Tertentu</span>
+            </label>
+            <label class="radio-option">
+                <input class="form-check-input" type="radio" name="ditujukan_ke" value="semua_dosen">
+                <span class="ms-2">Semua Dosen</span>
+            </label>
+            <label class="radio-option">
+                <input class="form-check-input" type="radio" name="ditujukan_ke" value="dosen_tertentu">
+                <span class="ms-2">Dosen Tertentu</span>
+            </label>
         </div>
+
+        <!-- Mahasiswa Tertentu -->
+        <div class="mt-4" id="pilihMahasiswa" style="display: none;">
+            <div class="row">
+                <div class="col-md-9">
+                    <label class="form-label">Pilih Mahasiswa</label>
+                    <select id="mahasiswaSelect" class="form-control select2" style="width: 100%;">
+                        <option value=""></option>
+                        @foreach($mahasiswa as $mhs)
+                            <option value="{{ $mhs->id_mahasiswa }}" data-nama="{{ $mhs->nama_mahasiswa }}">
+                                {{ $mhs->nama_mahasiswa }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="button" id="addStudentBtn" class="btn btn-primary w-100">
+                        <i class="fas fa-plus me-1"></i> Tambah
+                    </button>
+                </div>
+            </div>
+            <div id="selectedStudentsContainer" class="mt-3"></div>
+        </div>
+
+        <!-- Dosen Tertentu -->
+        <div class="mt-4" id="pilihDosen" style="display: none;">
+            <div class="row">
+                <div class="col-md-9">
+                    <label class="form-label">Pilih Dosen</label>
+                    <select id="dosenSelect" class="form-control select2" style="width: 100%;">
+                        <option value=""></option>
+                        @foreach($dosen as $dsn)
+                            <option value="{{ $dsn->id_dosen }}" data-nama="{{ $dsn->nama_dosen }}">
+                                {{ $dsn->nama_dosen }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="button" id="addDosenBtn" class="btn btn-success w-100">
+                        <i class="fas fa-plus me-1"></i> Tambah
+                    </button>
+                </div>
+            </div>
+            <div id="selectedDosenContainer" class="mt-3"></div>
+        </div>
+    </div>
 
         <!-- Detail Informasi Section -->
         <div class="form-section animate__animated animate__fadeIn">
@@ -574,75 +605,56 @@
 
 <script>
     $(document).ready(function() {
-        // Initialize Select2 with custom styling
-        $('.select2').select2({ 
-            placeholder: "Cari mahasiswa...", 
+        // Select2 Initialization
+        $('.select2').select2({
+            placeholder: "Cari penerima...",
             allowClear: true,
             width: '100%'
         });
 
-        // Initialize CKEditor
-        ClassicEditor
-            .create(document.querySelector('#editor'), {
-                toolbar: {
-                    items: [
-                        'heading', '|',
-                        'bold', 'italic', 'underline', 'strikethrough', '|',
-                        'bulletedList', 'numberedList', '|',
-                        'alignment', '|',
-                        'link', 'blockQuote', 'insertTable', '|',
-                        'undo', 'redo'
-                    ]
-                },
-                language: 'id'
-            })
-            .catch(error => {
-                console.error('CKEditor error:', error);
-            });
+        // CKEditor Init
+        ClassicEditor.create(document.querySelector('#editor'), {
+            toolbar: {
+                items: [
+                    'heading', '|',
+                    'bold', 'italic', 'underline', 'strikethrough', '|',
+                    'bulletedList', 'numberedList', '|',
+                    'alignment', '|',
+                    'link', 'blockQuote', 'insertTable', '|',
+                    'undo', 'redo'
+                ]
+            },
+            language: 'id'
+        }).catch(error => {
+            console.error('CKEditor error:', error);
+        });
 
-        // Toggle penerima section
-        $('input[name="ditujukan_ke"]').on('change', function() {
+        // Toggle target sections
+        $('input[name="ditujukan_ke"]').on('change', function () {
             const value = $(this).val();
-            if (value === 'tertentu') {
+
+            $('#pilihMahasiswa').slideUp();
+            $('#pilihDosen').slideUp();
+            $('#selectedStudentsContainer').empty();
+            $('#selectedDosenContainer').empty();
+
+            if (value === 'mahasiswa_tertentu') {
                 $('#pilihMahasiswa').slideDown();
-                $('#statusGlobal').hide();
-            } else {
-                $('#pilihMahasiswa').slideUp();
-                $('#statusGlobal').show();
-                $('#selectedStudentsContainer').empty();
+            } else if (value === 'dosen_tertentu') {
+                $('#pilihDosen').slideDown();
             }
         });
 
-        // Add student to selection
-        $('#addStudentBtn').on('click', function() {
+        // Add Mahasiswa
+        $('#addStudentBtn').on('click', function () {
             const selected = $('#mahasiswaSelect').find(":selected");
             const id = selected.val();
             const nama = selected.data('nama');
 
-            if (!id) {
-                return Swal.fire({
-                    title: 'Peringatan',
-                    text: 'Silakan pilih mahasiswa terlebih dahulu.',
-                    icon: 'warning',
-                    confirmButtonColor: '#4361ee',
-                    background: 'white',
-                    backdrop: `
-                        rgba(0,0,0,0.4)
-                        url("/images/nyan-cat.gif")
-                        left top
-                        no-repeat
-                    `
-                });
-            }
-            
-            if ($(`#studentCard_${id}`).length) {
-                return Swal.fire({
-                    title: 'Peringatan',
-                    text: 'Mahasiswa sudah ditambahkan.',
-                    icon: 'warning',
-                    confirmButtonColor: '#4361ee'
-                });
-            }
+            if (!id) return warningAlert('Silakan pilih mahasiswa terlebih dahulu.');
+
+            if ($(`#studentCard_${id}`).length)
+                return warningAlert('Mahasiswa sudah ditambahkan.');
 
             const card = `
                 <div class="student-card animate__animated animate__fadeIn" id="studentCard_${id}">
@@ -663,34 +675,70 @@
                             </span>
                         </div>
                     </div>
-                </div>
-            `;
-            
+                </div>`;
             $('#selectedStudentsContainer').append(card);
             $('#mahasiswaSelect').val(null).trigger('change');
-            
-            // Scroll to the newly added card
-            $(`#studentCard_${id}`)[0].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            $(`#studentCard_${id}`)[0].scrollIntoView({ behavior: 'smooth' });
         });
 
-        // Remove student from selection
-        $(document).on('click', '.remove-student', function() {
+        // Add Dosen
+        $('#addDosenBtn').on('click', function () {
+            const selected = $('#dosenSelect').find(":selected");
+            const id = selected.val();
+            const nama = selected.data('nama');
+
+            if (!id) return warningAlert('Silakan pilih dosen terlebih dahulu.');
+            if ($(`#dosenCard_${id}`).length)
+                return warningAlert('Dosen sudah ditambahkan.');
+
+            const card = `
+                <div class="student-card animate__animated animate__fadeIn" id="dosenCard_${id}">
+                    <div class="d-flex align-items-center w-100">
+                        <div class="flex-grow-1">
+                            <strong>${nama}</strong>
+                            <input type="hidden" name="dosen_tertentu[]" value="${id}">
+                        </div>
+                        <div class="mx-3">
+                            <select name="status_dosen[${id}]" class="form-select form-select-sm status-select">
+                                <option value="success">Berhasil</option>
+                                <option value="failure">Gagal</option>
+                            </select>
+                        </div>
+                        <div>
+                            <span class="remove-dosen" data-id="${id}" title="Hapus dosen">
+                                <i class="fas fa-times me-1"></i> Hapus
+                            </span>
+                        </div>
+                    </div>
+                </div>`;
+            $('#selectedDosenContainer').append(card);
+            $('#dosenSelect').val(null).trigger('change');
+            $(`#dosenCard_${id}`)[0].scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Remove Mahasiswa
+        $(document).on('click', '.remove-student', function () {
             const id = $(this).data('id');
             const card = $(`#studentCard_${id}`);
-            
-            card.addClass('animate__animated animate__fadeOut');
-            card.on('animationend', function() {
-                card.remove();
-            });
+            card.addClass('animate__fadeOut');
+            card.on('animationend', () => card.remove());
         });
 
-        // Change card color based on status
-        $(document).on('change', 'select[name^="status_mahasiswa"]', function() {
+        // Remove Dosen
+        $(document).on('click', '.remove-dosen', function () {
+            const id = $(this).data('id');
+            const card = $(`#dosenCard_${id}`);
+            card.addClass('animate__fadeOut');
+            card.on('animationend', () => card.remove());
+        });
+
+        // Status selector visual update
+        $(document).on('change', '.status-select', function () {
             const status = $(this).val();
             const card = $(this).closest('.student-card');
-            
             card.removeClass('success failure');
-            
+            $(this).removeClass('border-success border-danger');
+
             if (status === 'success') {
                 card.addClass('success');
                 $(this).addClass('border-success');
@@ -700,49 +748,43 @@
             }
         });
 
-        // File input display
-        $('#fileInput').on('change', function() {
+        // File input label
+        $('#fileInput').on('change', function () {
             const fileName = $(this).val().split('\\').pop();
-            if (fileName) {
-                $('#fileName').html(`<i class="fas fa-file me-1"></i> ${fileName}`);
-            } else {
-                $('#fileName').html('Belum ada file dipilih');
-            }
+            $('#fileName').html(fileName ? `<i class="fas fa-file me-1"></i> ${fileName}` : 'Belum ada file dipilih');
         });
 
-        // Back button confirmation
-        $('#btnBack').on('click', function() {
-            const modal = new bootstrap.Modal(document.getElementById('confirmBackModal'));
-            modal.show();
-        });
+        // Back confirmation
+        $('#btnBack').on('click', () => new bootstrap.Modal('#confirmBackModal').show());
+        $('#confirmBack').on('click', () => window.location.href = "{{ route('admin.dashboard') }}");
 
-        $('#confirmBack').on('click', function() {
-            window.location.href = "{{ route('admin.dashboard') }}";
-        });
+        // Help modal
+        $('#helpButton').on('click', () => new bootstrap.Modal('#helpModal').show());
 
-        // Help button
-        $('#helpButton').on('click', function() {
-            const modal = new bootstrap.Modal(document.getElementById('helpModal'));
-            modal.show();
-        });
-
-        // Submit with confirmation
-        $('#btnSubmit').on('click', function() {
+        // Submit handler
+        $('#btnSubmit').on('click', function () {
             const tujuan = $('input[name="ditujukan_ke"]:checked').val();
+            let warningMsg = '';
+            if (tujuan === 'mahasiswa_tertentu' && $('input[name="mahasiswa_tertentu[]"]').length === 0) {
+                warningMsg = 'Silakan pilih minimal satu mahasiswa.';
+            } else if (tujuan === 'dosen_tertentu' && $('input[name="dosen_tertentu[]"]').length === 0) {
+                warningMsg = 'Silakan pilih minimal satu dosen.';
+            }
 
-            if (tujuan === 'tertentu' && $('input[name="mahasiswa_tertentu[]"]').length === 0) {
+            if (warningMsg) {
                 return Swal.fire({
                     title: 'Peringatan',
-                    text: 'Silakan pilih minimal satu mahasiswa.',
+                    text: warningMsg,
                     icon: 'warning',
-                    confirmButtonColor: '#4361ee',
-                    confirmButtonText: 'Mengerti'
+                    confirmButtonColor: '#4361ee'
                 });
             }
 
-            const msg = tujuan === 'semua'
-                ? 'Apakah Anda yakin ingin mengirim informasi ke SEMUA mahasiswa?'
-                : 'Apakah Anda yakin ingin mengirim informasi ke mahasiswa terpilih?';
+            let msg = 'Apakah Anda yakin ingin mengirim informasi ini?';
+            if (tujuan === 'semua_mahasiswa') msg = 'Apakah Anda yakin ingin mengirim informasi ke SEMUA mahasiswa?';
+            if (tujuan === 'semua_dosen') msg = 'Apakah Anda yakin ingin mengirim informasi ke SEMUA dosen?';
+            if (tujuan === 'mahasiswa_tertentu') msg = 'Apakah Anda yakin ingin mengirim informasi ke mahasiswa terpilih?';
+            if (tujuan === 'dosen_tertentu') msg = 'Apakah Anda yakin ingin mengirim informasi ke dosen terpilih?';
 
             Swal.fire({
                 title: 'Konfirmasi Pengiriman',
@@ -754,45 +796,42 @@
                 confirmButtonColor: '#28a745',
                 cancelButtonColor: '#dc3545',
                 reverseButtons: true,
-                backdrop: `
-                    rgba(0,0,123,0.4)
-                    url("/images/nyan-cat.gif")
-                    left top
-                    no-repeat
-                `
+                backdrop: `rgba(0,0,123,0.4) url("/images/nyan-cat.gif") left top no-repeat`
             }).then((result) => {
                 if (result.isConfirmed) {
-                    // Show loading indicator
                     Swal.fire({
                         title: 'Mengirim Informasi',
                         html: 'Sedang memproses dan mengirim informasi...',
-                        timerProgressBar: true,
                         allowOutsideClick: false,
-                        didOpen: () => {
-                            Swal.showLoading();
-                        }
+                        didOpen: () => Swal.showLoading()
                     });
-                    
                     $('#formInformasi').submit();
                 }
             });
         });
 
-        // Auto-dismiss alerts after 5 seconds
-        $('.alert').delay(5000).fadeOut(300, function() {
+        // Auto fade alerts
+        $('.alert').delay(5000).fadeOut(300, function () {
             $(this).alert('close');
         });
 
-        // Add hover effect to form sections
+        // Hover animation
         $('.form-section').hover(
-            function() {
-                $(this).css('transform', 'translateY(-5px)');
-            },
-            function() {
-                $(this).css('transform', 'translateY(0)');
-            }
+            function () { $(this).css('transform', 'translateY(-5px)'); },
+            function () { $(this).css('transform', 'translateY(0)'); }
         );
+
+        // Alert helper
+        function warningAlert(msg) {
+            return Swal.fire({
+                title: 'Peringatan',
+                text: msg,
+                icon: 'warning',
+                confirmButtonColor: '#4361ee'
+            });
+        }
     });
 </script>
+
 </body>
 </html>

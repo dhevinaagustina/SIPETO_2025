@@ -31,4 +31,10 @@ class Informasi extends Model
      {
     return $this->belongsTo(Admin::class, 'id_admin');
     }
+
+    public function dosen()
+    {
+        return $this->belongsToMany(Dosen::class, 'informasi_dosen', 'id_informasi', 'id_dosen');
+    }
+
 }

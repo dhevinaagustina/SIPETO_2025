@@ -11,14 +11,27 @@ class PesanController extends Controller
 {
     public function index()
     {
-        $id_mahasiswa = Auth::user()->id_mahasiswa;
+        $user = Auth::user();
+        $pesanQuery = Pesan::query()->latest();
 
-        $pesan = Pesan::where('ditujukan_ke', 'semua')
-            ->orWhereHas('mahasiswa', function ($query) use ($id_mahasiswa) {
-                $query->where('informasi_mahasiswa.id_mahasiswa', $id_mahasiswa);
-            })
-            ->latest()
-            ->get();
+        if (isset($user->id_mahasiswa)) {
+            $id_mahasiswa = $user->id_mahasiswa;
+
+            $pesanQuery->where('ditujukan_ke', 'semua')
+                ->orWhereHas('mahasiswa', function ($query) use ($id_mahasiswa) {
+                    $query->where('informasi_mahasiswa.id_mahasiswa', $id_mahasiswa);
+                });
+
+        } elseif (isset($user->id_dosen)) {
+            $id_dosen = $user->id_dosen;
+
+            $pesanQuery->where('ditujukan_ke', 'semua')
+                ->orWhereHas('dosen', function ($query) use ($id_dosen) {
+                    $query->where('informasi_dosen.id_dosen', $id_dosen);
+                });
+        }
+
+        $pesan = $pesanQuery->get();
 
         return view('pesan-mahasiswa.index', [
             'activeMenu' => 'pesan',
@@ -30,6 +43,7 @@ class PesanController extends Controller
             'pesan' => $pesan
         ]);
     }
+
 
     public function show($id)
     {
@@ -61,7 +75,6 @@ class PesanController extends Controller
         }
 
         return Storage::disk('public')->download($path, $pesan->lampiran);
-
     }
 
 

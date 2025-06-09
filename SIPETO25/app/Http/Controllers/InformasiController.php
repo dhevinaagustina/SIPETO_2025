@@ -11,17 +11,18 @@ class InformasiController extends Controller
     public function create()
     {
         $mahasiswa = DB::table('mahasiswa')->select('id_mahasiswa', 'nama_mahasiswa')->get();
-        return view('admin.kirim_informasi', compact('mahasiswa'));
+        $dosen = DB::table('dosen')->select('id_dosen', 'nama_dosen')->get();
+        return view('admin.kirim_informasi', compact('mahasiswa', 'dosen'));
     }
 
     public function store(Request $request)
     {
-        // Validasi input
         $request->validate([
             'judul' => 'required|string|max:255',
             'isi' => 'required|string',
-            'ditujukan_ke' => 'required|in:semua,tertentu',
-            'mahasiswa_tertentu' => 'required_if:ditujukan_ke,tertentu|array',
+            'ditujukan_ke' => 'required|in:semua_mahasiswa,mahasiswa_tertentu,semua_dosen,dosen_tertentu',
+            'mahasiswa_tertentu' => 'required_if:ditujukan_ke,mahasiswa_tertentu|array',
+            'dosen_tertentu' => 'required_if:ditujukan_ke,dosen_tertentu|array',
             'lampiran' => 'nullable|file|max:5120|mimes:pdf,doc,docx,jpg,jpeg,png',
         ]);
 
@@ -33,10 +34,10 @@ class InformasiController extends Controller
             $lampiran = $request->file('lampiran');
             $namaFile = time() . '_' . $lampiran->getClientOriginalName();
             $lampiran->storeAs('public/lampiran_informasi', $namaFile);
-            $tipeLampiran = $lampiran->getClientOriginalExtension(); // hasil: jpg, pdf, dll
+            $tipeLampiran = $lampiran->getClientOriginalExtension();
         }
 
-        // Simpan ke tabel informasi
+        // Simpan informasi
         $informasiId = DB::table('informasi')->insertGetId([
             'judul' => $request->judul,
             'isi' => strip_tags($request->isi),
@@ -49,33 +50,48 @@ class InformasiController extends Controller
             'updated_at' => now(),
         ]);
 
-        // Cek jika gagal simpan
         if (!$informasiId) {
             return back()->with('error', 'Gagal menyimpan informasi.');
         }
 
-        // Tentukan mahasiswa penerima
+        // Proses pengiriman berdasarkan pilihan
         $mahasiswaIds = [];
+        $dosenIds = [];
 
-        if ($request->ditujukan_ke === 'semua') {
-            $mahasiswaIds = DB::table('mahasiswa')->pluck('id_mahasiswa')->toArray();
-        } else {
-            $mahasiswaIds = $request->mahasiswa_tertentu;
+        switch ($request->ditujukan_ke) {
+            case 'semua_mahasiswa':
+                $mahasiswaIds = DB::table('mahasiswa')->pluck('id_mahasiswa')->toArray();
+                break;
+            case 'mahasiswa_tertentu':
+                $mahasiswaIds = $request->mahasiswa_tertentu;
+                break;
+            case 'semua_dosen':
+                $dosenIds = DB::table('dosen')->pluck('id_dosen')->toArray();
+                break;
+            case 'dosen_tertentu':
+                $dosenIds = $request->dosen_tertentu;
+                break;
         }
 
-        // Simpan ke pivot informasi_mahasiswa
-        $dataPivot = [];
-        foreach ($mahasiswaIds as $idMahasiswa) {
-            $dataPivot[] = [
+        if (!empty($mahasiswaIds)) {
+            $pivotMahasiswa = array_map(fn($id) => [
                 'id_informasi' => $informasiId,
-                'id_mahasiswa' => $idMahasiswa,
-            ];
+                'id_mahasiswa' => $id,
+            ], $mahasiswaIds);
+
+            DB::table('informasi_mahasiswa')->insert($pivotMahasiswa);
         }
 
-        if (!empty($dataPivot)) {
-            DB::table('informasi_mahasiswa')->insert($dataPivot);
+        if (!empty($dosenIds)) {
+            $pivotDosen = array_map(fn($id) => [
+                'id_informasi' => $informasiId,
+                'id_dosen' => $id,
+            ], $dosenIds);
+
+            DB::table('informasi_dosen')->insert($pivotDosen);
         }
 
         return back()->with('success', 'Informasi berhasil dikirim.');
     }
+
 }
