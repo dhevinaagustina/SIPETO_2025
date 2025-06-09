@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\DosenController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -160,6 +161,16 @@ Route::prefix('admin')->name('admin.')->middleware('admin_or_super')->group(func
                 Route::put('/{id}', [MahasiswaController::class, 'update'])->name('mahasiswa.update');
                 Route::delete('/{id}', [MahasiswaController::class, 'destroy'])->name('mahasiswa.destroy');
             });
+
+            // Kelola Dosen
+            Route::prefix('dosen')->group(function () {
+                Route::get('/', [DosenController::class, 'index'])->name('dosen.index');       // Menampilkan list + modal
+                Route::post('/', [DosenController::class, 'store'])->name('dosen.store');      // Simpan dosen baru (Create)
+                Route::put('/{id}', [DosenController::class, 'update'])->name('dosen.update'); // Update dosen
+                Route::delete('/{id}', [DosenController::class, 'destroy'])->name('dosen.destroy'); // Hapus dosen
+            });
+
+
         });
 
     // Manajemen Mahasiswa
