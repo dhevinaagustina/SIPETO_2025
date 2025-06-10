@@ -217,6 +217,13 @@ Route::prefix('admin')->name('admin.')->middleware('admin_or_super')->group(func
     Route::get('/surat-pernyataan/generate/{id}', [\App\Http\Controllers\SuratPernyataanController::class, 'generateSurat'])
         ->name('admin.surat_pernyataan.generate');
 
+    Route::post('/admin/surat_pernyataan/validasi/{id}', [SuratPernyataanController::class, 'validasi'])
+        ->name('admin.surat_pernyataan.validasi');
+
+    // Cek Lampiran Surat
+    Route::get('/surat-pernyataan/lampiran/{id}', [\App\Http\Controllers\SuratPernyataanController::class, 'lihatLampiran'])
+    ->name('admin.surat_pernyataan.lampiran');
+
       // InformasiAdd commentMore actions
     Route::get('/informasi', [InformasiController::class, 'create']);
     Route::post('/informasi', [InformasiController::class, 'store'])->name('admin.informasi.store');

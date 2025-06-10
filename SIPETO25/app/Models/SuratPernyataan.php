@@ -16,8 +16,12 @@ class SuratPernyataan extends Model
     protected $fillable = [
         'id_mahasiswa',
         'tanggal_pengajuan',
+        'lampiran_1',
+        'lampiran_2',
         'file_surat',
         'status',
+        'status_validasi',
+        'catatan_validasi',
     ];
 
     public function mahasiswa()

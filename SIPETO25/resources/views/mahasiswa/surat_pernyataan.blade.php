@@ -41,7 +41,7 @@
         background-color: #4CAF50;
     }
     .badge-proses {
-        background-color: #f44336;
+        background-color: #ffbc02;
     }
     .no-data {
         color: #6c757d;
@@ -174,7 +174,8 @@
                     <th>Nama</th>
                     <th>Tanggal Pengajuan</th>
                     <th>Status</th>
-                    <th>File</th>
+                    <th>Catatan</th>
+                    <th>File Surat</th>
                 </tr>
             </thead>
             <tbody>
@@ -186,10 +187,23 @@
                             <td>{{ auth('mahasiswa')->user()->nama_mahasiswa }}</td>
                             <td>{{ \Carbon\Carbon::parse($surat->tanggal_pengajuan)->translatedFormat('d F Y') }}</td>
                             <td>
-                                <span class="status-badge badge-{{ $surat->status === 'selesai' ? 'selesai' : 'proses' }}">
-                                    {{ $surat->status === 'selesai' ? 'Selesai' : 'Proses' }}
-                                </span>
+                                @if ($surat->status_validasi === 'ditolak')
+                                    <span class="status-badge badge-proses" style="background-color: #f44336;">Ditolak</span>
+                                @elseif ($surat->status === 'selesai')
+                                    <span class="status-badge badge-selesai">Selesai</span>
+                                @else
+                                    <span class="status-badge badge-proses">Proses</span>
+                                @endif
                             </td>
+
+                            <td>
+                                @if ($surat->status_validasi === 'ditolak')
+                                    <span class="text-danger">{{ $surat->catatan_validasi ?? '-' }}</span>
+                                @else
+                                    <span class="text-muted">-</span>
+                                @endif
+                            </td>
+
                             <td>
                                 @if ($surat->file_surat)
                                     <a href="{{ Storage::url($surat->file_surat) }}" class="btn btn-sm btn-info-custom" target="_blank">Lihat</a>
@@ -210,26 +224,122 @@
         </table>
     </div>
 </section>
+<!-- Modal Upload Lampiran -->
+<div class="modal fade" id="modalUploadLampiran" tabindex="-1" role="dialog" aria-labelledby="modalUploadLampiranLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form id="formUploadLampiran" enctype="multipart/form-data">
+      @csrf
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalUploadLampiranLabel">Upload Lampiran Surat</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="lampiran_1">Lampiran 1</label>
+            <input type="file" class="form-control-file" id="lampiran_1" name="lampiran_1"
+                   accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx" required>
+            <div id="preview_1" class="mt-2"></div>
+          </div>
+          <div class="form-group">
+            <label for="lampiran_2">Lampiran 2</label>
+            <input type="file" class="form-control-file" id="lampiran_2" name="lampiran_2"
+                   accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx" required>
+            <div id="preview_2" class="mt-2"></div>
+          </div>
+          <small class="form-text text-muted">
+            Format diperbolehkan: PDF, JPG, PNG, DOC, DOCX, XLS. Maksimal 2MB per file.
+          </small>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary-custom">Kirim</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
 
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // Function to filter the table
+    // Fungsi preview file
+    function previewFile(inputElem, previewElemId) {
+        const previewEl = document.getElementById(previewElemId);
+        previewEl.innerHTML = '';
+        const file = inputElem.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = e => {
+            const url = e.target.result;
+            const type = file.type;
+
+            if (type.startsWith('image/')) {
+                const img = document.createElement('img');
+                img.src = url;
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '200px';
+                img.classList.add('img-thumbnail');
+                previewEl.appendChild(img);
+            } else if (type === 'application/pdf') {
+                const embed = document.createElement('embed');
+                embed.src = url;
+                embed.type = 'application/pdf';
+                embed.width = '100%';
+                embed.height = '200px';
+                previewEl.appendChild(embed);
+            } else {
+                const icon = document.createElement('p');
+                icon.textContent = `File: ${file.name}`;
+                previewEl.appendChild(icon);
+            }
+        };
+
+        if (file.type.startsWith('image/') || file.type === 'application/pdf') {
+            reader.readAsDataURL(file);
+        } else {
+            const p = document.createElement('p');
+            p.textContent = `File: ${file.name}`;
+            previewEl.appendChild(p);
+        }
+    }
+
+    // Event listener untuk preview lampiran
+    const inputLampiran1 = document.getElementById('lampiran_1');
+    const inputLampiran2 = document.getElementById('lampiran_2');
+    if (inputLampiran1) {
+        inputLampiran1.addEventListener('change', function () {
+            previewFile(this, 'preview_1');
+        });
+    }
+    if (inputLampiran2) {
+        inputLampiran2.addEventListener('change', function () {
+            previewFile(this, 'preview_2');
+        });
+    }
+
+    // Filter tabel pengajuan
     function filterTable() {
         const status = $('#filterStatus').val().toLowerCase();
         const rowsPerPage = parseInt($('#entriesSelect').val());
         let visibleRows = 0;
-        
-        $('#pengajuanTable tbody tr').each(function() {
+
+        $('#pengajuanTable tbody tr').each(function () {
             const rowStatus = $(this).data('status');
             const statusMatch = status === '' || rowStatus === status;
-            
+
             if (statusMatch && !$(this).hasClass('no-data-row')) {
                 $(this).show();
                 visibleRows++;
-                // Hide rows beyond the current page limit
                 if (rowsPerPage > 0 && visibleRows > rowsPerPage) {
                     $(this).hide();
                 }
@@ -237,40 +347,25 @@ document.addEventListener('DOMContentLoaded', function () {
                 $(this).hide();
             }
         });
-        
-        // Show no data message if no rows visible
+
         if (visibleRows === 0) {
-            // Remove existing no-data message if any
             $('#pengajuanTable tbody .no-data-row').remove();
-            
             $('#pengajuanTable tbody').append(
-                '<tr class="no-data-row"><td colspan="6" class="no-data">' +
-                'Tidak ada data yang sesuai dengan filter' +
-                '</td></tr>'
+                '<tr class="no-data-row"><td colspan="6" class="no-data">Tidak ada data yang sesuai dengan filter</td></tr>'
             );
         } else {
             $('#pengajuanTable tbody .no-data-row').remove();
         }
     }
-    
-    // Event listeners
-    $('#filterStatus').on('change', function() {
-        filterTable();
-    });
-    
-    $('#entriesSelect').on('change', function() {
-        filterTable();
-    });
-    
-    // Initial filter
+
+    $('#filterStatus, #entriesSelect').on('change', filterTable);
     filterTable();
 
-    // Original button functionality
+    // Cek kelayakan sebelum ajukan surat
     const btnCekAjukan = document.getElementById('btnCekAjukan');
-
     btnCekAjukan.addEventListener('click', function () {
-       fetch("{{ route('mahasiswa.surat_pernyataan.cek') }}", {
-            method: 'GET',  
+        fetch("{{ route('mahasiswa.surat_pernyataan.cek') }}", {
+            method: 'GET',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -281,7 +376,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (data.status) {
                 Swal.fire({
                     title: 'Konfirmasi Pengajuan',
-                    html: 'Pastikan Anda adalah <strong>mahasiswa tingkat akhir</strong> atau <strong>mahasiswa yang benar-benar membutuhkan surat pernyataan ini</strong>.',
+                    html: 'Pastikan Anda adalah <strong>mahasiswa tingkat akhir</strong> atau <strong>yang benar-benar membutuhkan surat pernyataan ini</strong>.',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Saya Mengerti',
@@ -294,7 +389,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        ajukanSurat();
+                        $('#modalUploadLampiran').modal('show');
                     }
                 });
             } else {
@@ -325,18 +420,40 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    function ajukanSurat() {
+    // Proses submit form lampiran
+    const formUpload = document.getElementById('formUploadLampiran');
+    formUpload.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(formUpload);
+        const maxSize = 2 * 1024 * 1024;
+        const lampiran1 = formData.get('lampiran_1');
+        const lampiran2 = formData.get('lampiran_2');
+
+        if ((lampiran1 && lampiran1.size > maxSize) || (lampiran2 && lampiran2.size > maxSize)) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Ukuran File Terlalu Besar',
+                text: 'Setiap lampiran maksimal 2MB.',
+                confirmButtonText: 'OK',
+                customClass: {
+                    confirmButton: 'btn btn-primary-custom'
+                },
+                buttonsStyling: false
+            });
+            return;
+        }
+
         fetch("{{ route('mahasiswa.surat_pernyataan.ajukan') }}", {
             method: 'POST',
             headers: {
-                'X-Requested-With': 'XMLHttpRequest',
                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Content-Type': 'application/json'
             },
-            body: JSON.stringify({})
+            body: formData
         })
         .then(response => response.json())
         .then(data => {
+            $('#modalUploadLampiran').modal('hide');
             if (data.status) {
                 Swal.fire({
                     icon: 'success',
@@ -374,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 buttonsStyling: false
             });
         });
-    }
+    });
 });
 </script>
 @endpush
