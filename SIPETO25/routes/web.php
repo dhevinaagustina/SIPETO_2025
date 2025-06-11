@@ -224,9 +224,15 @@ Route::prefix('admin')->name('admin.')->middleware('admin_or_super')->group(func
     Route::get('/surat-pernyataan/lampiran/{id}', [\App\Http\Controllers\SuratPernyataanController::class, 'lihatLampiran'])
     ->name('admin.surat_pernyataan.lampiran');
 
-      // InformasiAdd commentMore actions
-    Route::get('/informasi', [InformasiController::class, 'create']);
+        // Halaman form kirim informasi
+    Route::get('/informasi', [InformasiController::class, 'create'])->name('admin.informasi.create');
+    // Proses kirim informasi
     Route::post('/informasi', [InformasiController::class, 'store'])->name('admin.informasi.store');
+    // Ambil data mahasiswa (AJAX)
+    Route::get('/get-mahasiswa', [InformasiController::class, 'getMahasiswa']);
+    // Menampilkan daftar informasi (misalnya untuk admin melihat histori)
+    Route::get('/admin/informasi', [InformasiController::class, 'index'])->name('informasi.index');
+
 
     // Logout
     Route::post('/logout', function () {

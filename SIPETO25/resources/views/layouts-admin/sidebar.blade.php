@@ -61,57 +61,55 @@
                 }
 
                     else {
-                    // Menu admin biasa
-                    $menu = [
-                        [
-                            'label' => 'Menu', 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
-                                ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => route('admin.dashboard'), 'key' => 'dashboard-admberanda'],
-                                ['label' => 'Tulis Pesan', 'icon' => 'fas fa-bell', 'route' => route('admin.kirim_informasi'), 'key' => 'dashboard-pesan'],
-                            ]
-                        ],
-                        ['label' => 'Cek Data', 'icon' => 'fas fa-search', 'route' => route('admin.cekdata.index'), 'key' => 'cek-data'],
-                        ['label' => 'Riwayat Ujian', 'icon' => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian'],
-                        ['label' => 'Pengajuan Surat', 'icon' => 'fas fa-pen-fancy', 'route' => route('admin.surat_pernyataan.index'), 'key' => 'surat-pernyataan'],
-                        [
-                            'label' => 'Laporan & Export', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
-                                ['label' => 'Laporan Pendaftaran', 'icon' => 'fas fa-file-alt', 'route' => route('admin.laporan.pendaftaran'), 'key' => 'laporan-pendaftaran'],
-                                ['label' => 'Export Data', 'icon' => 'fas fa-download', 'route' => route('admin.laporan.export'), 'key' => 'laporan-export'],
-                            ]
-                        ],
-                    ];
-                }
+                   // Menu admin biasa
+            $menu = [
+            [
+            'label' => 'Menu', 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
+                ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => route('admin.dashboard'), 'key' => 'dashboard-admberanda'],
+                ['label' => 'Tulis Pesan', 'icon' => 'fas fa-bell', 'route' => route('admin.informasi.create'), 'key' => 'dashboard-pesan'],
+            ]
+            ],
+            ['label' => 'Cek Data', 'icon' => 'fas fa-search', 'route' => route('admin.cekdata.index'), 'key' => 'cek-data'],
+            ['label' => 'Riwayat Ujian', 'icon' => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian'],
+            ['label' => 'Pengajuan Surat', 'icon' => 'fas fa-pen-fancy', 'route' => route('admin.surat_pernyataan.index'), 'key' => 'surat-pernyataan'],
+            [
+            'label' => 'Laporan & Export', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
+                ['label' => 'Laporan Pendaftaran', 'icon' => 'fas fa-file-alt', 'route' => route('admin.laporan.pendaftaran'), 'key' => 'laporan-pendaftaran'],
+                ['label' => 'Export Data', 'icon' => 'fas fa-download', 'route' => route('admin.laporan.export'), 'key' => 'laporan-export'],
+            ]
+        ],
+    ];
+            }
             @endphp
 
-
-
-                @foreach ($menu as $item)
-                    <li class="nav-item mb-2 {{ isset($item['submenu']) ? 'has-treeview' : '' }} {{ isset($item['submenu']) && isSubmenuActive($item['submenu'], $activeMenu) ? 'menu-open' : '' }}">
-                        @if (isset($item['submenu']))
-                            <a href="#" class="nav-link sidebar-button {{ isSubmenuActive($item['submenu'], $activeMenu) ? 'active-parent' : '' }}">
-                                <i class="{{ $item['icon'] }} nav-icon me-2"></i>
-                                <span>{{ $item['label'] }}</span>
-                                <i class="right fas fa-angle-down ms-auto"></i>
-                            </a>
-                            <ul class="nav nav-treeview ps-4">
-                                @foreach ($item['submenu'] as $sub)
-                                    <li class="nav-item">
-                                        <a href="{{ url($sub['route']) }}"
-                                           class="nav-link sidebar-button {{ $activeMenu == $sub['key'] ? 'active' : '' }}">
-                                            <i class="{{ $sub['icon'] }} nav-icon me-2"></i>
-                                            <span>{{ $sub['label'] }}</span>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @else
-                            <a href="{{ url($item['route']) }}"
-                               class="nav-link sidebar-button {{ $activeMenu == $item['key'] ? 'active' : '' }}">
-                                <i class="{{ $item['icon'] }} nav-icon me-2"></i>
-                                <span>{{ $item['label'] }}</span>
-                            </a>
-                        @endif
+        @foreach ($menu as $item)
+        <li class="nav-item mb-2 {{ isset($item['submenu']) ? 'has-treeview' : '' }} {{ isset($item['submenu']) && isSubmenuActive($item['submenu'], $activeMenu) ? 'menu-open' : '' }}">
+        @if (isset($item['submenu']))
+            <a href="#" class="nav-link sidebar-button {{ isSubmenuActive($item['submenu'], $activeMenu) ? 'active-parent' : '' }}">
+                <i class="{{ $item['icon'] }} nav-icon me-2"></i>
+                <span>{{ $item['label'] }}</span>
+                <i class="right fas fa-angle-down ms-auto"></i>
+            </a>
+            <ul class="nav nav-treeview ps-4">
+                @foreach ($item['submenu'] as $sub)
+                    <li class="nav-item">
+                        <a href="{{ $sub['route'] }}"
+                        class="nav-link sidebar-button {{ $activeMenu == $sub['key'] ? 'active' : '' }}">
+                            <i class="{{ $sub['icon'] }} nav-icon me-2"></i>
+                            <span>{{ $sub['label'] }}</span>
+                        </a>
                     </li>
                 @endforeach
+            </ul>
+        @else
+            <a href="{{ $item['route'] }}"
+            class="nav-link sidebar-button {{ $activeMenu == $item['key'] ? 'active' : '' }}">
+                <i class="{{ $item['icon'] }} nav-icon me-2"></i>
+                <span>{{ $item['label'] }}</span>
+            </a>
+        @endif
+    </li>
+@endforeach
 
                 <!-- Logout -->
                 <li class="nav-item mt-4">
