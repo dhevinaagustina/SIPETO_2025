@@ -111,18 +111,19 @@
     </li>
 @endforeach
 
-                <!-- Logout -->
-                <li class="nav-item mt-4">
-                    <a href="#" class="nav-link sidebar-button text-white"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="fas fa-sign-out-alt nav-icon me-2"></i>
-                        <span>Keluar</span>
-                    </a>
+             <!-- Sidebar Logout Button -->
+            <li class="nav-item mt-4">
+                <a href="#" id="btn-logout" class="nav-link sidebar-button text-white">
+                    <i class="fas fa-sign-out-alt nav-icon me-2"></i>
+                    <span>Keluar</span>
+                </a>
+            </li>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </li>
+            <!-- Hidden logout form as fallback -->
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+            </li>
             </ul>
         </nav>
     </div>
@@ -183,3 +184,47 @@
     background-color: transparent !important;
 }
 </style>
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById('btn-logout').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: 'Yakin ingin keluar?',
+            text: "Sesi Anda akan diakhiri.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#aaa',
+            confirmButtonText: 'Ya, Keluar',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch("{{ route('logout') }}", {
+                    method: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Redirect ke halaman login atau root
+                        window.location.href = "{{ route('login') }}";
+                    } else {
+                        return response.json().then(data => {
+                            throw new Error(data.message || 'Logout gagal.');
+                        });
+                    }
+                })
+                .catch(error => {
+                    Swal.fire('Gagal', error.message, 'error');
+                });
+            }
+        });
+    });
+</script>
+@endpush
