@@ -158,8 +158,7 @@
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
-                </li>
-
+         </li>
             </ul>
         </nav>
     </div>
@@ -220,3 +219,46 @@
     background-color: transparent !important;
 }
 </style>
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.getElementById('btn-logout-mhs').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: 'Yakin ingin keluar?',
+            text: 'Anda akan keluar dari sesi mahasiswa.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya, Keluar',
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#aaa'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch("{{ route('logout') }}", {
+                    method: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = "{{ route('login') }}"; // arahkan ke halaman login mahasiswa
+                    } else {
+                        return response.json().then(data => {
+                            throw new Error(data.message || 'Logout gagal.');
+                        });
+                    }
+                })
+                .catch(error => {
+                    Swal.fire('Gagal', error.message, 'error');
+                });
+            }
+        });
+    });
+</script>
+@endpush
