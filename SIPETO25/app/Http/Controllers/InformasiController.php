@@ -73,7 +73,7 @@ class InformasiController extends Controller
             'tipe_lampiran' => $tipeLampiran,
             'ditujukan_ke' => $request->ditujukan_ke,
             'status' => $request->status === 'gagal' ? 'gagal' : 'berhasil',
-            'id_admin' => auth()->id(),
+            'id_admin' => auth('admin')->user()->id_admin,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
