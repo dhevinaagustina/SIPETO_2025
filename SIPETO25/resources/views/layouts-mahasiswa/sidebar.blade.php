@@ -149,8 +149,7 @@
 
                 <!-- Logout -->
                 <li class="nav-item mt-4">
-                    <a href="#" class="nav-link sidebar-button text-white"
-                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <a href="#" id="btn-logout-mhs" class="nav-link sidebar-button text-white">
                         <i class="fas fa-sign-out-alt nav-icon me-2"></i>
                         <span>Keluar</span>
                     </a>
@@ -158,7 +157,7 @@
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
-         </li>
+                </li>
             </ul>
         </nav>
     </div>
@@ -220,10 +219,17 @@
 }
 </style>
 
-@push('scripts')
+@push('js')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    document.getElementById('btn-logout-mhs').addEventListener('click', function (e) {
+document.addEventListener('DOMContentLoaded', function () {
+    const logoutBtn = document.getElementById('btn-logout-mhs');
+    if (!logoutBtn) {
+        console.error('Tombol logout tidak ditemukan!');
+        return;
+    }
+
+    logoutBtn.addEventListener('click', function (e) {
         e.preventDefault();
 
         Swal.fire({
@@ -240,14 +246,14 @@
                 fetch("{{ route('logout') }}", {
                     method: "POST",
                     headers: {
-                        'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     }
                 })
                 .then(response => {
                     if (response.ok) {
-                        window.location.href = "{{ route('login') }}"; // arahkan ke halaman login mahasiswa
+                        window.location.href = "{{ route('login') }}";
                     } else {
                         return response.json().then(data => {
                             throw new Error(data.message || 'Logout gagal.');
@@ -260,5 +266,6 @@
             }
         });
     });
+});
 </script>
 @endpush
