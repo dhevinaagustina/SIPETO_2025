@@ -22,18 +22,7 @@
     <div class="card-body pt-4 px-4">
       <h2 class="text-center mb-4" style="font-size: 20px; color: #1c2b50; font-weight: bold;">Masuk ke Akun Anda</h2>
 
-      {{-- Tampilkan pesan error jika login gagal --}}
-      @if($errors->any())
-        <div class="alert alert-danger">
-          <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-              <li>{{ $error }}</li>
-            @endforeach
-          </ul>
-        </div>
-      @endif
-
-      <form action="{{ url('/login') }}" method="POST">
+      <form id="login-form">
         @csrf
 
         {{-- Username --}}
@@ -45,7 +34,7 @@
               </span>
             </div>
             <input type="text" name="username" class="form-control border-start-0" placeholder="Username" required
-              style="border-radius: 0 10px 10px 0; height: 45px;" value="{{ old('username') }}">
+              style="border-radius: 0 10px 10px 0; height: 45px;">
           </div>
         </div>
 
@@ -128,3 +117,46 @@
 </style>
 
 @endsection
+
+@push('scripts')
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@push('scripts')
+<script>
+$(document).ready(function () {
+  $('#login-form').on('submit', function(e) {
+    e.preventDefault();
+
+    let formData = $(this).serialize();
+
+    $.ajax({
+      url: "{{ route('login') }}",
+      method: 'POST',
+      data: formData,
+      headers: {
+        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+      },
+      success: function(response) {
+        if (response.status === 'success') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Berhasil Login',
+            text: 'Mengalihkan ke dashboard...',
+            timer: 1500,
+            showConfirmButton: false
+          }).then(() => {
+            window.location.href = response.redirect;
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Login Gagal',
+            text: response.message
+          });
+        }
+      }
+    });
+  });
+});
+</script>
+@endpush

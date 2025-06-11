@@ -47,7 +47,7 @@ class LoginController extends Controller
     if ($superAdmin && $password === $superAdmin->password) {
         Auth::guard('super_admin')->login($superAdmin);
         session(['guard' => 'super_admin']);
-        return redirect('/admin/dashboard');
+         return response()->json(['status' => 'success', 'redirect' => url('/admin/dashboard')]);
     }
 
     // ✅ 2. Cek Admin
@@ -55,20 +55,18 @@ class LoginController extends Controller
     if ($admin && $password === $admin->password) {
         Auth::guard('admin')->login($admin);
         session(['guard' => 'admin']);
-        return redirect('/admin/dashboard');
+         return response()->json(['status' => 'success', 'redirect' => url('/admin/dashboard')]);
     }
 
-    // ✅ 3. Cek Mahasiswa (aktif & alumni)
+    // Mahasiswa
     $mahasiswa = Mahasiswa::where('username', $username)->first();
     if ($mahasiswa && $password === $mahasiswa->password) {
         Auth::guard('mahasiswa')->login($mahasiswa);
+        $redirect = $mahasiswa->status === 'alumni'
+            ? route('pendaftaran-toeic/mandiri.create')
+            : route('dashboard.beranda');
 
-        // 🚨 Cek status: alumni atau aktif
-       if ($mahasiswa->status === 'alumni') {
-        return redirect()->route('pendaftaran-toeic/mandiri.create');
-        } else {
-            return redirect()->route('dashboard.beranda');
-        }
+        return response()->json(['status' => 'success', 'redirect' => $redirect]);
     }
 
     // ✅ 4. Dosen
@@ -76,7 +74,7 @@ class LoginController extends Controller
     if ($dosen && $password === $dosen->password) {
         Auth::guard('dosen')->login($dosen);
         session(['guard' => 'dosen']);
-        return redirect()->route('dashboard.beranda'); // Sesuaikan dengan rute dashboard dosen
+        return response()->json(['status' => 'success', 'redirect' => route('dashboard.beranda')]);
     }
 
     // ❌ Gagal login
