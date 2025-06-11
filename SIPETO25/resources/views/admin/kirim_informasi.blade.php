@@ -410,28 +410,34 @@
             </label>
         </div>
 
-        <!-- Mahasiswa Tertentu -->
-        <div class="mt-4" id="pilihMahasiswa" style="display: none;">
-            <div class="row">
-                <div class="col-md-9">
-                    <label class="form-label">Pilih Mahasiswa</label>
-                    <select id="mahasiswaSelect" class="form-control select2" style="width: 100%;">
-                        <option value=""></option>
-                        @foreach($mahasiswa as $mhs)
-                            <option value="{{ $mhs->id_mahasiswa }}" data-nama="{{ $mhs->nama_mahasiswa }}">
-                                {{ $mhs->nama_mahasiswa }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-3 d-flex align-items-end">
-                    <button type="button" id="addStudentBtn" class="btn btn-primary w-100">
-                        <i class="fas fa-plus me-1"></i> Tambah
-                    </button>
-                </div>
-            </div>
-            <div id="selectedStudentsContainer" class="mt-3"></div>
+       <!-- Mahasiswa Tertentu -->
+<div class="mt-4" id="pilihMahasiswa" style="display: none;">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Kategori Mahasiswa</label>
+            <select id="kategoriMahasiswa" class="form-control">
+                <option value="aktif" selected>Mahasiswa Aktif</option>
+                <option value="alumni">Mahasiswa Alumni</option>
+            </select>
         </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+            <label class="form-label">Pilih Mahasiswa</label>
+            <select id="mahasiswaSelect" class="form-control select2" style="width: 100%;" data-placeholder="Cari penerima...">
+                <!-- Akan diisi melalui AJAX -->
+            </select>
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+            <button type="button" id="addStudentBtn" class="btn btn-primary w-100">
+                <i class="fas fa-plus me-1"></i> Tambah
+            </button>
+        </div>
+    </div>
+
+    <div id="selectedStudentsContainer" class="mt-3"></div>
+</div>
 
         <!-- Dosen Tertentu -->
         <div class="mt-4" id="pilihDosen" style="display: none;">
@@ -604,7 +610,7 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Select2 Initialization
         $('.select2').select2({
             placeholder: "Cari penerima...",
@@ -629,6 +635,33 @@
             console.error('CKEditor error:', error);
         });
 
+        // Fungsi untuk load data mahasiswa via AJAX
+        function loadMahasiswa(kategori) {
+            $.ajax({
+                url: `/get-mahasiswa?kategori=${kategori}`,
+                type: 'GET',
+                success: function (data) {
+                    const mahasiswaSelect = $('#mahasiswaSelect');
+                    mahasiswaSelect.empty().append('<option></option>'); // Kosongkan dan beri placeholder
+                    data.forEach(function (mhs) {
+                        mahasiswaSelect.append(
+                            `<option value="${mhs.id}" data-nama="${mhs.nama}">${mhs.nama}</option>`
+                        );
+                    });
+                    mahasiswaSelect.trigger('change.select2'); // Refresh Select2
+                },
+                error: function () {
+                    console.error('Gagal mengambil data mahasiswa');
+                }
+            });
+        }
+
+        // Saat kategori mahasiswa diubah
+        $('#kategoriMahasiswa').on('change', function () {
+            const kategori = $(this).val();
+            loadMahasiswa(kategori);
+        });
+
         // Toggle target sections
         $('input[name="ditujukan_ke"]').on('change', function () {
             const value = $(this).val();
@@ -640,6 +673,7 @@
 
             if (value === 'mahasiswa_tertentu') {
                 $('#pilihMahasiswa').slideDown();
+                $('#kategoriMahasiswa').trigger('change'); // ✅ load data mahasiswa sesuai kategori
             } else if (value === 'dosen_tertentu') {
                 $('#pilihDosen').slideDown();
             }
@@ -652,7 +686,6 @@
             const nama = selected.data('nama');
 
             if (!id) return warningAlert('Silakan pilih mahasiswa terlebih dahulu.');
-
             if ($(`#studentCard_${id}`).length)
                 return warningAlert('Mahasiswa sudah ditambahkan.');
 
@@ -732,7 +765,7 @@
             card.on('animationend', () => card.remove());
         });
 
-        // Status selector visual update
+        // Status visual update
         $(document).on('change', '.status-select', function () {
             const status = $(this).val();
             const card = $(this).closest('.student-card');
@@ -754,14 +787,14 @@
             $('#fileName').html(fileName ? `<i class="fas fa-file me-1"></i> ${fileName}` : 'Belum ada file dipilih');
         });
 
-        // Back confirmation
+        // Konfirmasi kembali
         $('#btnBack').on('click', () => new bootstrap.Modal('#confirmBackModal').show());
         $('#confirmBack').on('click', () => window.location.href = "{{ route('admin.dashboard') }}");
 
-        // Help modal
+        // Bantuan
         $('#helpButton').on('click', () => new bootstrap.Modal('#helpModal').show());
 
-        // Submit handler
+        // Submit
         $('#btnSubmit').on('click', function () {
             const tujuan = $('input[name="ditujukan_ke"]:checked').val();
             let warningMsg = '';
@@ -832,6 +865,5 @@
         }
     });
 </script>
-
 </body>
 </html>
