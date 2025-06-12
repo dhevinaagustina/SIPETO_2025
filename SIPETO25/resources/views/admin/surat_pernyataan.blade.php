@@ -115,7 +115,7 @@
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
-        
+
         {{-- FILTER + SEARCH --}}
         <div class="filter-container mb-3">
             <div class="entries-dropdown">
