@@ -13,6 +13,7 @@ class PendaftaranToeic extends Model
 
     protected $fillable = [
         'id_mahasiswa',
+        'id_dosen',
         'tipe_ujian',
         'nik',
         'no_wa',

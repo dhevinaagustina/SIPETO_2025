@@ -151,42 +151,65 @@ class PendaftaranToeicController extends Controller
     // Simpan TOEIC Mandiri
     public function storeMandiri(Request $request)
     {
-        $akun = $this->getUser();
-        $guard = $this->getUserGuard();
+        $mahasiswa = auth('mahasiswa')->user();
+        $dosen = auth('dosen')->user();
 
-        if (!$akun || !$guard) {
+        if (!$mahasiswa && !$dosen) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
-        $idField = 'id_' . $guard;
-        $idValue = $akun->id;
+        // Ambil data tergantung siapa yang login
+        if ($mahasiswa) {
+            $tipe = 'mahasiswa';
+            $idField = 'id_mahasiswa';
+            $idValue = $mahasiswa->id_mahasiswa;
+            $data = [
+                'nama'    => $mahasiswa->nama ?? '-',
+                'nim'     => $mahasiswa->nim ?? '-',
+                'jurusan' => $mahasiswa->jurusan ?? '-',
+                'prodi'   => $mahasiswa->prodi ?? '-',
+                'kampus'  => $mahasiswa->kampus ?? '-',
+                'nik'     => $mahasiswa->nik ?? '-',
+                'no_wa'   => $mahasiswa->no_wa ?? '-',
+                'alamat_asal'     => $mahasiswa->alamat_asal ?? '-',
+                'alamat_sekarang' => $mahasiswa->alamat_sekarang ?? '-',
+            ];
+        } else {
+            $tipe = 'dosen';
+            $idField = 'id_dosen';
+            $idValue = $dosen->id_dosen;
+            $data = [
+                'nama'    => $dosen->nama_dosen ?? '-',
+                'nim'     => $dosen->nip ?? '-',
+                'jurusan' => '-',
+                'prodi'   => '-',
+                'kampus'  => '-',
+                'nik'     => $dosen->nik ?? '-',
+                'no_wa'   => $dosen->no_wa ?? '-',
+                'alamat_asal'     => $dosen->alamat_asal ?? '-',
+                'alamat_sekarang' => $dosen->alamat_sekarang ?? '-',
+            ];
+        }
 
+        // Cek apakah sudah pernah mendaftar TOEIC mandiri
         $sudahDaftar = PendaftaranToeic::where($idField, $idValue)
             ->where('tipe_ujian', 'mandiri')
             ->exists();
 
         if (!$sudahDaftar) {
-            PendaftaranToeic::create([
-                $idField             => $idValue,
-                'tipe_ujian'         => 'mandiri',
-                'nama'               => $akun->nama ?? '-',
-                'nim'                => $akun->nim ?? '-',
-                'jurusan'            => $akun->jurusan ?? '-',
-                'prodi'              => $akun->prodi ?? '-',
-                'kampus'             => $akun->kampus ?? '-',
-                'nik'                => $akun->nik ?? '-',
-                'no_wa'              => $akun->no_wa ?? '-',
-                'alamat_asal'        => $akun->alamat_asal ?? '-',
-                'alamat_sekarang'    => $akun->alamat_sekarang ?? '-',
-                'scan_ktp'           => '-',
-                'scan_ktm'           => '-',
-                'pas_foto'           => '-',
-                'tanggal_daftar'     => now(),
-            ]);
+            PendaftaranToeic::create(array_merge([
+                $idField          => $idValue,
+                'tipe_ujian'      => 'mandiri',
+                'scan_ktp'        => '-',
+                'scan_ktm'        => '-',
+                'pas_foto'        => '-',
+                'tanggal_daftar'  => now(),
+            ], $data));
         }
 
         return redirect()->away('https://itc-indonesia.com/contact-us-2/');
     }
+
 
 
 }

@@ -178,25 +178,28 @@
                                     </thead>
                                     <tbody>
                                         @forelse ($pendaftaranTerbaru as $item)
-                                            <tr>
-                                                <td>{{ $item->mahasiswa->nama_mahasiswa ?? '-' }}</td>
-                                                <td>{{ $item->mahasiswa->nim ?? '-' }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($item->tanggal_daftar)->translatedFormat('d F Y') }}</td>
-                                                <td>
-                                                    @if ($item->tipe_ujian === 'gratis')
-                                                        <span class="badge bg-success">Gratis</span>
-                                                    @elseif ($item->tipe_ujian === 'mandiri')
-                                                        <span class="badge bg-primary">Mandiri</span>
-                                                    @else
-                                                        <span class="badge bg-secondary">{{ ucfirst($item->tipe_ujian) }}</span>
-                                                    @endif
-                                                </td>
-                                            </tr>
+                                            @if ($item->id_mahasiswa && $item->mahasiswa)
+                                                <tr>
+                                                    <td>{{ $item->mahasiswa->nama_mahasiswa ?? '-' }}</td>
+                                                    <td>{{ $item->mahasiswa->nim ?? '-' }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($item->tanggal_daftar)->translatedFormat('d F Y') }}</td>
+                                                    <td>
+                                                        @if ($item->tipe_ujian === 'gratis')
+                                                            <span class="badge bg-success">Gratis</span>
+                                                        @elseif ($item->tipe_ujian === 'mandiri')
+                                                            <span class="badge bg-primary">Mandiri</span>
+                                                        @else
+                                                            <span class="badge bg-secondary">{{ ucfirst($item->tipe_ujian) }}</span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endif
                                         @empty
                                             <tr>
                                                 <td colspan="4" class="text-center text-muted">Tidak ada data terbaru.</td>
                                             </tr>
                                         @endforelse
+
                                     </tbody>
                                 </table>
                             </div>
