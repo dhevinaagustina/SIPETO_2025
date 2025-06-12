@@ -92,8 +92,8 @@
   });
 </script>
 
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 
 @stack('js') <!-- Digunakan untuk memanggil custom js dari perintah push('js') pada masing-masing view -->
 </body>
