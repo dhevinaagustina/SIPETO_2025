@@ -30,23 +30,32 @@
                 $status = $user?->status;
 
                 $menu = [
+            [
+                'label' => __('mahasiswa.sidebar.menu'),
+                'icon' => 'fas fa-th-large',
+                'key' => 'dashboard',
+                'submenu' => [
                     [
-                        'label' => 'Menu',
-                        'icon' => 'fas fa-th-large',
-                        'key' => 'dashboard',
-                        'submenu' => [
-                            ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => '/dashboard/beranda', 'key' => 'dashboard-beranda'],
-                            ['label' => 'Pesan', 'icon' => 'fas fa-bell', 'route' => '/dashboard/pesan', 'key' => 'pesan'],
-                        ]
-                    ]
-                ];
-
+                        'label' => __('mahasiswa.sidebar.home'),
+                        'icon' => 'fas fa-home',
+                        'route' => '/dashboard/beranda',
+                        'key' => 'dashboard-beranda'
+                    ],
+                    [
+                        'label' => __('mahasiswa.sidebar.pesan'),
+                        'icon' => 'fas fa-bell',
+                        'route' => '/dashboard/pesan',
+                        'key' => 'pesan'
+                    ],
+                ]
+            ]
+        ];
                 // Submenu Daftar Ujian
                 $daftarUjianSubmenu = [];
 
                 if ($status === 'aktif') {
                     $daftarUjianSubmenu[] = [
-                        'label' => 'Gratis',
+                        'label' => __('mahasiswa.sidebar.gratis'),
                         'icon' => 'fas fa-receipt',
                         'route' => '/pendaftaran-toeic/gratis',
                         'key' => 'pendaftaran-toeic'
@@ -54,29 +63,29 @@
                 }
 
                 $daftarUjianSubmenu[] = [
-                    'label' => 'Mandiri',
+                    'label' => __('mahasiswa.sidebar.mandiri'),
                     'icon' => 'fas fa-dollar-sign',
                     'route' => '/pendaftaran-toeic/mandiri',
                     'key' => 'pendaftaran-toeic/mandiri'
                 ];
 
                 $menu[] = [
-                    'label' => 'Daftar Ujian',
+                    'label' => __('mahasiswa.sidebar.daftar_ujian'),
                     'icon' => 'fas fa-pencil-alt',
                     'key' => 'daftar-ujian',
                     'submenu' => $daftarUjianSubmenu
                 ];
 
                 $menu[] = [
-                    'label'  => 'Riwayat Ujian',
-                    'icon'   => 'fas fa-clock',
-                    'route'  => route('mahasiswa.riwayat'),
-                    'key'    => 'riwayat-ujian',
+                    'label' => __('mahasiswa.sidebar.riwayat_ujian'),
+                    'icon' => 'fas fa-clock',
+                    'route' => route('mahasiswa.riwayat'),
+                    'key' => 'riwayat-ujian',
                     'active' => request()->routeIs('mahasiswa.riwayat'),
                 ];
 
                 $menu[] = [
-                    'label' => 'Pengajuan Surat',
+                    'label' => __('mahasiswa.sidebar.pengajuan_surat'),
                     'icon' => 'fas fa-pen-fancy',
                     'route' => '/surat_pernyataan',
                     'key' => 'surat_pernyataan'
@@ -103,19 +112,8 @@
                             ['label' => 'Mandiri', 'icon' => 'fas fa-dollar-sign', 'route' => '/pendaftaran-toeic/mandiri', 'key' => 'pendaftaran-toeic/mandiri']
                         ]
                     ],
-                    // [
-                    //     'label' => 'Artikel TOEIC',
-                    //     'icon' => 'fas fa-book',
-                    //     'key' => 'toeic-resources',
-                    //     'submenu' => [
-                    //         ['label' => 'Pemahaman TOEIC', 'icon' => 'fas fa-info-circle', 'route' => '/toeic-resources/understanding', 'key' => 'toeic-understanding'],
-                    //         ['label' => 'Strategi TOEIC', 'icon' => 'fas fa-lightbulb', 'route' => '/toeic-resources/strategies', 'key' => 'toeic-strategies'],
-                    //         ['label' => 'Latihan Soal', 'icon' => 'fas fa-edit', 'route' => '/toeic-resources/practice', 'key' => 'toeic-practice'],
-                    //     ]
-                    // ]
                 ];
             }
-
             @endphp
 
                 @foreach ($menu as $item)
@@ -131,7 +129,7 @@
                                     <li class="nav-item">
                                         <a href="{{ url($sub['route']) }}"
                                            class="nav-link sidebar-button {{ $activeMenu == $sub['key'] ? 'active' : '' }}">
-                                            <i class="{{ $sub['icon'] }} nav-icon me-2"></i>
+                                            <i class="{{ $sub['icon'] ?? 'fas fa-circle' }} nav-icon me-2"></i>
                                             <span>{{ $sub['label'] }}</span>
                                         </a>
                                     </li>
@@ -151,7 +149,7 @@
                 <li class="nav-item mt-4">
                     <a href="#" id="btn-logout-mhs" class="nav-link sidebar-button text-white">
                         <i class="fas fa-sign-out-alt nav-icon me-2"></i>
-                        <span>Keluar</span>
+                        <span>{{ __('mahasiswa.sidebar.keluar') }}</span>
                     </a>
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
