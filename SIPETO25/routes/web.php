@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\DosenController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -247,3 +248,10 @@ Route::prefix('admin')->name('admin.')->middleware('admin_or_super')->group(func
         Auth::logout();
         return redirect()->route('login');
     })->name('admin.logout');
+
+    //profil
+    Route::prefix('profile')->middleware(['auth:mahasiswa,dosen'])->group(function() {
+        Route::get('/current-photo', [ProfileController::class, 'getCurrentPhoto'])->name('profile.current-photo');
+        Route::post('/update-photo', [ProfileController::class, 'updatePhoto'])->name('profile.update-photo');
+        Route::delete('/remove-photo', [ProfileController::class, 'removePhoto'])->name('profile.remove-photo');
+    });

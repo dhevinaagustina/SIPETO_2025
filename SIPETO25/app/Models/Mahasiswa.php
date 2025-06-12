@@ -23,6 +23,7 @@ class Mahasiswa extends Authenticatable
         'kampus',
         'password',
         'status',
+        'photo_path'
     ];
 
 

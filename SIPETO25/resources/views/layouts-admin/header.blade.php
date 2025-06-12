@@ -1,13 +1,16 @@
 @php
     $user = null;
     $role = null;
+    $photoUrl = asset('adminlte/dist/img/avatar2.png'); // Default image
 
     if (Auth::guard('super_admin')->check()) {
         $user = Auth::guard('super_admin')->user();
         $role = 'super_admin';
+        $photoUrl = $user->photo_path ? asset($user->photo_path) : $photoUrl;
     } elseif (Auth::guard('admin')->check()) {
         $user = Auth::guard('admin')->user();
         $role = 'admin';
+        $photoUrl = $user->photo_path ? asset($user->photo_path) : $photoUrl;
     }
 @endphp
 
@@ -31,17 +34,20 @@
             <span class="font-weight-bold mr-2 d-none d-sm-inline">
                 {{ $user?->nama ?? $user?->nama_admin ?? 'Belum Login' }}
             </span>
-                <img src="{{ asset('adminlte/dist/img/avatar2.png') }}" alt="User Avatar"
-                     class="img-circle elevation-1"
-                     style="width: 32px; height: 32px; object-fit: cover;">
+                <img src="{{ $photoUrl }}" alt="User Avatar"
+                    class="img-circle elevation-1 profile-photo" style="width: 32px; height: 32px; object-fit: cover;">
                 <i class="fas fa-chevron-down ml-1 small text-muted"></i>
             </a>
 
             @if($user)
             <div class="dropdown-menu dropdown-menu-right">
+                <a href="#" class="dropdown-item" data-toggle="modal" data-target="#editPhotoModal">
+                    <i class="fas fa-camera mr-2"></i> Ubah Foto Profil
+                </a>
+                <div class="dropdown-divider"></div>
                 <a href="{{ route('logout') }}" class="dropdown-item"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                    <i class="fas fa-sign-out-alt mr-2"></i> Keluar
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
