@@ -224,15 +224,15 @@
 
     <!-- Nav Menu -->
     <nav class="navmenu">
-      <ul>
-        <li><a href="#hero">Beranda</a></li>
-        <li><a href="#features">Fitur Utama</a></li>
-        <li><a href="#schedule">Jadwal Tes</a></li>
-        <li><a href="#why">Keunggulan</a></li>
-        <li><a href="#footer">Kontak</a></li>
-      </ul>
-      <a href="/login" class="btn btn-warning">Masuk</a>
-    </nav>
+    <ul>
+    <li><a href="#hero">{{ __('landing.home') }}</a></li>
+    <li><a href="#features">{{ __('landing.features') }}</a></li>
+    <li><a href="#schedule">{{ __('landing.schedule') }}</a></li>
+    <li><a href="#why">{{ __('landing.why_title') }}</a></li>
+    <li><a href="#footer">{{ __('landing.contact') }}</a></li>
+    </ul>
+  <a href="/login" class="btn btn-warning">{{ __('landing.login') }}</a>
+  </nav>
   </div>
 </header>
 
@@ -246,48 +246,48 @@
       </div>
 
       <div class="carousel-inner">
-        <!-- Slide 1 -->
-        <div class="carousel-item active" style="background-image: url('{{ asset('assets/img/poltek1.jpeg') }}');">
-          <div class="container d-flex h-100 align-items-center">
-            <div class="carousel-content text-white">
-              <h1 class="fw-bold">Selamat Datang di <span class="text-warning">SIPETO!</span></h1>
-              <p>Sistem pendaftaran TOEIC berbasis web yang mudah, cepat, dan transparan.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Slide 2 -->
-        <div class="carousel-item" style="background-image: url('{{ asset('assets/img/poltek2.jpeg') }}');">
-          <div class="container d-flex h-100 align-items-center">
-            <div class="carousel-content text-white">
-              <h1 class="fw-bold">Daftar TOEIC Online</h1>
-              <p>Tanpa antre dan tanpa formulir manual. Semua digital!</p>
-              <a href="#features" class="btn btn-warning">Lihat Fitur</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Slide 3 -->
-        <div class="carousel-item" style="background-image: url('{{ asset('assets/img/poltek3.jpeg') }}');">
-          <div class="container d-flex h-100 align-items-center">
-            <div class="carousel-content text-white">
-              <h1 class="fw-bold">Pantau Hasil dan Riwayat</h1>
-              <p>Cek nilai dan riwayat ujian TOEIC Anda dengan mudah.</p>
-              <a href="#schedule" class="btn btn-warning">Lihat</a>
-            </div>
+       <!-- Slide 1 -->
+      <div class="carousel-item active" style="background-image: url('{{ asset('assets/img/poltek1.jpeg') }}');">
+        <div class="container d-flex h-100 align-items-center">
+          <div class="carousel-content text-white">
+            <h1 class="fw-bold">{!! __('landing.welcome_title') !!}</h1>
+            <p>{{ __('landing.welcome_subtitle') }}</p>
           </div>
         </div>
       </div>
 
+      <!-- Slide 2 -->
+      <div class="carousel-item" style="background-image: url('{{ asset('assets/img/poltek2.jpeg') }}');">
+        <div class="container d-flex h-100 align-items-center">
+          <div class="carousel-content text-white">
+            <h1 class="fw-bold">{{ __('landing.register_title') }}</h1>
+            <p>{{ __('landing.register_subtitle') }}</p>
+            <a href="#features" class="btn btn-warning">{{ __('landing.see_features') }}</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="carousel-item" style="background-image: url('{{ asset('assets/img/poltek3.jpeg') }}');">
+        <div class="container d-flex h-100 align-items-center">
+          <div class="carousel-content text-white">
+            <h1 class="fw-bold">{{ __('landing.track_title') }}</h1>
+            <p>{{ __('landing.track_subtitle') }}</p>
+            <a href="#schedule" class="btn btn-warning">{{ __('landing.see_schedule') }}</a>
+          </div>
+        </div>
+      </div>
+      </div>
+
       <!-- Controls -->
       <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-        <span class="visually-hidden">Sebelumnya</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-        <span class="visually-hidden">Berikutnya</span>
-      </button>
+      <span class="carousel-control-prev-icon"></span>
+      <span class="visually-hidden">{{ __('landing.prev') }}</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+      <span class="visually-hidden">{{ __('landing.next') }}</span>
+    </button>
     </div>
   </section>
   <!-- JS Libraries -->
@@ -574,74 +574,74 @@
 </head>
 <body>
     <!-- Features Section -->
-    <section id="features" class="features section">
-        <div class="container">
-            <div class="section-title text-center">
-                <h2>Kelola Ujian TOEIC Anda dengan Mudah dan Cepat!</h2>
-                <p class="lead">SIPETO dirancang untuk membantu mengatur seluruh proses ujian TOEIC secara digital dalam satu platform terintegrasi.</p>
-            </div>
+<section id="features" class="features section">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2>{{ __('landing.features_title') }}</h2>
+            <p class="lead">{{ __('landing.features_subtitle') }}</p>
+        </div>
 
-            <div class="features-content">
-                <div class="row g-4">
-                    <!-- Feature 1 - Daftar Ujian -->
-                    <div class="col-lg-3 col-md-6 feature-column">
-                        <div class="feature-title text-center">
-                            <h3>Daftar Ujian</h3>
-                        </div>
-                        <div class="feature-box orange text-center">
-                            <div class="feature-icon mx-auto">
-                                <i class="bi bi-pencil-square" style="font-size: 2.5rem; color: #ff7e33;"></i>
-                            </div>
-                            <p>Lakukan pendaftaran ujian TOEIC secara praktis dan cepat langsung dari sistem.</p>
-                            <a href="#" class="btn btn-outline-primary mt-3">Daftar Sekarang</a>
-                        </div>
+        <div class="features-content">
+            <div class="row g-4">
+                <!-- Feature 1 - Daftar Ujian -->
+                <div class="col-lg-3 col-md-6 feature-column">
+                    <div class="feature-title text-center">
+                        <h3>{{ __('landing.feature_1_title') }}</h3>
                     </div>
-
-                    <!-- Feature 2 - Hasil Ujian -->
-                    <div class="col-lg-3 col-md-6 feature-column">
-                        <div class="feature-title text-center">
-                            <h3>Hasil Ujian</h3>
+                    <div class="feature-box orange text-center">
+                        <div class="feature-icon mx-auto">
+                            <i class="bi bi-pencil-square" style="font-size: 2.5rem; color: #ff7e33;"></i>
                         </div>
-                        <div class="feature-box blue text-center">
-                            <div class="feature-icon mx-auto">
-                                <i class="bi bi-graph-up" style="font-size: 2.5rem; color: #4361ee;"></i>
-                            </div>
-                            <p>Lihat hasil Ujian TOEIC Anda yang dikirimkan oleh admin melalui fitur pesan secara langsung dari akun.</p>
-                            <a href="#" class="btn btn-outline-primary mt-3">Cek Hasil</a>
-                        </div>
+                        <p>{{ __('landing.feature_1_desc') }}</p>
+                        <a href="#" class="btn btn-outline-primary mt-3">{{ __('landing.feature_1_button') }}</a>
                     </div>
+                </div>
 
-                    <!-- Feature 3 - Riwayat Ujian -->
-                    <div class="col-lg-3 col-md-6 feature-column">
-                        <div class="feature-title text-center">
-                            <h3>Riwayat Ujian</h3>
-                        </div>
-                        <div class="feature-box brown text-center">
-                            <div class="feature-icon mx-auto">
-                                <i class="bi bi-clock-history" style="font-size: 2.5rem; color: #b5838d;"></i>
-                            </div>
-                            <p>Pantau semua pelaksanaan TOEIC yang telah Anda ikuti dalam satu tampilan. Mudah dilacak kapan pun dibutuhkan.</p>
-                            <a href="#" class="btn btn-outline-primary mt-3">Lihat Riwayat</a>
-                        </div>
+                <!-- Feature 2 - Hasil Ujian -->
+                <div class="col-lg-3 col-md-6 feature-column">
+                    <div class="feature-title text-center">
+                        <h3>{{ __('landing.feature_2_title') }}</h3>
                     </div>
+                    <div class="feature-box blue text-center">
+                        <div class="feature-icon mx-auto">
+                            <i class="bi bi-graph-up" style="font-size: 2.5rem; color: #4361ee;"></i>
+                        </div>
+                        <p>{{ __('landing.feature_2_desc') }}</p>
+                        <a href="#" class="btn btn-outline-primary mt-3">{{ __('landing.feature_2_button') }}</a>
+                    </div>
+                </div>
 
-                    <!-- Feature 4 - Surat Pernyataan -->
-                    <div class="col-lg-3 col-md-6 feature-column">
-                        <div class="feature-title text-center">
-                            <h3>Surat Pernyataan</h3>
+                <!-- Feature 3 - Riwayat Ujian -->
+                <div class="col-lg-3 col-md-6 feature-column">
+                    <div class="feature-title text-center">
+                        <h3>{{ __('landing.feature_3_title') }}</h3>
+                    </div>
+                    <div class="feature-box brown text-center">
+                        <div class="feature-icon mx-auto">
+                            <i class="bi bi-clock-history" style="font-size: 2.5rem; color: #b5838d;"></i>
                         </div>
-                        <div class="feature-box red text-center">
-                            <div class="feature-icon mx-auto">
-                                <i class="bi bi-file-earmark-text" style="font-size: 2.5rem; color: #f72585;"></i>
-                            </div>
-                            <p>Ajukan surat dalam satu platform. Pantau statusnya secara real-time, dan unduh surat kapan saja.</p>
-                            <a href="#" class="btn btn-outline-primary mt-3">Ajukan Surat</a>
+                        <p>{{ __('landing.feature_3_desc') }}</p>
+                        <a href="#" class="btn btn-outline-primary mt-3">{{ __('landing.feature_3_button') }}</a>
+                    </div>
+                </div>
+
+                <!-- Feature 4 - Surat Pernyataan -->
+                <div class="col-lg-3 col-md-6 feature-column">
+                    <div class="feature-title text-center">
+                        <h3>{{ __('landing.feature_4_title') }}</h3>
+                    </div>
+                    <div class="feature-box red text-center">
+                        <div class="feature-icon mx-auto">
+                            <i class="bi bi-file-earmark-text" style="font-size: 2.5rem; color: #f72585;"></i>
                         </div>
+                        <p>{{ __('landing.feature_4_desc') }}</p>
+                        <a href="#" class="btn btn-outline-primary mt-3">{{ __('landing.feature_4_button') }}</a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
   <style>
 /* Main Container */
@@ -789,7 +789,7 @@
 
 <!-- Alur Pendaftaran TOEIC Dinamis -->
 <section style="background-color: #f9f9f9; padding: 60px 20px;">
-  <h2 style="text-align: center; margin-bottom: 40px; color: #1A2A6C;">Alur Pendaftaran TOEIC</h2>
+  <h2 class="text-center mb-5" style="color: #1A2A6C;">{{ __('landing.alur_title') }}</h2>
   <div id="alur-container" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px; max-width: 1100px; margin: 0 auto; color: #0F172A;">
     <!-- Item akan dimasukkan lewat JavaScript -->
   </div>
@@ -797,11 +797,11 @@
 
 <script>
   const alurItems = [
-    { icon: '🔐', label: 'Login ke SIPETO' },
-    { icon: '🧑‍💻', label: 'Lengkapi Profil' },
-    { icon: '📝', label: 'Pilih Jenis Ujian' },
-    { icon: '📎', label: 'Unggah Dokumen' },
-    { icon: '✅', label: 'Konfirmasi & Validasi' }
+    { icon: '🔐', label: "{{ __('landing.alur_items.login') }}" },
+    { icon: '🧑‍💻', label: "{{ __('landing.alur_items.profil') }}" },
+    { icon: '📝', label: "{{ __('landing.alur_items.jenis') }}" },
+    { icon: '📎', label: "{{ __('landing.alur_items.unggah') }}" },
+    { icon: '✅', label: "{{ __('landing.alur_items.konfirmasi') }}" }
   ];
 
   const container = document.getElementById('alur-container');
@@ -823,12 +823,12 @@
 
   <!-- CTA Section -->
 <section class="cta-section" style="text-align: center; padding: 80px 20px; background: linear-gradient(135deg, #2A3F88 0%, #1A2A6C 100%); color: white;">
-  <h2 style="margin-bottom: 20px;">Sudah Siap Mendaftar?</h2>
+  <h2 style="margin-bottom: 20px;">{{ __('landing.cta_title') }}</h2>
   <p style="font-size: 1.2rem; margin-bottom: 30px;">
-    Ambil langkah awal menuju masa depan global Anda bersama TOEIC.
+    {{ __('landing.cta_text') }}
   </p>
   <a href="javascript:void(0)" onclick="scrollToTop()" class="cta-button" style="background-color: #FFD700; color: #1f2b6c; border: none; padding: 15px 40px; font-size: 1.2rem; border-radius: 5px; font-weight: bold; cursor: pointer; text-decoration: none;">
-    Mulai Pendaftaran
+    {{ __('landing.cta_button') }}
   </a>
 </section>
 
@@ -878,55 +878,27 @@
                   }
               </style>
 
-              
-                
                 <!-- Content Column -->
-                <div class="col-lg-6">
-                    <div class="why-content">
-                        <h2 class="section-title">Kenapa SIPETO?</h2>
-                        <p class="lead mb-4">Platform terintegrasi untuk mengelola seluruh proses ujian TOEIC dengan efisien.</p>
-                        
-                        <div class="why-list">
-                            <div class="why-item integrated">
-                                <div class="why-icon">
+            <div class="col-lg-6">
+                <div class="why-content">
+                    <h2 class="section-title">{{ __('landing.why_title') }}</h2>
+                    <p class="lead mb-4">{{ __('landing.why_subtitle') }}</p>
+
+                    <div class="why-list">
+                        @foreach (['integrated', 'transparent', 'efficient', 'accessible'] as $item)
+                            <div class="why-item {{ $item }} d-flex mb-3">
+                                <div class="why-icon me-3 text-primary fs-3">
                                     <i class="bi bi-check-circle-fill"></i>
                                 </div>
                                 <div class="why-text">
-                                    <h3>Terintegrasi</h3>
-                                    <p>Seluruh proses tersedia dalam satu sistem yang saling terhubung, dari pendaftaran hingga pengambilan sertifikat.</p>
+                                    <h5>{{ __('landing.why.' . $item . '.title') }}</h5>
+                                    <p class="mb-0">{{ __('landing.why.' . $item . '.desc') }}</p>
                                 </div>
                             </div>
-                            
-                            <div class="why-item transparent">
-                                <div class="why-icon">
-                                    <i class="bi bi-check-circle-fill"></i>
-                                </div>
-                                <div class="why-text">
-                                    <h3>Transparan</h3>
-                                    <p>Pemantauan proses dapat dilakukan secara real-time dengan notifikasi status setiap tahapan.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="why-item efficient">
-                                <div class="why-icon">
-                                    <i class="bi bi-check-circle-fill"></i>
-                                </div>
-                                <div class="why-text">
-                                    <h3>Efisien</h3>
-                                    <p>Menghemat waktu dan tenaga karena semua dapat dilakukan secara daring tanpa antrian.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="why-item accessible">
-                                <div class="why-icon">
-                                    <i class="bi bi-check-circle-fill"></i>
-                                </div>
-                                <div class="why-text">
-                                    <h3>Akses Mudah</h3>
-                                    <p>Dapat diakses kapan saja dan dimana saja melalui desktop maupun mobile.</p>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
 
                     </div>
                 </div>
@@ -935,65 +907,66 @@
     </section>
 
     <!-- Footer -->
-    <footer id="footer" class="footer">
-        <div class="container">
-            <div class="row gy-4">
-                <!-- Logo Section with Politeknik Negeri Malang text -->
-                <div class="col-lg-3 col-md-6 footer-section">
-                    <div class="footer-brand">
-                        <div class="logo-images">
-                          <img src="{{ asset('img/logo.png') }}"  alt="SIPETO" style="height: 70px; margin-right: 10px;">
-                            <p class="institution-name mt-2">Politeknik Negeri Malang</p>
-                            <p class="mt-2 footer-description">Sistem Pengelolaan Ujian TOEIC Terintegrasi</p>
-                        </div>
-                    </div>
-                </div>
+<footer id="footer" class="footer">
+    <div class="container">
+        <div class="row gy-4">
 
-                <!-- Kontak Kami Section -->
-                <div class="col-lg-3 col-md-4 footer-section">
-                    <h4>Kontak Kami</h4>
-                    <address>
-                        <p><i class="bi bi-geo-alt"></i> Jl. Soekarno-Hatta No. 9<br>
-                        <span class="address-indent">Malang, 65141</span></p>
-                        <p><i class="bi bi-telephone"></i> +62 (0341) 404424-404425</p>
-                        <p><i class="bi bi-envelope"></i> sipeto@polinema.ac.id</p>
-                        <p><i class="bi bi-printer"></i> +62 (0341) 404420</p>
-                    </address>
-                </div>
-
-                <!-- Tautan Penting Section -->
-                <div class="col-lg-3 col-md-4 footer-section">
-                    <h4>Tautan Penting</h4>
-                    <div class="footer-links">
-                        <a href="#" class="tautan-link">Beranda</a>
-                        <a href="#features" class="tautan-link">Fitur Utama</a>
-                        <a href="#schedule" class="tautan-link">Jadwal Tes</a>
-                        <a href="#why" class="tautan-link">Kenapa SIPETO</a>
-                        <a href="#" class="tautan-link">FAQ</a>
-                        <a href="#" class="tautan-link">Kebijakan Privasi</a>
-                    </div>
-                </div>
-
-                <!-- Berita Terbaru Section -->
-                <div class="col-lg-3 col-md-4 footer-section">
-                    <h4>Berita Terbaru</h4>
-                    <div class="news-item mb-3">
-                        <a href="#" class="text-white">Pendaftaran TOEIC Gelombang Juni 2026 Dibuka</a>
-                        <small class="d-block text-muted">15 Mei 2026</small>
-                    </div>
-                    <div class="news-item mb-3">
-                        <a href="#" class="text-white">Workshop Persiapan TOEIC Gratis untuk Peserta</a>
-                        <small class="d-block text-muted">10 Mei 2026</small>
-                    </div>
-                    <div class="social-links mt-4">
-                        <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                        <a href="#" class="youtube"><i class="bi bi-youtube"></i></a>
+            <!-- Logo Section with Politeknik Negeri Malang text -->
+            <div class="col-lg-3 col-md-6 footer-section">
+                <div class="footer-brand">
+                    <div class="logo-images">
+                        <img src="{{ asset('img/logo.png') }}" alt="SIPETO" style="height: 70px; margin-right: 10px;">
+                        <p class="institution-name mt-2">{{ __('landing.footer.institution_name') }}</p>
+                        <p class="mt-2 footer-description">{{ __('landing.footer.description') }}</p>
                     </div>
                 </div>
             </div>
+
+            <!-- Kontak Kami Section -->
+            <div class="col-lg-3 col-md-4 footer-section">
+                <h4>{{ __('landing.footer.contact_us') }}</h4>
+                <address>
+                    <p><i class="bi bi-geo-alt"></i> {{ __('landing.footer.address') }}<br>
+                    <span class="address-indent">{{ __('landing.footer.city_postal') }}</span></p>
+                    <p><i class="bi bi-telephone"></i> {{ __('landing.footer.phone') }}</p>
+                    <p><i class="bi bi-envelope"></i> {{ __('landing.footer.email') }}</p>
+                    <p><i class="bi bi-printer"></i> {{ __('landing.footer.fax') }}</p>
+                </address>
+            </div>
+
+            <!-- Tautan Penting Section -->
+            <div class="col-lg-3 col-md-4 footer-section">
+                <h4>{{ __('landing.footer.important_links') }}</h4>
+                <div class="footer-links">
+                    <a href="#" class="tautan-link">{{ __('landing.footer.home') }}</a>
+                    <a href="#features" class="tautan-link">{{ __('landing.footer.features') }}</a>
+                    <a href="#schedule" class="tautan-link">{{ __('landing.footer.schedule') }}</a>
+                    <a href="#why" class="tautan-link">{{ __('landing.footer.why') }}</a>
+                    <a href="#" class="tautan-link">{{ __('landing.footer.faq') }}</a>
+                    <a href="#" class="tautan-link">{{ __('landing.footer.privacy') }}</a>
+                </div>
+            </div>
+
+            <!-- Berita Terbaru Section -->
+            <div class="col-lg-3 col-md-4 footer-section">
+                <h4>{{ __('landing.footer.latest_news') }}</h4>
+                <div class="news-item mb-3">
+                    <a href="#" class="text-white">{{ __('landing.footer.news_1_title') }}</a>
+                    <small class="d-block text-muted">{{ __('landing.footer.news_1_date') }}</small>
+                </div>
+                <div class="news-item mb-3">
+                    <a href="#" class="text-white">{{ __('landing.footer.news_2_title') }}</a>
+                    <small class="d-block text-muted">{{ __('landing.footer.news_2_date') }}</small>
+                </div>
+                <div class="social-links mt-4">
+                    <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="youtube"><i class="bi bi-youtube"></i></a>
+                </div>
+            </div>
         </div>
+    </div>
         
         <div class="copyright-container">
             <div class="container">

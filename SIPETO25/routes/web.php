@@ -21,6 +21,7 @@ use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\DosenController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
 
 
 /*
@@ -33,6 +34,19 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('landing.index');
 })->name('landing');
+
+Route::get('/', function () {
+    $locale = session('locale', 'en');
+    App::setLocale($locale);
+    return view('landing.index'); // jika file kamu berada di resources/views/landing/index.blade.php
+})->name('landing');
+
+Route::get('/set-locale/{lang}', function ($lang) {
+    if (in_array($lang, ['id', 'en'])) {
+        session(['locale' => $lang]);
+    }
+    return redirect()->back();
+});
 
 // =======================
 // Auth (Login & Logout)
