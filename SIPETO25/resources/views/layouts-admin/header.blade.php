@@ -9,6 +9,8 @@
         $user = Auth::guard('admin')->user();
         $role = 'admin';
     }
+
+    $currentLocale = session('locale', app()->getLocale());
 @endphp
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom-0 px-3">
@@ -26,11 +28,36 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto align-items-center">
+    <!-- Language Switcher -->
+    <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#" role="button">
+            <img src="{{ asset($currentLocale === 'id' ? 'img/ind.png' : 'img/eng.png') }}"
+                alt="flag"
+                width="28" height="20"
+                class="mr-2 border rounded shadow-sm">
+            <i class="fas fa-chevron-down ml-1 small text-muted"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a href="{{ route('change.language', ['lang' => 'id']) }}" class="dropdown-item d-flex align-items-center">
+                <img src="{{ asset('img/ind.png') }}" alt="ID" width="28" height="20" class="mr-2 border rounded shadow-sm">
+                Bahasa Indonesia
+            </a>
+            <a href="{{ route('change.language', ['lang' => 'en']) }}" class="dropdown-item d-flex align-items-center">
+                <img src="{{ asset('img/eng.png') }}" alt="EN" width="28" height="20" class="mr-2 border rounded shadow-sm">
+                English
+            </a>
+        </div>
+    </li>
+
+
+
+
+        <!-- User Dropdown -->
         <li class="nav-item dropdown">
             <a class="nav-link d-flex align-items-center" data-toggle="dropdown" href="#" role="button">
-            <span class="font-weight-bold mr-2 d-none d-sm-inline">
-                {{ $user?->nama ?? $user?->nama_admin ?? 'Belum Login' }}
-            </span>
+                <span class="font-weight-bold mr-2 d-none d-sm-inline">
+                    {{ $user?->nama ?? $user?->nama_admin ?? 'Belum Login' }}
+                </span>
                 <img src="{{ asset('adminlte/dist/img/avatar2.png') }}" alt="User Avatar"
                      class="img-circle elevation-1"
                      style="width: 32px; height: 32px; object-fit: cover;">
