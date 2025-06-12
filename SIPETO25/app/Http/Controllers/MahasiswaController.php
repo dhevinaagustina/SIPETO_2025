@@ -8,10 +8,43 @@ use Illuminate\Support\Facades\Hash;
 
 class MahasiswaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $mahasiswa = Mahasiswa::orderBy('created_at', 'desc')->paginate(10);
-        return view('superadmin.mahasiswa.index', compact('mahasiswa'));
+        $query = Mahasiswa::query();
+        
+        // Sorting
+        if ($request->has('sort')) {
+            $sort = $request->input('sort');
+            $direction = $request->input('direction', 'asc');
+            
+            if (in_array($sort, ['nim', 'nama_mahasiswa'])) {
+                $query->orderBy($sort, $direction);
+            }
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+        
+        // Filtering
+        if ($request->has('jurusan') && $request->jurusan != '') {
+            $query->where('jurusan', $request->jurusan);
+        }
+        
+        if ($request->has('prodi') && $request->prodi != '') {
+            $query->where('prodi', $request->prodi);
+        }
+        
+        if ($request->has('kampus') && $request->kampus != '') {
+            $query->where('kampus', $request->kampus);
+        }
+        
+        $mahasiswa = $query->paginate(10);
+        
+        // Get unique values for filters
+        $jurusanList = Mahasiswa::select('jurusan')->distinct()->pluck('jurusan');
+        $prodiList = Mahasiswa::select('prodi')->distinct()->pluck('prodi');
+        $kampusList = Mahasiswa::select('kampus')->distinct()->pluck('kampus');
+        
+        return view('superadmin.mahasiswa.index', compact('mahasiswa', 'jurusanList', 'prodiList', 'kampusList'));
     }
 
     public function store(Request $request)

@@ -8,9 +8,17 @@ use Illuminate\Support\Facades\Hash;
 
 class SuperAdminController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $admins = Admin::all();
+        $query = Admin::query();
+        
+        // Filter by name if search parameter is present
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('nama_admin', 'like', "%{$search}%");
+        }
+
+        $admins = $query->orderBy('created_at', 'desc')->get();
         return view('superadmin.admin.index', compact('admins'));
     }
 

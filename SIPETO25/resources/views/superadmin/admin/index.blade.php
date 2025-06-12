@@ -34,6 +34,34 @@
     .btn-warning {
         color: #fff;
     }
+    /* Search and Add Button Container */
+    .search-add-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .search-form {
+        display: flex;
+        gap: 10px;
+    }
+    .search-input {
+        width: 300px;
+    }
+    /* Pagination Styles */
+    .pagination .page-item.active .page-link {
+        background-color: #29335C;
+        border-color: #29335C;
+    }
+    .pagination .page-link {
+        color: #29335C;
+    }
+    .pagination .page-item.active .page-link {
+        color: white;
+    }
+    .pagination .page-link:hover {
+        color: #1a2341;
+    }
 </style>
 
 <div class="container-fluid">
@@ -42,12 +70,21 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
     
-    {{-- Tombol Tambah Admin --}}
-    <div class="d-flex justify-content-end">
-      <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalTambahAdmin">
-          Tambah Admin
-      </button>
+    {{-- Search and Add Button --}}
+    <div class="search-add-container">
+        <form action="{{ route('admin.kelola_admin') }}" method="GET" class="search-form">
+            <input type="text" name="search" class="form-control search-input" placeholder="Cari nama admin..." value="{{ request('search') }}">
+            <button type="submit" class="btn btn-primary">Cari</button>
+            @if(request('search'))
+                <a href="{{ route('admin.kelola_admin') }}" class="btn btn-secondary">Reset</a>
+            @endif
+        </form>
+        
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambahAdmin">
+            Tambah Admin
+        </button>
     </div>
+
     {{-- Tabel Admin --}}
     <table class="table-custom">
         <thead>
@@ -60,7 +97,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($admins as $admin)
+            @forelse ($admins as $admin)
                 <tr>
                     <td>{{ $admin->username }}</td>
                     <td>{{ $admin->nama_admin }}</td>
@@ -86,7 +123,11 @@
                         </button>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="5" class="text-center">Tidak ada data admin ditemukan</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
 </div>

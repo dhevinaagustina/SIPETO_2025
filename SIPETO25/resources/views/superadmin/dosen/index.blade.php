@@ -48,6 +48,15 @@
     .pagination .page-link:hover {
         color: #1a2341;
     }
+    .search-container {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .search-input {
+        flex: 1;
+        max-width: 300px;
+    }
 </style>
 
 <div class="container-fluid">
@@ -55,9 +64,17 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <!-- Tombol Tambah Dosen -->
-    <div class="d-flex justify-content-end">
-        <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalTambah">
+    <!-- Search and Add Button -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <form action="{{ route('admin.dosen.index') }}" method="GET" class="search-container">
+            <input type="text" name="search" class="form-control search-input" placeholder="Cari nama dosen..." value="{{ request('search') }}">
+            <button type="submit" class="btn btn-primary">Cari</button>
+            @if(request('search'))
+                <a href="{{ route('admin.dosen.index') }}" class="btn btn-secondary">Reset</a>
+            @endif
+        </form>
+        
+        <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">
             Tambah Dosen
         </button>
     </div>

@@ -62,6 +62,64 @@
         </button>
     </div>
 
+    <!-- Filter and Sort Controls -->
+<div class="row mb-3">
+  <div class="col-md-12">
+      <form method="GET" action="{{ route('admin.mahasiswa.index') }}" class="form-inline">
+          <!-- Sort Dropdown -->
+          <div class="form-group mr-3">
+              <label for="sort" class="mr-2">Sort By:</label>
+              <select name="sort" id="sort" class="form-control" onchange="this.form.submit()">
+                  <option value="">-- Pilih --</option>
+                  <option value="nim" {{ request('sort') == 'nim' ? 'selected' : '' }}>NIM</option>
+                  <option value="nama_mahasiswa" {{ request('sort') == 'nama_mahasiswa' ? 'selected' : '' }}>Nama</option>
+              </select>
+              <input type="hidden" name="direction" value="{{ request('direction') == 'asc' ? 'desc' : 'asc' }}" id="direction">
+          </div>
+          
+          <!-- Filter Dropdowns -->
+          <div class="form-group mr-3">
+              <label for="jurusan" class="mr-2">Jurusan:</label>
+              <select name="jurusan" id="jurusan" class="form-control" onchange="this.form.submit()">
+                  <option value="">-- Semua Jurusan --</option>
+                  @foreach($jurusanList as $jurusan)
+                      <option value="{{ $jurusan }}" {{ request('jurusan') == $jurusan ? 'selected' : '' }}>
+                          {{ $jurusan }}
+                      </option>
+                  @endforeach
+              </select>
+          </div>
+          
+          <div class="form-group mr-3">
+              <label for="prodi" class="mr-2">Prodi:</label>
+              <select name="prodi" id="prodi" class="form-control" onchange="this.form.submit()">
+                  <option value="">-- Semua Prodi --</option>
+                  @foreach($prodiList as $prodi)
+                      <option value="{{ $prodi }}" {{ request('prodi') == $prodi ? 'selected' : '' }}>
+                          {{ $prodi }}
+                      </option>
+                  @endforeach
+              </select>
+          </div>
+          
+          <div class="form-group mr-3">
+              <label for="kampus" class="mr-2">Kampus:</label>
+              <select name="kampus" id="kampus" class="form-control" onchange="this.form.submit()">
+                  <option value="">-- Semua Kampus --</option>
+                  @foreach($kampusList as $kampus)
+                      <option value="{{ $kampus }}" {{ request('kampus') == $kampus ? 'selected' : '' }}>
+                          {{ $kampus }}
+                      </option>
+                  @endforeach
+              </select>
+          </div>
+          
+          <!-- Reset Button -->
+          <a href="{{ route('admin.mahasiswa.index') }}" class="btn btn-secondary">Reset</a>
+      </form>
+  </div>
+</div>
+
     <table class="table-custom">
         <thead>
             <tr>
@@ -234,4 +292,19 @@
     </form>
   </div>
 </div>
+
+<script>
+  // Toggle sort direction when sort field is changed
+  document.getElementById('sort').addEventListener('change', function() {
+      const directionInput = document.getElementById('direction');
+      directionInput.value = directionInput.value === 'asc' ? 'desc' : 'asc';
+  });
+  
+  // Show current sort direction in the UI (optional)
+  @if(request('sort'))
+      document.querySelector(`option[value="{{ request('sort') }}"]`).text += 
+          " ({{ request('direction') == 'asc' ? 'A-Z' : 'Z-A' }})";
+  @endif
+</script>
+
 @endsection
