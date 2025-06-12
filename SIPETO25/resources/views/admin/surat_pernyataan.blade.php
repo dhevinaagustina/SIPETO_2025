@@ -116,7 +116,6 @@
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
-        {{-- FILTER + SEARCH --}}
         <div class="filter-container mb-3">
             <div class="entries-dropdown">
                 <span>Tampilkan</span>
@@ -128,82 +127,81 @@
                 </select>
                 <span>entri</span>
             </div>
-
+        
             <select id="filterStatus" name="filterStatus" class="form-control">
-                <option value="">Filter</option>
+                <option value="">Semua Status</option>
                 <option value="selesai">Selesai</option>
                 <option value="diajukan">Diajukan</option>
+                <option value="ditolak">Ditolak</option>
             </select>
             
             <input type="text" id="searchInput" name="searchInput" class="form-control" placeholder="Cari mahasiswa">
+            
+            <button id="resetFilters" class="btn btn-secondary">Reset</button>
         </div>
-<table id="tableSurat" class="table-custom">
-   <thead>
-    <tr>
-        <th>No</th>
-        <th>Nama Mahasiswa</th>
-        <th>NIM</th>
-        <th>Prodi</th>
-        <th>Tanggal Pengajuan</th>
-        <th>Lampiran</th> {{-- ✅ Tambahan --}}
-        <th>Status</th>
-        <th>File Surat</th>
-        <th>Validasi</th> {{-- ✅ Tambahan --}}
-    </tr>
-</thead>
-<tbody>
-    @foreach ($data as $item)
-        <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $item->mahasiswa->nama_mahasiswa }}</td>
-            <td>{{ $item->mahasiswa->nim }}</td>
-            <td>{{ $item->mahasiswa->prodi }}</td>
-            <td>{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d-m-Y') }}</td>
 
-            {{-- ✅ Lampiran --}}
-            <td class="text-center align-middle">
-                <a href="{{ route('admin.surat_pernyataan.lampiran', $item->id) }}" class="btn btn-sm btn-primary">
-                    Cek Lampiran
-                </a>
-            </td>
-
-            <td class="text-center align-middle">
-                @if ($item->status === 'selesai')
-                    <span class="badge bg-success">Selesai</span>
-                @elseif ($item->status === 'ditolak')
-                    <span class="badge bg-danger">Ditolak</span>
-                @else
-                    <span class="badge bg-warning text-dark">Diajukan</span>
-                @endif
-            </td>
-
-            <td class="text-center align-middle">
-                @if ($item->file_surat)
-                    <a href="{{ asset('storage/' . $item->file_surat) }}" class="btn btn-sm btn-outline-success" target="_blank">Lihat</a>
-                @else
-                    <span class="text-muted">Belum tersedia</span>
-                @endif
-            </td>
-
-            {{-- ✅ Validasi --}}
-            <td class="text-center align-middle">
-                @if ($item->status === 'selesai' || $item->status === 'ditolak')
-                    <button type="button" class="btn btn-secondary btn-sm" disabled title="Surat telah divalidasi">
-                        <i class="fas fa-check-circle"></i> Sudah divalidasi
-                    </button>
-                @else
-                    <button type="button" class="btn btn-success btn-sm btn-validasi" 
-                        data-id="{{ $item->id }}" 
-                        data-nama="{{ $item->mahasiswa->nama_mahasiswa }}">
-                        <i class="fas fa-check"></i> Validasi
-                    </button>
-                @endif
-            </td>
-        </tr>
-    @endforeach
-</tbody>
-
-</table>
+        <table id="tableSurat" class="table-custom">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Mahasiswa</th>
+                    <th>NIM</th>
+                    <th>Prodi</th>
+                    <th>Tanggal Pengajuan</th>
+                    <th>Lampiran</th>
+                    <th>Status</th>
+                    <th>File Surat</th>
+                    <th>Validasi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($data as $item)
+                    <tr data-status="{{ strtolower($item->status) }}">
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->mahasiswa->nama_mahasiswa }}</td>
+                        <td>{{ $item->mahasiswa->nim }}</td>
+                        <td>{{ $item->mahasiswa->prodi }}</td>
+                        <td>{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d-m-Y') }}</td>
+                        <td class="text-center align-middle">
+                            <a href="{{ route('admin.surat_pernyataan.lampiran', $item->id) }}" class="btn btn-sm btn-primary">
+                                Cek Lampiran
+                            </a>
+                        </td>
+                        <td class="text-center align-middle">
+                            @if ($item->status === 'selesai')
+                                <span class="badge bg-success">Selesai</span>
+                            @elseif ($item->status === 'ditolak')
+                                <span class="badge bg-danger">Ditolak</span>
+                            @elseif ($item->status === 'diproses')
+                                <span class="badge bg-info">Diproses</span>
+                            @else
+                                <span class="badge bg-warning text-dark">Diajukan</span>
+                            @endif
+                        </td>
+                        <td class="text-center align-middle">
+                            @if ($item->file_surat)
+                                <a href="{{ asset('storage/' . $item->file_surat) }}" class="btn btn-sm btn-outline-success" target="_blank">Lihat</a>
+                            @else
+                                <span class="text-muted">Belum tersedia</span>
+                            @endif
+                        </td>
+                        <td class="text-center align-middle">
+                            @if ($item->status === 'selesai' || $item->status === 'ditolak')
+                                <button type="button" class="btn btn-secondary btn-sm" disabled title="Surat telah divalidasi">
+                                    <i class="fas fa-check-circle"></i> Sudah divalidasi
+                                </button>
+                            @else
+                                <button type="button" class="btn btn-success btn-sm btn-validasi" 
+                                    data-id="{{ $item->id }}" 
+                                    data-nama="{{ $item->mahasiswa->nama_mahasiswa }}">
+                                    <i class="fas fa-check"></i> Validasi
+                                </button>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 
         <!-- Custom Pagination -->
         <div class="pagination-container">
@@ -227,7 +225,7 @@
   <div class="modal-dialog" role="document">
     <form id="formValidasi" method="POST">
         @csrf
-        @method('POST') {{-- atau ganti jadi PATCH kalau kamu pakai method PATCH di route --}}
+        @method('POST')
         <input type="hidden" name="id" id="validasiId">
         <div class="modal-content">
             <div class="modal-header">
@@ -260,9 +258,6 @@
   </div>
 </div>
 
-
-
-
 @push('js')
     {{-- DataTables & jQuery --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
@@ -272,167 +267,170 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
- $(document).ready(function () {
-    // Custom filter status
-    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-        var selectedStatus = $('#filterStatus').val();
-        var status = $(data[5]).text().trim().toLowerCase();
-
-        return selectedStatus === "" || status === selectedStatus.toLowerCase();
-    });
-
+        $(document).ready(function () {
+            // Hapus semua custom filter sebelumnya
+    $.fn.dataTable.ext.search = [];
+    
     // Inisialisasi DataTable
     var table = $('#tableSurat').DataTable({
-        language: {
-            emptyTable: "Tidak ada data tersedia di tabel",
-            processing: "Memuat...",
-            search: "Cari:",
-            lengthMenu: "Tampilkan _MENU_ entri",
-            info: "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
-            infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
-            paginate: {
-                previous: "Sebelumnya",
-                next: "Berikutnya"
-            }
-        },
-        pageLength: 10,
-        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-        pagingType: "full_numbers",
-        dom: 'tp',
-        initComplete: function () {
-            $('.dataTables_paginate').hide();
-            // Delay updateCustomPagination untuk menghindari error saat page.info belum siap
-            setTimeout(() => {
-                updateCustomPagination();
-            }, 50);
-        },
-        drawCallback: function () {
-            updateCustomPagination();
-        }
+        // ... konfigurasi lainnya tetap sama ...
     });
 
-    // Custom pagination
-    function updateCustomPagination() {
-        if (!table || !table.page || typeof table.page.info !== 'function') return;
-
-        var info = table.page.info();
-        var pagination = $('#customPagination');
-        pagination.empty();
-
-        // Tombol Sebelumnya
-        pagination.append(`
-            <li class="page-item" id="prevPage">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">Sebelumnya</span>
-                </a>
-            </li>
-        `);
-
-        var start = Math.max(1, info.page - 2);
-        var end = Math.min(info.pages, info.page + 2);
-
-        if (info.page > 3) {
-            pagination.append(`
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-            `);
-        }
-
-        for (var i = start; i <= end; i++) {
-            var active = i === info.page + 1 ? 'active' : '';
-            pagination.append(`
-                <li class="page-item ${active}">
-                    <a class="page-link" href="#">${i}</a>
-                </li>
-            `);
-        }
-
-        if (info.page < info.pages - 3) {
-            pagination.append(`
-                <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                <li class="page-item"><a class="page-link" href="#">${info.pages}</a></li>
-            `);
-        }
-
-        // Tombol Selanjutnya
-        pagination.append(`
-            <li class="page-item" id="nextPage">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">Selanjutnya</span>
-                </a>
-            </li>
-        `);
-
-        $('#prevPage').toggleClass('disabled', !info.hasPrevious);
-        $('#nextPage').toggleClass('disabled', !info.hasNext);
-    }
-
-    // Klik pada custom pagination
-    $('#customPagination').on('click', 'a.page-link', function (e) {
-        e.preventDefault();
-        var li = $(this).parent();
-
-        if (li.is('#prevPage')) {
-            table.page('previous').draw('page');
-        } else if (li.is('#nextPage')) {
-            table.page('next').draw('page');
-        } else if (!li.hasClass('disabled') && !li.hasClass('active')) {
-            var pageNum = parseInt($(this).text());
-            table.page(pageNum - 1).draw('page');
-        }
+    // Custom filter untuk status yang lebih robust
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+        var selectedStatus = $('#filterStatus').val().toLowerCase();
+        if (selectedStatus === "") return true;
+        
+        var row = table.row(dataIndex).node();
+        var rowStatus = $(row).data('status').toLowerCase();
+        
+        // Debugging - tampilkan nilai yang dibandingkan
+        console.log("Selected:", selectedStatus, "Row status:", rowStatus);
+        
+        return rowStatus === selectedStatus;
     });
 
-    // Filter jumlah entri
-    $('#entriesSelect').on('change', function () {
-        table.page.len($(this).val()).draw();
-    });
+    // Update dropdown filter status
+    $('#filterStatus').html(`
+        <option value="">Semua Status</option>
+        <option value="selesai">Selesai</option>
+        <option value="diajukan">Diajukan</option>
+        <option value="diproses">Diproses</option>
+        <option value="ditolak">Ditolak</option>
+    `);
 
-    // Filter status
-    $('#filterStatus').on('change', function () {
+    // Handler untuk filter status
+    $('#filterStatus').on('change', function() {
+        console.log("Status filter changed to:", $(this).val());
         table.draw();
     });
 
-    // Input pencarian
-    $('#searchInput').on('keyup', function () {
-        table.search($(this).val()).draw();
-    });
+            // Custom pagination
+            function updateCustomPagination() {
+                if (!table || !table.page || typeof table.page.info !== 'function') return;
 
-    // Set nilai awal entri select
-    $('#entriesSelect').val(table.page.len());
+                var info = table.page.info();
+                var pagination = $('#customPagination');
+                pagination.empty();
 
-    // Tombol validasi klik
-    $(document).on('click', '.btn-validasi', function () {
-        var id = $(this).data('id');
-        var nama = $(this).data('nama');
+                // Tombol Sebelumnya
+                pagination.append(`
+                    <li class="page-item" id="prevPage">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">Sebelumnya</span>
+                        </a>
+                    </li>
+                `);
 
-        $('#validasiId').val(id);
-        $('#namaMahasiswaValidasi').text(nama);
+                var start = Math.max(1, info.page - 2);
+                var end = Math.min(info.pages, info.page + 2);
 
-        // Buat URL action dari template
-        var routeTemplate = "{{ route('admin.surat_pernyataan.validasi', ['id' => '__id__']) }}";
-        var routeAction = routeTemplate.replace('__id__', id);
-        $('#formValidasi').attr('action', routeAction);
+                if (info.page > 3) {
+                    pagination.append(`
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                    `);
+                }
 
-        $('#modalValidasi').modal('show');
-    });
+                for (var i = start; i <= end; i++) {
+                    var active = i === info.page + 1 ? 'active' : '';
+                    pagination.append(`
+                        <li class="page-item ${active}">
+                            <a class="page-link" href="#">${i}</a>
+                        </li>
+                    `);
+                }
 
-    // Validasi form sebelum submit
-    $('#formValidasi').on('submit', function (e) {
-        e.preventDefault();
+                if (info.page < info.pages - 3) {
+                    pagination.append(`
+                        <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                        <li class="page-item"><a class="page-link" href="#">${info.pages}</a></li>
+                    `);
+                }
 
-        const status = $('select[name="status_validasi"]').val().trim();
-        const catatan = $('textarea[name="catatan_validasi"]').val().trim();
+                // Tombol Selanjutnya
+                pagination.append(`
+                    <li class="page-item" id="nextPage">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">Selanjutnya</span>
+                        </a>
+                    </li>
+                `);
 
+                $('#prevPage').toggleClass('disabled', !info.hasPrevious);
+                $('#nextPage').toggleClass('disabled', !info.hasNext);
+            }
 
-        if (status === 'ditolak' && catatan === '') {
-            alert('Silakan isi catatan alasan penolakan.');
-            return;
-        }
+            // Klik pada custom pagination
+            $('#customPagination').on('click', 'a.page-link', function (e) {
+                e.preventDefault();
+                var li = $(this).parent();
 
-        this.submit();
-    });
-});
+                if (li.is('#prevPage')) {
+                    table.page('previous').draw('page');
+                } else if (li.is('#nextPage')) {
+                    table.page('next').draw('page');
+                } else if (!li.hasClass('disabled') && !li.hasClass('active')) {
+                    var pageNum = parseInt($(this).text());
+                    table.page(pageNum - 1).draw('page');
+                }
+            });
 
+            // Filter jumlah entri
+            $('#entriesSelect').on('change', function () {
+                table.page.len($(this).val()).draw();
+            });
+
+            // Filter status
+            $('#filterStatus').on('change', function () {
+                table.draw();
+            });
+
+            // Input pencarian
+            $('#searchInput').on('keyup', function () {
+                table.search($(this).val()).draw();
+            });
+
+            // Set nilai awal entri select
+            $('#entriesSelect').val(table.page.len());
+
+            // Reset filters
+            $('#resetFilters').on('click', function () {
+                $('#filterStatus').val('');
+                $('#searchInput').val('');
+                table.search('').columns().search('').draw();
+            });
+
+            // Tombol validasi klik
+            $(document).on('click', '.btn-validasi', function () {
+                var id = $(this).data('id');
+                var nama = $(this).data('nama');
+
+                $('#validasiId').val(id);
+                $('#namaMahasiswaValidasi').text(nama);
+
+                var routeTemplate = "{{ route('admin.surat_pernyataan.validasi', ['id' => '__id__']) }}";
+                var routeAction = routeTemplate.replace('__id__', id);
+                $('#formValidasi').attr('action', routeAction);
+
+                $('#modalValidasi').modal('show');
+            });
+
+            // Validasi form sebelum submit
+            $('#formValidasi').on('submit', function (e) {
+                e.preventDefault();
+
+                const status = $('select[name="status_validasi"]').val().trim();
+                const catatan = $('textarea[name="catatan_validasi"]').val().trim();
+
+                if (status === 'ditolak' && catatan === '') {
+                    alert('Silakan isi catatan alasan penolakan.');
+                    return;
+                }
+
+                this.submit();
+            });
+        });
     </script>
 @endpush
 @endsection

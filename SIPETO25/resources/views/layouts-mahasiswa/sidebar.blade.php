@@ -101,6 +101,7 @@
                         'icon' => 'fas fa-th-large',
                         'key' => 'dashboard',
                         'submenu' => [
+                            ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => '/dashboard/beranda', 'key' => 'dashboard-beranda'],
                             ['label' => 'Pesan', 'icon' => 'fas fa-bell', 'route' => '/dashboard/pesan', 'key' => 'pesan'],
                         ]
                     ],
