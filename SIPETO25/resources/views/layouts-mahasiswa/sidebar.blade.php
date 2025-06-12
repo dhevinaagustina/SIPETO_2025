@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         Swal.fire({
             title: 'Yakin ingin keluar?',
-            text: 'Anda akan keluar dari sesi mahasiswa.',
+            text: 'Anda akan keluar dari sesi ini.',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Ya, Keluar',
