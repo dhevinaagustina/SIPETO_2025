@@ -22,6 +22,7 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
 
 
 /*
@@ -34,6 +35,19 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('landing.index');
 })->name('landing');
+
+Route::get('/', function () {
+    $locale = session('locale', 'en');
+    App::setLocale($locale);
+    return view('landing.index'); // jika file kamu berada di resources/views/landing/index.blade.php
+})->name('landing');
+
+Route::get('/set-locale/{lang}', function ($lang) {
+    if (in_array($lang, ['id', 'en'])) {
+        session(['locale' => $lang]);
+    }
+    return redirect()->back();
+});
 
 // =======================
 // Auth (Login & Logout)
@@ -248,6 +262,15 @@ Route::prefix('admin')->name('admin.')->middleware('admin_or_super')->group(func
         Auth::logout();
         return redirect()->route('login');
     })->name('admin.logout');
+
+Route::get('/change-language/{lang}', function ($lang) {
+    if (in_array($lang, ['id', 'en'])) {
+        session(['locale' => $lang]);
+        app()->setLocale($lang);
+    }
+    return back();
+})->name('change.language');
+
 
     //profil
     Route::prefix('profile')->middleware(['auth:mahasiswa,dosen'])->group(function() {

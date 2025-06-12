@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\App;
 
 use Carbon\Carbon;
 
@@ -25,12 +26,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        App::setLocale(session('locale', 'id'));
 
         // Force HTTPS saat menggunakan ngrok
         if (request()->header('x-forwarded-proto') === 'https') {
             URL::forceScheme('https');
         }
-        
+
         // Gunakan Bootstrap untuk pagination
         Paginator::useBootstrap();
 
