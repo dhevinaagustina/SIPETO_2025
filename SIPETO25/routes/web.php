@@ -276,7 +276,7 @@ Route::get('/change-language/{lang}', function ($lang) {
 
 
     //profil
-    Route::prefix('profile')->middleware(['auth:mahasiswa,dosen'])->group(function() {
+    Route::prefix('profile')->middleware(['auth:mahasiswa,dosen,admin,super_admin'])->group(function() {
         Route::get('/current-photo', [ProfileController::class, 'getCurrentPhoto'])->name('profile.current-photo');
         Route::post('/update-photo', [ProfileController::class, 'updatePhoto'])->name('profile.update-photo');
         Route::delete('/remove-photo', [ProfileController::class, 'removePhoto'])->name('profile.remove-photo');
