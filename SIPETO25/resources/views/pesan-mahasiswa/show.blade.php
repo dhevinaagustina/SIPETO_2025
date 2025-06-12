@@ -204,7 +204,7 @@
         
         @if($pesan->lampiran)
             <div class="lampiran-section">
-                <h5><i class="fas fa-paperclip"></i> Lampiran</h5>
+                <h5><i class="fas fa-paperclip"></i> {{ __('mahasiswa.pesan.lampiran') }}</h5>
                 
                 @php
                     $ext = strtolower(pathinfo($pesan->lampiran, PATHINFO_EXTENSION));
@@ -212,8 +212,8 @@
                 @endphp
 
                 @if($pesan->tipe_lampiran === 'link')
-                    <a href="{{ $pesan->lampiran }}" target="_blank" class="btn-lampiran">
-                        <i class="fas fa-external-link-alt"></i> Kunjungi Link
+                   <a href="{{ $pesan->lampiran }}" target="_blank" class="btn-lampiran">
+                        <i class="fas fa-external-link-alt"></i> {{ __('mahasiswa.pesan.kunjungi_link') }}
                     </a>
                 @else
                     @if(in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp']))
@@ -229,7 +229,7 @@
                     @endif
 
                     <a href="{{ route('pesan.download', $pesan->id) }}" class="btn-lampiran">
-                        <i class="fas fa-download"></i> Unduh Lampiran
+                        <i class="fas fa-download"></i> {{ __('mahasiswa.pesan.unduh') }}
                     </a>
                 @endif
             </div>

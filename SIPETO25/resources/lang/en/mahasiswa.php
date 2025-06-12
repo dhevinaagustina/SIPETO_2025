@@ -74,4 +74,23 @@ return [
             ],
         ],
     ],
+
+        'pesan' => [
+        'judul' => 'Messages',
+        'tidak_ada' => 'No messages available',
+        'keterangan' => 'All messages you receive will appear here',
+        'buka' => 'Open',
+        'menampilkan' => 'Showing',
+        'pesan' => 'messages',
+        'waktu' => 'ago',
+        'detail_judul' => 'Message Details',
+        'tanggal' => 'Date',
+        'lampiran' => 'Attachment',
+        'kunjungi_link' => 'Visit Link',
+        'unduh' => 'Download Attachment',
+        'breadcrumb' => [
+            'menu' => 'Menu',
+            'pesan' => 'Messages',
+        ],
+    ],
 ];

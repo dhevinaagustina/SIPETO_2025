@@ -74,4 +74,24 @@ return [
             ],
         ],
     ],
+
+        'pesan' => [
+        'judul' => 'Daftar Pesan',
+        'tidak_ada' => 'Tidak ada pesan yang tersedia',
+        'keterangan' => 'Semua pesan yang Anda terima akan muncul di sini',
+        'buka' => 'Buka',
+        'menampilkan' => 'Menampilkan',
+        'pesan' => 'pesan',
+        'waktu' => 'yang lalu',
+        'detail_judul' => 'Detail Pesan',
+        'tanggal' => 'Tanggal',
+        'lampiran' => 'Lampiran',
+        'kunjungi_link' => 'Kunjungi Link',
+        'unduh' => 'Unduh Lampiran',
+        'breadcrumb' => [
+            'menu' => 'Menu',
+            'pesan' => 'Pesan',
+        ],
+    ],
+
 ];
