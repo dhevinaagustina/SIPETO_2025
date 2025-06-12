@@ -8,10 +8,18 @@ use Illuminate\Support\Facades\Hash;
 
 class DosenController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Gunakan paginate, misalnya 10 per halaman, dan urutkan terbaru dulu
-        $dosen = Dosen::orderBy('created_at', 'desc')->paginate(10);
+        $query = Dosen::query();
+        
+        // Filter by name if search parameter is present
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where('nama_dosen', 'like', "%{$search}%");
+        }
+
+        // Order by latest and paginate
+        $dosen = $query->orderBy('created_at', 'desc')->paginate(10);
 
         return view('superadmin.dosen.index', compact('dosen'));
     }
