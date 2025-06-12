@@ -263,7 +263,7 @@
                     </div>
                     @if ($exists)
                         <div class="doc-actions">
-                            <a href="{{ asset('storage/' . $relativePath) }}" download class="btn btn-secondary">Download</a>Add commentMore actions
+                            <a href="{{ asset('storage/' . $relativePath) }}" download class="btn btn-secondary">Download</a>
                             <a href="{{ asset('storage/' . $relativePath) }}" target="_blank" class="btn btn-primary">Lihat Full</a>
                         </div>
                     @endif

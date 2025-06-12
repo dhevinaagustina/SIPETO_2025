@@ -156,11 +156,10 @@
                                     
                                     <div class="icon">
                                         <i class="fas fa-user-graduate"></i>
-                                    </div>
-                                    
-                                    <a href="#" class="small-box-footer">
-                                        Lihat Detail <i class="fas fa-arrow-right"></i>
-                                    </a>
+                                    </div>                                  
+                                        <a href="{{ route('admin.cekdata.index') }}" class="small-box-footer">
+                                            Lihat Detail <i class="fas fa-arrow-right"></i>
+                                        </a>
                                 </div>
                             </div>
                         </div>
