@@ -11,6 +11,7 @@
         $user = Auth::guard('dosen')->user();
         $nama = $user->nama_dosen ?? 'Dosen';
     }
+        $currentLocale = session('locale', app()->getLocale());
 @endphp
 
 
