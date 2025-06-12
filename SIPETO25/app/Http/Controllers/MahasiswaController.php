@@ -22,7 +22,11 @@ class MahasiswaController extends Controller
             'username' => 'required|unique:mahasiswa,username',
             'email' => 'nullable|email',
             'password' => 'required|min:6',
+            'jurusan' => 'required|string',
+            'prodi' => 'required|string',
+            'kampus' => 'required|string',
         ]);
+
 
         Mahasiswa::create([
             'nim' => $request->nim,
@@ -33,6 +37,7 @@ class MahasiswaController extends Controller
             'prodi' => $request->prodi,
             'kampus' => $request->kampus,
             'password' => Hash::make($request->password),
+            'status' => 'aktif', // default saat create
         ]);
 
         return redirect()->route('admin.mahasiswa.index')->with('success', 'Mahasiswa berhasil ditambahkan');

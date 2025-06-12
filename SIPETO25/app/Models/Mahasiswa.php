@@ -14,8 +14,17 @@ class Mahasiswa extends Authenticatable
     public $timestamps = true;
 
     protected $fillable = [
-        'username', 'password',
+        'nim',
+        'nama_mahasiswa',
+        'username',
+        'email',
+        'jurusan',
+        'prodi',
+        'kampus',
+        'password',
+        'status',
     ];
+
 
     protected $hidden = ['password'];
 
