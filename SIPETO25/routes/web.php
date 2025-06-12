@@ -247,3 +247,12 @@ Route::prefix('admin')->name('admin.')->middleware('admin_or_super')->group(func
         Auth::logout();
         return redirect()->route('login');
     })->name('admin.logout');
+
+Route::get('/change-language/{lang}', function ($lang) {
+    if (in_array($lang, ['id', 'en'])) {
+        session(['locale' => $lang]);
+        app()->setLocale($lang);
+    }
+    return back();
+})->name('change.language');
+
