@@ -11,6 +11,7 @@
         $user = Auth::guard('dosen')->user();
         $nama = $user->nama_dosen ?? 'Dosen';
     }
+        $currentLocale = session('locale', app()->getLocale());
 @endphp
 
 
@@ -23,8 +24,8 @@
             </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <span class="h5 font-weight-bold mb-0 ml-2">Sistem Informasi Pendaftaran TOEIC</span>
-        </li>
+        <span class="h5 font-weight-bold mb-0 ml-2">{{ __('mahasiswa.navbar.title') }}</span>
+    </li>
     </ul>
 
     <!-- Right navbar links -->
