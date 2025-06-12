@@ -15,7 +15,7 @@
         $photoUrl = $user->photo_path ? asset($user->photo_path) : $photoUrl;
     }
 
-    $currentLocale = session('locale', app()->getLocale());
+        $currentLocale = session('locale', app()->getLocale());
 @endphp
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom-0 px-3">
@@ -27,8 +27,8 @@
             </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <span class="h5 font-weight-bold mb-0 ml-2">Sistem Informasi Pendaftaran TOEIC</span>
-        </li>
+        <span class="h5 font-weight-bold mb-0 ml-2">{{ __('mahasiswa.navbar.title') }}</span>
+    </li>
     </ul>
 
     <!-- Right navbar links -->

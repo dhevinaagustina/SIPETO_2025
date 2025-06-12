@@ -9,8 +9,11 @@ class DashboardController extends Controller
     public function index()
     {
         $breadcrumb = (object) [
-            "title" => 'Selamat Datang',
-            "list" => ['Menu', 'Beranda']
+            "title" => __('mahasiswa.dashboard.welcome'),
+            "list" => [
+                __('mahasiswa.dashboard.breadcrumb.menu'),
+                __('mahasiswa.dashboard.breadcrumb.home')
+            ]
         ];
     
         $activeMenu = "dashboard-beranda";
@@ -20,5 +23,4 @@ class DashboardController extends Controller
             'activeMenu' => $activeMenu
         ]);
     }
-    
 }

@@ -263,6 +263,9 @@ Route::prefix('admin')->name('admin.')->middleware('admin_or_super')->group(func
         return redirect()->route('login');
     })->name('admin.logout');
 
+// =======================
+// Bilingual Language Change
+//=========================
 Route::get('/change-language/{lang}', function ($lang) {
     if (in_array($lang, ['id', 'en'])) {
         session(['locale' => $lang]);
