@@ -211,19 +211,27 @@ Route::prefix('admin')->name('admin.')->middleware('admin_or_super')->group(func
     });
 
     // Surat Pernyataan
-    Route::get('/surat-pernyataan', [\App\Http\Controllers\SuratPernyataanController::class, 'index'])
-        ->name('admin.surat_pernyataan.index');
+    Route::get('/surat-pernyataan', function () {
+    return redirect()->route('admin.surat_pernyataan.by_tipe', ['tipe' => 'aktif']);
+    })->name('admin.surat_pernyataan.index');
 
     Route::get('/surat-pernyataan/generate/{id}', [\App\Http\Controllers\SuratPernyataanController::class, 'generateSurat'])
         ->name('admin.surat_pernyataan.generate');
 
     Route::post('/admin/surat_pernyataan/validasi/{id}', [SuratPernyataanController::class, 'validasi'])
         ->name('admin.surat_pernyataan.validasi');
-
     // Cek Lampiran Surat
     Route::get('/surat-pernyataan/lampiran/{id}', [\App\Http\Controllers\SuratPernyataanController::class, 'lihatLampiran'])
     ->name('admin.surat_pernyataan.lampiran');
 
+    Route::get('/surat-pernyataan/{tipe}', [SuratPernyataanController::class, 'indexByTipe'])
+    ->whereIn('tipe', ['aktif', 'alumni'])
+    ->name('admin.surat_pernyataan.by_tipe');
+
+    // =======================
+    // Admin Routes (Pesan)
+    // =======================
+    // Tulis pesan informasi
         // Halaman form kirim informasi
     Route::get('/informasi', [InformasiController::class, 'create'])->name('admin.informasi.create');
     // Proses kirim informasi

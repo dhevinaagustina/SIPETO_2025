@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 
 class SuratPernyataanController extends Controller
 {
-    // Mahasiswa
+    // Untuk mahasiswa melihat surat yang diajukan sendiri
     public function mahasiswaIndex()
     {
         $idMahasiswa = Auth::guard('mahasiswa')->id();
@@ -24,7 +24,9 @@ class SuratPernyataanController extends Controller
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
-        $daftarSurat = SuratPernyataan::where('id_mahasiswa', $idMahasiswa)->orderBy('tanggal_pengajuan', 'desc')->get();
+        $daftarSurat = SuratPernyataan::where('id_mahasiswa', $idMahasiswa)
+            ->orderBy('tanggal_pengajuan', 'desc')
+            ->get();
 
         return view('mahasiswa.surat_pernyataan', [
             'daftarSurat'         => $daftarSurat,
@@ -35,6 +37,33 @@ class SuratPernyataanController extends Controller
                 'list'  => ['Pengajuan Surat']
             ]),
         ]);
+    }
+
+    // Admin melihat daftar surat berdasarkan tipe: aktif/alumni
+    public function indexByTipe($tipe)
+    {
+        $query = SuratPernyataan::with('mahasiswa')->orderBy('tanggal_pengajuan', 'desc');
+
+        // Filter berdasarkan tipe
+        if ($tipe === 'aktif') {
+            $query->whereHas('mahasiswa', fn($q) => $q->where('status', 'aktif'));
+        } elseif ($tipe === 'alumni') {
+            $query->whereHas('mahasiswa', fn($q) => $q->where('status', 'alumni'));
+        } else {
+            abort(404); // Tipe tidak dikenali
+        }
+
+        $daftarSurat = $query->get();
+
+        return view('admin.surat_pernyataan', [
+        'data' => $daftarSurat, // ⬅️ ini baris penting
+        'tipe' => $tipe,         // agar bisa digunakan untuk tombol filter aktif/alumni
+        'activeMenu' => 'surat_pernyataan',
+        'breadcrumb' => new Fluent([
+        'title' => 'Pengajuan Surat Pernyataan',
+        'list'  => ['Pengajuan Surat']
+        ]),
+    ]);
     }
 
     public function cekPengajuan()

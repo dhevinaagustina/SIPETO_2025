@@ -71,7 +71,26 @@
             ],
             ['label' => 'Cek Data', 'icon' => 'fas fa-search', 'route' => route('admin.cekdata.index'), 'key' => 'cek-data'],
             ['label' => 'Riwayat Ujian', 'icon' => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian'],
-            ['label' => 'Pengajuan Surat', 'icon' => 'fas fa-pen-fancy', 'route' => route('admin.surat_pernyataan.index'), 'key' => 'surat-pernyataan'],
+            [
+                'label' => 'Pengajuan Surat',
+                'icon' => 'fas fa-pen-fancy',
+                'key' => 'surat-pernyataan',
+                'submenu' => [
+                    [
+                        'label' => 'Mahasiswa Aktif',
+                        'route' => route('admin.surat_pernyataan.by_tipe', ['tipe' => 'aktif']),
+                        'key' => 'surat-pernyataan-aktif',
+                        'icon' => 'fas fa-user-graduate',
+                    ],
+                    [
+                        'label' => 'Alumni',
+                        'route' => route('admin.surat_pernyataan.by_tipe', ['tipe' => 'alumni']),
+                        'key' => 'surat-pernyataan-alumni',
+                        'icon' => 'fas fa-user-check',
+                    ],
+                ]
+            ],
+
             [
             'label' => 'Laporan & Export', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
                 ['label' => 'Laporan Pendaftaran', 'icon' => 'fas fa-file-alt', 'route' => route('admin.laporan.pendaftaran'), 'key' => 'laporan-pendaftaran'],
