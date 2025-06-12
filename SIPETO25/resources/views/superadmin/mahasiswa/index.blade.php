@@ -221,6 +221,10 @@
                 <label>Kampus</label>
                 <input type="text" name="kampus" class="form-control" required>
             </div>
+            <div class="mb-2">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>

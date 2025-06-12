@@ -65,6 +65,18 @@ class InformasiController extends Controller
             $tipeLampiran = $lampiran->getClientOriginalExtension();
         }
 
+        // Tentukan ID pengirim (bisa dari admin atau superadmin)
+        $admin = auth('admin')->user();
+        $superadmin = auth('super_admin')->user();
+
+        if ($admin) {
+            $idAdmin = $admin->id_admin;
+        } elseif ($superadmin) {
+            $idAdmin = $superadmin->id;
+        } else {
+            return back()->with('error', 'Anda tidak memiliki hak untuk mengirim informasi.');
+        }
+
         // Simpan ke tabel informasi
         $informasiId = DB::table('informasi')->insertGetId([
             'judul' => $request->judul,
@@ -73,10 +85,11 @@ class InformasiController extends Controller
             'tipe_lampiran' => $tipeLampiran,
             'ditujukan_ke' => $request->ditujukan_ke,
             'status' => $request->status === 'gagal' ? 'gagal' : 'berhasil',
-            'id_admin' => auth('admin')->user()->id_admin,
+            'id_admin' => $idAdmin, // sudah menyesuaikan role
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
 
         if (!$informasiId) {
             return back()->with('error', 'Gagal menyimpan informasi.');

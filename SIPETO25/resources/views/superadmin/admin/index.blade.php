@@ -214,7 +214,7 @@
     function setEditModalData(id, username, nama_admin, nip, email) {
         // Set form action URL
         const form = document.getElementById('formEditAdmin');
-        form.setAttribute('action', `/admin/kelola_admin/${id}`);
+        form.setAttribute('action', `/admin/kelola-admin/${id}`);
         
         // Fill form fields
         document.getElementById('edit_username').value = username;
