@@ -188,12 +188,14 @@
         font-weight: normal;
     }
     
-    .form-control {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-    }
+select.form-control {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 1.5;
+    height: 45px; /* Atau sesuaikan */
+    font-size: 14px;
+}
+
     
     .file-upload-group {
         margin-bottom: 20px;
@@ -388,7 +390,7 @@
                 <div class="form-column">
                     <div class="form-group">
                         <label for="no_wa"><strong>No. WA</strong></label>
-                        <input id="no_wa" type="text" class="form-control @error('no_wa') is-invalid @enderror" name="no_wa" value="{{ old('no_wa') }}" required placeholder="Masukkan No. WA (Contoh: +62123456789)">
+                        <input id="no_wa" type="text" class="form-control @error('no_wa') is-invalid @enderror" name="no_wa" value="{{ old('no_wa') }}" required placeholder="Masukkan No. WA (Contoh: 08123456789)">
                         @error('no_wa')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

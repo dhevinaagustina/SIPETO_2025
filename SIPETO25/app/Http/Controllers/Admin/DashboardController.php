@@ -111,7 +111,8 @@ class DashboardController extends Controller
 
     public function getTerbaru()
     {
-        $data = PendaftaranToeic::with('mahasiswa') // Eager load relasi mahasiswa
+        $data = PendaftaranToeic::with('mahasiswa',) // Eager load relasi mahasiswa
+            ->whereNotNull('id_mahasiswa')
             ->orderByDesc('tanggal_daftar')
             ->take(5)
             ->get();
