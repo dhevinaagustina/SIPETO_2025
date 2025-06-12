@@ -154,10 +154,10 @@
 
 <div class="pesan-container">
     <div class="pesan-header">
-        <h4><i class="fas fa-envelope"></i> Daftar Pesan</h4>
+        <h4><i class="fas fa-envelope"></i> {{ __('mahasiswa.pesan.judul') }}</h4>
     </div>
 
-    <div class="pesan-list">
+     <div class="pesan-list">
         @foreach($pesan as $item)
             <a href="{{ route('pesan.show', $item->id) }}" class="pesan-item {{ $item->is_read ? '' : 'pesan-unread' }}">
                 <div class="d-flex justify-content-between align-items-start">
@@ -173,23 +173,23 @@
                         {{ $item->created_at->diffForHumans() }}
                     </small>
                     @if(!$item->is_read)
-                        <span class="badge-buka">Buka</span>
+                        <span class="badge-buka">{{ __('mahasiswa.pesan.buka') }}</span>
                     @endif
                 </div>
             </a>
         @endforeach
-        
-        @if($pesan->isEmpty())
+
+       @if($pesan->isEmpty())
             <div class="pesan-empty">
                 <i class="fas fa-inbox"></i>
-                <p>Tidak ada pesan yang tersedia</p>
-                <small>Semua pesan yang Anda terima akan muncul di sini</small>
+                <p>{{ __('mahasiswa.pesan.tidak_ada') }}</p>
+                <small>{{ __('mahasiswa.pesan.keterangan') }}</small>
             </div>
         @endif
     </div>
     
     <div class="pesan-footer">
-        Menampilkan <strong>{{ $pesan->count() }}</strong> pesan
+        {{ __('mahasiswa.pesan.menampilkan') }} <strong>{{ $pesan->count() }}</strong> {{ __('mahasiswa.pesan.pesan') }}
     </div>
 </div>
 

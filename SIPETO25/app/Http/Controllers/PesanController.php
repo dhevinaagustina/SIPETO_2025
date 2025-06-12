@@ -31,19 +31,21 @@ class PesanController extends Controller
                 });
         }
 
-        $pesan = $pesanQuery->get();
+            $pesan = $pesanQuery->get();
 
         return view('pesan-mahasiswa.index', [
             'activeMenu' => 'pesan',
             'breadcrumb' => new Fluent([
-                'title' => 'Pesan Masuk',
-                'list'  => ['Menu', 'Pesan']
+                'title' => __('mahasiswa.pesan.judul'),
+                'list'  => [
+                    __('mahasiswa.pesan.breadcrumb.menu'),
+                    __('mahasiswa.pesan.breadcrumb.pesan'),
+                ]
             ]),
-            'title' => 'Pesan Masuk',
+            'title' => __('mahasiswa.pesan.judul'),
             'pesan' => $pesan
         ]);
-    }
-
+            }
 
     public function show($id)
     {
@@ -76,7 +78,4 @@ class PesanController extends Controller
 
         return Storage::disk('public')->download($path, $pesan->lampiran);
     }
-
-
-
 }
