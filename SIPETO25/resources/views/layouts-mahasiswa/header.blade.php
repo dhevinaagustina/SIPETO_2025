@@ -14,6 +14,8 @@
         $nama = $user->nama_dosen ?? 'Dosen';
         $photoUrl = $user->photo_path ? asset($user->photo_path) : $photoUrl;
     }
+
+    $currentLocale = session('locale', app()->getLocale());
 @endphp
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom-0 px-3">
