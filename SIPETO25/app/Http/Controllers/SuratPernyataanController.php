@@ -124,18 +124,14 @@ public function ajukanSurat(Request $request)
 public function index(Request $request)
 {
     $query = SuratPernyataan::with('mahasiswa')
-        ->select('surat_pernyataan.*') // Pastikan tidak ada duplikasi karena join
-        ->distinct(); // Hindari data duplikat
+        ->orderBy('tanggal_pengajuan', 'desc');
 
     // Filter status surat
     if ($request->has('status') && in_array($request->status, ['selesai', 'diajukan', 'ditolak', 'diproses'])) {
         $query->where('status', $request->status);
     }
 
-    // Pastikan data tidak duplikat dan diurutkan dengan benar
-    $data = $query->orderBy('tanggal_pengajuan', 'desc')
-                 ->get()
-                 ->unique('id'); // Pastikan tidak ada duplikat berdasarkan ID
+    $data = $query->get();
 
     return view('admin.surat_pernyataan', [
         'data' => $data,
@@ -143,7 +139,8 @@ public function index(Request $request)
         'breadcrumb' => new Fluent([
             'title' => 'Daftar Pengajuan Surat Pernyataan',
             'list'  => ['Pengajuan Surat']
-        ])
+        ]),
+        'currentStatus' => $request->status ?? '' // Pass the current status filter to view
     ]);
 }
 
