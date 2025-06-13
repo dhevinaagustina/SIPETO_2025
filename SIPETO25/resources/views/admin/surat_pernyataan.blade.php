@@ -85,6 +85,19 @@
         border-color: #3e8e41;
         color: #fff;
     }
+    .pagination .page-item.active .page-link {
+        background-color: #29335C;
+        border-color: #29335C;
+        color: white;
+    }
+    
+    .pagination .page-link {
+        color: #29335C;
+    }
+    
+    .pagination .page-link:hover {
+        color: #1f294a;
+    }
     /* New filter layout styles */
     .filter-wrapper {
         display: flex;
