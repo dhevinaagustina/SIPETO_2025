@@ -33,15 +33,18 @@ class PendaftaranToeicController extends Controller
         }
 
         return view('pendaftaran.form', [
-            'activeMenu' => 'pendaftaran-toeic',
-            'breadcrumb' => new Fluent([
-                'title' => 'Pendaftaran TOEIC Gratis',
-                'list'  => ['Daftar Ujian', 'Gratis']
-            ]),
-            'kampusList' => Kampus::pluck('nama')->toArray(),
-            'sudahDaftarGratis' => $sudahDaftarGratis,
-            'pendaftaran' => $pendaftaran
-        ]);
+        'activeMenu' => 'pendaftaran-toeic',
+        'breadcrumb' => new Fluent([
+            'title' => __('mahasiswa/daftar_ujian.breadcrumb.title'),
+            'list'  => [
+                __('mahasiswa/daftar_ujian.breadcrumb.menu'),
+                __('mahasiswa/daftar_ujian.breadcrumb.submenu')
+            ]
+        ]),
+        'kampusList' => Kampus::pluck('nama')->toArray(),
+        'sudahDaftarGratis' => $sudahDaftarGratis,
+        'pendaftaran' => $pendaftaran
+    ]);
     }
 
     // Menyimpan data pendaftaran TOEIC Gratis
@@ -137,16 +140,18 @@ class PendaftaranToeicController extends Controller
             ->count();
 
         return view('pendaftaran.form_mandiri', [
-            'activeMenu' => 'pendaftaran-toeic/mandiri',
-            'breadcrumb' => new \Illuminate\Support\Fluent([
-                'title' => 'Pendaftaran TOEIC Mandiri',
-                'list'  => ['Daftar Ujian', 'Mandiri']
-            ]),
-            'jumlahPendaftaranMandiri' => $jumlahPendaftaranMandiri,
-            'urlItc' => 'https://itc-indonesia.com/contact-us-2/',
-        ]);
+        'activeMenu' => 'pendaftaran-toeic/mandiri',
+        'breadcrumb' => new Fluent([
+            'title' => __('mahasiswa/daftar_ujian.breadcrumb_mandiri.title'),
+            'list'  => [
+                __('mahasiswa/daftar_ujian.breadcrumb_mandiri.menu'),
+                __('mahasiswa/daftar_ujian.breadcrumb_mandiri.submenu')
+            ]
+        ]),
+        'jumlahPendaftaranMandiri' => $jumlahPendaftaranMandiri,
+        'urlItc' => 'https://itc-indonesia.com/contact-us-2/',
+    ]);
     }
-
 
     // Simpan TOEIC Mandiri
     public function storeMandiri(Request $request)

@@ -166,14 +166,14 @@
     {{-- Motivational Quote --}}
     <div class="row mb-4">
       <div class="col-12">
-        <div class="p-4 rounded-3 animate__animated animate__fadeIn" style="background: linear-gradient(135deg, #29335C 0%, #1E4B8F 100%);">
+        <div class="p-4 rounded-3 animate_animated animate_fadeIn" style="background: linear-gradient(135deg, #29335C 0%, #1E4B8F 100%);">
           <div class="text-center text-white py-3">
             <i class="fas fa-quote-left fs-1 opacity-25 mb-3"></i>
-            <h3 class="fw-bold mb-3">{{ __('mahasiswa.quote_text') }}</h3>
-            <p class="mb-0 fst-italic">- {{ __('mahasiswa.quote_author') }}</p>
+            <h3 class="fw-bold mb-3">"Success is the sum of small efforts, repeated day in and day out."</h3>
+            <p class="mb-0 fst-italic">- Robert Collier</p>
           </div>
         </div>
-      </div>
+        </div>
     </div>
   </div>
 </div>

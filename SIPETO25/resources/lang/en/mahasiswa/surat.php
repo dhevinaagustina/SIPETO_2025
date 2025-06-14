@@ -1,0 +1,50 @@
+<?php
+
+return [
+    'title' => 'Statement Letter Submission',
+    'breadcrumb' => 'Letter Submission',
+    'tampilkan' => 'Show',
+    'entri' => 'entries',
+    'filter' => 'Filter',
+    'selesai' => 'Completed',
+    'proses' => 'In Process',
+    'ditolak' => 'Rejected',
+    'ajukan' => 'Submit',
+    'no' => 'No',
+    'nim' => 'Student ID',
+    'nama' => 'Name',
+    'tanggal' => 'Submission Date',
+    'status' => 'Status',
+    'catatan' => 'Notes',
+    'file_surat' => 'Letter File',
+    'lihat' => 'View',
+    'belum_ada_pengajuan' => 'No letter submission yet',
+
+    'upload_lampiran_judul' => 'Upload Letter Attachment',
+    'lampiran_1' => 'Attachment 1',
+    'lampiran_2' => 'Attachment 2',
+    'format_info' => 'Allowed formats: PDF, JPG, PNG, DOC, DOCX, XLS. Max 2MB per file.',
+    'kirim' => 'Submit',
+    'batal' => 'Cancel',
+
+    'konfirmasi_judul' => 'Submission Confirmation',
+    'konfirmasi_html' => 'Make sure you are a <strong>final-year student</strong> or <strong>truly in need of this statement letter</strong>.',
+    'konfirmasi_ok' => 'I Understand',
+    'konfirmasi_batal' => 'Cancel',
+    'peringatan_judul' => 'Warning',
+    'peringatan_tombol' => 'OK',
+
+    'message' => 'You have already submitted a letter request. Please wait for the admins decision.',
+
+    'alert' => [
+        'upload_error' => 'An Error Occurred',
+        'upload_retry' => 'Please try again later.',
+        'upload_success_title' => 'Success',
+        'upload_failed_title' => 'Failed',
+        'upload_success_text' => 'Letter request submitted successfully.',
+        'upload_failed_text' => 'Failed to submit letter. Please check your data.',
+        'file_too_large_title' => 'File Too Large',
+        'file_too_large_text' => 'Each attachment must not exceed 2MB.',
+        'ok_button' => 'OK',
+    ],
+];

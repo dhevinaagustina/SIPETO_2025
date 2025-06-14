@@ -29,13 +29,13 @@ class SuratPernyataanController extends Controller
             ->get();
 
         return view('mahasiswa.surat_pernyataan', [
-            'daftarSurat'         => $daftarSurat,
-            'sudahMengajukan'     => $daftarSurat->isNotEmpty(),
-            'activeMenu'          => 'surat_pernyataan',
-            'breadcrumb'          => new Fluent([
-                'title' => 'Pengajuan Surat Pernyataan',
-                'list'  => ['Pengajuan Surat']
-            ]),
+        'daftarSurat'         => $daftarSurat,
+        'sudahMengajukan'     => $daftarSurat->isNotEmpty(),
+        'activeMenu'          => 'surat_pernyataan',
+        'breadcrumb'          => new \Illuminate\Support\Fluent([
+            'title' => __('mahasiswa/surat.title'),
+            'list'  => [__('mahasiswa/surat.breadcrumb')],
+        ]),
         ]);
     }
 
@@ -98,7 +98,7 @@ public function ajukanSurat(Request $request)
     if ($cekPengajuan) {
         return response()->json([
             'status' => false,
-            'message' => 'Anda sudah mengajukan surat. Tunggu keputusan admin.'
+            'message' => __('mahasiswa/surat.message')
         ], 400);
     }
 

@@ -137,26 +137,26 @@
         <div class="filter-container">
             <div class="entries-filter-group">
                 <div class="entries-dropdown">
-                    <span>Tampilkan</span>
+                    <span>{{ __('mahasiswa/surat.tampilkan') }}</span>
                     <select id="entriesSelect" name="entriesSelect" class="form-control">
                         <option value="10">10</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
                         <option value="100">100</option>
-                        <option value="-1">Semua</option>
+                        <option value="-1">{{ __('mahasiswa/surat.entri') }}</option>
                     </select>
-                    <span>entri</span>
+                    <span>{{ __('mahasiswa/surat.entri') }}</span>
                 </div>
 
                 <select id="filterStatus" class="form-control">
-                    <option value="">Filter</option>
-                    <option value="selesai">Selesai</option>
-                    <option value="proses">Proses</option>
+                    <option value="">{{ __('mahasiswa/surat.filter') }}</option>
+                    <option value="selesai">{{ __('mahasiswa/surat.selesai') }}</option>
+                    <option value="proses">{{ __('mahasiswa/surat.proses') }}</option>
                 </select>
             </div>
 
             <div class="action-buttons">
-                <button id="btnCekAjukan" class="btn btn-primary-custom">Ajukan</button>
+                <button id="btnCekAjukan" class="btn btn-primary-custom">{{ __('mahasiswa/surat.ajukan') }}</button>
             </div>
         </div>
 
@@ -169,13 +169,13 @@
         <table class="table-custom" id="pengajuanTable">
             <thead>
                 <tr>
-                    <th style="width: 50px;">No</th>
-                    <th>NIM</th>
-                    <th>Nama</th>
-                    <th>Tanggal Pengajuan</th>
-                    <th>Status</th>
-                    <th>Catatan</th>
-                    <th>File Surat</th>
+                    <th style="width: 50px;">{{ __('mahasiswa/surat.no') }}</th>
+                    <th>{{ __('mahasiswa/surat.nim') }}</th>
+                    <th>{{ __('mahasiswa/surat.nama') }}</th>
+                    <th>{{ __('mahasiswa/surat.tanggal') }}</th>
+                    <th>{{ __('mahasiswa/surat.status') }}</th>
+                    <th>{{ __('mahasiswa/surat.catatan') }}</th>
+                    <th>{{ __('mahasiswa/surat.file_surat') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -188,11 +188,11 @@
                             <td>{{ \Carbon\Carbon::parse($surat->tanggal_pengajuan)->translatedFormat('d F Y') }}</td>
                             <td>
                                 @if ($surat->status_validasi === 'ditolak')
-                                    <span class="status-badge badge-proses" style="background-color: #f44336;">Ditolak</span>
+                                    <span class="status-badge badge-proses" style="background-color: #f44336;">{{ __('mahasiswa/surat.ditolak') }}</span>
                                 @elseif ($surat->status === 'selesai')
-                                    <span class="status-badge badge-selesai">Selesai</span>
+                                    <span class="status-badge badge-selesai">{{ __('mahasiswa/surat.selesai') }}</span>
                                 @else
-                                    <span class="status-badge badge-proses">Proses</span>
+                                    <span class="status-badge badge-proses">{{ __('mahasiswa/surat.proses') }}</span>
                                 @endif
                             </td>
 
@@ -206,7 +206,7 @@
 
                             <td>
                                 @if ($surat->file_surat)
-                                    <a href="{{ Storage::url($surat->file_surat) }}" class="btn btn-sm btn-info-custom" target="_blank">Lihat</a>
+                                    <a href="{{ Storage::url($surat->file_surat) }}" class="btn btn-sm btn-info-custom" target="_blank">{{ __('mahasiswa/surat.lihat') }}</a>
                                 @else
                                     -
                                 @endif
@@ -215,8 +215,8 @@
                     @endforeach
                 @else
                     <tr>
-                        <td colspan="6" class="no-data">
-                            Belum ada pengajuan surat
+                        <td colspan="7" class="no-data">
+                            {{ __('mahasiswa/surat.belum_ada_pengajuan') }}
                         </td>
                     </tr>
                 @endif
@@ -224,46 +224,44 @@
         </table>
     </div>
 </section>
-<!-- Modal Upload Lampiran -->
+
+<!-- Modal Upload Lampiran --> 
 <div class="modal fade" id="modalUploadLampiran" tabindex="-1" role="dialog" aria-labelledby="modalUploadLampiranLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <form id="formUploadLampiran" enctype="multipart/form-data">
       @csrf
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="modalUploadLampiranLabel">Upload Lampiran Surat</h5>
+          <h5 class="modal-title" id="modalUploadLampiranLabel">{{ __('mahasiswa/surat.upload_lampiran_judul') }}</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
-            <label for="lampiran_1">Lampiran 1</label>
+            <label for="lampiran_1">{{ __('mahasiswa/surat.lampiran_1') }}</label>
             <input type="file" class="form-control-file" id="lampiran_1" name="lampiran_1"
                    accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx" required>
             <div id="preview_1" class="mt-2"></div>
           </div>
           <div class="form-group">
-            <label for="lampiran_2">Lampiran 2</label>
+            <label for="lampiran_2">{{ __('mahasiswa/surat.lampiran_2') }}</label>
             <input type="file" class="form-control-file" id="lampiran_2" name="lampiran_2"
                    accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx" required>
             <div id="preview_2" class="mt-2"></div>
           </div>
           <small class="form-text text-muted">
-            Format diperbolehkan: PDF, JPG, PNG, DOC, DOCX, XLS. Maksimal 2MB per file.
+            {{ __('mahasiswa/surat.format_info') }}
           </small>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary-custom">Kirim</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-primary-custom">{{ __('mahasiswa/surat.kirim') }}</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('mahasiswa/surat.batal') }}</button>
         </div>
       </div>
     </form>
   </div>
 </div>
-
-
-
 
 
 @push('js')
@@ -373,14 +371,14 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => response.json())
         .then(data => {
-            if (data.status) {
-                Swal.fire({
-                    title: 'Konfirmasi Pengajuan',
-                    html: 'Pastikan Anda adalah <strong>mahasiswa tingkat akhir</strong> atau <strong>yang benar-benar membutuhkan surat pernyataan ini</strong>.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Saya Mengerti',
-                    cancelButtonText: 'Batal',
+        if (data.status) {
+            Swal.fire({
+                title: '@lang("mahasiswa/surat.konfirmasi_judul")',
+                html: '@lang("mahasiswa/surat.konfirmasi_html")',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '@lang("mahasiswa/surat.konfirmasi_ok")',
+                cancelButtonText: '@lang("mahasiswa/surat.konfirmasi_batal")',
                     customClass: {
                         confirmButton: 'btn btn-primary-custom mx-2',
                         cancelButton: 'btn btn-secondary mx-2'
@@ -395,9 +393,9 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 Swal.fire({
                     icon: 'warning',
-                    title: 'Peringatan',
+                    title: '@lang("mahasiswa/surat.peringatan_judul")',
                     text: data.message,
-                    confirmButtonText: 'OK',
+                    confirmButtonText: '@lang("mahasiswa/surat.peringatan_tombol")',
                     customClass: {
                         confirmButton: 'btn btn-primary-custom'
                     },
@@ -409,9 +407,9 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Error:', error);
             Swal.fire({
                 icon: 'error',
-                title: 'Terjadi Kesalahan',
-                text: 'Silakan coba lagi nanti.',
-                confirmButtonText: 'OK',
+                title: '@lang("mahasiswa/surat.alert.upload_error")',
+                text: '@lang("mahasiswa/surat.alert.upload_retry")',
+                confirmButtonText: '@lang("mahasiswa/surat.alert.ok_button")',
                 customClass: {
                     confirmButton: 'btn btn-primary-custom'
                 },
@@ -433,9 +431,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if ((lampiran1 && lampiran1.size > maxSize) || (lampiran2 && lampiran2.size > maxSize)) {
             Swal.fire({
                 icon: 'warning',
-                title: 'Ukuran File Terlalu Besar',
-                text: 'Setiap lampiran maksimal 2MB.',
-                confirmButtonText: 'OK',
+                title: '@lang("mahasiswa/surat.alert.file_too_large_title")',
+                text: '@lang("mahasiswa/surat.alert.file_too_large_text")',
+                confirmButtonText: '@lang("mahasiswa/surat.alert.ok_button")',
                 customClass: {
                     confirmButton: 'btn btn-primary-custom'
                 },
@@ -457,9 +455,9 @@ document.addEventListener('DOMContentLoaded', function () {
             if (data.status) {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Berhasil',
+                    title: '@lang("mahasiswa/surat.alert.upload_success_title")',
                     text: data.message,
-                    confirmButtonText: 'OK',
+                    confirmButtonText: '@lang("mahasiswa/surat.alert.ok_button")',
                     customClass: {
                         confirmButton: 'btn btn-primary-custom'
                     },
@@ -468,9 +466,9 @@ document.addEventListener('DOMContentLoaded', function () {
             } else {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Gagal',
+                    title: '@lang("mahasiswa/surat.alert.upload_failed_title")',
                     text: data.message,
-                    confirmButtonText: 'OK',
+                    confirmButtonText: '@lang("mahasiswa/surat.alert.ok_button")',
                     customClass: {
                         confirmButton: 'btn btn-primary-custom'
                     },
@@ -482,9 +480,9 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error(error);
             Swal.fire({
                 icon: 'error',
-                title: 'Terjadi Kesalahan',
-                text: 'Silakan coba lagi nanti.',
-                confirmButtonText: 'OK',
+                title: '@lang("mahasiswa/surat.alert.upload_error")',
+                text: '@lang("mahasiswa/surat.alert.upload_retry")',
+                confirmButtonText: '@lang("mahasiswa/surat.alert.ok_button")',
                 customClass: {
                     confirmButton: 'btn btn-primary-custom'
                 },
