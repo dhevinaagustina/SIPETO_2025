@@ -3,20 +3,17 @@
 
     $user = null;
     $nama = 'Pengguna';
-    $photoUrl = asset('adminlte/dist/img/avatar2.png'); // Default image
 
     if (Auth::guard('mahasiswa')->check()) {
         $user = Auth::guard('mahasiswa')->user();
         $nama = $user->nama_mahasiswa ?? 'Mahasiswa';
-        $photoUrl = $user->photo_path ? asset($user->photo_path) : $photoUrl;
     } elseif (Auth::guard('dosen')->check()) {
         $user = Auth::guard('dosen')->user();
         $nama = $user->nama_dosen ?? 'Dosen';
-        $photoUrl = $user->photo_path ? asset($user->photo_path) : $photoUrl;
     }
-
         $currentLocale = session('locale', app()->getLocale());
 @endphp
+
 
 <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom-0 px-3">
     <!-- Left navbar links -->
@@ -27,8 +24,8 @@
             </a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-        <span class="h5 font-weight-bold mb-0 ml-2">{{ __('mahasiswa.navbar.title') }}</span>
-    </li>
+            <span class="h5 font-weight-bold mb-0 ml-2">Sistem Informasi Pendaftaran TOEIC</span>
+        </li>
     </ul>
 
     <!-- Right navbar links -->
@@ -58,18 +55,14 @@
                 <span class="font-weight-bold mr-2 d-none d-sm-inline">
                     {{ $nama }}
                 </span>
-                <img src="{{ $photoUrl }}" alt="User Avatar"
-                    class="img-circle elevation-1 profile-photo" style="width: 32px; height: 32px; object-fit: cover;">
+                <img src="{{ asset('adminlte/dist/img/avatar2.png') }}" alt="User Avatar"
+                    class="img-circle elevation-1" style="width: 32px; height: 32px; object-fit: cover;">
                 <i class="fas fa-chevron-down ml-1 small text-muted"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="#" class="dropdown-item" data-toggle="modal" data-target="#editPhotoModal">
-                    <i class="fas fa-camera mr-2"></i> Ubah Foto Profil
-                </a>
-                <div class="dropdown-divider"></div>
                 <a href="{{ route('logout') }}" class="dropdown-item"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class="fas fa-sign-out-alt mr-2"></i> Keluar
+                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
@@ -77,7 +70,5 @@
             </div>
         </li>
     </ul>
-</nav>
 
-<!-- Include the modal partial -->
-@include('partials.profile_photo_modal')
+</nav>

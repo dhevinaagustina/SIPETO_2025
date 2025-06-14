@@ -20,7 +20,6 @@ use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\DosenController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 
@@ -276,8 +275,8 @@ Route::get('/change-language/{lang}', function ($lang) {
 
 
     //profil
-    Route::prefix('profile')->middleware(['auth:mahasiswa,dosen'])->group(function() {
-        Route::get('/current-photo', [ProfileController::class, 'getCurrentPhoto'])->name('profile.current-photo');
-        Route::post('/update-photo', [ProfileController::class, 'updatePhoto'])->name('profile.update-photo');
-        Route::delete('/remove-photo', [ProfileController::class, 'removePhoto'])->name('profile.remove-photo');
-    });
+    // Route::prefix('profile')->middleware(['auth:mahasiswa,dosen,admin,super_admin'])->group(function() {
+    //     Route::get('/current-photo', [ProfileController::class, 'getCurrentPhoto'])->name('profile.current-photo');
+    //     Route::post('/update-photo', [ProfileController::class, 'updatePhoto'])->name('profile.update-photo');
+    //     Route::delete('/remove-photo', [ProfileController::class, 'removePhoto'])->name('profile.remove-photo');
+    // });

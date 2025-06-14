@@ -18,7 +18,6 @@ class Dosen extends Authenticatable
         'email',
         'username',
         'password',
-        'photo_path',
     ];
 
     protected $hidden = [

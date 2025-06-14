@@ -277,6 +277,12 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('mahasiswa/daftar_ujian.mandiri.modal.no') }}</button>
                 <button type="button" id="confirmBtn" class="btn btn-primary">{{ __('mahasiswa/daftar_ujian.mandiri.modal.yes') }}</button>
             </div>
+
+            <!-- FORM INI YANG DIGUNAKAN -->
+            <form id="mandiriForm" action="{{ route('pendaftaran-toeic/mandiri.store') }}" method="POST" style="display:none;">
+                @csrf
+                <input type="hidden" name="tipe_ujian" value="mandiri">
+            </form>
         </div>
     </div>
 </div>
@@ -287,10 +293,9 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('confirmBtn').addEventListener('click', function() {
-            const urlITC = 'https://itc-indonesia.com/contact-us-2/';
-            window.open(urlITC, '_blank');
-            $('#confirmModal').modal('hide');
+            document.getElementById('mandiriForm').submit(); // kirim form ke Laravel
         });
+
 
         // Add hover effect to feature items
         $('.feature-list li').hover(
