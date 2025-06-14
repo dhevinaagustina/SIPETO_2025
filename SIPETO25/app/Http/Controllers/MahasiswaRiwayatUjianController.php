@@ -26,15 +26,15 @@ class MahasiswaRiwayatUjianController extends Controller
             ->orderBy('pt.created_at', 'desc')
             ->get();
 
-        return view('mahasiswa.riwayat_ujian', [
-            'activeMenu' => 'riwayat-ujian',
-            'breadcrumb' => new \Illuminate\Support\Fluent([
-                'title' => 'Riwayat Ujian',
-                'list'  => ['Riwayat Ujian']
-            ]),
-            'title' => 'Riwayat Ujian',
-            'riwayat' => $riwayat
-        ]);
+    return view('mahasiswa.riwayat_ujian', [
+        'activeMenu' => 'riwayat-ujian',
+        'breadcrumb' => new \Illuminate\Support\Fluent([
+            'title' => __('mahasiswa/riwayat_ujian.title'),
+            'list'  => [__('mahasiswa/riwayat_ujian.breadcrumb')]
+        ]),
+        'title' => __('mahasiswa/riwayat_ujian.title'),
+        'riwayat' => $riwayat
+    ]);
     }
 
 

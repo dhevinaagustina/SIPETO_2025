@@ -285,23 +285,23 @@ select.form-control {
             <div class="col-md-12">
                 <div class="mandiri-card">
                     <div class="mandiri-header animate__animated animate__fadeInDown">
-                        <h4><i class="fas fa-check-circle me-2"></i> Pendaftaran TOEIC Gratis Anda Telah Tercatat</h4>
+                        <h4><i class="fas fa-check-circle me-2"></i> {{ __('mahasiswa/daftar_ujian.title') }}</h4>
                     </div>
 
                     <div class="registration-details">
                         <div class="detail-card">
-                            <h4>Informasi Pendaftaran</h4>
+                            <h4>{{ __('mahasiswa/daftar_ujian.info_title') }}</h4>
                             <div class="detail-item">
-                                <span class="detail-label">Status Pendaftaran:</span>
-                                <span class="detail-value badge badge-success">Terverifikasi</span>
+                                <span class="detail-label">{{ __('mahasiswa/daftar_ujian.status_label') }}</span>
+                                <span class="detail-value badge badge-success">{{ __('mahasiswa/daftar_ujian.status_value') }}</span>
                             </div>
                             <div class="detail-item">
-                                <span class="detail-label">Tanggal Pendaftaran:</span>
+                                <span class="detail-label">{{ __('mahasiswa/daftar_ujian.tanggal_label') }}</span>
                                 <span class="detail-value">{{ \Carbon\Carbon::parse($pendaftaran->tanggal_daftar)->translatedFormat('j F Y') }}</span>
                             </div>
                             <div class="detail-item">
-                                <span class="detail-label">Jenis Ujian:</span>
-                                <span class="detail-value">TOEIC Gratis</span>
+                                <span class="detail-label">{{ __('mahasiswa/daftar_ujian.jenis_label') }}</span>
+                                <span class="detail-value">{{ __('mahasiswa/daftar_ujian.jenis_value') }}</span>
                             </div>
                         </div>
 
@@ -312,11 +312,11 @@ select.form-control {
                                 </svg>
                             </div>
                             <div class="notice-content">
-                                <h4>Perhatian Penting</h4>
-                                <p>Setiap mahasiswa hanya berhak mengikuti <strong>satu kali ujian TOEIC gratis</strong> selama masa studi.</p>
-                                <p>Untuk ujian berikutnya, silakan daftar melalui:</p>
+                                <h4>{{ __('mahasiswa/daftar_ujian.warning_title') }}</h4>
+                                <p>{!! __('mahasiswa/daftar_ujian.warning_1') !!}</p>
+                                <p>{{ __('mahasiswa/daftar_ujian.warning_2') }}</p>
                                 <a href="{{ route('pendaftaran-toeic/mandiri.create') }}" class="btn btn-register">
-                                    <i class="fas fa-pencil-alt"></i> Ujian TOEIC Mandiri
+                                    <i class="fas fa-pencil-alt"></i> {{ __('mahasiswa/daftar_ujian.button_mandiri') }}
                                 </a>
                             </div>
                         </div>
@@ -331,7 +331,7 @@ select.form-control {
                 <!-- Left Column -->
                 <div class="form-column">
                     <div class="form-group">
-                        <label for="nama"><strong>Nama</strong></label>
+                        <label for="nama"><strong>{{ __('mahasiswa/daftar_ujian.nama') }}</strong></label>
                         <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="name" autofocus placeholder="Masukkan Nama">
                         @error('nama')
                             <span class="invalid-feedback" role="alert">
@@ -341,8 +341,10 @@ select.form-control {
                     </div>
 
                     <div class="form-group">
-                        <label for="nim"><strong>NIM</strong></label>
-                        <input id="nim" type="text" class="form-control @error('nim') is-invalid @enderror" name="nim" value="{{ old('nim') }}" required placeholder="Masukkan NIM">
+                        <label for="nim"><strong>{{ __('mahasiswa/daftar_ujian.nim') }}</strong></label>
+                        <input id="nim" type="text" class="form-control @error('nim') is-invalid @enderror"
+                            name="nim" value="{{ old('nim') }}" required
+                            placeholder="{{ __('mahasiswa/daftar_ujian.placeholder_nim') }}">
                         @error('nim')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -351,8 +353,10 @@ select.form-control {
                     </div>
 
                     <div class="form-group">
-                        <label for="prodi"><strong>Program Studi</strong></label>
-                        <input id="prodi" type="text" class="form-control @error('prodi') is-invalid @enderror" name="prodi" value="{{ old('prodi') }}" required placeholder="Masukkan Prodi (Contoh: D4 Sistem Informasi Bisnis)">
+                        <label for="prodi"><strong>{{ __('mahasiswa/daftar_ujian.prodi') }}</strong></label>
+                        <input id="prodi" type="text" class="form-control @error('prodi') is-invalid @enderror"
+                            name="prodi" value="{{ old('prodi') }}" required
+                            placeholder="{{ __('mahasiswa/daftar_ujian.placeholder_prodi') }}">
                         @error('prodi')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -361,8 +365,10 @@ select.form-control {
                     </div>
 
                     <div class="form-group">
-                        <label for="jurusan"><strong>Jurusan</strong></label>
-                        <input id="jurusan" type="text" class="form-control @error('jurusan') is-invalid @enderror" name="jurusan" value="{{ old('jurusan') }}" required placeholder="Masukkan Jurusan">
+                        <label for="jurusan"><strong>{{ __('mahasiswa/daftar_ujian.jurusan') }}</strong></label>
+                        <input id="jurusan" type="text" class="form-control @error('jurusan') is-invalid @enderror"
+                            name="jurusan" value="{{ old('jurusan') }}" required
+                            placeholder="{{ __('mahasiswa/daftar_ujian.placeholder_jurusan') }}">
                         @error('jurusan')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -371,9 +377,9 @@ select.form-control {
                     </div>
 
                     <div class="form-group">
-                        <label for="kampus"><strong>Kampus</strong></label>
+                        <label for="kampus"><strong>{{ __('mahasiswa/daftar_ujian.kampus') }}</strong></label>
                         <select id="kampus" class="form-control @error('kampus') is-invalid @enderror" name="kampus" required>
-                            <option value="" disabled selected>Pilih kampus</option>
+                            <option value="" disabled selected>{{ __('mahasiswa/daftar_ujian.placeholder_kampus') }}</option>
                             @foreach($kampusList as $kampus)
                                 <option value="{{ $kampus }}" {{ old('kampus') == $kampus ? 'selected' : '' }}>{{ $kampus }}</option>
                             @endforeach
@@ -389,8 +395,13 @@ select.form-control {
                 <!-- Right Column -->
                 <div class="form-column">
                     <div class="form-group">
+
+                        <label for="no_wa"><strong>{{ __('mahasiswa/daftar_ujian.no_wa') }}</strong></label>
+                        <input id="no_wa" type="text" class="form-control @error('no_wa') is-invalid @enderror" name="no_wa" value="{{ old('no_wa') }}" required placeholder="Masukkan No. WA (Contoh: +62123456789)">
+
                         <label for="no_wa"><strong>No. WA</strong></label>
                         <input id="no_wa" type="text" class="form-control @error('no_wa') is-invalid @enderror" name="no_wa" value="{{ old('no_wa') }}" required placeholder="Masukkan No. WA (Contoh: 08123456789)">
+
                         @error('no_wa')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -399,7 +410,7 @@ select.form-control {
                     </div>
 
                     <div class="form-group">
-                        <label for="nik"><strong>NIK</strong></label>
+                        <label for="nik"><strong>{{ __('mahasiswa/daftar_ujian.nik') }}</strong></label>
                         <input id="nik" type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" value="{{ old('nik') }}" required placeholder="Masukkan NIK">
                         @error('nik')
                             <span class="invalid-feedback" role="alert">
@@ -409,7 +420,7 @@ select.form-control {
                     </div>
                     
                     <div class="form-group">
-                        <label for="alamat_asal"><strong>Alamat Asal</strong></label>
+                        <label for="alamat_asal"><strong>{{ __('mahasiswa/daftar_ujian.alamat_asal') }}</strong></label>
                         <input id="alamat_asal" type="text" class="form-control @error('alamat_asal') is-invalid @enderror" name="alamat_asal" value="{{ old('alamat_asal') }}" required placeholder="Masukkan Alamat Asal">
                         @error('alamat_asal')
                             <span class="invalid-feedback" role="alert">
@@ -419,7 +430,7 @@ select.form-control {
                     </div>
 
                     <div class="form-group">
-                        <label for="alamat_sekarang"><strong>Alamat Sekarang</strong></label>
+                        <label for="alamat_sekarang"><strong>{{ __('mahasiswa/daftar_ujian.alamat_sekarang') }}</strong></label>
                         <input id="alamat_sekarang" type="text" class="form-control @error('alamat_sekarang') is-invalid @enderror" name="alamat_sekarang" value="{{ old('alamat_sekarang') }}" required placeholder="Masukkan Alamat Sekarang">
                         @error('alamat_sekarang')
                             <span class="invalid-feedback" role="alert">
@@ -433,15 +444,15 @@ select.form-control {
             <!-- File Upload Section -->
             <div class="form-section">
                 <div class="file-upload-group">
-                    <label><strong>File Scan KTP</strong></label>
+                    <label><strong>{{ __('mahasiswa/daftar_ujian.scan_ktp') }}</strong></label>
                     <div class="file-upload-wrapper">
                         <div class="file-upload-preview" id="ktp-preview">
-                            <span class="file-upload-placeholder">Gambar Tidak Tersedia</span>
+                            <span class="file-upload-placeholder">{{ __('mahasiswa/daftar_ujian.file_upload_preview_empty') }}</span>
                         </div>
                         <input type="file" id="scan_ktp" name="scan_ktp" class="file-upload-input @error('scan_ktp') is-invalid @enderror" accept=".jpg,.jpeg,.png,.pdf" required>
-                        <label for="scan_ktp" class="file-upload-button">Pilih File</label>
-                        <div class="file-upload-info">Tidak ada file yang dipilih</div>
-                        <small class="file-upload-hint">[Ukuran (Max: 100 Mb)] [Ekstensi (.jpg/.png/.pdf)]</small>
+                        <label for="scan_ktp" class="file-upload-button">{{ __('mahasiswa/daftar_ujian.file_upload_button') }}</label>
+                        <div class="file-upload-info">{{ __('mahasiswa/daftar_ujian.file_upload_info') }}</div>
+                        <small class="file-upload-hint">{{ __('mahasiswa/daftar_ujian.file_upload_hint') }}</small>
                         @error('scan_ktp')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -451,15 +462,15 @@ select.form-control {
                 </div>
 
                 <div class="file-upload-group">
-                    <label><strong>File Scan KTM</strong></label>
+                    <label for="scan_ktm">{{ __('mahasiswa/daftar_ujian.scan_ktm') }}</label>
                     <div class="file-upload-wrapper">
                         <div class="file-upload-preview" id="ktm-preview">
-                            <span class="file-upload-placeholder">Gambar Tidak Tersedia</span>
+                            <span class="file-upload-placeholder">{{ __('mahasiswa/daftar_ujian.file_upload_preview_empty') }}</span>
                         </div>
                         <input type="file" id="scan_ktm" name="scan_ktm" class="file-upload-input @error('scan_ktm') is-invalid @enderror" accept=".jpg,.jpeg,.png,.pdf" required>
-                        <label for="scan_ktm" class="file-upload-button">Pilih File</label>
-                        <div class="file-upload-info">Tidak ada file yang dipilih</div>
-                        <small class="file-upload-hint">[Ukuran (Max: 100 Mb)] [Ekstensi (.jpg/.png/.pdf)]</small>
+                        <label for="scan_ktm" class="file-upload-button">{{ __('mahasiswa/daftar_ujian.file_upload_button') }}</label>
+                        <div class="file-upload-info">{{ __('mahasiswa/daftar_ujian.file_upload_info') }}</div>
+                        <small class="file-upload-hint">{{ __('mahasiswa/daftar_ujian.file_upload_hint') }}</small>
                         @error('scan_ktm')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -469,15 +480,15 @@ select.form-control {
                 </div>
 
                 <div class="file-upload-group">
-                    <label><strong>File Pas Foto Terbaru</strong></label>
+                    <label for="pas_foto"><strong>{{ __('mahasiswa/daftar_ujian.pas_foto') }}</strong></label>
                     <div class="file-upload-wrapper">
                         <div class="file-upload-preview" id="foto-preview">
-                            <span class="file-upload-placeholder">Gambar Tidak Tersedia</span>
+                            <span class="file-upload-placeholder">{{ __('mahasiswa/daftar_ujian.file_upload_preview_empty') }}</span>
                         </div>
                         <input type="file" id="pas_foto" name="pas_foto" class="file-upload-input @error('pas_foto') is-invalid @enderror" accept=".jpg,.jpeg,.png,.pdf" required>
-                        <label for="pas_foto" class="file-upload-button">Pilih File</label>
-                        <div class="file-upload-info">Tidak ada file yang dipilih</div>
-                        <small class="file-upload-hint">[Ukuran (Max: 100 Mb)] [Ekstensi (.jpg/.png/.pdf)]</small>
+                        <label for="pas_foto" class="file-upload-button">{{ __('mahasiswa/daftar_ujian.file_upload_button') }}</label>
+                        <div class="file-upload-info">{{ __('mahasiswa.daftar_ujian.file_upload_info') }}</div>
+                        <small class="file-upload-hint">{{ __('mahasiswa/daftar_ujian.file_upload_hint') }}</small>
                         @error('pas_foto')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -485,16 +496,15 @@ select.form-control {
                         @enderror
                     </div>
                 </div>
-            </div>
 
-            <div class="form-submit">
-                <button type="button" onclick="submitForm()" class="btn btn-primary">
-                    Daftar
-                </button>
-            </div>
-        </form>
-    @endif
-</div>
+                <div class="form-submit">
+                    <button type="button" onclick="submitForm()" class="btn btn-primary">
+                        {{ __('mahasiswa/daftar_ujian.daftar') }}
+                    </button>
+                </div>
+                </form>
+                @endif
+                </div>
 
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
