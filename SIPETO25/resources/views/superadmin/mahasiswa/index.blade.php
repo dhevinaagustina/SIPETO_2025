@@ -48,6 +48,29 @@
     .pagination .page-link:hover {
         color: #1a2341;
     }
+    /* Filter and Button Container */
+    .filter-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+    .filter-form {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .filter-group {
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+    }
+    .filter-group label {
+        margin-right: 5px;
+        margin-bottom: 0;
+    }
 </style>
 
 <div class="container-fluid">
@@ -55,70 +78,66 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <!-- Tombol Tambah Mahasiswa -->
-    <div class="d-flex justify-content-end">
-        <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#modalTambah">
+    <!-- Filter and Button Container -->
+    <div class="filter-container">
+        <form method="GET" action="{{ route('admin.mahasiswa.index') }}" class="filter-form">
+            <!-- Sort Dropdown -->
+            <div class="filter-group">
+                <label for="sort">Sort By:</label>
+                <select name="sort" id="sort" class="form-control form-control-sm" onchange="this.form.submit()">
+                    <option value="">-- Pilih --</option>
+                    <option value="nim" {{ request('sort') == 'nim' ? 'selected' : '' }}>NIM</option>
+                    <option value="nama_mahasiswa" {{ request('sort') == 'nama_mahasiswa' ? 'selected' : '' }}>Nama</option>
+                </select>
+                <input type="hidden" name="direction" value="{{ request('direction') == 'asc' ? 'desc' : 'asc' }}" id="direction">
+            </div>
+            
+            <!-- Filter Dropdowns -->
+            <div class="filter-group">
+                <label for="jurusan">Jurusan:</label>
+                <select name="jurusan" id="jurusan" class="form-control form-control-sm" onchange="this.form.submit()">
+                    <option value="">-- Semua --</option>
+                    @foreach($jurusanList as $jurusan)
+                        <option value="{{ $jurusan }}" {{ request('jurusan') == $jurusan ? 'selected' : '' }}>
+                            {{ $jurusan }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="prodi">Prodi:</label>
+                <select name="prodi" id="prodi" class="form-control form-control-sm" onchange="this.form.submit()">
+                    <option value="">-- Semua --</option>
+                    @foreach($prodiList as $prodi)
+                        <option value="{{ $prodi }}" {{ request('prodi') == $prodi ? 'selected' : '' }}>
+                            {{ $prodi }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="kampus">Kampus:</label>
+                <select name="kampus" id="kampus" class="form-control form-control-sm" onchange="this.form.submit()">
+                    <option value="">-- Semua --</option>
+                    @foreach($kampusList as $kampus)
+                        <option value="{{ $kampus }}" {{ request('kampus') == $kampus ? 'selected' : '' }}>
+                            {{ $kampus }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            
+            <!-- Reset Button -->
+            <button type="button" class="btn btn-secondary btn-sm" onclick="window.location.href='{{ route('admin.mahasiswa.index') }}'">Reset</button>
+        </form>
+
+        <!-- Tombol Tambah Mahasiswa -->
+        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalTambah">
             Tambah Mahasiswa
         </button>
     </div>
-
-    <!-- Filter and Sort Controls -->
-<div class="row mb-3">
-  <div class="col-md-12">
-      <form method="GET" action="{{ route('admin.mahasiswa.index') }}" class="form-inline">
-          <!-- Sort Dropdown -->
-          <div class="form-group mr-3">
-              <label for="sort" class="mr-2">Sort By:</label>
-              <select name="sort" id="sort" class="form-control" onchange="this.form.submit()">
-                  <option value="">-- Pilih --</option>
-                  <option value="nim" {{ request('sort') == 'nim' ? 'selected' : '' }}>NIM</option>
-                  <option value="nama_mahasiswa" {{ request('sort') == 'nama_mahasiswa' ? 'selected' : '' }}>Nama</option>
-              </select>
-              <input type="hidden" name="direction" value="{{ request('direction') == 'asc' ? 'desc' : 'asc' }}" id="direction">
-          </div>
-          
-          <!-- Filter Dropdowns -->
-          <div class="form-group mr-3">
-              <label for="jurusan" class="mr-2">Jurusan:</label>
-              <select name="jurusan" id="jurusan" class="form-control" onchange="this.form.submit()">
-                  <option value="">-- Semua Jurusan --</option>
-                  @foreach($jurusanList as $jurusan)
-                      <option value="{{ $jurusan }}" {{ request('jurusan') == $jurusan ? 'selected' : '' }}>
-                          {{ $jurusan }}
-                      </option>
-                  @endforeach
-              </select>
-          </div>
-          
-          <div class="form-group mr-3">
-              <label for="prodi" class="mr-2">Prodi:</label>
-              <select name="prodi" id="prodi" class="form-control" onchange="this.form.submit()">
-                  <option value="">-- Semua Prodi --</option>
-                  @foreach($prodiList as $prodi)
-                      <option value="{{ $prodi }}" {{ request('prodi') == $prodi ? 'selected' : '' }}>
-                          {{ $prodi }}
-                      </option>
-                  @endforeach
-              </select>
-          </div>
-          
-          <div class="form-group mr-3">
-              <label for="kampus" class="mr-2">Kampus:</label>
-              <select name="kampus" id="kampus" class="form-control" onchange="this.form.submit()">
-                  <option value="">-- Semua Kampus --</option>
-                  @foreach($kampusList as $kampus)
-                      <option value="{{ $kampus }}" {{ request('kampus') == $kampus ? 'selected' : '' }}>
-                          {{ $kampus }}
-                      </option>
-                  @endforeach
-              </select>
-          </div>
-          
-          <!-- Reset Button -->
-          <a href="{{ route('admin.mahasiswa.index') }}" class="btn btn-secondary">Reset</a>
-      </form>
-  </div>
-</div>
 
     <table class="table-custom">
         <thead>
