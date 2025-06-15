@@ -6,6 +6,7 @@
 <style>
     .container {
         width: 100%;
+        max-width: 1200px;
         margin: 20px auto;
         background: white;
         border-radius: 8px;
@@ -41,8 +42,8 @@
     
     .info-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 4px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 10px;
         margin-top: 8px;
     }
     
@@ -53,6 +54,8 @@
     .info-label {
         font-weight: bold;
         color: #7f8c8d;
+        display: block;
+        margin-bottom: 2px;
     }
     
     .documents-section {
@@ -70,7 +73,7 @@
     
     .document-cards {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         gap: 20px;
     }
     
@@ -121,6 +124,7 @@
         font-weight: bold;
         text-decoration: none;
         font-size: 14px;
+        white-space: nowrap;
     }
     
     .btn-primary {
@@ -144,15 +148,6 @@
         margin-bottom: 10px;
     }
     
-    .info-label {
-        font-weight: bold;
-        color: #7f8c8d;
-    }
-    
-    .text-muted {
-        color: #6c757d;
-    }
-    
     .document-card h4 {
         font-size: 1rem;
         margin-bottom: 15px;
@@ -163,6 +158,56 @@
         padding: 20px;
         text-align: left;
         border-top: 1px solid #eee;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .info-row {
+            grid-template-columns: 1fr;
+            gap: 5px;
+        }
+        
+        .document-cards {
+            grid-template-columns: 1fr;
+        }
+        
+        .doc-actions {
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .btn {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .student-info h2 {
+            font-size: 1.3rem;
+        }
+        
+        .section-title {
+            font-size: 1.1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .header {
+            padding: 10px 15px;
+        }
+        
+        .student-profile, 
+        .registration-info, 
+        .documents-section {
+            padding: 15px;
+        }
+        
+        .doc-preview {
+            height: 180px;
+        }
     }
 </style>
 
@@ -268,7 +313,6 @@
                         </div>
                     @endif
                 </div>
-
             @endforeach
         </div>
     </div>
