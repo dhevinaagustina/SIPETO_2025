@@ -105,46 +105,48 @@
     }
 </style>
 
-<section class="content">
+<section class="content"> 
     <div class="container-fluid">
         <div class="filter-container mb-3">
             <div class="entries-dropdown">
-                <span>Tampilkan</span>
+                <span>{{ __('admin/cek.tampilkan') }}</span>
                 <select id="entriesSelect" name="entriesSelect" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
                 </select>
-                <span>entri</span>
+                <span>{{ __('admin/cek.entri') }}</span>
             </div>
 
             <select id="filterStatus" name="filterStatus" class="form-control">
-                <option value="">Filter</option>
-                <option value="sudah">Sudah Daftar</option>
-                <option value="belum">Belum Daftar</option>
+                <option value="">{{ __('admin/cek.filter') }}</option>
+                <option value="sudah">{{ __('admin/cek.sudah_daftar') }}</option>
+                <option value="belum">{{ __('admin/cek.belum_daftar') }}</option>
             </select>
 
-            <input type="text" id="searchMahasiswa" name="searchMahasiswa" class="form-control" placeholder="Cari mahasiswa">
+            <input type="text" id="searchMahasiswa" name="searchMahasiswa" class="form-control"
+                placeholder="{{ __('admin/cek.cari_mahasiswa') }}">
         </div>
+
         <table id="mahasiswaTable" class="table-custom">
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>NIM</th>
-                    <th>Nama</th>
-                    <th>Jurusan</th>
-                    <th>Prodi</th>
-                    <th>Dokumen</th>
+                    <th>{{ __('admin/cek.no') }}</th>
+                    <th>{{ __('admin/cek.nim') }}</th>
+                    <th>{{ __('admin/cek.nama') }}</th>
+                    <th>{{ __('admin/cek.jurusan') }}</th>
+                    <th>{{ __('admin/cek.prodi') }}</th>
+                    <th>{{ __('admin/cek.dokumen') }}</th>
                 </tr>
             </thead>
             <tbody>
-                {{-- Data will be loaded by DataTable --}}
             </tbody>
-        </table> 
+        </table>
         <br>
     </div>
 </section>
+
 
 @push('js')
 <script>
