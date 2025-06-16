@@ -48,14 +48,25 @@
     .pagination .page-link:hover {
         color: #1a2341;
     }
-    .search-container {
+    /* Search and Button Container */
+    .search-button-container {
         display: flex;
-        gap: 10px;
+        justify-content: space-between;
+        align-items: center;
         margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .search-form {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-grow: 1;
+        max-width: 360px;
     }
     .search-input {
         flex: 1;
-        max-width: 300px;
+        min-width: 200px;
     }
 </style>
 
@@ -64,9 +75,9 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <!-- Search and Add Button -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <form action="{{ route('admin.dosen.index') }}" method="GET" class="search-container">
+    <!-- Search and Add Button Container -->
+    <div class="search-button-container">
+        <form action="{{ route('admin.dosen.index') }}" method="GET" class="search-form">
             <input type="text" name="search" class="form-control search-input" placeholder="Cari nama dosen..." value="{{ request('search') }}">
             <button type="submit" class="btn btn-primary">Cari</button>
             @if(request('search'))
@@ -75,7 +86,7 @@
         </form>
         
         <button class="btn btn-primary" data-toggle="modal" data-target="#modalTambah">
-            Tambah Dosen
+          Tambah Dosen
         </button>
     </div>
 
@@ -98,10 +109,14 @@
                     <td>{{ $d->email }}</td>
                     <td>
                         <!-- Tombol Edit -->
-                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdit{{ $d->id_dosen }}">Edit</button>
+                        <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdit{{ $d->id_dosen }}">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
 
                         <!-- Tombol Hapus -->
-                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalHapus{{ $d->id_dosen }}">Hapus</button>
+                        <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalHapus{{ $d->id_dosen }}">
+                            <i class="fas fa-trash"></i> Hapus
+                        </button>
                     </td>
                 </tr>
 
@@ -118,30 +133,30 @@
                             </button>
                           </div>
                           <div class="modal-body">
-                            <div class="mb-2">
+                            <div class="mb-3">
                                 <label>NIP</label>
                                 <input type="text" name="nip" value="{{ $d->nip }}" class="form-control" required>
                             </div>
-                            <div class="mb-2">
+                            <div class="mb-3">
                                 <label>Nama Dosen</label>
                                 <input type="text" name="nama_dosen" value="{{ $d->nama_dosen }}" class="form-control" required>
                             </div>
-                            <div class="mb-2">
+                            <div class="mb-3">
                                 <label>Username</label>
                                 <input type="text" name="username" value="{{ $d->username }}" class="form-control" required>
                             </div>
-                            <div class="mb-2">
+                            <div class="mb-3">
                                 <label>Email</label>
                                 <input type="email" name="email" value="{{ $d->email }}" class="form-control" required>
                             </div>
-                            <div class="mb-2">
-                                <label>Password <small>(kosongkan jika tidak ingin diubah)</small></label>
-                                <input type="password" name="password" class="form-control" placeholder="Isi jika ingin ganti password">
+                            <div class="mb-3">
+                                <label>Password <small class="text-muted">(kosongkan jika tidak ingin diubah)</small></label>
+                                <input type="password" name="password" class="form-control" placeholder="Masukkan password baru">
                             </div>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                           </div>
                         </div>
                     </form>
@@ -161,11 +176,12 @@
                             </button>
                           </div>
                           <div class="modal-body">
-                            Apakah Anda yakin ingin menghapus data ini?
+                            <p>Apakah Anda yakin ingin menghapus data dosen <strong>{{ $d->nama_dosen }}</strong>?</p>
+                            <p class="text-danger">Aksi ini tidak dapat dibatalkan!</p>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-danger">Hapus</button>
+                            <button type="submit" class="btn btn-danger">Ya, Hapus</button>
                           </div>
                         </div>
                     </form>
@@ -173,7 +189,14 @@
                 </div>
 
             @empty
-                <tr><td colspan="5" class="text-center">Belum ada data</td></tr>
+                <tr>
+                    <td colspan="5" class="text-center py-4">
+                        <div class="text-muted">Belum ada data dosen</div>
+                        <a href="{{ route('admin.dosen.create') }}" class="btn btn-primary mt-2">
+                            <i class="fas fa-plus"></i> Tambah Dosen
+                        </a>
+                    </td>
+                </tr>
             @endforelse
         </tbody>
     </table>
@@ -190,36 +213,37 @@
         @csrf
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Tambah Dosen</h5>
+            <h5 class="modal-title">Tambah Dosen Baru</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <div class="mb-2">
+            <div class="mb-3">
                 <label>NIP</label>
                 <input type="text" name="nip" class="form-control" required>
             </div>
-            <div class="mb-2">
+            <div class="mb-3">
                 <label>Nama Dosen</label>
                 <input type="text" name="nama_dosen" class="form-control" required>
             </div>
-            <div class="mb-2">
+            <div class="mb-3">
                 <label>Username</label>
                 <input type="text" name="username" class="form-control" required>
             </div>
-            <div class="mb-2">
+            <div class="mb-3">
                 <label>Email</label>
                 <input type="email" name="email" class="form-control" required>
             </div>
-            <div class="mb-2">
+            <div class="mb-3">
                 <label>Password</label>
                 <input type="password" name="password" class="form-control" required>
+                <small class="text-muted">Minimal 8 karakter</small>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-primary">Simpan Data</button>
           </div>
         </div>
     </form>

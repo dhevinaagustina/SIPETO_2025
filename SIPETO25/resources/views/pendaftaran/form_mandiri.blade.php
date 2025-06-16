@@ -194,38 +194,38 @@
         <div class="col-md-12">
             <div class="mandiri-card">
                 <div class="mandiri-header animate__animated animate__fadeInDown">
-                    <h4><i class="fas fa-info-circle me-2"></i> Informasi Ujian Mandiri</h4>
+                    <h4><i class="fas fa-info-circle me-2"></i> {{ __('mahasiswa/daftar_ujian.mandiri.title') }}</h4>
                 </div>
 
                 <div class="info-content">
                     <ul class="feature-list">
                         <li>
                             <i class="fas fa-check-circle"></i>
-                            Untuk mahasiswa yang sudah mengikuti ujian gratis tetapi belum mencapai skor minimal
+                            {{ __('mahasiswa/daftar_ujian.mandiri.info.sudah_ujian_gratis') }}
                         </li>
                         <li>
                             <i class="fas fa-check-circle"></i>
-                            Terbuka untuk alumni dan dosen Politeknik Negeri Malang
+                            {{ __('mahasiswa/daftar_ujian.mandiri.info.untuk_alumni_dosen') }}
                         </li>
                         <li>
                             <i class="fas fa-check-circle"></i>
-                            Biaya pendaftaran: <span class="price">Rp450.000</span>
+                            {!! __('mahasiswa/daftar_ujian.mandiri.info.biaya') !!}
                         </li>
                         <li>
                             <i class="fas fa-check-circle"></i>
-                            Pendaftaran melalui website resmi ITC
+                            {{ __('mahasiswa/daftar_ujian.mandiri.info.pendaftaran') }}
                         </li>
                         <li>
                             <i class="fas fa-check-circle"></i>
-                            Sistem ujian terstandar internasional
+                            {{ __('mahasiswa/daftar_ujian.mandiri.info.standar') }}
                         </li>
                     </ul>
-                    
+
                     <div class="text-center">
                         <button type="button" class="btn btn-register" data-toggle="modal" data-target="#confirmModal">
-                            Kunjungi Website <i class="fas fa-arrow-right ml-2"></i>
+                            {{ __('mahasiswa/daftar_ujian.mandiri.kunjungi') }} <i class="fas fa-arrow-right ml-2"></i>
                         </button>
-                        <p class="text-muted">Anda akan diarahkan ke situs resmi ITC</p>
+                        <p class="text-muted">{{ __('mahasiswa/daftar_ujian.mandiri.redirect_note') }}</p>
 
                         <form id="mandiriForm" action="{{ route('pendaftaran-toeic/mandiri.store') }}" method="POST" style="display:none;">
                             @csrf
@@ -236,22 +236,23 @@
         </div>
     </div>
 
-    <div class="row">
+    <!-- FAQ Section -->
+    <div class="row mt-4">
         <div class="col-md-12">
             <div class="faq-card">
                 <div class="faq-header">
                     <i class="fas fa-question-circle"></i>
-                    <h5>Pertanyaan Umum</h5>
+                    <h5>{{ __('mahasiswa/daftar_ujian.mandiri.faq_title') }}</h5>
                 </div>
-                
+
                 <div class="faq-content">
                     <div class="faq-item">
-                        <h6>Bagaimana cara pembayaran ujian mandiri?</h6>
-                        <p>Pembayaran dilakukan melalui website ITC setelah mengisi formulir pendaftaran.</p>
+                        <h6>{{ __('mahasiswa/daftar_ujian.mandiri.faq.q1') }}</h6>
+                        <p>{{ __('mahasiswa/daftar_ujian.mandiri.faq.a1') }}</p>
                     </div>
                     <div class="faq-item">
-                        <h6>Apakah ada perbedaan materi ujian gratis dan mandiri?</h6>
-                        <p>Tidak ada, kedua ujian menggunakan standar dan materi TOEIC yang sama.</p>
+                        <h6>{{ __('mahasiswa/daftar_ujian.mandiri.faq.q2') }}</h6>
+                        <p>{{ __('mahasiswa/daftar_ujian.mandiri.faq.a2') }}</p>
                     </div>
                 </div>
             </div>
@@ -264,17 +265,17 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="confirmModalLabel">Konfirmasi Pendaftaran Mandiri</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
+                <h5 class="modal-title" id="confirmModalLabel">{{ __('mahasiswa/daftar_ujian.mandiri.modal.title') }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('mahasiswa/daftar_ujian.mandiri.modal.no') }}">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Apakah anda benar-benar ingin melakukan pendaftaran mandiri?
+                {{ __('mahasiswa/daftar_ujian.mandiri.modal.body') }}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-                <button type="button" id="confirmBtn" class="btn btn-primary">Ya</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('mahasiswa/daftar_ujian.mandiri.modal.no') }}</button>
+                <button type="button" id="confirmBtn" class="btn btn-primary">{{ __('mahasiswa/daftar_ujian.mandiri.modal.yes') }}</button>
             </div>
 
             <!-- FORM INI YANG DIGUNAKAN -->

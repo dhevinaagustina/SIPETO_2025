@@ -197,20 +197,32 @@
   </style>
 
   <div class="container d-flex justify-content-between align-items-center">
-    <!-- Language Selector (kiri logo) -->
-    <div class="language-selector me-4">
-      <button class="dropdown-toggle" id="languageDropdown">
-        <img src="{{ asset('assets/img/flag-en.jpg') }}" alt="EN"> English
-      </button>
-      <div class="dropdown-menu" aria-labelledby="languageDropdown">
-        <a class="dropdown-item" href="?lang=en">
-          <img src="{{ asset('assets/img/flag-en.jpg') }}" alt="EN"> English
-        </a>
-        <a class="dropdown-item" href="?lang=id">
-          <img src="{{ asset('assets/img/flag-id.png') }}" alt="ID"> Indonesia
-        </a>
-      </div>
-    </div>
+      {{-- Language Selector --}}
+        @php
+            $currentLocale = app()->getLocale();
+            $flag = $currentLocale === 'id' ? 'flag-id.png' : 'flag-en.jpg';
+            $langLabel = $currentLocale === 'id' ? 'Indonesia' : 'English';
+        @endphp
+
+        <div class="language-selector me-4">
+            <button class="btn btn-sm btn-transparent text-white dropdown-toggle d-flex align-items-center px-1 py-0"
+                type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 0.875rem;">
+                <img src="{{ asset('assets/img/' . $flag) }}" alt="{{ strtoupper($currentLocale) }}" width="16" height="12" class="me-1">
+                {{ $langLabel }}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                <li>
+                    <a class="dropdown-item d-flex align-items-center" href="?lang=en">
+                        <img src="{{ asset('assets/img/flag-en.jpg') }}" alt="EN" width="20" class="me-2"> English
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item d-flex align-items-center" href="?lang=id">
+                        <img src="{{ asset('assets/img/flag-id.png') }}" alt="ID" width="20" class="me-2"> Indonesia
+                    </a>
+                </li>
+            </ul>
+        </div>
 
     <!-- Logo -->
     <a href="/" class="logo d-flex align-items-center">

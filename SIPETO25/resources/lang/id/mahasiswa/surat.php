@@ -1,0 +1,50 @@
+<?php
+
+return [
+    'title' => 'Pengajuan Surat Pernyataan',
+    'breadcrumb' => 'Pengajuan Surat',
+    'tampilkan' => 'Tampilkan',
+    'entri' => 'entri',
+    'filter' => 'Filter',
+    'selesai' => 'Selesai',
+    'proses' => 'Proses',
+    'ditolak' => 'Ditolak',
+    'ajukan' => 'Ajukan',
+    'no' => 'No',
+    'nim' => 'NIM',
+    'nama' => 'Nama',
+    'tanggal' => 'Tanggal Pengajuan',
+    'status' => 'Status',
+    'catatan' => 'Catatan',
+    'file_surat' => 'File Surat',
+    'lihat' => 'Lihat',
+    'belum_ada_pengajuan' => 'Belum ada pengajuan surat',
+
+    'upload_lampiran_judul' => 'Upload Lampiran Surat',
+    'lampiran_1' => 'Lampiran 1',
+    'lampiran_2' => 'Lampiran 2',
+    'format_info' => 'Format diperbolehkan: PDF, JPG, PNG, DOC, DOCX, XLS. Maksimal 2MB per file.',
+    'kirim' => 'Kirim',
+    'batal' => 'Batal',
+
+    'konfirmasi_judul' => 'Konfirmasi Pengajuan',
+    'konfirmasi_html' => 'Pastikan Anda adalah <strong>mahasiswa tingkat akhir</strong> atau <strong>yang benar-benar membutuhkan surat pernyataan ini</strong>.',
+    'konfirmasi_ok' => 'Saya Mengerti',
+    'konfirmasi_batal' => 'Batal',
+    'peringatan_judul' => 'Peringatan',
+    'peringatan_tombol' => 'OK',
+
+    'message' => 'Anda sudah mengajukan surat. Tunggu keputusan admin.',
+
+    'alert' => [
+        'upload_error' => 'Terjadi Kesalahan',
+        'upload_retry' => 'Silakan coba lagi nanti.',
+        'upload_success_title' => 'Berhasil',
+        'upload_failed_title' => 'Gagal',
+        'upload_success_text' => 'Pengajuan surat berhasil dikirim.',
+        'upload_failed_text' => 'Pengajuan surat gagal. Silakan periksa data Anda.',
+        'file_too_large_title' => 'Ukuran File Terlalu Besar',
+        'file_too_large_text' => 'Setiap lampiran maksimal 2MB.',
+        'ok_button' => 'OK',
+    ],
+];

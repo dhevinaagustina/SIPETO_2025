@@ -97,30 +97,30 @@
     <div class="container-fluid">
         <div class="filter-container">
             <div class="entries-dropdown">
-                <span>Tampilkan</span>
+                <span>{{ __('mahasiswa/riwayat_ujian.tampilkan') }}</span>
                 <select id="entriesSelect" name="entriesSelect" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
                 </select>
-                <span>entri</span>
+                <span>{{ __('mahasiswa/riwayat_ujian.entri') }}</span>
             </div>
 
             <select id="filterStatus" class="form-control">
-                <option value="">Filter</option>
-                <option value="gratis">Gratis</option>
-                <option value="mandiri">Mandiri</option>
+                <option value="">{{ __('mahasiswa/riwayat_ujian.filter') }}</option>
+                <option value="gratis">{{ __('mahasiswa/riwayat_ujian.gratis') }}</option>
+                <option value="mandiri">{{ __('mahasiswa/riwayat_ujian.mandiri') }}</option>
             </select>
         </div>
 
         <table class="table-custom" id="riwayatTable">
             <thead>
                 <tr>
-                    <th>NIM</th>
-                    <th>Nama Mahasiswa</th>
-                    <th>Tanggal Pendaftaran</th>
-                    <th>Status Pendaftaran</th>
+                    <th>{{ __('mahasiswa/riwayat_ujian.nim') }}</th>
+                    <th>{{ __('mahasiswa/riwayat_ujian.nama') }}</th>
+                    <th>{{ __('mahasiswa/riwayat_ujian.tanggal') }}</th>
+                    <th>{{ __('mahasiswa/riwayat_ujian.status') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -132,9 +132,9 @@
                             <td>{{ \Carbon\Carbon::parse($row->tanggal_pendaftaran)->translatedFormat('d F Y') }}</td>
                             <td>
                                 @if($row->tipe_ujian === 'gratis')
-                                    <span class="status-badge badge-gratis">Gratis</span>
+                                    <span class="status-badge badge-gratis">{{ __('mahasiswa/riwayat_ujian.gratis') }}</span>
                                 @elseif($row->tipe_ujian === 'mandiri')
-                                    <span class="status-badge badge-mandiri">Mandiri</span>
+                                    <span class="status-badge badge-mandiri">{{ __('mahasiswa/riwayat_ujian.mandiri') }}</span>
                                 @endif
                             </td>
                         </tr>
@@ -142,7 +142,7 @@
                 @else
                     <tr>
                         <td colspan="4" class="no-data">
-                            Belum ada riwayat ujian
+                            {{ __('mahasiswa/riwayat_ujian.no_data') }}
                         </td>
                     </tr>
                 @endif
@@ -150,6 +150,7 @@
         </table>
     </div>
 </section>
+
 
 @push('js')
 <script>
