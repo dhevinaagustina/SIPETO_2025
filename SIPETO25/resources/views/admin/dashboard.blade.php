@@ -5,10 +5,10 @@
 
 @php
     $breadcrumb = (object) [
-        'title' => 'Dashboard Admin',
-        'list' => ['Home', 'Dashboard']
+        'title' => __('admin/dashboard.title'),
+        'list' => __('admin/dashboard.breadcrumb')
     ];
-    
+
 @endphp
 
 @section('content')
@@ -18,7 +18,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-white">
-                    <h3 class="card-title"><i class="fas fa-chart-pie mr-2"></i>Statistik Pendaftaran</h3>
+                    <i class="fas fa-chart-pie mr-2"></i>{{ __('admin/dashboard.statistik_pendaftaran') }}
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -27,13 +27,13 @@
                             <div class="info-box bg-primary">
                                 <span class="info-box-icon"><i class="fas fa-users"></i></span>
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Total Mahasiswa</span>
+                                    <span class="info-box-text">{{ __('admin/dashboard.total_mahasiswa') }}</span>
                                     <span class="info-box-number">{{ $stats['total_pendaftar'] }}</span>
                                     <div class="progress">
                                         <div class="progress-bar" style="width: 100%"></div>
                                     </div>
                                     <span class="progress-description">
-                                        Seluruh periode
+                                        {{ __('admin/dashboard.seluruh_periode') }}
                                     </span>
                                 </div>
                             </div>
@@ -44,13 +44,13 @@
                             <div class="info-box bg-success">
                                 <span class="info-box-icon"><i class="fas fa-check-circle"></i></span>
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Sudah Mendaftar</span>
+                                    <span class="info-box-text">{{ __('admin/dashboard.sudah_mendaftar') }}</span>
                                     <span class="info-box-number">{{ $stats['mahasiswa_baru'] }}</span>
                                     <div class="progress">
                                         <div class="progress-bar" style="width: {{ $persentaseSudah }}%"></div>
                                     </div>
                                     <span class="progress-description">
-                                        {{ $persentaseSudah }}% dari total mahasiswa
+                                        {{ Str::replace(':persen', $persentaseSudah, __('admin/dashboard.persentase_dari_total')) }}
                                     </span>
                                 </div>
                             </div>
@@ -61,13 +61,13 @@
                             <div class="info-box bg-danger">
                                 <span class="info-box-icon"><i class="fas fa-times-circle"></i></span>
                                 <div class="info-box-content">
-                                    <span class="info-box-text">Belum Mendaftar</span>
+                                    <span class="info-box-text">{{ __('admin/dashboard.belum_mendaftar') }}</span>
                                     <span class="info-box-number">{{ $stats['belum_mendaftar'] }}</span>
                                     <div class="progress">
                                         <div class="progress-bar" style="width: {{ $persentaseBelum }}%"></div>
                                     </div>
                                     <span class="progress-description">
-                                        {{ $persentaseBelum }}% dari total mahasiswa
+                                        {{ Str::replace(':persen', $persentaseBelum, __('admin/dashboard.persentase_dari_total')) }}
                                     </span>
                                 </div>
                             </div>
@@ -75,108 +75,94 @@
                     </div>
 
                     <!-- Grafik Pendaftaran -->
-<div class="row mt-4">
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header bg-white">
-                <h3 class="card-title">Trend Pendaftaran 6 Bulan Terakhir</h3>
-            </div>
-            <div class="card-body">
-                <div class="chart">
-                    <canvas id="pendaftaranChart" style="height: 300px;"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header bg-white">
-                <h3 class="card-title">Distribusi Jurusan</h3>
-            </div>
-            <div class="card-body">
-                <div class="chart">
-                    <canvas id="prodiChart" style="height: 300px;"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-    <!-- Manajemen Mahasiswa -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header bg-white">
-                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
-                        <h3 class="card-title mb-2 mb-md-0">
-                            <i class="fas fa-users mr-2 text-primary"></i>Cek Data Mahasiswa (Pendaftar)
-                        </h3>
-                        {{-- <div class="ms-md-auto">
-                            <a href="{{ route('admin.mahasiswa.index') }}" class="btn btn-primary btn-sm">
-                                <i class="fas fa-list mr-1"></i> Lihat Semua
-                            </a>
-                        </div> --}}
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            {{-- <h5><i class="fas fa-search mr-2"></i>Cari Mahasiswa</h5>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Nama atau NIM...">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button">
-                                        <i class="fas fa-search"></i>
-                                    </button>
+                    <div class="row mt-4">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <h3 class="card-title">{{ __('admin/dashboard.trend_pendaftaran') }}</h3>
                                 </div>
-                            </div> --}}
-                            <div class="h-100 position-relative">
-                                <div class="small-box bg-gradient-info">
-                                    <!-- Pure decorative elements -->
-                                    <div class="floating-shapes">
-                                        <div class="shape-circle"></div>
-                                        <div class="shape-triangle"></div>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <canvas id="pendaftaranChart" style="height: 300px;"></canvas>
                                     </div>
-                                    
-                                    <div class="inner">
-                                        <h3>Data Mahasiswa</h3>
-                                        <p>Cek Data</p>
-                                        
-                                        <!-- Visual decoration only -->
-                                        <div class="visual-ornament">
-                                            <div class="line-pattern"></div>
-                                            <div class="icon-grid">
-                                                <i class="fas fa-user"></i>
-                                                <i class="fas fa-book"></i>
-                                                <i class="fas fa-university"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="icon">
-                                        <i class="fas fa-user-graduate"></i>
-                                    </div>                                  
-                                        <a href="{{ route('admin.cekdata.index') }}" class="small-box-footer">
-                                            Lihat Detail <i class="fas fa-arrow-right"></i>
-                                        </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                             {{-- Kalo bisa jangan diubah ya (Note: Dhevina) --}}
-                            <h5><i class="fas fa-clock mr-2"></i>Pendaftaran Terbaru</h5>
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Nama</th>
-                                            <th>NIM</th>
-                                            <th>Tanggal</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <h3 class="card-title">{{ __('admin/dashboard.distribusi_jurusan') }}</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <canvas id="prodiChart" style="height: 300px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+
+
+                    <!-- Manajemen Mahasiswa -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header bg-white">
+                                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                                        <h3 class="card-title mb-2 mb-md-0">
+                                            <i class="fas fa-users mr-2 text-primary"></i>{{ __('admin/dashboard.cek_data_mahasiswa') }}
+                                        </h3>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="h-100 position-relative">
+                                                <div class="small-box bg-gradient-info">
+                                                    <!-- Pure decorative elements -->
+                                                    <div class="floating-shapes">
+                                                        <div class="shape-circle"></div>
+                                                        <div class="shape-triangle"></div>
+                                                    </div>
+                                                    <div class="inner">
+                                                        <h3>{{ __('admin/dashboard.data_mahasiswa') }}</h3>
+                                                        <p>{{ __('admin/dashboard.cek_data') }}</p>
+
+                                                        <!-- Visual decoration only -->
+                                                        <div class="visual-ornament">
+                                                            <div class="line-pattern"></div>
+                                                            <div class="icon-grid">
+                                                                <i class="fas fa-user"></i>
+                                                                <i class="fas fa-book"></i>
+                                                                <i class="fas fa-university"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="icon">
+                                                        <i class="fas fa-user-graduate"></i>
+                                                    </div>
+                                                        <a href="{{ route('admin.cekdata.index') }}" class="small-box-footer">
+                                                        {{ __('admin/dashboard.cek_data') }}  <i class="fas fa-arrow-right"></i>
+                                                        </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <div class="col-md-6">
+                                        {{-- Kalo bisa jangan diubah ya (Note: Dhevina) --}}
+                                        <h5><i class="fas fa-clock mr-2"></i>{{ __('admin/dashboard.pendaftaran_terbaru') }}</h5>
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                    <th>{{ __('admin/dashboard.nama') }}</th>
+                                                    <th>{{ __('admin/dashboard.nim') }}</th>
+                                                    <th>{{ __('admin/dashboard.tanggal') }}</th>
+                                                    <th>{{ __('admin/dashboard.status') }}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
                                         @forelse ($pendaftaranTerbaru as $item)
                                             @if ($item->id_mahasiswa && $item->mahasiswa)
                                                 <tr>
@@ -185,9 +171,9 @@
                                                     <td>{{ \Carbon\Carbon::parse($item->tanggal_daftar)->translatedFormat('d F Y') }}</td>
                                                     <td>
                                                         @if ($item->tipe_ujian === 'gratis')
-                                                            <span class="badge bg-success">Gratis</span>
+                                                            <span class="badge bg-success">{{ __('admin/dashboard.gratis') }}</span>
                                                         @elseif ($item->tipe_ujian === 'mandiri')
-                                                            <span class="badge bg-primary">Mandiri</span>
+                                                            <span class="badge bg-primary">{{ __('admin/dashboard.mandiri') }}</span>
                                                         @else
                                                             <span class="badge bg-secondary">{{ ucfirst($item->tipe_ujian) }}</span>
                                                         @endif
@@ -196,10 +182,9 @@
                                             @endif
                                         @empty
                                             <tr>
-                                                <td colspan="4" class="text-center text-muted">Tidak ada data terbaru.</td>
+                                                <td colspan="4" class="text-center text-muted"> {{ __('admin/dashboard.tidak_ada_data') }}</td>
                                             </tr>
                                         @endforelse
-
                                     </tbody>
                                 </table>
                             </div>
@@ -215,19 +200,19 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-white">
-                    <h3 class="card-title"><i class="fas fa-file-export mr-2"></i>Laporan & Export Data</h3>
+                    <h3 class="card-title"><i class="fas fa-file-export mr-2"></i>{{ __('admin/dashboard.laporan_export') }}</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="card bg-gradient-primary">
                                 <div class="card-header">
-                                    <h3 class="card-title">Laporan Pendaftaran</h3>
+                                    <h3 class="card-title">{{ __('admin/dashboard.laporan_pendaftaran') }}</h3>
                                 </div>
                                 <div class="card-body">
-                                    <p>Generate laporan pendaftaran berdasarkan periode atau kriteria tertentu</p>
+                                    <p>{{ __('admin/dashboard.deskripsi_laporan') }}</p>
                                     <a href="{{ route('admin.laporan.pendaftaran') }}" class="btn btn-outline-light">
-                                        <i class="fas fa-file-alt mr-1"></i> Buat Laporan
+                                    <i class="fas fa-file-alt mr-1"></i> {{ __('admin/dashboard.buat_laporan') }}
                                     </a>
                                 </div>
                             </div>
@@ -235,12 +220,12 @@
                         <div class="col-md-4">
                             <div class="card bg-gradient-success">
                                 <div class="card-header">
-                                    <h3 class="card-title">Export Data Excel</h3>
+                                <h3 class="card-title">{{ __('admin/dashboard.export_excel') }}</h3>
                                 </div>
                                 <div class="card-body">
-                                    <p>Export data mahasiswa dalam format Excel untuk pengolahan lebih lanjut</p>
+                                    <p>{{ __('admin/dashboard.deskripsi_excel') }}</p>
                                     <a href="{{ route('admin.laporan.export') }}?format=excel" class="btn btn-outline-light">
-                                        <i class="fas fa-file-excel mr-1"></i> Export Excel
+                                        <i class="fas fa-file-excel mr-1"></i> {{ __('admin/dashboard.export_excel_btn') }}
                                     </a>
                                 </div>
                             </div>
@@ -248,12 +233,12 @@
                         <div class="col-md-4">
                             <div class="card bg-gradient-info">
                                 <div class="card-header">
-                                    <h3 class="card-title">Export Data PDF</h3>
+                                    <h3 class="card-title">{{ __('admin/dashboard.export_pdf') }}</h3>
                                 </div>
                                 <div class="card-body">
-                                    <p>Export data mahasiswa dalam format PDF untuk keperluan dokumentasi</p>
+                                    <p>{{ __('admin/dashboard.deskripsi_pdf') }}</p>
                                     <a href="{{ route('admin.laporan.export') }}?format=pdf" class="btn btn-outline-light">
-                                        <i class="fas fa-file-pdf mr-1"></i> Export PDF
+                                    <i class="fas fa-file-pdf mr-1"></i> {{ __('admin/dashboard.export_pdf_btn') }}
                                     </a>
                                 </div>
                             </div>
@@ -277,7 +262,7 @@
         data: {
             labels: bulan,
             datasets: [{
-                label: 'Jumlah Pendaftar',
+                label: "{{ __('admin/dashboard.jumlah_pendaftar') }}",
                 data: jumlahPendaftar,
                 borderColor: '#3c8dbc',
                 backgroundColor: 'rgba(60, 141, 188, 0.1)',
@@ -315,7 +300,16 @@
     new Chart(ctx2, {
         type: 'doughnut',
         data: {
-            labels: ['Teknologi Infomasi', 'Teknik Mesin', 'Teknik Sipil', 'Teknik Kimia', 'Administrasi Niaga', 'Teknik Elektro', 'Akutansi'],
+            labels: [
+            "{{ __('admin/dashboard.ti') }}",
+            "{{ __('admin/dashboard.mesin') }}",
+            "{{ __('admin/dashboard.sipil') }}",
+            "{{ __('admin/dashboard.kimia') }}",
+            "{{ __('admin/dashboard.niaga') }}",
+            "{{ __('admin/dashboard.elektro') }}",
+            "{{ __('admin/dashboard.akuntansi') }}"
+        ],
+
             datasets: [{
                 data: [55, 2, 21, 3, 5, 19, 2],
                 backgroundColor: [

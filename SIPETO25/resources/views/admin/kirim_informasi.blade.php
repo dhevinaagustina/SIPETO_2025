@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Form Pengiriman Informasi</title>
+    <title>{{ __('admin/pesan.title') }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -357,11 +357,11 @@
     <div class="header animate__animated animate__fadeInDown">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <h3 class="mb-0"><i class="fas fa-paper-plane me-2"></i> Form Pengiriman Informasi</h3>
-                <p class="mb-0 opacity-75">Kirim informasi penting kepada mahasiswa</p>
+            <h3 class="mb-0"><i class="fas fa-paper-plane me-2"></i> {{ __('admin/pesan.title') }}</h3>
+            <p class="mb-0 opacity-75">{{ __('admin/pesan.subtitle') }}</p>
             </div>
             <button type="button" class="btn btn-light btn-back" id="btnBack">
-                <i class="fas fa-arrow-left me-1"></i> Kembali
+                <i class="fas fa-arrow-left me-1"></i>  {{ __('admin/pesan.back') }}
             </button>
         </div>
     </div>
@@ -389,61 +389,61 @@
 
     <!-- Penerima Section -->
     <div class="form-section animate__animated animate__fadeIn">
-        <h5 class="form-section-title"><i class="fas fa-users"></i> Penerima Informasi</h5>
+        <h5 class="form-section-title"><i class="fas fa-users"></i>  {{ __('admin/pesan.penerima') }}</h5>
 
         <div class="radio-group">
             <label class="radio-option">
-                <input class="form-check-input" type="radio" name="ditujukan_ke" value="semua_mahasiswa" checked>
-                <span class="ms-2">Semua Mahasiswa</span>
-            </label>
-            <label class="radio-option">
-                <input class="form-check-input" type="radio" name="ditujukan_ke" value="mahasiswa_tertentu">
-                <span class="ms-2">Mahasiswa Tertentu</span>
-            </label>
-            <label class="radio-option">
-                <input class="form-check-input" type="radio" name="ditujukan_ke" value="semua_dosen">
-                <span class="ms-2">Semua Dosen</span>
-            </label>
-            <label class="radio-option">
-                <input class="form-check-input" type="radio" name="ditujukan_ke" value="dosen_tertentu">
-                <span class="ms-2">Dosen Tertentu</span>
-            </label>
+            <input class="form-check-input" type="radio" name="ditujukan_ke" value="semua_mahasiswa" checked>
+            <span class="ms-2">{{ __('admin/pesan.semua_mahasiswa') }}</span>
+        </label>
+        <label class="radio-option">
+            <input class="form-check-input" type="radio" name="ditujukan_ke" value="mahasiswa_tertentu">
+            <span class="ms-2">{{ __('admin/pesan.mahasiswa_tertentu') }}</span>
+        </label>
+        <label class="radio-option">
+            <input class="form-check-input" type="radio" name="ditujukan_ke" value="semua_dosen">
+            <span class="ms-2">{{ __('admin/pesan.semua_dosen') }}</span>
+        </label>
+        <label class="radio-option">
+            <input class="form-check-input" type="radio" name="ditujukan_ke" value="dosen_tertentu">
+            <span class="ms-2">{{ __('admin/pesan.dosen_tertentu') }}</span>
+        </label>
         </div>
 
-       <!-- Mahasiswa Tertentu -->
-<div class="mt-4" id="pilihMahasiswa" style="display: none;">
-    <div class="row mb-3">
-        <div class="col-md-6">
-            <label class="form-label">Kategori Mahasiswa</label>
-            <select id="kategoriMahasiswa" class="form-control">
-                <option value="aktif" selected>Mahasiswa Aktif</option>
-                <option value="alumni">Mahasiswa Alumni</option>
-            </select>
+        <!-- Mahasiswa Tertentu -->
+    <div class="mt-4" id="pilihMahasiswa" style="display: none;">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">{{ __('admin/pesan.kategori_mahasiswa') }}</label>
+                <select id="kategoriMahasiswa" class="form-control">
+                    <option value="aktif">{{ __('admin/pesan.mahasiswa_aktif') }}</option>
+                    <option value="alumni">{{ __('admin/pesan.mahasiswa_alumni') }}</option>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-md-9">
-            <label class="form-label">Pilih Mahasiswa</label>
-            <select id="mahasiswaSelect" class="form-control select2" style="width: 100%;" data-placeholder="Cari penerima...">
-                <!-- Akan diisi melalui AJAX -->
-            </select>
-        </div>
-        <div class="col-md-3 d-flex align-items-end">
-            <button type="button" id="addStudentBtn" class="btn btn-primary w-100">
-                <i class="fas fa-plus me-1"></i> Tambah
-            </button>
-        </div>
-    </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <label class="form-label">{{ __('admin/pesan.pilih_mahasiswa') }}</label>
+                    <select id="mahasiswaSelect" class="form-control select2" style="width: 100%;" data-placeholder="{{ __('admin/pesan.placeholder_mahasiswa') }}">
+                        <!-- Akan diisi melalui AJAX -->
+                    </select>
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="button" id="addStudentBtn" class="btn btn-primary w-100">
+                        <i class="fas fa-plus me-1"></i> {{ __('admin/pesan.tambah_mahasiswa') }}
+                    </button>
+                </div>
+            </div>
 
-    <div id="selectedStudentsContainer" class="mt-3"></div>
-</div>
+            <div id="selectedStudentsContainer" class="mt-3"></div>
+        </div>
 
         <!-- Dosen Tertentu -->
         <div class="mt-4" id="pilihDosen" style="display: none;">
             <div class="row">
                 <div class="col-md-9">
-                    <label class="form-label">Pilih Dosen</label>
+                    <label class="form-label">{{ __('admin/pesan.pilih_dosen') }}</label>
                     <select id="dosenSelect" class="form-control select2" style="width: 100%;">
                         <option value=""></option>
                         @foreach($dosen as $dsn)
@@ -455,7 +455,7 @@
                 </div>
                 <div class="col-md-3 d-flex align-items-end">
                     <button type="button" id="addDosenBtn" class="btn btn-success w-100">
-                        <i class="fas fa-plus me-1"></i> Tambah
+                        <i class="fas fa-plus me-1"></i>  {{ __('admin/pesan.tambah_dosen') }}
                     </button>
                 </div>
             </div>
@@ -465,55 +465,53 @@
 
         <!-- Detail Informasi Section -->
         <div class="form-section animate__animated animate__fadeIn">
-            <h5 class="form-section-title"><i class="fas fa-info-circle"></i> Detail Informasi</h5>
-            
+            <h5 class="form-section-title"><i class="fas fa-info-circle"></i>{{ __('admin/pesan.detail_informasi') }}</h5>
             <div class="mb-4">
-                <label class="form-label">Judul Informasi</label>
-                <input type="text" class="form-control" name="judul" placeholder="Masukkan judul informasi" required>
+                <label class="form-label">{{ __('admin/pesan.judul') }}</label>
+                <input type="text" class="form-control" name="judul" placeholder="{{ __('admin/pesan.placeholder_judul') }}" required>
             </div>
 
             <div class="mb-4" id="statusGlobal">
-                <label class="form-label">Status Hasil</label>
+                <label class="form-label">{{ __('admin/pesan.status_hasil') }}</label>
                 <div class="btn-group w-100" role="group">
                     <input type="radio" class="btn-check" name="status" id="statusSuccess" value="success" autocomplete="off" checked>
                     <label class="btn btn-outline-success" for="statusSuccess">
-                        <i class="fas fa-check-circle me-1"></i> Berhasil
+                        <i class="fas fa-check-circle me-1"></i>  {{ __('admin/pesan.berhasil') }}
                     </label>
 
                     <input type="radio" class="btn-check" name="status" id="statusFailure" value="failure" autocomplete="off">
                     <label class="btn btn-outline-danger" for="statusFailure">
-                        <i class="fas fa-times-circle me-1"></i> Gagal
+                        <i class="fas fa-times-circle me-1"></i> {{ __('admin/pesan.gagal') }}
                     </label>
                 </div>
             </div>
 
             <div>
-                <label class="form-label">Isi Informasi</label>
+                <label class="form-label">{{ __('admin/pesan.isi_informasi') }}</label>
                 <textarea name="isi" id="editor" class="form-control" rows="6" required></textarea>
             </div>
         </div>
 
         <!-- Lampiran Section -->
         <div class="form-section animate__animated animate__fadeIn">
-            <h5 class="form-section-title"><i class="fas fa-paperclip"></i> Lampiran</h5>
-            
+            <h5 class="form-section-title"><i class="fas fa-paperclip"></i>{{ __('admin/pesan.lampiran') }}</h5>
             <div class="file-input-container">
                 <div class="file-input-button">
-                    <i class="fas fa-cloud-upload-alt"></i> Pilih File Lampiran
+                    <i class="fas fa-cloud-upload-alt"></i>{{ __('admin/pesan.pilih_lampiran') }}
                     <input type="file" name="lampiran" class="file-input" id="fileInput">
                 </div>
-                <div id="fileName" class="file-name">Belum ada file dipilih</div>
+                <div id="fileName" class="file-name">{{ __('admin/pesan.belum_ada_file') }}</div>
             </div>
-            <small class="text-muted">Maksimal 5MB. Format: PDF, DOC, JPG, PNG.</small>
+            <small class="text-muted">{{ __('admin/pesan.catatan_lampiran') }}</small>
         </div>
 
         <!-- Action Buttons -->
         <div class="d-flex justify-content-end mt-4 animate__animated animate__fadeIn">
             <button type="reset" class="btn btn-secondary me-3">
-                <i class="fas fa-undo me-1"></i> Reset
+                <i class="fas fa-undo me-1"></i> {{ __('admin/pesan.reset') }}
             </button>
             <button type="button" class="btn btn-primary pulse-animation" id="btnSubmit">
-                <i class="fas fa-paper-plane me-1"></i> Kirim Informasi
+                <i class="fas fa-paper-plane me-1"></i> {{ __('admin/pesan.kirim') }}
             </button>
         </div>
     </form>
@@ -529,18 +527,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="confirmBackModalLabel"><i class="fas fa-exclamation-triangle me-2"></i> Konfirmasi</h5>
+                <h5 class="modal-title" id="confirmBackModalLabel"><i class="fas fa-exclamation-triangle me-2"></i> {{ __('admin/pesan.modal_konfirmasi') }}</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Apakah Anda yakin ingin kembali? Perubahan yang belum disimpan akan hilang.</p>
+                <p>{{ __('admin/pesan.modal_kembali_pertanyaan') }}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="fas fa-times me-1"></i> Batal
+                    <i class="fas fa-times me-1"></i> {{ __('admin/pesan.batal') }}
                 </button>
                 <button type="button" class="btn btn-primary" id="confirmBack">
-                    <i class="fas fa-check me-1"></i> Ya, Kembali
+                    <i class="fas fa-check me-1"></i> {{ __('admin/pesan.ya_kembali') }}
                 </button>
             </div>
         </div>
@@ -552,18 +550,18 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-danger">
-                <h5 class="modal-title text-white" id="deleteMessageModalLabel"><i class="fas fa-trash-alt me-2"></i> Hapus Pesan</h5>
+                <h5 class="modal-title text-white" id="deleteMessageModalLabel"><i class="fas fa-trash-alt me-2"></i> {{ __('admin/pesan.hapus_pesan') }}</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Apakah Anda yakin ingin menghapus pesan ini? Aksi ini akan menghapus pesan untuk semua penerima.</p>
+                <p>{{ __('admin/pesan.hapus_pesan_konfirmasi') }}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="fas fa-times me-1"></i> Batal
+                    <i class="fas fa-times me-1"></i>  {{ __('admin/pesan.hapus_pesan') }}
                 </button>
                 <button type="button" class="btn btn-danger" id="confirmDelete">
-                    <i class="fas fa-trash-alt me-1"></i> Ya, Hapus
+                    <i class="fas fa-trash-alt me-1"></i> {{ __('admin/pesan.ya_hapus') }}
                 </button>
             </div>
         </div>
@@ -575,29 +573,29 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-primary">
-                <h5 class="modal-title text-white" id="helpModalLabel"><i class="fas fa-question-circle me-2"></i> Bantuan</h5>
+                <h5 class="modal-title text-white" id="helpModalLabel"><i class="fas fa-question-circle me-2"></i> {{ __('admin/pesan.bantuan') }}</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h6><i class="fas fa-info-circle text-primary me-2"></i> Cara Menggunakan Form Ini:</h6>
+                <h6><i class="fas fa-info-circle text-primary me-2"></i> {{ __('admin/pesan.cara_penggunaan') }}</h6>
                 <ol>
-                    <li>Pilih penerima informasi (semua mahasiswa atau tertentu)</li>
-                    <li>Isi judul dan konten informasi</li>
-                    <li>Pilih status hasil (berhasil/gagal)</li>
-                    <li>Tambahkan lampiran jika diperlukan</li>
-                    <li>Klik tombol "Kirim Informasi"</li>
+                    <li>{{ __('admin/pesan.langkah1') }}</li>
+                    <li>{{ __('admin/pesan.langkah2') }}</li>
+                    <li>{{ __('admin/pesan.langkah3') }}</li>
+                    <li>{{ __('admin/pesan.langkah4') }}</li>
+                    <li>{{ __('admin/pesan.langkah5') }}</li>
                 </ol>
                 <hr>
-                <h6><i class="fas fa-lightbulb text-warning me-2"></i> Tips:</h6>
+                <h6><i class="fas fa-lightbulb text-warning me-2"></i>  {{ __('admin/pesan.tips') }}</h6>
                 <ul>
-                    <li>Gunakan format yang jelas untuk judul informasi</li>
-                    <li>Periksa kembali sebelum mengirim</li>
-                    <li>File lampiran maksimal 5MB</li>
+                    <li>{{ __('admin/pesan.tip1') }}</li>
+                    <li>{{ __('admin/pesan.tip2') }}</li>
+                    <li>{{ __('admin/pesan.tip3') }}</li>
                 </ul>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
-                    <i class="fas fa-check me-1"></i> Mengerti
+                    <i class="fas fa-check me-1"></i>  {{ __('admin/pesan.mengerti') }}
                 </button>
             </div>
         </div>
@@ -613,7 +611,7 @@
     $(document).ready(function () {
         // Select2 Initialization
         $('.select2').select2({
-            placeholder: "Cari penerima...",
+            placeholder: "{{ __('admin/pesan.placeholder_penerima') }}",
             allowClear: true,
             width: '100%'
         });
