@@ -201,7 +201,6 @@
 
                                     <span class="status-badge badge-proses" style="background-color: #f44336;">{{ __('mahasiswa/surat.ditolak') }}</span>
 
-                                    <span class="status-badge badge-ditolak">Ditolak</span>
 
                                 @elseif ($surat->status === 'selesai')
                                     <span class="status-badge badge-selesai">{{ __('mahasiswa/surat.selesai') }}</span>
