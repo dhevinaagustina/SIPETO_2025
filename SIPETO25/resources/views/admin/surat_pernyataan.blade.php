@@ -193,15 +193,15 @@
         <table id="tableSurat" class="table-custom">
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Nama Mahasiswa</th>
-                    <th>NIM</th>
-                    <th>Prodi</th>
-                    <th>Tanggal Pengajuan</th>
-                    <th>Lampiran</th>
-                    <th>Status</th>
-                    <th>File Surat</th>
-                    <th>Validasi</th>
+                    <th class="text-center">No</th>
+                    <th class="text-center">Nama Mahasiswa</th>
+                    <th class="text-center">NIM</th>
+                    <th class="text-center">Prodi</th>
+                    <th class="text-center">Tanggal Pengajuan</th>
+                    <th class="text-center">Lampiran</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">File Surat</th>
+                    <th class="text-center">Validasi</th>
                 </tr>
             </thead>
             <tbody>
