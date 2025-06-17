@@ -232,12 +232,12 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault();
 
         Swal.fire({
-            title: 'Yakin ingin keluar?',
-            text: 'Anda akan keluar dari sesi ini.',
+            title: '{{ __("mahasiswa.logout_confirm.title") }}',
+            text: '{{ __("mahasiswa.logout_confirm.text") }}',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Keluar',
-            cancelButtonText: 'Batal',
+            confirmButtonText: '{{ __("mahasiswa.logout_confirm.confirm") }}',
+            cancelButtonText: '{{ __("mahasiswa.logout_confirm.cancel") }}',
             confirmButtonColor: '#d33',
             cancelButtonColor: '#aaa'
         }).then((result) => {

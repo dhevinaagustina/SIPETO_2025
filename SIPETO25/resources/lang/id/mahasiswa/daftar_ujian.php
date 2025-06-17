@@ -34,7 +34,7 @@ return [
     'placeholder_prodi' => 'Masukkan Program Studi (Contoh: D4 Sistem Informasi Bisnis)',
     'placeholder_jurusan' => 'Masukkan Jurusan',
     'placeholder_kampus' => 'Pilih kampus',
-    'placeholder_no_wa' => 'Masukkan No. WhatsApp (Contoh: +628123456789)',
+    'placeholder_no_wa' => 'Masukkan No. WhatsApp (Contoh: 0828123456789)',
     'placeholder_nik' => 'Masukkan NIK',
     'placeholder_alamat_asal' => 'Masukkan alamat asal',
     'placeholder_alamat_sekarang' => 'Masukkan alamat tempat tinggal sekarang',
