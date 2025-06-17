@@ -43,9 +43,6 @@
     .badge-proses {
         background-color: #ffbc02;
     }
-    .badge-ditolak {
-        background-color: #f44336;
-    }
     .no-data {
         color: #6c757d;
         padding: 20px;
@@ -152,16 +149,9 @@
                 </div>
 
                 <select id="filterStatus" class="form-control">
-
                     <option value="">{{ __('mahasiswa/surat.filter') }}</option>
                     <option value="selesai">{{ __('mahasiswa/surat.selesai') }}</option>
                     <option value="proses">{{ __('mahasiswa/surat.proses') }}</option>
-
-                    <option value="">Filter</option>
-                    <option value="proses">Proses</option>
-                    <option value="ditolak">Ditolak</option>
-                    <option value="selesai">Selesai</option>
-
                 </select>
             </div>
 
@@ -191,17 +181,14 @@
             <tbody>
                 @if(isset($daftarSurat) && count($daftarSurat) > 0)
                     @foreach ($daftarSurat as $i => $surat)
-                        <tr data-status="{{ $surat->status_validasi === 'ditolak' ? 'ditolak' : ($surat->status === 'selesai' ? 'selesai' : 'proses') }}">
+                        <tr data-status="{{ $surat->status }}">
                             <td>{{ $i + 1 }}</td>
                             <td>{{ auth('mahasiswa')->user()->nim }}</td>
                             <td>{{ auth('mahasiswa')->user()->nama_mahasiswa }}</td>
                             <td>{{ \Carbon\Carbon::parse($surat->tanggal_pengajuan)->translatedFormat('d F Y') }}</td>
                             <td>
                                 @if ($surat->status_validasi === 'ditolak')
-
                                     <span class="status-badge badge-proses" style="background-color: #f44336;">{{ __('mahasiswa/surat.ditolak') }}</span>
-
-
                                 @elseif ($surat->status === 'selesai')
                                     <span class="status-badge badge-selesai">{{ __('mahasiswa/surat.selesai') }}</span>
                                 @else
@@ -227,15 +214,9 @@
                         </tr>
                     @endforeach
                 @else
-
                     <tr>
                         <td colspan="7" class="no-data">
                             {{ __('mahasiswa/surat.belum_ada_pengajuan') }}
-
-                    <tr class="no-data-row">
-                        <td colspan="7" class="no-data">
-                            Belum ada pengajuan surat
-
                         </td>
                     </tr>
                 @endif
@@ -244,11 +225,7 @@
     </div>
 </section>
 
-
 <!-- Modal Upload Lampiran --> 
-
-<!-- Modal Upload Lampiran -->
-
 <div class="modal fade" id="modalUploadLampiran" tabindex="-1" role="dialog" aria-labelledby="modalUploadLampiranLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <form id="formUploadLampiran" enctype="multipart/form-data">
@@ -354,48 +331,33 @@ document.addEventListener('DOMContentLoaded', function () {
         const rowsPerPage = parseInt($('#entriesSelect').val());
         let visibleRows = 0;
 
-        // First hide all rows (except no-data row if it exists)
-        $('#pengajuanTable tbody tr').not('.no-data-row').hide();
-
-        // Show rows that match the filter
         $('#pengajuanTable tbody tr').each(function () {
-            if ($(this).hasClass('no-data-row')) return;
-
-            const rowStatus = $(this).data('status').toLowerCase();
+            const rowStatus = $(this).data('status');
             const statusMatch = status === '' || rowStatus === status;
 
-            if (statusMatch) {
+            if (statusMatch && !$(this).hasClass('no-data-row')) {
+                $(this).show();
                 visibleRows++;
-                // Only show if within pagination limits or showing all
-                if (rowsPerPage === -1 || visibleRows <= rowsPerPage) {
-                    $(this).show();
+                if (rowsPerPage > 0 && visibleRows > rowsPerPage) {
+                    $(this).hide();
                 }
+            } else {
+                $(this).hide();
             }
         });
 
-        // Handle empty results
-        const hasData = $('#pengajuanTable tbody tr').not('.no-data-row').length > 0;
-        if (hasData && visibleRows === 0) {
+        if (visibleRows === 0) {
             $('#pengajuanTable tbody .no-data-row').remove();
             $('#pengajuanTable tbody').append(
-                '<tr class="no-data-row"><td colspan="7" class="no-data">Tidak ada data yang sesuai dengan filter</td></tr>'
-            );
-        } else if (!hasData) {
-            // Keep the original "no data" message if there's really no data
-            $('#pengajuanTable tbody .no-data-row').remove();
-            $('#pengajuanTable tbody').append(
-                '<tr class="no-data-row"><td colspan="7" class="no-data">Belum ada pengajuan surat</td></tr>'
+                '<tr class="no-data-row"><td colspan="6" class="no-data">Tidak ada data yang sesuai dengan filter</td></tr>'
             );
         } else {
             $('#pengajuanTable tbody .no-data-row').remove();
         }
     }
 
-    // Initialize the filter on page load
-    filterTable();
-
-    // Event listeners for filter changes
     $('#filterStatus, #entriesSelect').on('change', filterTable);
+    filterTable();
 
     // Cek kelayakan sebelum ajukan surat
     const btnCekAjukan = document.getElementById('btnCekAjukan');
