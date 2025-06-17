@@ -34,7 +34,7 @@ return [
     'placeholder_prodi' => 'Enter your Study Program (e.g. D4 Business Information Systems)',
     'placeholder_jurusan' => 'Enter your Department',
     'placeholder_kampus' => 'Select your campus',
-    'placeholder_no_wa' => 'Enter WhatsApp number (e.g. +62123456789)',
+    'placeholder_no_wa' => 'Enter WhatsApp number (e.g. 08123456789)',
     'placeholder_nik' => 'Enter your National ID (NIK)',
     'placeholder_alamat_asal' => 'Enter your permanent address',
     'placeholder_alamat_sekarang' => 'Enter your current address',

@@ -45,4 +45,7 @@ return [
     'elektro' => 'Electrical Engineering',
     'akuntansi' => 'Accounting',
     'jumlah_pendaftar' => 'Total Registrants',
+
+    //Header
+    'title' => 'TOEIC Registration Information System',
 ];
