@@ -45,17 +45,17 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>NIM</th>
-                            <th>Nama</th>
-                            <th>Email</th>
-                            <th>Tanggal Daftar</th>
-                            <th>Status TOEIC</th>
+                            <th class="text-center">No</th>
+                            <th class="text-center">NIM</th>
+                            <th class="text-center">Nama</th>
+                            <th class="text-center">Email</th>
+                            <th class="text-center">Tanggal Daftar</th>
+                            <th class="text-center">Status TOEIC</th>
                         </tr>
                     </thead>
-                    <tbody>
+                   <tbody>
                         @foreach($mahasiswa as $key => $mhs)
-                        <tr>
+                        <tr class="text-center">
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $mhs->nim }}</td>
                             <td>{{ $mhs->nama_mahasiswa }}</td>

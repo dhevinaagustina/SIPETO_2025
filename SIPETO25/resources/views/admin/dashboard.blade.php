@@ -313,11 +313,13 @@
             datasets: [{
                 data: [55, 2, 21, 3, 5, 19, 2],
                 backgroundColor: [
-                    '#f56954',
-                    '#00a65a',
-                    '#f39c12',
-                    '#00c0ef',
-                    '#3c8dbc'
+                '#FFDF00', // TI - Kuning
+                '#00bfff', // Mesin - Biru 
+                '#8B4513', // Sipil - Coklat
+                '#28AE38', // Kimia - Hijau 
+                '#9b59b6', // Administrasi Niaga - Ungu
+                '#e67e22', // Elektro - Oranye
+                '#DB2B39'  // Akuntansi - Merah 
                 ],
                 borderWidth: 0
             }]

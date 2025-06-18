@@ -40,21 +40,20 @@
                 if ($isSuperAdmin) {
                     $menu = [
                         [
-                            'label' => 'Menu', 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
-                                ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => route('admin.dashboard'), 'key' => 'dashboard-admberanda'],
-                                ['label' => 'Tulis Pesan', 'icon' => 'fas fa-bell', 'route' => route('admin.kirim_informasi'), 'key' => 'dashboard-pesan'],
+                            'label' =>  __('admin/sidebar.menu'), 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
+                                ['label' => __('admin/sidebar.beranda'),  'icon' => 'fas fa-home', 'route' => route('admin.dashboard'), 'key' => 'dashboard-admberanda'],
+                                ['label' => __('admin/sidebar.tulis_pesan'),  'icon' => 'fas fa-bell', 'route' => route('admin.kirim_informasi'), 'key' => 'dashboard-pesan'],
                             ]
                         ],
-                        ['label' => 'Cek Data', 'icon' => 'fas fa-search', 'route' => route('admin.cekdata.index'), 'key' => 'cek-data'],
-                        ['label' => 'Riwayat Ujian', 'icon' => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian'],
-                        ['label' => 'Pengajuan Surat', 'icon' => 'fas fa-pen-fancy', 'route' => route('admin.surat_pernyataan.index'), 'key' => 'surat-pernyataan'],
-                        ['label' => 'Manajemen Admin', 'icon' => 'fas fa-users-cog', 'route' => route('admin.kelola_admin'), 'key' => 'kelola-admin'],
-                        ['label' => 'Manajemen Mahasiswa', 'icon' => 'fas fa-user-graduate', 'route' => route('admin.mahasiswa.index'), 'key' => 'kelola-mahasiswa'],
-                        ['label' => 'Manajemen Dosen', 'icon' => 'fas fa-chalkboard-teacher', 'route' => route('admin.dosen.index'), 'key' => 'kelola-dosen'], // ← Tambahan di sini
+                        ['label' => __('admin/sidebar.cek_data'),  'icon' => 'fas fa-search', 'route' => route('admin.cekdata.index'), 'key' => 'cek-data'],
+                        ['label' => __('admin/sidebar.riwayat_ujian'), 'icon' => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian'],
+                        ['label' => __('admin/sidebar.pengajuan_surat'), 'icon' => 'fas fa-pen-fancy', 'route' => route('admin.surat_pernyataan.index'), 'key' => 'surat-pernyataan'],
+                        ['label' =>  __('admin/sidebar.manajemen_admin'), 'icon' => 'fas fa-users-cog', 'route' => route('admin.kelola_admin'), 'key' => 'kelola-admin'],
+                        ['label' => __('admin/sidebar.manajemen_mahasiswa'), 'icon' => 'fas fa-user-graduate', 'route' => route('admin.mahasiswa.index'), 'key' => 'kelola-mahasiswa'],
+                        ['label' =>  __('admin/sidebar.manajemen_dosen'),  'icon' => 'fas fa-chalkboard-teacher', 'route' => route('admin.dosen.index'), 'key' => 'kelola-dosen'], // ← Tambahan di sini
                         [
-                            'label' => 'Laporan & Export', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
-                                ['label' => 'Laporan Pendaftaran', 'icon' => 'fas fa-file-alt', 'route' => route('admin.laporan.pendaftaran'), 'key' => 'laporan-pendaftaran'],
-                                ['label' => 'Export Data', 'icon' => 'fas fa-download', 'route' => route('admin.laporan.export'), 'key' => 'laporan-export'],
+                            'label' => 'Laporan', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
+                                ['label' =>  __('admin/sidebar.laporan_pendaftaran'), 'icon' => 'fas fa-file-alt', 'route' => route('admin.laporan.pendaftaran'), 'key' => 'laporan-pendaftaran'],
                             ]
                         ],
                     ];
@@ -64,26 +63,26 @@
                    // Menu admin biasa
             $menu = [
             [
-            'label' => 'Menu', 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
-                ['label' => 'Beranda', 'icon' => 'fas fa-home', 'route' => route('admin.dashboard'), 'key' => 'dashboard-admberanda'],
-                ['label' => 'Tulis Pesan', 'icon' => 'fas fa-bell', 'route' => route('admin.informasi.create'), 'key' => 'dashboard-pesan'],
+            'label' => __('admin/sidebar.menu'), 'icon' => 'fas fa-th-large', 'key' => 'dashboard', 'submenu' => [
+                ['label' => __('admin/sidebar.beranda'), 'icon' => 'fas fa-home', 'route' => route('admin.dashboard'), 'key' => 'dashboard-admberanda'],
+                ['label' =>  __('admin/sidebar.tulis_pesan'), 'icon' => 'fas fa-bell', 'route' => route('admin.informasi.create'), 'key' => 'dashboard-pesan'],
             ]
             ],
-            ['label' => 'Cek Data', 'icon' => 'fas fa-search', 'route' => route('admin.cekdata.index'), 'key' => 'cek-data'],
-            ['label' => 'Riwayat Ujian', 'icon' => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian'],
+            ['label' =>  __('admin/sidebar.cek_data'), 'icon' => 'fas fa-search', 'route' => route('admin.cekdata.index'), 'key' => 'cek-data'],
+            ['label' =>  __('admin/sidebar.riwayat_ujian'),  'icon' => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian'],
             [
-                'label' => 'Pengajuan Surat',
+                'label' => __('admin/sidebar.pengajuan_surat'),
                 'icon' => 'fas fa-pen-fancy',
                 'key' => 'surat-pernyataan',
                 'submenu' => [
                     [
-                        'label' => 'Mahasiswa Aktif',
+                        'label' => __('admin/sidebar.mahasiswa_aktif'),
                         'route' => route('admin.surat_pernyataan.by_tipe', ['tipe' => 'aktif']),
                         'key' => 'surat-pernyataan-aktif',
                         'icon' => 'fas fa-user-graduate',
                     ],
                     [
-                        'label' => 'Alumni',
+                        'label' =>__('admin/sidebar.alumni'),
                         'route' => route('admin.surat_pernyataan.by_tipe', ['tipe' => 'alumni']),
                         'key' => 'surat-pernyataan-alumni',
                         'icon' => 'fas fa-user-check',
@@ -92,9 +91,8 @@
             ],
 
             [
-            'label' => 'Laporan & Export', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
-                ['label' => 'Laporan Pendaftaran', 'icon' => 'fas fa-file-alt', 'route' => route('admin.laporan.pendaftaran'), 'key' => 'laporan-pendaftaran'],
-                ['label' => 'Export Data', 'icon' => 'fas fa-download', 'route' => route('admin.laporan.export'), 'key' => 'laporan-export'],
+            'label' => 'Laporan', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
+                ['label' =>  __('admin/sidebar.laporan_pendaftaran'), 'icon' => 'fas fa-file-alt', 'route' => route('admin.laporan.pendaftaran'), 'key' => 'laporan-pendaftaran'],
             ]
         ],
     ];
@@ -134,7 +132,7 @@
             <li class="nav-item mt-4">
                 <a href="#" id="btn-logout" class="nav-link sidebar-button text-white">
                     <i class="fas fa-sign-out-alt nav-icon me-2"></i>
-                    <span>Keluar</span>
+                   <span>{{ __('admin/sidebar.logout') }}</span>
                 </a>
             </li>
 
@@ -211,14 +209,14 @@
         e.preventDefault();
 
         Swal.fire({
-            title: 'Yakin ingin keluar?',
-            text: "Sesi Anda akan diakhiri.",
+        title: '{{ __("admin/sidebar.logout_confirm.title") }}',
+        text: '{{ __("admin/sidebar.logout_confirm.text") }}',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#aaa',
-            confirmButtonText: 'Ya, Keluar',
-            cancelButtonText: 'Batal'
+            confirmButtonText: '{{ __("admin/sidebar.logout_confirm.confirm") }}',
+            cancelButtonText: '{{ __("admin/sidebar.logout_confirm.cancel") }}'
         }).then((result) => {
             if (result.isConfirmed) {
                 fetch("{{ route('logout') }}", {

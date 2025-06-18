@@ -45,4 +45,7 @@ return [
     'elektro' => 'Teknik Elektro',
     'akuntansi' => 'Akuntansi',
     'jumlah_pendaftar' => 'Jumlah Pendaftar',
+
+    //Header
+    'title' => 'Sistem Informasi Pendaftaran TOEIC',
 ];

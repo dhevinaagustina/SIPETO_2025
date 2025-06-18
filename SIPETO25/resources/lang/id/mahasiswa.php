@@ -93,5 +93,11 @@ return [
             'pesan' => 'Pesan',
         ],
     ],
-
+    'slogan' => 'Sistem Informasi Pendaftaran TOEIC',
+    'logout_confirm' => [
+        'title' => 'Yakin ingin keluar?',
+        'text' => 'Anda akan keluar dari sesi ini.',
+        'confirm' => 'Ya, Keluar',
+        'cancel' => 'Batal',
+    ],
 ];

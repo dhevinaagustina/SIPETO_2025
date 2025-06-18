@@ -93,4 +93,11 @@ return [
             'pesan' => 'Messages',
         ],
     ],
+    'slogan' => 'TOEIC Registration Information System',
+    'logout_confirm' => [
+        'title' => 'Are you sure you want to logout?',
+        'text' => 'You will be logged out from this session.',
+        'confirm' => 'Yes, Logout',
+        'cancel' => 'Cancel',
+    ],
 ];

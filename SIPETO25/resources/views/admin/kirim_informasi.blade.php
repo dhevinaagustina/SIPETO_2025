@@ -471,7 +471,7 @@
                 <input type="text" class="form-control" name="judul" placeholder="{{ __('admin/pesan.placeholder_judul') }}" required>
             </div>
 
-            <div class="mb-4" id="statusGlobal">
+            {{-- <div class="mb-4" id="statusGlobal">
                 <label class="form-label">{{ __('admin/pesan.status_hasil') }}</label>
                 <div class="btn-group w-100" role="group">
                     <input type="radio" class="btn-check" name="status" id="statusSuccess" value="success" autocomplete="off" checked>
@@ -484,7 +484,7 @@
                         <i class="fas fa-times-circle me-1"></i> {{ __('admin/pesan.gagal') }}
                     </label>
                 </div>
-            </div>
+            </div> --}}
 
             <div>
                 <label class="form-label">{{ __('admin/pesan.isi_informasi') }}</label>
@@ -694,12 +694,7 @@
                             <strong>${nama}</strong>
                             <input type="hidden" name="mahasiswa_tertentu[]" value="${id}">
                         </div>
-                        <div class="mx-3">
-                            <select name="status_mahasiswa[${id}]" class="form-select form-select-sm status-select">
-                                <option value="success">Berhasil</option>
-                                <option value="failure">Gagal</option>
-                            </select>
-                        </div>
+
                         <div>
                             <span class="remove-student" data-id="${id}" title="Hapus mahasiswa">
                                 <i class="fas fa-times me-1"></i> Hapus

@@ -332,7 +332,7 @@ select.form-control {
                 <div class="form-column">
                     <div class="form-group">
                         <label for="nama"><strong>{{ __('mahasiswa/daftar_ujian.nama') }}</strong></label>
-                        <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="name" autofocus placeholder="Masukkan Nama">
+                        <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="name" autofocus placeholder="{{ __('mahasiswa/daftar_ujian.placeholder_nama') }}">
                         @error('nama')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -397,10 +397,7 @@ select.form-control {
                     <div class="form-group">
 
                         <label for="no_wa"><strong>{{ __('mahasiswa/daftar_ujian.no_wa') }}</strong></label>
-                        <input id="no_wa" type="text" class="form-control @error('no_wa') is-invalid @enderror" name="no_wa" value="{{ old('no_wa') }}" required placeholder="Masukkan No. WA (Contoh: +62123456789)">
-
-                        <label for="no_wa"><strong>No. WA</strong></label>
-                        <input id="no_wa" type="text" class="form-control @error('no_wa') is-invalid @enderror" name="no_wa" value="{{ old('no_wa') }}" required placeholder="Masukkan No. WA (Contoh: 08123456789)">
+                        <input id="no_wa" type="text" class="form-control @error('no_wa') is-invalid @enderror" name="no_wa" value="{{ old('no_wa') }}" required placeholder="{{ __('mahasiswa/daftar_ujian.placeholder_no_wa') }}">
 
                         @error('no_wa')
                             <span class="invalid-feedback" role="alert">
@@ -411,7 +408,7 @@ select.form-control {
 
                     <div class="form-group">
                         <label for="nik"><strong>{{ __('mahasiswa/daftar_ujian.nik') }}</strong></label>
-                        <input id="nik" type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" value="{{ old('nik') }}" required placeholder="Masukkan NIK">
+                        <input id="nik" type="text" class="form-control @error('nik') is-invalid @enderror" name="nik" value="{{ old('nik') }}" required placeholder="{{ __('mahasiswa/daftar_ujian.placeholder_nik') }}">
                         @error('nik')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -421,7 +418,7 @@ select.form-control {
                     
                     <div class="form-group">
                         <label for="alamat_asal"><strong>{{ __('mahasiswa/daftar_ujian.alamat_asal') }}</strong></label>
-                        <input id="alamat_asal" type="text" class="form-control @error('alamat_asal') is-invalid @enderror" name="alamat_asal" value="{{ old('alamat_asal') }}" required placeholder="Masukkan Alamat Asal">
+                        <input id="alamat_asal" type="text" class="form-control @error('alamat_asal') is-invalid @enderror" name="alamat_asal" value="{{ old('alamat_asal') }}" required placeholder="{{ __('mahasiswa/daftar_ujian.placeholder_alamat_asal') }}">
                         @error('alamat_asal')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -431,7 +428,7 @@ select.form-control {
 
                     <div class="form-group">
                         <label for="alamat_sekarang"><strong>{{ __('mahasiswa/daftar_ujian.alamat_sekarang') }}</strong></label>
-                        <input id="alamat_sekarang" type="text" class="form-control @error('alamat_sekarang') is-invalid @enderror" name="alamat_sekarang" value="{{ old('alamat_sekarang') }}" required placeholder="Masukkan Alamat Sekarang">
+                        <input id="alamat_sekarang" type="text" class="form-control @error('alamat_sekarang') is-invalid @enderror" name="alamat_sekarang" value="{{ old('alamat_sekarang') }}" required placeholder="{{ __('mahasiswa/daftar_ujian.alamat_sekarang') }}">
                         @error('alamat_sekarang')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -552,7 +549,7 @@ select.form-control {
             const input = document.getElementById(inputId);
             const preview = document.getElementById(previewId);
             const info = document.querySelector(infoSelector);
-            
+
             if (input && preview && info) {
                 input.addEventListener('change', () => handleFilePreview(input, preview, info));
             }
@@ -560,12 +557,12 @@ select.form-control {
 
         submitForm = () => {
             Swal.fire({
-                title: 'Apakah Anda Yakin?',
-                text: 'Pastikan data dan dokumen yang Anda inputkan sudah benar.',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, Daftar!',
-                cancelButtonText: 'Batal',
+            title: '{{ __("mahasiswa/daftar_ujian.swal.title") }}',
+            text: '{{ __("mahasiswa/daftar_ujian.swal.text") }}',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: '{{ __("mahasiswa/daftar_ujian.swal.confirm") }}',
+            cancelButtonText: '{{ __("mahasiswa/daftar_ujian.swal.cancel") }}',
                 customClass: {
                     confirmButton: 'btn btn-primary-custom mx-2',
                     cancelButton: 'btn btn-secondary mx-2'
