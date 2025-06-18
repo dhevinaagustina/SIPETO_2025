@@ -24,4 +24,28 @@ return [
         'previous'  => 'Sebelumnya',
         'next'      => 'Berikutnya',
     ],
+
+    'title' => 'Detail Dokumen Mahasiswa',
+    'nama_mahasiswa' => 'Nama Mahasiswa',
+    'nim' => 'NIM',
+    'jurusan' => 'Jurusan',
+    'prodi' => 'Program Studi',
+
+    'info_pendaftaran' => 'Informasi Pendaftaran',
+    'tipe_ujian' => 'Tipe Ujian',
+    'nik' => 'NIK',
+    'no_wa' => 'No. WhatsApp',
+    'alamat_asal' => 'Alamat Asal',
+    'alamat_sekarang' => 'Alamat Sekarang',
+    'tanggal_daftar' => 'Tanggal Daftar',
+
+    'dokumen' => 'Dokumen Pendaftaran',
+    'ktp' => 'Kartu Tanda Penduduk (KTP)',
+    'ktm' => 'Kartu Tanda Mahasiswa (KTM)',
+    'pas_foto' => 'Pas Foto',
+    'belum_upload' => 'Belum upload :dokumen',
+
+    'download' => 'Download',
+    'lihat_full' => 'Lihat Full',
+    'kembali' => 'Kembali ke Daftar',
 ];

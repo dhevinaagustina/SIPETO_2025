@@ -213,7 +213,7 @@
 
 <div class="container">
     <div class="header">
-        <h3>Detail Dokumen Mahasiswa</h3>
+        <h3>{{ __('admin/cek.title') }}</h3>
     </div>
     
     <div class="student-profile">
@@ -221,58 +221,58 @@
             <h2>{{ $mahasiswa->nama_mahasiswa }}</h2>
             <div class="info-grid">
                 <div class="info-item">
-                    <span class="info-label">NIM:</span>
+                    <span class="info-label">{{ __('admin/cek.nim') }}:</span>
                     <span>{{ $mahasiswa->nim }}</span>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">Jurusan:</span>
+                    <span class="info-label">{{ __('admin/cek.jurusan') }}:</span>
                     <span>{{ $mahasiswa->jurusan }}</span>
                 </div>
                 <div class="info-item">
-                    <span class="info-label">Prodi:</span>
+                    <span class="info-label">{{ __('admin/cek.prodi') }}:</span>
                     <span>{{ $mahasiswa->prodi }}</span>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <div class="registration-info">
-        <h3 class="section-title">Informasi Pendaftaran</h3>
+        <h3 class="section-title">{{ __('admin/cek.info_pendaftaran') }}</h3>
         <div class="info-row">
-            <span class="info-label">Tipe Ujian :</span>
+            <span class="info-label">{{ __('admin/cek.tipe_ujian') }} :</span>
             <span>{{ ucfirst($pendaftaran->tipe_ujian) }}</span>
         </div>
         <div class="info-row">
-            <span class="info-label">NIK :</span>
+            <span class="info-label">{{ __('admin/cek.nik') }} :</span>
             <span>{{ $pendaftaran->nik ?? '-' }}</span>
         </div>
         <div class="info-row">
-            <span class="info-label">No. WhatsApp :</span>
+            <span class="info-label">{{ __('admin/cek.no_wa') }} :</span>
             <span>{{ $pendaftaran->no_wa ?? '-' }}</span>
         </div>
         <div class="info-row">
-            <span class="info-label">Alamat Asal :</span>
+        <span class="info-label">{{ __('admin/cek.alamat_asal') }} :</span>
             <span>{{ $pendaftaran->alamat_asal ?? '-' }}</span>
         </div>
         <div class="info-row">
-            <span class="info-label">Alamat Sekarang :</span>
+            <span class="info-label">{{ __('admin/cek.alamat_sekarang') }} :</span>
             <span>{{ $pendaftaran->alamat_sekarang ?? '-' }}</span>
         </div>
         <div class="info-row">
-            <span class="info-label">Tanggal Daftar :</span>
+            <span class="info-label">{{ __('admin/cek.tanggal_daftar') }} :</span>
             <span>{{ \Carbon\Carbon::parse($pendaftaran->tanggal_daftar)->format('d-m-Y') }}</span>
         </div>
     </div>
     
     <div class="documents-section">
-        <h3 class="section-title">Dokumen Pendaftaran</h3>
+       <h3 class="section-title">{{ __('admin/cek.dokumen') }}</h3>
         
         <div class="document-cards">
             @php
                 $dokumen = [
-                    ['label' => 'Kartu Tanda Penduduk (KTP)', 'field' => 'scan_ktp'],
-                    ['label' => 'Kartu Tanda Mahasiswa (KTM)', 'field' => 'scan_ktm'],
-                    ['label' => 'Pas Foto', 'field' => 'pas_foto'],
+                    ['label' => __('admin/cek.ktp'), 'field' => 'scan_ktp'],
+                    ['label' => __('admin/cek.ktm'), 'field' => 'scan_ktm'],
+                    ['label' => __('admin/cek.pas_foto'), 'field' => 'pas_foto'],
                 ];
             @endphp
 
@@ -301,15 +301,15 @@
                     <h4>{{ $item['label'] }}</h4>
                     <div class="doc-preview">
                         @if ($exists)
-                           <img src="{{ asset('storage/' . $relativePath) }}" alt="{{ $item['label'] }}" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
+                        <img src="{{ asset('storage/' . $relativePath) }}" alt="{{ $item['label'] }}" style="width: auto; height: auto; max-width: 100%; max-height: 100%;">
                         @else
-                            <span class="text-muted">Belum upload {{ $item['label'] }}</span>
+                            <span class="text-muted">{{ __('admin/cek.belum_upload', ['dokumen' => $item['label']]) }}</span>
                         @endif
                     </div>
                     @if ($exists)
                         <div class="doc-actions">
-                            <a href="{{ asset('storage/' . $relativePath) }}" download class="btn btn-secondary">Download</a>
-                            <a href="{{ asset('storage/' . $relativePath) }}" target="_blank" class="btn btn-primary">Lihat Full</a>
+                            <a href="{{ asset('storage/' . $relativePath) }}" download class="btn btn-secondary">{{ __('admin/cek.download') }}</a>
+                            <a href="{{ asset('storage/' . $relativePath) }}" target="_blank" class="btn btn-primary"> {{ __('admin/cek.lihat_full') }}</a>
                         </div>
                     @endif
                 </div>
@@ -318,7 +318,7 @@
     </div>
     
     <div class="footer-actions">
-        <a href="{{ route('admin.cekdata.index') }}" class="btn btn-primary">Kembali ke Daftar</a>
+        <a href="{{ route('admin.cekdata.index') }}" class="btn btn-primary"> {{ __('admin/cek.kembali') }}</a>
     </div>
 </div>
 @endsection

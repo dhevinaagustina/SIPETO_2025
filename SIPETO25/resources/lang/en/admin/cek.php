@@ -24,4 +24,28 @@ return [
         'previous'  => 'Previous',
         'next'      => 'Next',
     ],
+
+    'title' => 'Student Document Details',
+    'nama_mahasiswa' => 'Student Name',
+    'nim' => 'Student ID (NIM)',
+    'jurusan' => 'Department',
+    'prodi' => 'Study Program',
+
+    'info_pendaftaran' => 'Registration Information',
+    'tipe_ujian' => 'Exam Type',
+    'nik' => 'National ID Number',
+    'no_wa' => 'WhatsApp Number',
+    'alamat_asal' => 'Home Address',
+    'alamat_sekarang' => 'Current Address',
+    'tanggal_daftar' => 'Registration Date',
+
+    'dokumen' => 'Registration Documents',
+    'ktp' => 'Identity Card (KTP)',
+    'ktm' => 'Student Card (KTM)',
+    'pas_foto' => 'Passport Photo',
+    'belum_upload' => 'Not yet uploaded :dokumen',
+
+    'download' => 'Download',
+    'lihat_full' => 'View Full',
+    'kembali' => 'Back to List',
 ];
