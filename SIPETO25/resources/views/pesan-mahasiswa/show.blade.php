@@ -57,14 +57,21 @@
     }
     
     .pesan-content {
-        line-height: 1.8;
+        line-height: 1.6; /* Diubah dari 1.5 ke 1.6 untuk spacing yang lebih baik */
         font-size: 1.1rem;
         color: var(--dark-color);
         padding: 25px;
         background-color: var(--gray-light);
         border-radius: 8px;
-        white-space: pre-wrap;
+        white-space: pre-line;
         margin-bottom: 30px;
+        text-align: justify;
+        text-justify: inter-word;
+    }
+    
+    .pesan-content p {
+        margin: 0 0 1em 0; 
+        line-height: 1.6;
     }
     
     .lampiran-section {
