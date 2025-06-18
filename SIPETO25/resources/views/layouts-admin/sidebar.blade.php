@@ -47,15 +47,35 @@
                         ],
                         ['label' => __('admin/sidebar.cek_data'),  'icon' => 'fas fa-search', 'route' => route('admin.cekdata.index'), 'key' => 'cek-data'],
                         ['label' => __('admin/sidebar.riwayat_ujian'), 'icon' => 'fas fa-clock', 'route' => route('admin.riwayat'), 'key' => 'riwayat-ujian'],
-                        ['label' => __('admin/sidebar.pengajuan_surat'), 'icon' => 'fas fa-pen-fancy', 'route' => route('admin.surat_pernyataan.index'), 'key' => 'surat-pernyataan'],
+                        [
+                            'label' => __('admin/sidebar.pengajuan_surat'),
+                            'icon' => 'fas fa-pen-fancy',
+                            'key' => 'surat-pernyataan',
+                            'submenu' => [
+                                [
+                                    'label' => __('admin/sidebar.mahasiswa_aktif'),
+                                    'route' => route('admin.surat_pernyataan.by_tipe', ['tipe' => 'aktif']),
+                                    'key' => 'surat-pernyataan-aktif',
+                                    'icon' => 'fas fa-user-graduate',
+                                ],
+                                [
+                                    'label' =>__('admin/sidebar.alumni'),
+                                    'route' => route('admin.surat_pernyataan.by_tipe', ['tipe' => 'alumni']),
+                                    'key' => 'surat-pernyataan-alumni',
+                                    'icon' => 'fas fa-user-check',
+                                ],
+                            ]
+                        ],
                         ['label' =>  __('admin/sidebar.manajemen_admin'), 'icon' => 'fas fa-users-cog', 'route' => route('admin.kelola_admin'), 'key' => 'kelola-admin'],
                         ['label' => __('admin/sidebar.manajemen_mahasiswa'), 'icon' => 'fas fa-user-graduate', 'route' => route('admin.mahasiswa.index'), 'key' => 'kelola-mahasiswa'],
                         ['label' =>  __('admin/sidebar.manajemen_dosen'),  'icon' => 'fas fa-chalkboard-teacher', 'route' => route('admin.dosen.index'), 'key' => 'kelola-dosen'], // ← Tambahan di sini
                         [
-                            'label' => 'Laporan', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
-                                ['label' =>  __('admin/sidebar.laporan_pendaftaran'), 'icon' => 'fas fa-file-alt', 'route' => route('admin.laporan.pendaftaran'), 'key' => 'laporan-pendaftaran'],
-                            ]
+                            'label' => __('admin/sidebar.laporan_pendaftaran'),
+                            'icon' => 'fas fa-file-export',
+                            'route' => route('admin.laporan.pendaftaran'),
+                            'key' => 'laporan-pendaftaran'
                         ],
+
                     ];
                 }
 
@@ -89,12 +109,12 @@
                     ],
                 ]
             ],
-
             [
-            'label' => 'Laporan', 'icon' => 'fas fa-file-export', 'key' => 'laporan', 'submenu' => [
-                ['label' =>  __('admin/sidebar.laporan_pendaftaran'), 'icon' => 'fas fa-file-alt', 'route' => route('admin.laporan.pendaftaran'), 'key' => 'laporan-pendaftaran'],
-            ]
-        ],
+                'label' => __('admin/sidebar.laporan_pendaftaran'),
+                'icon' => 'fas fa-file-export',
+                'route' => route('admin.laporan.pendaftaran'),
+                'key' => 'laporan-pendaftaran'
+            ],
     ];
             }
             @endphp

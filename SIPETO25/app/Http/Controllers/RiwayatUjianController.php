@@ -25,12 +25,15 @@ class RiwayatUjianController extends Controller
         // Ambil data mahasiswa yang pendaftarannya valid
         $query = DB::table('pendaftaran_toeic as pt')
             ->join('mahasiswa as m', 'pt.id_mahasiswa', '=', 'm.id_mahasiswa')
-            ->whereNotNull('pt.scan_ktm')
-            ->whereNotNull('pt.scan_ktp')
-            ->whereNotNull('pt.pas_foto')
-            ->where('pt.scan_ktm', '!=', '-')
-            ->where('pt.scan_ktp', '!=', '-')
-            ->where('pt.pas_foto', '!=', '-')
+            ->where(function($q) {
+                $q->whereNotNull('pt.scan_ktm')
+                ->whereNotNull('pt.scan_ktp')
+                ->whereNotNull('pt.pas_foto')
+                ->where('pt.scan_ktm', '!=', '-')
+                ->where('pt.scan_ktp', '!=', '-')
+                ->where('pt.pas_foto', '!=', '-');
+            })
+            ->orWhere('pt.tipe_ujian', '=', 'mandiri') // tambahan ini
             ->groupBy('m.id_mahasiswa', 'm.nim', 'm.nama_mahasiswa')
             ->select([
                 'm.id_mahasiswa as id',
@@ -38,6 +41,7 @@ class RiwayatUjianController extends Controller
                 'm.nama_mahasiswa as nama',
                 DB::raw("GROUP_CONCAT(DISTINCT pt.tipe_ujian ORDER BY pt.tipe_ujian SEPARATOR ' & ') as status_pendaftaran")
             ]);
+
 
         // Filter nama
         if ($request->filled('nama')) {
@@ -53,8 +57,9 @@ class RiwayatUjianController extends Controller
             } elseif ($status === 'mandiri') {
                 $query->havingRaw("status_pendaftaran = 'mandiri'");
             } elseif ($status === 'gratis & mandiri') {
-                $query->havingRaw("status_pendaftaran LIKE '%gratis%' AND status_pendaftaran LIKE '%mandiri%'");
+                $query->havingRaw("FIND_IN_SET('gratis', REPLACE(status_pendaftaran, ' & ', ',')) > 0 AND FIND_IN_SET('mandiri', REPLACE(status_pendaftaran, ' & ', ',')) > 0");
             }
+
         }
 
         return DataTables::of($query)
