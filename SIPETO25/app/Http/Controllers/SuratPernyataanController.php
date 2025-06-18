@@ -81,6 +81,25 @@ class SuratPernyataanController extends Controller
             'status' => true,
             'message' => 'Pastikan anda adalah mahasiswa tingkat akhir / mahasiswa yang benar-benar membutuhkan surat pernyataan ini.'
         ]);
+
+        // Cek apakah sudah ada surat yang sedang diajukan ATAU diproses
+        $pengajuanAktif = SuratPernyataan::where('id_mahasiswa', $idMahasiswa)
+                            ->whereIn('status', ['diajukan', 'proses'])
+                            ->first();
+
+        if ($pengajuanAktif) {
+            return response()->json([
+                'status' => false,
+                'kode' => 'masih_diproses',
+                'message' => 'Pengajuan surat sebelumnya masih dalam proses. Anda tidak bisa mengajukan lagi untuk saat ini.'
+            ]);
+        }
+
+        // Jika tidak ada surat yang masih diproses
+        return response()->json([
+            'status' => true,
+            'message' => 'Pastikan anda adalah mahasiswa tingkat akhir / mahasiswa yang benar-benar membutuhkan surat pernyataan ini.'
+        ]);
     }
 
 public function ajukanSurat(Request $request)
@@ -93,7 +112,7 @@ public function ajukanSurat(Request $request)
     $mahasiswa = auth()->guard('mahasiswa')->user();
 
     $cekPengajuan = SuratPernyataan::where('id_mahasiswa', $mahasiswa->id_mahasiswa)
-                        ->where('status', 'diajukan')
+                         ->whereIn('status', ['diajukan', 'proses'])
                         ->first();
     if ($cekPengajuan) {
         return response()->json([

@@ -279,7 +279,8 @@
                 </div>
                 <div class="form-group">
                     <label>Catatan (jika ditolak)</label>
-                    <textarea class="form-control" name="catatan_validasi" rows="3" placeholder="Opsional, jika ditolak."></textarea>
+                    <textarea class="form-control" name="catatan_validasi" id="catatan_validasi" rows="3" placeholder="Opsional, jika ditolak."></textarea>
+                    <small id="catatanError" class="text-danger d-none">Catatan wajib diisi jika surat ditolak.</small>
                 </div>
             </div>
             <div class="modal-footer">
@@ -406,13 +407,27 @@
 
                 const status = $('select[name="status_validasi"]').val().trim();
                 const catatan = $('textarea[name="catatan_validasi"]').val().trim();
+$('#formValidasi').on('submit', function (e) {
+    e.preventDefault();
 
-                if (status === 'ditolak' && catatan === '') {
-                    alert('Silakan isi catatan alasan penolakan.');
-                    return;
-                }
+    const status = $('select[name="status_validasi"]').val().trim();
+    const catatan = $('textarea[name="catatan_validasi"]').val().trim();
+    const catatanError = document.getElementById('catatanError');
 
-                this.submit();
+    // Reset error dulu
+    catatanError.classList.add('d-none');
+
+    // Jika status "ditolak" tapi catatan kosong, tampilkan error dan jangan submit
+    if (status === 'ditolak' && catatan === '') {
+        catatanError.classList.remove('d-none'); // tampilkan pesan
+        document.getElementById('catatan_validasi').focus();
+        return; // Hentikan proses
+    }
+
+    // Kalau lolos validasi, baru submit
+    this.submit();
+});
+
             });
         });
     </script>
