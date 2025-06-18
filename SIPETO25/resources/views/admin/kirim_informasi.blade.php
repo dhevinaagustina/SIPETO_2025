@@ -507,9 +507,9 @@
 
         <!-- Action Buttons -->
         <div class="d-flex justify-content-end mt-4 animate__animated animate__fadeIn">
-            <button type="reset" class="btn btn-secondary me-3">
+            {{-- <button type="reset" class="btn btn-secondary me-3">
                 <i class="fas fa-undo me-1"></i> {{ __('admin/pesan.reset') }}
-            </button>
+            </button> --}}
             <button type="button" class="btn btn-primary pulse-animation" id="btnSubmit">
                 <i class="fas fa-paper-plane me-1"></i> {{ __('admin/pesan.kirim') }}
             </button>
