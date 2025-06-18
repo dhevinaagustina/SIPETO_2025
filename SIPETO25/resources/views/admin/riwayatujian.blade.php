@@ -103,37 +103,36 @@
     <div class="container-fluid">
         <div class="filter-container mb-3">
             <div class="entries-dropdown">
-                <span>Tampilkan</span>
+                <span>{{ __('admin/riwayat.tampilkan') }}</span>
                 <select id="entriesSelect" name="entriesSelect" class="form-control">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50">50</option>
                     <option value="100">100</option>
                 </select>
-                <span>entri</span>
+                <span>{{ __('admin/riwayat.entri') }}</span>
             </div>
 
             <select id="filterStatus" class="form-control">
-                <option value="">Filter</option>
-                <option value="gratis">Gratis</option>
-                <option value="mandiri">Mandiri</option>
-                <option value="gratis & mandiri">Gratis & Mandiri</option>
+                <option value="">{{ __('admin/riwayat.filter') }}</option>
+                <option value="gratis">{{ __('admin/riwayat.gratis') }}</option>
+                <option value="mandiri">{{ __('admin/riwayat.mandiri') }}</option>
+                <option value="gratis & mandiri">{{ __('admin/riwayat.gratis_mandiri') }}</option>
             </select>
 
-            <input type="text" id="searchNama" class="form-control" placeholder="Cari mahasiswa">
+            <input type="text" id="searchNama" class="form-control" placeholder="{{ __('admin/riwayat.cari_mahasiswa') }}">
         </div>
 
         <table id="riwayatTable" class="table-custom">
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>NIM</th>
-                    <th>Nama Mahasiswa</th>
-                    <th>Status Pendaftaran</th>
+                    <th>{{ __('admin/riwayat.no') }}</th>
+                    <th>{{ __('admin/riwayat.nim') }}</th>
+                    <th>{{ __('admin/riwayat.nama_mahasiswa') }}</th>
+                    <th>{{ __('admin/riwayat.status_pendaftaran') }}</th>
                 </tr>
             </thead>
             <tbody>
-                {{-- Data will be loaded by DataTable --}}
             </tbody>
         </table>
         <br>
