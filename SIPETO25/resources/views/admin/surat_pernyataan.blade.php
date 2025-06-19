@@ -167,41 +167,41 @@
         <div class="filter-wrapper">
             <div class="left-filter-group">
                 <div class="entries-dropdown">
-                    <span>Tampilkan</span>
+                    <span>{{ __('admin/surat.tampilkan') }}</span>
                     <select id="entriesSelect" name="entriesSelect" class="form-control">
                         <option value="10">10</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
                         <option value="100">100</option>
                     </select>
-                    <span>entri</span>
+                    <span>{{ __('admin/surat.entri') }}</span>
                 </div>
             </div>
-            
+
             <div class="right-filter-group">
                 <select id="filterStatus" name="filterStatus" class="form-control">
-                    <option value="">Filter</option>
-                    <option value="diajukan">Diajukan</option>
-                    <option value="selesai">Selesai</option>
-                    <option value="ditolak">Ditolak</option>
+                    <option value="">{{ __('admin/surat.filter') }}</option>
+                    <option value="diajukan">{{ __('admin/surat.diajukan') }}</option>
+                    <option value="selesai">{{ __('admin/surat.selesai') }}</option>
+                    <option value="ditolak">{{ __('admin/surat.ditolak') }}</option>
                 </select>
-                
-                <input type="text" id="searchInput" name="searchInput" class="form-control" placeholder="Cari mahasiswa">
+
+                <input type="text" id="searchInput" name="searchInput" class="form-control" placeholder="{{ __('admin/surat.cari_mahasiswa') }}">
             </div>
         </div>
 
         <table id="tableSurat" class="table-custom">
             <thead>
                 <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">Nama Mahasiswa</th>
-                    <th class="text-center">NIM</th>
-                    <th class="text-center">Prodi</th>
-                    <th class="text-center">Tanggal Pengajuan</th>
-                    <th class="text-center">Lampiran</th>
-                    <th class="text-center">Status</th>
-                    <th class="text-center">File Surat</th>
-                    <th class="text-center">Validasi</th>
+                    <th class="text-center">{{ __('admin/surat.no') }}</th>
+                    <th class="text-center">{{ __('admin/surat.nama_mahasiswa') }}</th>
+                    <th class="text-center">{{ __('admin/surat.nim') }}</th>
+                    <th class="text-center">{{ __('admin/surat.prodi') }}</th>
+                    <th class="text-center">{{ __('admin/surat.tanggal_pengajuan') }}</th>
+                    <th class="text-center">{{ __('admin/surat.lampiran') }}</th>
+                    <th class="text-center">{{ __('admin/surat.status') }}</th>
+                    <th class="text-center">{{ __('admin/surat.file_surat') }}</th>
+                    <th class="text-center">{{ __('admin/surat.validasi') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -214,35 +214,35 @@
                         <td>{{ \Carbon\Carbon::parse($item->tanggal_pengajuan)->format('d-m-Y') }}</td>
                         <td>
                             <a href="{{ route('admin.surat_pernyataan.lampiran', $item->id) }}" class="btn btn-sm btn-primary-custom">
-                                Cek Lampiran
+                                {{ __('admin/surat.cek_lampiran') }}
                             </a>
                         </td>
                         <td>
                             @if ($item->status === 'selesai')
-                                <span class="status-badge badge-selesai">Selesai</span>
+                                <span class="status-badge badge-selesai">{{ __('admin/surat.selesai') }}</span>
                             @elseif ($item->status === 'ditolak')
-                                <span class="status-badge badge-ditolak">Ditolak</span>
+                                <span class="status-badge badge-ditolak">{{ __('admin/surat.ditolak') }}</span>
                             @else
-                                <span class="status-badge badge-diajukan">Diajukan</span>
+                                <span class="status-badge badge-diajukan">{{ __('admin/surat.diajukan') }}</span>
                             @endif
                         </td>
                         <td>
                             @if ($item->file_surat)
-                                <a href="{{ asset('storage/' . $item->file_surat) }}" class="btn btn-sm btn-info-custom" target="_blank">Lihat</a>
+                                <a href="{{ asset('storage/' . $item->file_surat) }}" class="btn btn-sm btn-info-custom" target="_blank">{{ __('admin/surat.lihat') }}</a>
                             @else
-                                <span class="text-muted">Belum tersedia</span>
+                                <span class="text-muted">{{ __('admin/surat.belum_tersedia') }}</span>
                             @endif
                         </td>
                         <td>
                             @if ($item->status === 'selesai' || $item->status === 'ditolak')
-                                <button type="button" class="btn btn-secondary btn-sm" disabled title="Surat telah divalidasi">
-                                    <i class="fas fa-check-circle"></i> Sudah divalidasi
+                                <button type="button" class="btn btn-secondary btn-sm" disabled title="{{ __('admin/surat.sudah_divalidasi') }}">
+                                    <i class="fas fa-check-circle"></i> {{ __('admin/surat.sudah_divalidasi') }}
                                 </button>
                             @else
                                 <button type="button" class="btn btn-success-custom btn-sm btn-validasi" 
                                     data-id="{{ $item->id }}" 
                                     data-nama="{{ $item->mahasiswa->nama_mahasiswa }}">
-                                    <i class="fas fa-check"></i> Validasi
+                                    <i class="fas fa-check"></i> {{ __('admin/surat.validasi') }}
                                 </button>
                             @endif
                         </td>
@@ -262,30 +262,30 @@
         <input type="hidden" name="id" id="validasiId">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalValidasiLabel">Validasi Pengajuan Surat</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
+                <h5 class="modal-title" id="modalValidasiLabel">{{ __('admin/surat.judul_modal') }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="{{ __('admin/surat.tutup') }}">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Validasi pengajuan atas nama <strong id="namaMahasiswaValidasi"></strong></p>
+                <p>{{ __('admin/surat.validasi_atas_nama') }} <strong id="namaMahasiswaValidasi"></strong></p>
                 <div class="form-group">
-                    <label>Status Validasi</label>
-                    <select class="form-control" name="status_validasi" required>
-                        <option value="">-- Pilih Status --</option>
-                        <option value="disetujui">Disetujui</option>
-                        <option value="ditolak">Ditolak</option>
+                <label>{{ __('admin/surat.status_validasi') }}</label>
+                <select class="form-control" name="status_validasi" required>
+                <option value="">{{ __('admin/surat.pilih_status') }}</option>
+                <option value="disetujui">{{ __('admin/surat.status_disetujui') }}</option>
+                <option value="ditolak">{{ __('admin/surat.status_ditolak') }}</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Catatan (jika ditolak)</label>
-                    <textarea class="form-control" name="catatan_validasi" id="catatan_validasi" rows="3" placeholder="Opsional, jika ditolak."></textarea>
-                    <small id="catatanError" class="text-danger d-none">Catatan wajib diisi jika surat ditolak.</small>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary-custom">Simpan</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <label>{{ __('admin/surat.catatan') }}</label>
+            <textarea class="form-control" name="catatan_validasi" id="catatan_validasi" rows="3" placeholder="{{ __('admin/surat.placeholder_catatan') }}"></textarea>
+            <small id="catatanError" class="text-danger d-none">{{ __('admin/surat.catatan_wajib') }}</small>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary-custom">{{ __('admin/surat.simpan') }}</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('admin/surat.batal') }}</button>
             </div>
         </div>
     </form>
