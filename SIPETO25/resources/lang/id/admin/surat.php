@@ -1,0 +1,38 @@
+<?php
+
+return [
+    'tampilkan' => 'Tampilkan',
+    'entri' => 'entri',
+    'filter' => 'Filter',
+    'diajukan' => 'Diajukan',
+    'selesai' => 'Selesai',
+    'ditolak' => 'Ditolak',
+    'cari_mahasiswa' => 'Cari mahasiswa',
+
+    'no' => 'No',
+    'nama_mahasiswa' => 'Nama Mahasiswa',
+    'nim' => 'NIM',
+    'prodi' => 'Prodi',
+    'tanggal_pengajuan' => 'Tanggal Pengajuan',
+    'lampiran' => 'Lampiran',
+    'status' => 'Status',
+    'file_surat' => 'File Surat',
+    'validasi' => 'Validasi',
+    'cek_lampiran' => 'Cek Lampiran',
+    'lihat' => 'Lihat',
+    'belum_tersedia' => 'Belum tersedia',
+    'sudah_divalidasi' => 'Sudah divalidasi',
+
+    'judul_modal' => 'Validasi Pengajuan Surat',
+    'tutup' => 'Tutup',
+    'validasi_atas_nama' => 'Validasi pengajuan atas nama',
+    'status_validasi' => 'Status Validasi',
+    'pilih_status' => '-- Pilih Status --',
+    'status_disetujui' => 'Disetujui',
+    'status_ditolak' => 'Ditolak',
+    'catatan' => 'Catatan (jika ditolak)',
+    'placeholder_catatan' => 'Opsional, jika ditolak.',
+    'catatan_wajib' => 'Catatan wajib diisi jika surat ditolak.',
+    'simpan' => 'Simpan',
+    'batal' => 'Batal',
+];

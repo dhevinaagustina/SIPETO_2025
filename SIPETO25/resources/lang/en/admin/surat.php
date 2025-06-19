@@ -1,0 +1,38 @@
+<?php
+
+return [
+    'tampilkan' => 'Show',
+    'entri' => 'entries',
+    'filter' => 'Filter',
+    'diajukan' => 'Submitted',
+    'selesai' => 'Approved',
+    'ditolak' => 'Rejected',
+    'cari_mahasiswa' => 'Search student',
+
+    'no' => 'No',
+    'nama_mahasiswa' => 'Student Name',
+    'nim' => 'Student ID',
+    'prodi' => 'Study Program',
+    'tanggal_pengajuan' => 'Submission Date',
+    'lampiran' => 'Attachment',
+    'status' => 'Status',
+    'file_surat' => 'Letter File',
+    'validasi' => 'Validation',
+    'cek_lampiran' => 'Check Attachment',
+    'lihat' => 'View',
+    'belum_tersedia' => 'Not available',
+    'sudah_divalidasi' => 'Already validated',
+
+    'judul_modal' => 'Letter Submission Validation',
+    'tutup' => 'Close',
+    'validasi_atas_nama' => 'Validate submission for',
+    'status_validasi' => 'Validation Status',
+    'pilih_status' => '-- Select Status --',
+    'status_disetujui' => 'Approved',
+    'status_ditolak' => 'Rejected',
+    'catatan' => 'Notes (if rejected)',
+    'placeholder_catatan' => 'Optional, if rejected.',
+    'catatan_wajib' => 'Notes are required if the letter is rejected.',
+    'simpan' => 'Save',
+    'batal' => 'Cancel',
+];

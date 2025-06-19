@@ -45,7 +45,7 @@ class SuperAdminController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('admin.kelola_admin')->with('success', 'Admin berhasil ditambahkan.');
+        return redirect()->route('admin.kelola_admin')->with('success', __('superadmin/admin.berhasil_tambah'));
     }
 
     public function edit($id)
@@ -74,7 +74,7 @@ class SuperAdminController extends Controller
             'password' => $request->filled('password') ? Hash::make($request->password) : $admin->password,
         ]);
 
-        return redirect()->route('admin.kelola_admin')->with('success', 'Admin berhasil diperbarui.');
+        return redirect()->route('admin.kelola_admin')->with('success', __('superadmin/admin.berhasil_update'));
     }
 
     public function destroy($id)
@@ -82,8 +82,6 @@ class SuperAdminController extends Controller
         $admin = Admin::findOrFail($id);
         $admin->delete();
 
-        return redirect()->back()->with('success', 'Admin berhasil dihapus.');
+        return redirect()->back()->with('success', __('superadmin/admin.berhasil_hapus'));
     }
-
-
 }
